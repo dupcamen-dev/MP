@@ -12,16 +12,16 @@
         }
 
         :root {
-            --bg: #0b0b1a;
-            --text: #e8e8f0;
-            --text-dim: #8888aa;
-            --accent: #6c63ff;
-            --accent2: #ff6b9d;
-            --accent3: #00d4aa;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --glass-hover: rgba(255, 255, 255, 0.06);
-            --radius: 12px;
+            --bg: #040e30;
+            --text: #e7e3cb;
+            --text-dim: rgba(231, 227, 203, 0.55);
+            --accent: #bb142c;
+            --accent2: #070768;
+            --accent3: #e7e3cb;
+            --glass: rgba(231, 227, 203, 0.03);
+            --glass-border: rgba(231, 227, 203, 0.07);
+            --glass-hover: rgba(231, 227, 203, 0.06);
+            --radius: 0;
         }
 
         html {
@@ -54,7 +54,7 @@
             padding: 12px 28px;
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 50px;
+            border-radius: 0;
             color: var(--text);
             font-size: 0.95rem;
             font-weight: 500;
@@ -71,14 +71,14 @@
         }
 
         .glass-btn-primary {
-            background: rgba(108, 99, 255, 0.12);
-            border-color: rgba(108, 99, 255, 0.25);
+            background: rgba(187, 20, 44, 0.12);
+            border-color: rgba(187, 20, 44, 0.25);
             color: #fff;
         }
 
         .glass-btn-primary:hover {
-            background: rgba(108, 99, 255, 0.2);
-            border-color: rgba(108, 99, 255, 0.4);
+            background: rgba(187, 20, 44, 0.2);
+            border-color: rgba(187, 20, 44, 0.4);
         }
 
         /* Animated background */
@@ -86,7 +86,7 @@
             position: fixed;
             width: 500px;
             height: 500px;
-            border-radius: 50%;
+            border-radius: 0;
             filter: blur(140px);
             opacity: 0.06;
             pointer-events: none;
@@ -142,7 +142,7 @@
             font-size: 0.9rem;
             font-weight: 400;
             padding: 8px 16px;
-            border-radius: 8px;
+            border-radius: 0;
             transition: all 0.2s;
         }
 
@@ -154,13 +154,13 @@
         .nav-cta {
             padding: 8px 20px !important;
             font-size: 0.85rem !important;
-            background: rgba(108, 99, 255, 0.1) !important;
-            border: 1px solid rgba(108, 99, 255, 0.2) !important;
+            background: rgba(187, 20, 44, 0.1) !important;
+            border: 1px solid rgba(187, 20, 44, 0.2) !important;
             color: var(--accent) !important;
         }
 
         .nav-cta:hover {
-            background: rgba(108, 99, 255, 0.18) !important;
+            background: rgba(187, 20, 44, 0.18) !important;
             color: #fff !important;
         }
 
@@ -178,7 +178,7 @@
             width: 22px;
             height: 2px;
             background: var(--text);
-            border-radius: 2px;
+            border-radius: 0;
             transition: 0.3s;
         }
 
@@ -239,19 +239,19 @@
             align-items: center;
             gap: 8px;
             padding: 6px 16px;
-            border-radius: 50px;
+            border-radius: 0;
             font-size: 0.8rem;
             font-weight: 400;
-            background: rgba(0, 212, 170, 0.06);
-            color: var(--accent3);
+            background: rgba(187, 20, 44, 0.06);
+            color: var(--accent);
             margin-bottom: 20px;
-            border: 1px solid rgba(0, 212, 170, 0.12);
+            border: 1px solid rgba(187, 20, 44, 0.12);
         }
 
         .hero-badge .dot {
             width: 6px;
             height: 6px;
-            border-radius: 50%;
+            border-radius: 0;
             background: var(--accent3);
             animation: pulse-dot 2s infinite;
         }
@@ -328,14 +328,14 @@
         .hero-card-icon {
             width: 80px;
             height: 80px;
-            border-radius: 50%;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
             font-size: 2rem;
-            background: rgba(108, 99, 255, 0.06);
-            border: 1px solid rgba(108, 99, 255, 0.12);
+            background: rgba(187, 20, 44, 0.06);
+            border: 1px solid rgba(187, 20, 44, 0.12);
         }
 
         .hero-card h4 {
@@ -360,7 +360,7 @@
 
         .hero-card-tags span {
             padding: 4px 12px;
-            border-radius: 50px;
+            border-radius: 0;
             font-size: 0.75rem;
             background: rgba(255,255,255,0.03);
             color: var(--text-dim);
@@ -417,12 +417,12 @@
             display: inline-block;
             margin-top: 16px;
             padding: 4px 14px;
-            border-radius: 50px;
+            border-radius: 0;
             font-size: 0.8rem;
             font-weight: 500;
-            background: rgba(108, 99, 255, 0.06);
+            background: rgba(187, 20, 44, 0.06);
             color: var(--accent);
-            border: 1px solid rgba(108, 99, 255, 0.12);
+            border: 1px solid rgba(187, 20, 44, 0.12);
         }
 
         /* Process */
@@ -441,7 +441,7 @@
         .process-step .step-num {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -449,8 +449,8 @@
             font-weight: 600;
             font-size: 1rem;
             color: var(--accent);
-            background: rgba(108, 99, 255, 0.06);
-            border: 1px solid rgba(108, 99, 255, 0.12);
+            background: rgba(187, 20, 44, 0.06);
+            border: 1px solid rgba(187, 20, 44, 0.12);
         }
 
         .process-step h4 {
@@ -487,7 +487,7 @@
         .project-card .project-tag {
             display: inline-block;
             padding: 3px 10px;
-            border-radius: 50px;
+            border-radius: 0;
             font-size: 0.7rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -517,7 +517,7 @@
 
         .project-stack span {
             padding: 2px 10px;
-            border-radius: 50px;
+            border-radius: 0;
             font-size: 0.7rem;
             background: rgba(255,255,255,0.03);
             color: var(--text-dim);
@@ -892,7 +892,7 @@
             </p>
             <div class="projects-grid">
                 <div class="project-card glass reveal">
-                    <div class="project-tag" style="color: var(--accent3); background: rgba(0,212,170,0.1);">MVP</div>
+                    <div class="project-tag" style="color: var(--accent); background: rgba(187,20,44,0.08);">MVP</div>
                     <h3>TaskFlow</h3>
                     <p>Real-time kanban board for teams with drag-and-drop and WebSockets.</p>
                     <div class="project-stack">
@@ -904,7 +904,7 @@
                     <a href="#" class="project-link">Live Demo →</a>
                 </div>
                 <div class="project-card glass reveal">
-                    <div class="project-tag" style="color: var(--accent2); background: rgba(255,107,157,0.1);">AI</div>
+                    <div class="project-tag" style="color: var(--accent); background: rgba(187,20,44,0.08);">AI</div>
                     <h3>ContentForge</h3>
                     <p>AI content generator with GPT-4 integration. Bulk article creation.</p>
                     <div class="project-stack">
@@ -916,7 +916,7 @@
                     <a href="#" class="project-link">Live Demo →</a>
                 </div>
                 <div class="project-card glass reveal">
-                    <div class="project-tag" style="color: #ffa500; background: rgba(255,165,0,0.1);">E‑com</div>
+                    <div class="project-tag" style="color: var(--accent2); background: rgba(7,7,104,0.15);">E‑com</div>
                     <h3>ShopVibe</h3>
                     <p>Marketplace for creators. Stripe payments, admin panel, analytics.</p>
                     <div class="project-stack">
