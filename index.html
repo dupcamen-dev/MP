@@ -947,12 +947,32 @@
             z-index: 2;
         }
 
+        .h-scroll-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--primary);
+            transform: translateX(100%);
+            will-change: transform;
+        }
+
         .h-scroll {
             display: flex;
             height: 100vh;
             width: 100%;
             overflow: hidden;
-            position: relative;
         }
 
         .h-scroll-track {
@@ -1061,20 +1081,6 @@
 
         .h-scroll .slide.cta-slide {
             background: var(--primary);
-        }
-
-        .cta-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform: translateX(100%);
-            will-change: transform;
         }
 
         .cta-slide-title {
@@ -1713,6 +1719,7 @@
 
     <!-- Horizontal Scroll Sections -->
     <div class="h-scroll-wrap">
+    <div class="h-scroll-inner">
     <div class="h-scroll" id="hScroll">
         <div class="h-scroll-track" id="hScrollTrack">
 
@@ -1845,7 +1852,10 @@
         </div>
     </section>
 
-    <!-- CTA Overlay (slides over previous slides) -->
+    </div>
+    </div>
+
+    <!-- CTA Overlay -->
     <section class="slide cta-slide cta-overlay" id="cta">
         <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 900px; width: 100%; text-align: center;">
             <h2 class="cta-slide-title">
