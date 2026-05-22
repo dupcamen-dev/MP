@@ -20,6 +20,7 @@ export default function Header() {
     >
       <a
         href="#"
+        className="header-logo"
         style={{
           fontFamily: "'Anton', sans-serif", fontSize: '2rem',
           color: 'var(--primary)', textDecoration: 'none',

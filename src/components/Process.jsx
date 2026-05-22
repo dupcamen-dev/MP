@@ -48,19 +48,19 @@ export default function Process() {
           AT SUB-ZERO SPEED.
         </p>
         <div style={{ display: 'flex', gap: 16, marginTop: 48 }}>
-          <a href="#process" style={{
+          <a href="#process" className="process-btn primary" style={{
             padding: '16px 48px', background: 'var(--primary)',
             color: 'var(--on-primary)', fontFamily: "'Anton', sans-serif",
             fontSize: '1.25rem', textTransform: 'uppercase',
             textDecoration: 'none', boxShadow: '4px 4px 0 var(--secondary)',
-            transition: 'all 0.2s', display: 'inline-block',
+            display: 'inline-block',
           }}>ENGAGE</a>
-          <a href="#showcase" style={{
+          <a href="#showcase" className="process-btn outline" style={{
             padding: '16px 48px', background: 'transparent',
             color: 'var(--text)', fontFamily: "'Anton', sans-serif",
             fontSize: '1.25rem', textTransform: 'uppercase',
             textDecoration: 'none', border: '2px solid var(--text)',
-            transition: 'all 0.2s', display: 'inline-block',
+            display: 'inline-block',
           }}>VIEW WORK</a>
         </div>
       </div>

@@ -67,6 +67,63 @@ body {
   transform: translateY(0);
 }
 
+/* Keyframe animations */
+@keyframes marquee-h {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-wheel {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 0.3; }
+}
+
+/* Bento card hover */
+.bento-card { transition: border-color 0.3s, transform 0.3s !important; }
+.bento-card:hover { border-color: var(--primary) !important; transform: scale(1.02); }
+.bento-card.wide:hover, .bento-card.full:hover { border-color: var(--secondary) !important; }
+
+/* Carousel card hover */
+.carousel-cell { cursor: pointer; }
+.carousel-cell:hover .card-img img { transform: scale(1.08); filter: grayscale(0) contrast(1.2) !important; }
+.carousel-cell .card-body button:hover { background: var(--primary) !important; color: var(--bg) !important; }
+
+/* Carousel card img transition */
+.card-img img { transition: transform 0.5s, filter 0.5s; }
+
+/* Menu link hover */
+.menu-link { position: relative !important; }
+.menu-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0;
+  width: 0; height: 4px;
+  background: var(--secondary);
+  transition: width 0.3s;
+}
+.menu-link:hover { transform: translateX(12px) !important; color: var(--primary) !important; }
+.menu-link.highlight::after { background: var(--primary); }
+.menu-link.highlight:hover { color: var(--secondary) !important; }
+.menu-link:hover::after { width: 100%; }
+
+/* CTA title hover */
+.cta-slide-title .line { transition: transform 0.5s, color 0.5s, text-shadow 0.5s !important; cursor: crosshair; }
+.cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }
+.cta-slide-title .line-yellow:hover { transform: translateY(-6px) skewX(-6deg) !important; color: var(--primary) !important; }
+
+/* CTA button hover */
+.cta-btn { transition: all 0.3s !important; }
+.cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 rgba(0,0,0,0.25) !important; }
+
+/* Process button hover */
+.process-btn { transition: all 0.2s !important; }
+.process-btn.primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--secondary); }
+.process-btn.outline:hover { background: var(--text); color: var(--bg); }
+
+/* Header logo hover */
+.header-logo { transition: text-shadow 0.3s; }
+.header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
+
 @media (max-width: 900px) {
   :root { --section-padding: 24px; }
 }
