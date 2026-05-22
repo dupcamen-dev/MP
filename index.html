@@ -387,7 +387,7 @@
         /* ========== SHOWCASE CAROUSEL ========== */
         #showcase {
             position: relative;
-            background: var(--bg);
+            background: var(--primary);
             height: 300vh;
             z-index: 1;
         }
@@ -441,52 +441,49 @@
 
         @media (max-width: 600px) {
             .carousel-cell {
-                left: calc(50% - 130px);
-                top: calc(50% - 195px);
-                width: 260px;
-                height: 390px;
+                left: calc(50% - 120px);
+                top: calc(50% - 180px);
+                width: 240px;
+                height: 360px;
             }
         }
 
         .carousel-card {
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(0,0,0,0.04);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            padding: 24px;
         }
 
         .carousel-card::before, .carousel-card::after {
             content: '';
             position: absolute;
-            width: 30px; height: 30px;
+            width: 28px; height: 28px;
             border: 2px solid var(--secondary);
             pointer-events: none;
         }
 
         .carousel-card::before {
-            top: 0; left: 0;
+            top: 8px; left: 8px;
             border-right: none;
             border-bottom: none;
         }
 
         .carousel-card::after {
-            bottom: 0; right: 0;
+            bottom: 8px; right: 8px;
             border-left: none;
             border-top: none;
         }
 
         .carousel-card .card-img {
-            height: 50%;
+            height: 55%;
             width: 100%;
-            background: var(--surface-highest);
-            margin-bottom: 16px;
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
@@ -497,50 +494,55 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.7s;
+            filter: grayscale(0.4) contrast(1.1);
         }
 
         .carousel-card:hover .card-img img {
-            transform: scale(1.1);
+            transform: scale(1.08);
+            filter: grayscale(0) contrast(1);
         }
 
         .carousel-card .card-img .overlay {
             position: absolute;
             inset: 0;
-            mix-blend-mode: overlay;
+            mix-blend-mode: soft-light;
             pointer-events: none;
         }
 
         .carousel-card .card-body {
             flex: 1;
+            padding: 20px 24px 24px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(4px);
         }
 
         .carousel-card .hazard-tag {
-            background: repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 5px, #000 5px, #000 10px);
-            background-size: 20px 100%;
+            background: repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, #000 4px, #000 8px);
+            background-size: 16px 100%;
             background-repeat: no-repeat;
-            padding-left: 28px;
-            background-color: rgba(255,255,255,0.1);
-            display: inline-block;
+            padding-left: 24px;
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            color: var(--text);
-            padding: 4px 12px 4px 28px;
-            margin-bottom: 8px;
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+            color: rgba(0,0,0,0.5);
+            padding: 3px 10px 3px 24px;
+            margin-bottom: 6px;
             width: fit-content;
             text-transform: uppercase;
+            background-color: rgba(0,0,0,0.03);
         }
 
         .carousel-card h2 {
             font-family: 'Anton', sans-serif;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
             text-transform: uppercase;
-            color: var(--text);
-            line-height: 1;
-            margin-bottom: 16px;
+            color: #000;
+            line-height: 1.05;
+            margin-bottom: 14px;
+            letter-spacing: 0.01em;
         }
 
         .carousel-card h2 .red { color: var(--secondary); }
@@ -548,60 +550,72 @@
 
         .carousel-card .view-btn {
             width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: #000;
+            padding: 10px;
+            background: #000;
+            color: #fff;
             font-family: 'Anton', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
             border: none;
             cursor: pointer;
-            position: relative;
-            transition: all 0.3s;
+            letter-spacing: 0.05em;
+            transition: all 0.25s;
         }
 
-        .carousel-card .view-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            border: 2px solid var(--primary);
-            z-index: -1;
-            transition: all 0.3s;
-            opacity: 0;
-        }
-
-        .carousel-card .view-btn:hover::before {
-            top: -6px; left: -6px; right: -6px; bottom: -6px;
-            opacity: 1;
+        .carousel-card .view-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
         }
 
         .carousel-hint {
             position: absolute;
-            bottom: 40px;
+            bottom: 32px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 20;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            opacity: 0.6;
-            animation: bounce 2s infinite;
+            gap: 6px;
+            opacity: 0.4;
+            animation: float-hint 2.5s ease-in-out infinite;
             pointer-events: none;
         }
 
         .carousel-hint span {
             font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-            color: var(--primary);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: #000;
             text-transform: uppercase;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-10px) translateX(-50%); }
-            60% { transform: translateY(-5px) translateX(-50%); }
+        .carousel-hint .mouse-icon {
+            width: 20px; height: 32px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0.4;
+        }
+
+        .carousel-hint .mouse-icon::after {
+            content: '';
+            position: absolute;
+            top: 6px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 8px;
+            background: #000;
+            animation: scroll-wheel 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-wheel {
+            0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(12px); opacity: 0; }
+        }
+
+        @keyframes float-hint {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-6px); }
         }
 
         /* ========== REVIEWS ========== */
@@ -1002,8 +1016,8 @@
                 </div>
             </div>
             <div class="carousel-hint">
-                <span class="material-icons" style="font-size: 1.25rem;">mouse</span>
-                <span>SCROLL TO ROTATE</span>
+                <div class="mouse-icon"></div>
+                <span>SCROLL TO EXPLORE</span>
             </div>
         </div>
     </section>
