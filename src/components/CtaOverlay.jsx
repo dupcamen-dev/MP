@@ -11,6 +11,7 @@ export default function CtaOverlay({ progress }) {
       const tx = 100 - localPhase * 100;
       el.style.transform = `translateX(${tx}%)`;
       el.style.visibility = 'visible';
+      el.querySelectorAll('.reveal').forEach(r => r.classList.add('active'));
     } else {
       el.style.transform = 'translateX(100%)';
       el.style.visibility = 'hidden';

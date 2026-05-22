@@ -93,18 +93,18 @@ export default function Hero() {
           }} />
           <span style={{ marginLeft: 8 }}>SYSTEM OVERRIDE ACTIVE</span>
         </div>
-        <h1 style={{
+        <h1 className="hero-title" style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,15vw,12.5rem)',
           lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--bg)',
           width: '100%', textShadow: '8px 8px 0 var(--secondary)',
         }}>
-          <span style={{ display: 'block', transition: 'transform 0.5s', cursor: 'crosshair' }}
+          <span className="line" style={{ display: 'block', transition: 'transform 0.5s, color 0.5s' }}
             onMouseEnter={(e) => e.target.style.transform = 'skewX(12deg)'}
             onMouseLeave={(e) => e.target.style.transform = ''}>
             MILLION
           </span>
-          <span style={{
-            display: 'block', transition: 'transform 0.5s', cursor: 'crosshair',
+          <span className="line" style={{
+            display: 'block', transition: 'transform 0.5s, color 0.5s',
             transform: 'translateY(-8px)',
           }}
             onMouseEnter={(e) => e.target.style.transform = 'translateY(-8px) skewX(-12deg)'}
