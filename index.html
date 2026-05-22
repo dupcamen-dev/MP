@@ -568,62 +568,378 @@
             padding: 0 64px;
         }
 
-        /* ========== PROCESS ========== */
+        /* ========== PROCESS / GRIND PROTOCOL ========== */
+        .bg-marquee {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.04;
+        }
+
+        .bg-marquee .track {
+            position: absolute;
+            white-space: nowrap;
+            font-family: 'Anton', sans-serif;
+            font-size: 15vw;
+            color: var(--primary);
+            line-height: 1;
+            text-transform: uppercase;
+            animation: marquee-diag 20s linear infinite;
+        }
+
+        .bg-marquee .track:nth-child(2) {
+            top: 60%;
+            color: var(--secondary);
+            animation-direction: reverse;
+            animation-duration: 25s;
+        }
+
+        @keyframes marquee-diag {
+            0% { transform: translateX(100%) translateY(-50%) rotate(-15deg); }
+            100% { transform: translateX(-100%) translateY(50%) rotate(-15deg); }
+        }
+
         #process {
-            background: var(--primary);
-            padding: 120px 0;
-        }
-
-        #process .section-inner { position: relative; z-index: 2; }
-
-        .process-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--bg);
-            border-left: 8px solid var(--secondary);
-            padding-left: 16px;
-            margin-bottom: 64px;
-        }
-
-        .process-title span { color: var(--secondary); }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
             position: relative;
+            background: var(--bg);
+            padding: 120px 0 0;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .process-step {
-            padding: 28px;
-            background: rgba(33, 32, 34, 0.85);
+        #process .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 64px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .grind-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface);
+            padding: 8px 16px 8px 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .grind-tag::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: repeating-linear-gradient(45deg, #000 0px, #000 3px, var(--primary) 3px, var(--primary) 6px);
+        }
+
+        .grind-tag span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .grind-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 10vw, 8.75rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: var(--primary);
+            mix-blend-mode: difference;
             position: relative;
             z-index: 1;
-            border-top: 4px solid var(--primary);
         }
 
-        .process-step:nth-child(2) {
-            border-top-color: var(--secondary);
+        .grind-title .red {
+            color: var(--secondary);
+            display: inline-block;
+            margin-left: clamp(2rem, 6vw, 6rem);
+        }
+
+        .grind-desc {
+            font-family: 'Geist', sans-serif;
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-top: 48px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 24px;
+        }
+
+        .grind-actions {
+            display: flex;
+            gap: 16px;
             margin-top: 48px;
         }
 
-        .process-step:nth-child(3) {
-            border-top-color: var(--text);
-            margin-top: -32px;
+        .grind-btn {
+            padding: 16px 48px;
+            background: var(--primary);
+            color: var(--on-primary);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 4px 4px 0 var(--secondary);
+            transition: all 0.2s;
         }
 
-        .process-step h3 {
+        .grind-btn:hover {
+            box-shadow: 8px 8px 0 var(--secondary);
+            transform: translate(-2px, -2px);
+        }
+
+        .grind-btn.ghost {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--text);
+            box-shadow: none;
+        }
+
+        .grind-btn.ghost:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+            transform: none;
+        }
+
+        .grind-tech {
+            position: absolute;
+            right: 64px;
+            bottom: 0;
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            opacity: 0.5;
+        }
+
+        .grind-tech span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .grind-tech .bars {
+            display: flex;
+            gap: 8px;
+        }
+
+        .grind-tech .bars div {
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        .grind-tech .bars div:nth-child(1) { width: 48px; }
+        .grind-tech .bars div:nth-child(2) { width: 16px; }
+        .grind-tech .bars div:nth-child(3) { width: 8px; }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            padding: 80px 0 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bento-card {
+            background: rgba(20, 19, 21, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--surface-highest);
+            padding: 32px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .bento-card:hover {
+            border-color: var(--primary);
+        }
+
+        .bento-card::before, .bento-card::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 3px solid var(--secondary);
+            pointer-events: none;
+        }
+
+        .bento-card::before {
+            top: 0; left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .bento-card::after {
+            bottom: 0; right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .bento-card.wide {
+            grid-column: span 2;
+        }
+
+        .bento-card.full {
+            grid-column: span 3;
+            background: var(--primary);
+            border-color: var(--primary);
+            padding: 48px;
+        }
+
+        .bento-card.full::before, .bento-card.full::after {
+            border-color: var(--bg);
+        }
+
+        .bento-card .phase {
             font-family: 'Anton', sans-serif;
-            font-size: 1.75rem;
+            font-size: 3rem;
+            color: var(--secondary);
+            line-height: 1;
+            display: block;
+            margin-bottom: 32px;
+        }
+
+        .bento-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .bento-card:hover .icon {
+            transform: rotate(90deg);
+        }
+
+        .bento-card.full .icon {
+            color: var(--bg);
+        }
+
+        .bento-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+        }
+
+        .bento-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
             text-transform: uppercase;
             color: var(--text);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            line-height: 1.1;
         }
 
-        .process-step p {
+        .bento-card p {
             font-family: 'Geist', sans-serif;
-            font-size: 1rem;
-            line-height: 1.5rem;
-            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        .bento-card.full h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--bg);
+            text-transform: uppercase;
+        }
+
+        .bento-card.full p {
+            color: rgba(20, 19, 21, 0.8);
+            font-weight: 600;
+        }
+
+        .bento-card.full .phase {
+            font-size: 2rem;
+            color: rgba(20, 19, 21, 0.5);
+        }
+
+        .bento-card .glow {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 128px; height: 128px;
+            background: rgba(225, 0, 0, 0.06);
+            filter: blur(40px);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: background 0.3s;
+        }
+
+        .bento-card:hover .glow {
+            background: rgba(255, 211, 0, 0.1);
+        }
+
+        .bento-card.full .full-inner {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-card.full .full-inner .right {
+            max-width: 400px;
+        }
+
+        .bento-card.full .dots-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        /* Marquee Strip */
+        .marquee-strip {
+            background: var(--secondary);
+            padding: 24px 0;
+            overflow: hidden;
+            transform: rotate(-3deg) scale(1.05);
+            position: relative;
+            z-index: 3;
+            margin: 48px 0 0;
+        }
+
+        .marquee-strip .inner {
+            display: flex;
+            white-space: nowrap;
+            width: max-content;
+            animation: marquee-h 20s linear infinite;
+        }
+
+        .marquee-strip .inner span {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-transform: uppercase;
+            color: var(--on-secondary);
+            padding: 0 32px;
+        }
+
+        .marquee-strip .inner .sep {
+            color: rgba(255,255,255,0.4);
+        }
+
+        @keyframes marquee-h {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (min-width: 901px) {
+            .grind-tech { display: flex; }
         }
 
         /* ========== SHOWCASE CAROUSEL ========== */
@@ -1090,9 +1406,11 @@
             .section-inner { padding: 0 24px; }
             #hero { padding: 100px 24px 60px; }
             .title-container { font-size: clamp(2rem, 8vw, 4rem); }
-            .process-grid { grid-template-columns: 1fr; }
-            .process-step:nth-child(2) { margin-top: 0; }
-            .process-step:nth-child(3) { margin-top: 0; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.wide { grid-column: span 1; }
+            .bento-card.full { grid-column: span 1; }
+            .bento-card.full .full-inner { flex-direction: column; align-items: flex-start; }
+            .grind-tech { display: none; }
             .showcase-grid { grid-template-columns: 1fr; }
             .showcase-card:nth-child(2) { margin-top: 0; }
             .showcase-header { flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -1167,28 +1485,88 @@
         </div>
     </section>
 
-    <!-- Process -->
-    <section id="process" class="shard-bg">
+    <!-- Animated Background Marquee -->
+    <div class="bg-marquee">
+        <div class="track" style="top: 20%;">THE GRIND PROTOCOL // PIXELS ARE A PROMISE // THE GRIND PROTOCOL // PIXELS ARE A PROMISE</div>
+        <div class="track" style="top: 60%;">CODE LIKE A SAMURAI // VIBE CODING // CODE LIKE A SAMURAI // VIBE CODING</div>
+    </div>
+
+    <!-- Process / Grind Protocol -->
+    <section id="process">
         <div class="section-inner">
-            <div class="reveal">
-                <h2 class="process-title font-anton">THE GRIND<br><span>PROTOCOL</span></h2>
+            <div class="grind-tag">
+                <span>M.26 / INITIATED</span>
             </div>
-            <div class="process-grid reveal">
-                <div class="process-step glass">
-                    <h3>01. Ideation</h3>
-                    <p>Raw concepts distilled into actionable logic. No bloated specs, just pure intent.</p>
+            <h1 class="grind-title">THE GRIND<br><span class="red">PROTOCOL</span></h1>
+            <p class="grind-desc">WE DON'T BUILD WIREFRAMES. WE BUILD WAR MACHINES. THE GRIND PROTOCOL IS OUR UNCOMPROMISING METHODOLOGY FOR DELIVERING RAW, UNFILTERED DIGITAL EXPERIENCES AT SUB-ZERO SPEED.</p>
+            <div class="grind-actions">
+                <a href="#process" class="grind-btn">ENGAGE</a>
+                <a href="#showcase" class="grind-btn ghost">VIEW WORK</a>
+            </div>
+        </div>
+        <div class="grind-tech">
+            <span>SYS.OP / ACTIVE</span>
+            <div class="bars">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- Bento Grid -->
+        <div class="section-inner">
+            <div class="bento-grid">
+                <div class="bento-card wide">
+                    <div class="card-header">
+                        <span class="phase">PHASE.1</span>
+                        <span class="material-icons icon">target</span>
+                    </div>
+                    <h3>TACTICAL IDEATION</h3>
+                    <p>Strip away the corporate bloat. We define the core intent and aggressively discard the superfluous. Only the sharpest ideas survive the initial cull.</p>
+                    <div class="glow"></div>
                 </div>
-                <div class="process-step glass">
-                    <h3>02. Vibe Coding</h3>
-                    <p>High-velocity execution. Building by intuition and momentum. The code flows.</p>
+                <div class="bento-card">
+                    <div class="card-header">
+                        <span class="phase">PHASE.2</span>
+                        <span class="material-icons icon" style="transition: transform 0.3s;">code</span>
+                    </div>
+                    <h3>VIBE CODING</h3>
+                    <p>Pure momentum. Bypassing standard design bottlenecks to code directly in the medium. It's raw, it's fast, and it feels right.</p>
+                    <div class="glow"></div>
                 </div>
-                <div class="process-step glass">
-                    <h3>03. Launch</h3>
-                    <p>Deploy to production. Test in reality. Impact over perfection.</p>
+                <div class="bento-card full">
+                    <div class="dots-bg"></div>
+                    <div class="full-inner">
+                        <div>
+                            <span class="phase">PHASE.3 // TERMINAL</span>
+                            <h3>IMPACT<br>LAUNCH</h3>
+                        </div>
+                        <div class="right">
+                            <p>DEPLOYMENT IS NOT THE END. IT IS THE IGNITION. WE PUSH TO PRODUCTION WITH THE FORCE OF A KINETIC STRIKE.</p>
+                            <a href="#cta" class="grind-btn" style="display: inline-block; margin-top: 24px; background: var(--bg); color: var(--primary); box-shadow: 4px 4px 0 var(--bg);">INITIATE SEQUENCE</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="shard-divider"></div>
+
+        <!-- Marquee Strip -->
+        <div class="marquee-strip">
+            <div class="inner">
+                <span>SLASH THE RULES</span>
+                <span class="sep">///</span>
+                <span>PIXELS ARE A PROMISE</span>
+                <span class="sep">///</span>
+                <span>FRONTEND AS RITUAL</span>
+                <span class="sep">///</span>
+                <span>SLASH THE RULES</span>
+                <span class="sep">///</span>
+                <span>PIXELS ARE A PROMISE</span>
+                <span class="sep">///</span>
+                <span>FRONTEND AS RITUAL</span>
+                <span class="sep">///</span>
+            </div>
+        </div>
     </section>
 
     <!-- Showcase 3D Carousel -->
