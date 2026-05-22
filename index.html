@@ -962,10 +962,8 @@
         }
 
         .h-scroll .slide {
-            width: 100vw;
-            min-width: 100vw;
+            flex: 0 0 100vw;
             height: 100vh;
-            flex-shrink: 0;
             position: relative;
             display: flex;
             align-items: center;
@@ -1978,18 +1976,20 @@
                 let ticking = false;
 
                 function driveScroll() {
-                    const processSection = document.getElementById('process');
-                    const triggerPoint = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
-                    const maxW = hTrack.scrollWidth - hScroll.clientWidth;
-                    const scrolled = Math.max(0, window.scrollY - triggerPoint);
-                    const progress = Math.min(1, scrolled / spacer.offsetHeight);
-                    const tx = progress * maxW;
+                    const ps = document.getElementById('process');
+                    const tp = ps ? ps.offsetTop + ps.offsetHeight : 0;
+                    const mw = hTrack.scrollWidth - hScroll.clientWidth;
+                    const sc = Math.max(0, window.scrollY - tp);
+                    const sh = spacer.offsetHeight;
+                    const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
+                    const tx = pr * mw;
 
                     debugEl.textContent =
-                        `tp=${triggerPoint} | scY=${window.scrollY}\n` +
-                        `sc=${scrolled.toFixed(0)} | spH=${spacer.offsetHeight}\n` +
-                        `pr=${progress.toFixed(4)} | maxW=${maxW}\n` +
-                        `tx=${tx.toFixed(0)} | tw=${hTrack.scrollWidth} | cw=${hScroll.clientWidth}`;
+                        `tp=${tp} | scY=${window.scrollY}\n` +
+                        `sc=${sc.toFixed(0)} | spH=${sh}\n` +
+                        `pr=${pr.toFixed(4)} | maxW=${mw}\n` +
+                        `tx=${tx.toFixed(0)} | tw=${hTrack.scrollWidth} | cw=${hScroll.clientWidth}\n` +
+                        `slideW=${hTrack.children[0]?.offsetWidth || 0} | slides=${hTrack.children.length}`;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
