@@ -208,45 +208,126 @@
             letter-spacing: 0.05em;
         }
 
+        /* Menu Overlay */
+        #menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 64px;
+            transition: clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            clip-path: circle(0% at top right);
+        }
+
+        #menu-overlay.open {
+            clip-path: circle(150% at top right);
+        }
+
+        .menu-link {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 8vw, 7.5rem);
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 8px;
+            bottom: 10px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+            z-index: -1;
+        }
+
+        .menu-link:hover::after {
+            width: 100%;
+        }
+
+        .menu-link.highlight {
+            color: var(--primary);
+        }
+
         /* ========== HEADER ========== */
         header {
             position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 50;
-            padding: 20px 64px;
-            background: rgba(33, 32, 34, 0.9);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-bottom: 2px solid var(--surface-highest);
+            top: -100px;
+            left: 0; right: 0;
+            z-index: 70;
+            mix-blend-mode: difference;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 24px 64px;
+            transition: top 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        header.visible {
+            top: 0;
         }
 
         .logo-link {
             font-family: 'Anton', sans-serif;
-            font-size: 1.75rem;
-            color: var(--text);
+            font-size: 2rem;
+            color: var(--primary);
             text-decoration: none;
-            transition: color 0.2s;
+            text-shadow: 2px 2px 0 var(--secondary);
+            transition: transform 0.3s;
         }
 
-        .logo-link:hover { color: var(--secondary); }
+        .logo-link:hover { transform: scale(1.05); }
 
-        nav { display: flex; gap: 24px; align-items: center; }
-
-        nav a {
-            font-family: 'Geist', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.2s, transform 0.2s;
+        .menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 48px;
+            height: 48px;
+            justify-content: center;
+            align-items: flex-end;
+            cursor: pointer;
+            background: none;
+            border: none;
+            outline: none;
         }
 
-        nav a:hover { color: var(--secondary); transform: scale(1.05); }
+        .menu-btn span {
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s;
+            border-radius: 0;
+        }
+
+        .menu-btn .l1 { width: 36px; }
+        .menu-btn .l2 { width: 28px; }
+        .menu-btn .l3 { width: 40px; }
+
+        .menu-btn:hover span { width: 44px; }
+
+        .menu-btn.open .l1 {
+            transform: rotate(45deg) translate(5px, 5px);
+            width: 36px;
+        }
+
+        .menu-btn.open .l2 {
+            opacity: 0;
+        }
+
+        .menu-btn.open .l3 {
+            transform: rotate(-45deg) translate(7px, -8px);
+            width: 36px;
+        }
 
         /* ========== HERO ========== */
         #hero {
@@ -842,7 +923,9 @@
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
             header { padding: 16px 24px; }
-            header nav { display: none; }
+            #menu-overlay { padding: 0 24px; }
+            #menu-overlay > div { left: 24px !important; }
+            .menu-link { font-size: clamp(2rem, 10vw, 3rem); }
             .section-inner { padding: 0 24px; }
             #hero { padding: 100px 24px 60px; }
             .title-container { font-size: clamp(2rem, 8vw, 4rem); }
@@ -869,16 +952,28 @@
 
     <div id="particles"></div>
 
-    <!-- Header -->
-    <header>
-        <a href="#" class="logo-link">MILLIONPIXELS.DEV</a>
-        <nav>
-            <a href="#process">Process</a>
-            <a href="#showcase">Showcase</a>
-            <a href="#manifesto">Manifesto</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#cta" class="btn-primary" style="padding: 12px 24px; font-size: 1rem;">START PROJECT</a>
+    <!-- Menu Overlay -->
+    <div id="menu-overlay">
+        <nav style="display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1;">
+            <a class="menu-link" href="#process">PROCESS</a>
+            <a class="menu-link" href="#showcase">SHOWCASE</a>
+            <a class="menu-link" href="#manifesto">MANIFESTO</a>
+            <a class="menu-link" href="#reviews">REVIEWS</a>
+            <a class="menu-link highlight" href="#cta">START PROJECT</a>
         </nav>
+        <div style="position: absolute; bottom: 48px; left: 64px; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--secondary); text-transform: uppercase;">
+            SYSTEM.NAV_ONLINE // GRIND_THE_RAW
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <a href="#" class="logo-link">MILLIONPIXELS.DEV</a>
+        <button class="menu-btn" id="menuBtn">
+            <span class="l1"></span>
+            <span class="l2"></span>
+            <span class="l3"></span>
+        </button>
     </header>
 
     <!-- Hero -->
@@ -1092,6 +1187,36 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Header entrance animation
+            const header = document.getElementById('mainHeader');
+            setTimeout(() => header.classList.add('visible'), 100);
+
+            // Menu toggle
+            const menuBtn = document.getElementById('menuBtn');
+            const menuOverlay = document.getElementById('menu-overlay');
+            const menuLinks = menuOverlay.querySelectorAll('a');
+            let menuOpen = false;
+
+            function toggleMenu() {
+                menuOpen = !menuOpen;
+                if (menuOpen) {
+                    menuOverlay.classList.add('open');
+                    menuBtn.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    menuOverlay.classList.remove('open');
+                    menuBtn.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (menuOpen) toggleMenu();
+                });
+            });
+
             const titleFill = document.getElementById('titleFill');
             const progressFill = document.getElementById('progressFill');
             const progressPercent = document.getElementById('progressPercent');
