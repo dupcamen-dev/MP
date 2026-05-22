@@ -2,6 +2,20 @@ import { useEffect } from 'react';
 
 export default function Process() {
   useEffect(() => {
+    const el = document.getElementById('process');
+    if (!el) return;
+    function update() {
+      const sy = window.scrollY;
+      const vh = window.innerHeight;
+      const t = Math.max(0, Math.min(1, (sy - vh) / vh));
+      el.style.transform = `translateY(${-50 * t}vh)`;
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+
+  useEffect(() => {
     const cards = document.querySelectorAll('#process .card-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
