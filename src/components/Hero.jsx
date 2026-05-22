@@ -114,17 +114,14 @@ export default function Hero() {
         </div>
         <h1 className="hero-title" style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,15vw,12.5rem)',
-          lineHeight: 0.85, textTransform: 'uppercase', color,
-          width: '100%', textShadow: shadow,
+          lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--bg)',
+          width: '100%', textShadow: '8px 8px 0 var(--secondary)',
         }}>
-          <span className="line" style={{
-            display: 'block',
-            transform: `skewX(${skew}deg)`,
-          }}>
+          <span className="line" style={{ display: 'block' }}>
             MILLION
           </span>
           <span className="line" style={{
-            display: 'block',
+            display: 'block', color,
             transform: `translateY(-8px) skewX(${-skew}deg)`,
           }}>
             PIXELS
