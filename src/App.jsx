@@ -1,0 +1,23 @@
+import { useScrollProgress } from './hooks/useScrollProgress';
+import Particles from './components/Particles';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Process from './components/Process';
+import HorizontalScroll from './components/HorizontalScroll';
+import CtaOverlay from './components/CtaOverlay';
+
+export default function App() {
+  const progress = useScrollProgress('process');
+
+  return (
+    <>
+      <Particles />
+      <Header />
+      <Hero />
+      <Process />
+      <HorizontalScroll progress={progress} />
+      <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />
+      <CtaOverlay progress={progress} />
+    </>
+  );
+}

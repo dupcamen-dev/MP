@@ -1,0 +1,88 @@
+:root {
+  --bg: #212022;
+  --bg-dim: #212022;
+  --surface: #201f21;
+  --surface-low: #1c1b1d;
+  --surface-high: #2b292c;
+  --surface-highest: #363436;
+  --on-surface: #e6e1e4;
+  --primary: #ffd300;
+  --on-primary: #3b2f00;
+  --primary-container: #ffd300;
+  --secondary: #e20000;
+  --secondary-container: #e20000;
+  --text: #ffffff;
+  --text-dim: #d0c6ab;
+  --glass: rgba(33, 32, 34, 0.8);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: 'Geist', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+::selection { background: var(--primary); color: var(--bg); }
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.glass::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+  transform: rotate(30deg) translateY(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.glass:hover::after {
+  transform: rotate(30deg) translateY(100%);
+}
+
+.font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; }
+.font-geist { font-family: 'Geist', sans-serif; }
+.font-mono { font-family: 'Space Mono', monospace; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  :root { --section-padding: 24px; }
+}
+
+.material-icons {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
