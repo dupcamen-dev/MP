@@ -970,7 +970,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            outline: 3px solid var(--secondary);
         }
 
         .h-scroll-spacer {
@@ -1883,7 +1882,9 @@
                 if (!target || !target.closest('.h-scroll')) return false;
                 const processSection = document.getElementById('process');
                 const tp = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
-                const maxW = hTrack ? hTrack.scrollWidth - hScroll.clientWidth : 0;
+                const num = hTrack ? hTrack.children.length : 0;
+                const sw = num > 0 ? (hTrack.children[0]?.offsetWidth || window.innerWidth) : 0;
+                const maxW = num > 0 ? num * sw - hScroll.clientWidth : 0;
                 const offset = target.offsetLeft;
                 const progress = maxW > 0 ? offset / maxW : 0;
                 const targetY = tp + progress * (spacer ? spacer.offsetHeight : 0);
@@ -1955,15 +1956,8 @@
                 carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(0deg)`;
             }
 
-            // Debug overlay
-            const debugEl = document.createElement('div');
-            debugEl.id = 'hdebug';
-            debugEl.style.cssText = 'position:fixed;bottom:10px;left:10px;z-index:99999;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.4 monospace;padding:8px 12px;border-radius:4px;white-space:pre;pointer-events:none';
-            document.body.appendChild(debugEl);
-
             // Page scroll drives horizontal scroll
             if (hTrack && wrap && spacer) {
-                debugEl.textContent += '\nhScroll: OK';
                 let ticking = false;
 
                 const numSlides = hTrack.children.length;
@@ -1989,15 +1983,6 @@
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
                     const tx = pr * mw;
 
-                    console.log({tp, scrollY: window.scrollY, sc, sh, pr, tx, mw, cw, trackW});
-
-                    debugEl.textContent =
-                        `tp=${tp} | scY=${window.scrollY}\n` +
-                        `sc=${sc.toFixed(0)} | spH=${sh}\n` +
-                        `pr=${pr.toFixed(4)} | maxW=${mw}\n` +
-                        `tx=${tx.toFixed(0)} | sw=${sw} | cw=${cw}\n` +
-                        `slides=${numSlides} | tw(calc)=${trackW} | tw(scroll)=${hTrack.scrollWidth}`;
-
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
                     if (carousel) {
@@ -2019,9 +2004,7 @@
 
                 setTrackWidth();
                 driveScroll();
-                let scrollCount = 0;
                 window.addEventListener('scroll', () => {
-                    scrollCount++;
                     if (!ticking) {
                         requestAnimationFrame(() => { ticking = false; driveScroll(); });
                         ticking = true;
@@ -2029,10 +2012,6 @@
                 }, { passive: true });
                 window.addEventListener('resize', () => { setTrackWidth(); driveScroll(); }, { passive: true });
                 window.addEventListener('load', () => { setTrackWidth(); driveScroll(); }, { passive: true });
-                driveScroll();
-                setInterval(() => { console.log('scrollCount:', scrollCount, 'scY:', window.scrollY, 'docH:', document.documentElement.scrollHeight); }, 2000);
-            } else {
-                debugEl.textContent = `hTrack=${!!hTrack} wrap=${!!wrap} spacer=${!!spacer}`;
             }
 
             // Reveal on scroll (page vertical scroll)
