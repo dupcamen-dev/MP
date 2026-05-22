@@ -952,6 +952,7 @@
             height: 100vh;
             width: 100%;
             overflow: hidden;
+            position: relative;
         }
 
         .h-scroll-track {
@@ -1844,9 +1845,6 @@
         </div>
     </section>
 
-    </div>
-    </div>
-
     <!-- CTA Overlay (slides over previous slides) -->
     <section class="slide cta-slide cta-overlay" id="cta">
         <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 900px; width: 100%; text-align: center;">
@@ -1872,6 +1870,7 @@
     </section>
 
     </div>
+    </div>
     <div class="h-scroll-spacer"></div>
 
     <script>
@@ -1896,8 +1895,7 @@
                 if (targetId === 'cta') {
                     const processSection = document.getElementById('process');
                     const tp = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
-                    const targetPr = 0.85;
-                    const targetY = tp + targetPr * (spacer ? spacer.offsetHeight : 0);
+                    const targetY = tp + 0.95 * (spacer ? spacer.offsetHeight : 0);
                     window.scrollTo({ top: targetY, behavior: 'smooth' });
                     return true;
                 }
