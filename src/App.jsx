@@ -13,13 +13,14 @@ export default function App() {
     <>
       <Particles />
       <Header />
-      <div style={{ position: 'relative', zIndex: 0 }}>
+      <div style={{ position: 'relative', zIndex: 2 }}>
         <Hero />
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
       </div>
       <Process />
       <HorizontalScroll progress={progress} />
       <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />
+      <div style={{ height: '100vh', pointerEvents: 'none' }} />
       <CtaOverlay progress={progress} />
     </>
   );

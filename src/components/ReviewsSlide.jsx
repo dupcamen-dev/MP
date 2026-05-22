@@ -1,4 +1,14 @@
+import { useEffect } from 'react';
+
 export default function ReviewsSlide() {
+  useEffect(() => {
+    const cards = document.querySelectorAll('#reviews .card-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    cards.forEach(c => observer.observe(c));
+    return () => observer.disconnect();
+  }, []);
   const reviews = [
     { text: '"No fluff, no endless spec docs. Just pure, unadulterated shipping. The MVP was live before we even finished our internal meetings."', author: 'CTO, SaaS Platform' },
     { text: '"We went from napkin sketch to production in 8 days. MILLIONPIXELS doesn\'t just build — they weaponize code."', author: 'Founder, Web3 Startup' },
@@ -28,7 +38,7 @@ export default function ReviewsSlide() {
         maxWidth: 1200, width: '100%',
       }}>
         {reviews.map((r, i) => (
-          <div key={i} style={{
+          <div key={i} className="card-in" style={{
             padding: 28, display: 'flex', flexDirection: 'column', gap: 16,
             background: 'rgba(33,32,34,0.6)',
             borderLeft: i === 1 ? '4px solid var(--text)' : '4px solid var(--primary)',
@@ -47,7 +57,7 @@ export default function ReviewsSlide() {
       </div>
       <div style={{ maxWidth: 1200, width: '100%', marginTop: 24 }}>
         {missingAuthor.map((r, i) => (
-          <div key={i} style={{
+          <div key={i} className="card-in" style={{
             padding: 28, display: 'flex', flexDirection: 'column', gap: 16,
             background: 'rgba(33,32,34,0.6)',
             borderLeft: '4px solid var(--primary)',

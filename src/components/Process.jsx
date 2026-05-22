@@ -1,8 +1,19 @@
+import { useEffect } from 'react';
+
 export default function Process() {
+  useEffect(() => {
+    const cards = document.querySelectorAll('#process .card-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    cards.forEach(c => observer.observe(c));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="process" style={{
       position: 'relative', background: 'var(--bg)', padding: '120px 0 0',
-      zIndex: 1,
+      zIndex: 0, transform: 'translateY(-50vh)',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
@@ -70,7 +81,7 @@ export default function Process() {
           display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24,
           padding: '80px 0 120px', position: 'relative', zIndex: 2,
         }}>
-          <div className="bento-card wide bento-wide" style={{
+          <div className="bento-card wide bento-wide card-in" style={{
             gridColumn: 'span 2', background: 'rgba(20,19,21,0.6)',
             backdropFilter: 'blur(12px)', border: '1px solid var(--surface-highest)',
             padding: 32, position: 'relative',
@@ -97,7 +108,7 @@ export default function Process() {
               discard the superfluous. Only the sharpest ideas survive the initial cull.
             </p>
           </div>
-          <div className="bento-card" style={{
+          <div className="bento-card card-in" style={{
             background: 'rgba(20,19,21,0.6)', backdropFilter: 'blur(12px)',
             border: '1px solid var(--surface-highest)', padding: 32, position: 'relative',
           }}>
@@ -123,7 +134,7 @@ export default function Process() {
               the medium. It's raw, it's fast, and it feels right.
             </p>
           </div>
-          <div className="bento-card full bento-full" style={{
+          <div className="bento-card full bento-full card-in" style={{
             gridColumn: 'span 3', background: 'var(--primary)',
             border: '1px solid var(--primary)', padding: 48, position: 'relative',
           }}>

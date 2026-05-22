@@ -1,4 +1,18 @@
+import { useEffect, useRef } from 'react';
+
 export default function ManifestoSlide() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { el.classList.add('active'); observer.unobserve(el); }
+    }, { threshold: 0.3 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
@@ -11,7 +25,7 @@ export default function ManifestoSlide() {
         background: 'rgba(255,211,0,0.12)',
         transform: 'skew(12deg) translateX(25%)', pointerEvents: 'none',
       }} />
-      <div style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
+      <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
         <h2 style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
           color: 'var(--text)', marginBottom: 32,
