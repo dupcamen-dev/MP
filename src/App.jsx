@@ -18,10 +18,8 @@ export default function App() {
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
       </div>
       <Process />
-      <div style={{ marginTop: '-50vh' }}>
-        <HorizontalScroll progress={progress} />
-        <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />
-      </div>
+      <HorizontalScroll progress={progress} />
+      <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />
       <CtaOverlay progress={progress} />
     </>
   );
