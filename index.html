@@ -943,28 +943,25 @@
         }
 
         /* ========== HORIZONTAL SCROLL ========== */
-        .h-scroll-pin {
-            position: sticky;
-            top: 0;
+        .h-scroll-wrap {
             height: 100vh;
             width: 100%;
             overflow: hidden;
-            z-index: 1;
-        }
-
-        .h-scroll-spacer {
-            height: 500vh;
-            pointer-events: none;
+            position: relative;
         }
 
         .h-scroll {
             display: flex;
-            overflow-x: hidden;
+            overflow-x: auto;
             overflow-y: hidden;
             height: 100vh;
             width: 100%;
             scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
+
+        .h-scroll::-webkit-scrollbar { display: none; }
 
         .h-scroll .slide {
             min-width: 100vw;
@@ -1709,7 +1706,7 @@
     </section>
 
     <!-- Horizontal Scroll Sections -->
-    <div class="h-scroll-pin">
+    <div class="h-scroll-wrap">
     <div class="h-scroll" id="hScroll">
 
     <!-- Showcase 3D Carousel -->
@@ -1871,7 +1868,6 @@
 
     </div>
     </div>
-    <div class="h-scroll-spacer"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1885,19 +1881,13 @@
             const menuLinks = menuOverlay.querySelectorAll('a');
             let menuOpen = false;
 
-            // Horizontal scroll elements (referenced by menu nav)
+            // Horizontal scroll elements
             const hScroll = document.getElementById('hScroll');
-            const spacer = document.querySelector('.h-scroll-spacer');
-            const pin = document.querySelector('.h-scroll-pin');
 
             function scrollToHSlide(targetId) {
                 const target = document.getElementById(targetId);
                 if (!target || !target.closest('.h-scroll')) return false;
-                const maxHScroll = hScroll ? hScroll.scrollWidth - hScroll.clientWidth : 0;
-                const targetOffset = target.offsetLeft;
-                const progress = maxHScroll > 0 ? targetOffset / maxHScroll : 0;
-                const targetScrollY = (pin ? pin.offsetTop : 0) + progress * (spacer ? spacer.offsetHeight : 0);
-                window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+                target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                 return true;
             }
 
@@ -1965,54 +1955,56 @@
             // Unlock scroll after a short delay
             setTimeout(unlockScroll, 2000);
 
-            // 3D Carousel + horizontal scroll setup
+            // 3D Carousel + horizontal scroll
             const carousel = document.getElementById('carousel3d');
-            let carouselRadius = 0;
 
             if (carousel) {
                 const cells = carousel.querySelectorAll('.carousel-cell');
                 const cellCount = cells.length;
                 const cardW = 400;
-                carouselRadius = Math.round((cardW / 2) / Math.tan(Math.PI / cellCount)) + 100;
+                const radius = Math.round((cardW / 2) / Math.tan(Math.PI / cellCount)) + 100;
                 const theta = 360 / cellCount;
 
                 cells.forEach((cell, i) => {
                     const angle = theta * i;
-                    cell.style.transform = `rotateY(${angle}deg) translateZ(${carouselRadius}px)`;
+                    cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
                 });
 
-                carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(0deg)`;
-            }
+                carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
 
-            function driveHorizontalScroll() {
-                if (!hScroll) return;
-                const maxHScroll = hScroll.scrollWidth - hScroll.clientWidth;
-                const scrolledPast = Math.max(0, window.scrollY - (pin ? pin.offsetTop : 0));
-                const totalRange = spacer ? spacer.offsetHeight : 1;
-                const progress = totalRange > 0 ? Math.min(1, scrolledPast / totalRange) : 0;
-                hScroll.scrollLeft = progress * maxHScroll;
-
-                if (carousel) {
-                    const rotation = progress * -360;
-                    carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${rotation}deg)`;
+                function updateCarousel() {
+                    const scrollLeft = hScroll.scrollLeft;
+                    const maxScroll = hScroll.scrollWidth - hScroll.clientWidth;
+                    const progress = maxScroll > 0 ? Math.min(1, scrollLeft / maxScroll) : 0;
+                    carousel.style.transform = `translateZ(${-radius}px) rotateY(${progress * -360}deg)`;
                 }
 
-                const reveals = hScroll.querySelectorAll('.reveal');
-                const vw = window.innerWidth;
-                reveals.forEach(r => {
-                    const slide = r.closest('.slide');
-                    if (slide) {
-                        const slideOffset = slide.offsetLeft;
-                        const slideProgress = (hScroll.scrollLeft - slideOffset + vw) / vw;
-                        if (slideProgress > 0.3) r.classList.add('active');
-                    }
+                hScroll.addEventListener('scroll', updateCarousel);
+
+                // Activate reveals inside h-scroll on horizontal scroll
+                hScroll.addEventListener('scroll', () => {
+                    const hReveals = hScroll.querySelectorAll('.reveal');
+                    const vw = window.innerWidth;
+                    hReveals.forEach(r => {
+                        const slide = r.closest('.slide');
+                        if (slide) {
+                            const slideOffset = slide.offsetLeft;
+                            const slideProgress = (hScroll.scrollLeft - slideOffset + vw) / vw;
+                            if (slideProgress > 0.3) r.classList.add('active');
+                        }
+                    });
                 });
             }
 
-            if (hScroll && spacer) {
-                window.addEventListener('scroll', driveHorizontalScroll, { passive: true });
-                window.addEventListener('resize', driveHorizontalScroll, { passive: true });
-                driveHorizontalScroll();
+            // Convert vertical wheel to horizontal scroll on h-scroll
+            if (hScroll) {
+                let isScrolling = false;
+                hScroll.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        e.preventDefault();
+                        hScroll.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
             }
 
             // Reveal on scroll (page vertical scroll)
