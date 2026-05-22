@@ -9,7 +9,7 @@ export default function ShowcaseSlide({ progress }) {
     if (!carousel) return;
     const cells = carousel.querySelectorAll('.carousel-cell');
     const cellCount = cells.length;
-    const cardW = 400;
+    const cardW = 500;
     const radius = Math.round((cardW / 2) / Math.tan(Math.PI / cellCount)) + 100;
     radiusRef.current = radius;
     const theta = 360 / cellCount;
@@ -23,8 +23,8 @@ export default function ShowcaseSlide({ progress }) {
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
-    const carouselPhase = Math.min(1, progress / 0.25);
-    const rot = carouselPhase * -180;
+    const carouselPhase = Math.min(1, progress / 0.40);
+    const rot = carouselPhase * -360;
     carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${rot}deg)`;
   }, [progress]);
 
@@ -53,8 +53,8 @@ export default function ShowcaseSlide({ progress }) {
         }}>
           {projects.map((p, i) => (
             <div key={i} className="carousel-cell" style={{
-              position: 'absolute', left: 'calc(50% - 200px)',
-              top: 'calc(50% - 300px)', width: 400, height: 600,
+              position: 'absolute', left: 'calc(50% - 250px)',
+              top: 'calc(50% - 350px)', width: 500, height: 700,
               backfaceVisibility: 'hidden',
             }}>
               <div className="carousel-card" style={{
