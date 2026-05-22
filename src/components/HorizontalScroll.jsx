@@ -9,11 +9,12 @@ export default function HorizontalScroll({ progress }) {
   const n = 3;
 
   const getX = (i) => {
-    const enter = i / n;
-    const leave = (i + 1) / n;
-    if (trackPhase <= enter) return 100;
-    if (trackPhase >= leave) return 0;
-    return 100 - ((trackPhase - enter) / (leave - enter)) * 100;
+    if (i === 0) return 0;
+    const phase = i === 1 ? 0.5 : 0.75;
+    const end = i === 1 ? 0.75 : 1;
+    if (trackPhase < phase) return 100;
+    if (trackPhase > end) return 0;
+    return 100 - ((trackPhase - phase) / (end - phase)) * 100;
   };
 
   useEffect(() => {
@@ -21,11 +22,12 @@ export default function HorizontalScroll({ progress }) {
     if (!wrap) return;
     const containers = wrap.querySelector(':scope > div')?.children;
     if (!containers) return;
+    const phaseThresh = [0, 0.5, 0.75];
     for (let i = 0; i < containers.length; i++) {
       const slide = containers[i].querySelector('.slide');
       if (!slide) continue;
       const reveals = slide.querySelectorAll('.reveal');
-      const visible = trackPhase > i / n + 0.04;
+      const visible = trackPhase > phaseThresh[i] + 0.03;
       reveals.forEach((r) => r.classList.toggle('active', visible));
     }
   }, [trackPhase]);
