@@ -22,7 +22,7 @@ export default function Header() {
         href="#"
         className="header-logo"
         style={{
-          fontFamily: "'Anton', sans-serif", fontSize: '2rem',
+          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.2rem,2.5vw,2rem)',
           color: 'var(--primary)', textDecoration: 'none',
           textShadow: '2px 2px 0 var(--secondary)',
         }}

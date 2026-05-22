@@ -51,7 +51,7 @@ export default function Hero() {
         backgroundImage: 'linear-gradient(to right, rgba(20,19,21,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,19,21,0.08) 1px, transparent 1px)',
         backgroundSize: '40px 40px', zIndex: 0, pointerEvents: 'none',
       }} />
-      <div style={{
+      <div className="coord-label" style={{
         position: 'absolute', fontFamily: "'Space Mono', monospace",
         fontSize: '0.7rem', letterSpacing: '0.1em',
         color: 'rgba(20,19,21,0.4)', zIndex: 1, pointerEvents: 'none',
@@ -60,7 +60,7 @@ export default function Hero() {
       }}>
         COORD: 45.92 / -12.44 // SEC_01
       </div>
-      <div style={{
+      <div className="sys-ver" style={{
         position: 'absolute', fontFamily: "'Space Mono', monospace",
         fontSize: '0.7rem', letterSpacing: '0.1em',
         color: 'rgba(20,19,21,0.4)', zIndex: 1, pointerEvents: 'none',
@@ -127,7 +127,7 @@ export default function Hero() {
             PIXELS
           </span>
         </h1>
-        <div style={{
+          <div className="hero-sub" style={{
           maxWidth: 700, width: '100%', background: 'var(--bg)',
           padding: '24px 32px', transform: 'rotate(1deg)',
           transition: 'transform 0.3s', position: 'relative',

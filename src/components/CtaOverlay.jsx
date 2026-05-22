@@ -67,7 +67,7 @@ export default function CtaOverlay({ progress }) {
           <span className="material-icons" style={{ fontSize: '2.5rem' }}>arrow_forward</span>
         </button>
       </div>
-      <div style={{
+      <div className="cta-footer" style={{
         marginTop: 'auto', width: '100%', maxWidth: 1100,
         display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', flexWrap: 'wrap', gap: 24,

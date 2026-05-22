@@ -47,18 +47,18 @@ export default function Process() {
           UNCOMPROMISING METHODOLOGY FOR DELIVERING RAW, UNFILTERED DIGITAL EXPERIENCES
           AT SUB-ZERO SPEED.
         </p>
-        <div style={{ display: 'flex', gap: 16, marginTop: 48 }}>
+        <div className="process-actions" style={{ display: 'flex', gap: 16, marginTop: 48 }}>
           <a href="#process" className="process-btn primary" style={{
-            padding: '16px 48px', background: 'var(--primary)',
+            padding: '16px clamp(24px,4vw,48px)', background: 'var(--primary)',
             color: 'var(--on-primary)', fontFamily: "'Anton', sans-serif",
-            fontSize: '1.25rem', textTransform: 'uppercase',
+            fontSize: 'clamp(1rem,2.5vw,1.25rem)', textTransform: 'uppercase',
             textDecoration: 'none', boxShadow: '4px 4px 0 var(--secondary)',
             display: 'inline-block',
           }}>ENGAGE</a>
           <a href="#showcase" className="process-btn outline" style={{
-            padding: '16px 48px', background: 'transparent',
+            padding: '16px clamp(24px,4vw,48px)', background: 'transparent',
             color: 'var(--text)', fontFamily: "'Anton', sans-serif",
-            fontSize: '1.25rem', textTransform: 'uppercase',
+            fontSize: 'clamp(1rem,2.5vw,1.25rem)', textTransform: 'uppercase',
             textDecoration: 'none', border: '2px solid var(--text)',
             display: 'inline-block',
           }}>VIEW WORK</a>
@@ -66,11 +66,11 @@ export default function Process() {
       </div>
 
       <div className="section-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 64px' }}>
-        <div style={{
+        <div className="process-grid" style={{
           display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24,
           padding: '80px 0 120px', position: 'relative', zIndex: 2,
         }}>
-          <div className="bento-card wide" style={{
+          <div className="bento-card wide bento-wide" style={{
             gridColumn: 'span 2', background: 'rgba(20,19,21,0.6)',
             backdropFilter: 'blur(12px)', border: '1px solid var(--surface-highest)',
             padding: 32, position: 'relative',
@@ -123,7 +123,7 @@ export default function Process() {
               the medium. It's raw, it's fast, and it feels right.
             </p>
           </div>
-          <div className="bento-card full" style={{
+          <div className="bento-card full bento-full" style={{
             gridColumn: 'span 3', background: 'var(--primary)',
             border: '1px solid var(--primary)', padding: 48, position: 'relative',
           }}>

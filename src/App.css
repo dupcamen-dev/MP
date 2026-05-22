@@ -134,6 +134,52 @@ body {
 
 @media (max-width: 900px) {
   :root { --section-padding: 24px; }
+
+  header { padding: 16px 24px !important; }
+  .header-logo { font-size: 1.2rem !important; }
+
+  #hero { padding: 100px 24px 60px !important; }
+  #hero > div:first-of-type { background-size: 24px 24px !important; }
+  #hero .coord-label, #hero .sys-ver { display: none !important; }
+
+  #menu-overlay { padding: 0 24px !important; }
+  #menu-overlay nav > a { font-size: clamp(2rem,12vw,3rem) !important; }
+  #menu-overlay .sys-footer { bottom: 24px !important; left: 24px !important; }
+
+  .section-inner { padding: 0 24px !important; }
+
+  .process-grid { grid-template-columns: 1fr !important; }
+  .process-grid .bento-wide { grid-column: span 1 !important; }
+  .process-grid .bento-full { grid-column: span 1 !important; }
+  .process-grid .bento-full > div { flex-direction: column !important; align-items: flex-start !important; }
+
+  .process-actions { flex-direction: column !important; }
+  .process-actions a { text-align: center !important; }
+
+  .reviews-grid { grid-template-columns: 1fr !important; }
+  #reviews { padding: 0 24px !important; }
+  #manifesto { padding: 0 24px !important; }
+
+  .showcase-slide .carousel-scene { perspective: 900 !important; }
+  .showcase-slide .carousel-cell { width: 320px !important; height: 480px !important; left: calc(50% - 160px) !important; top: calc(50% - 240px) !important; }
+
+  #cta .cta-footer { flex-direction: column !important; padding: 24px !important; align-items: flex-start !important; }
+
+  .h-scroll-wrap { height: 100dvh !important; }
+  .slide { height: 100dvh !important; }
+
+  .menu-btn { width: 40px !important; height: 40px !important; }
+}
+
+@media (max-width: 480px) {
+  #hero h1 { font-size: clamp(3rem,20vw,4rem) !important; text-shadow: 4px 4px 0 var(--secondary) !important; }
+  #hero .hero-sub { padding: 16px 20px !important; }
+  #hero .hero-sub p { font-size: clamp(0.8rem,3.5vw,1rem) !important; }
+
+  .showcase-slide .carousel-cell { width: 260px !important; height: 390px !important; left: calc(50% - 130px) !important; top: calc(50% - 195px) !important; }
+  .showcase-slide .carousel-scene { perspective: 600 !important; }
+
+  #process .process-badge { font-size: 0.65rem !important; }
 }
 
 .material-icons {

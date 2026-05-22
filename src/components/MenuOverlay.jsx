@@ -56,7 +56,7 @@ export default function MenuOverlay() {
             </a>
           ))}
         </nav>
-        <div style={{
+        <div className="sys-footer" style={{
           position: 'absolute', bottom: 48, left: 64,
           fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
           letterSpacing: '0.1em', color: 'var(--secondary)', textTransform: 'uppercase',

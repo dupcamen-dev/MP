@@ -23,7 +23,7 @@ export default function ReviewsSlide() {
       }}>
         TRUSTED BY <span style={{ color: 'var(--secondary)' }}>BUILDERS</span>
       </h2>
-      <div style={{
+      <div className="reviews-grid" style={{
         display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24,
         maxWidth: 1200, width: '100%',
       }}>
