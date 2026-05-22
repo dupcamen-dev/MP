@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
   const shardsRef = useRef(null);
-  const [animState, setAnimState] = useState('idle');
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const shards = shardsRef.current?.querySelectorAll('.shard');
@@ -22,33 +22,28 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (animState !== 'idle') return;
-    function onScroll() { setAnimState('playing'); }
-    window.addEventListener('wheel', onScroll, { passive: true });
-    window.addEventListener('touchstart', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('wheel', onScroll);
-      window.removeEventListener('touchstart', onScroll);
-    };
-  }, [animState]);
+    function onScroll() {
+      setScrollProgress(Math.min(1, window.scrollY / window.innerHeight));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  useEffect(() => {
-    if (animState !== 'playing') return;
-    document.body.style.overflow = 'hidden';
-    const timer = setTimeout(() => {
-      setAnimState('complete');
-      document.body.style.overflow = '';
-    }, 800);
-    return () => { clearTimeout(timer); document.body.style.overflow = ''; };
-  }, [animState]);
-
-  const skewed = animState !== 'idle';
+  const p = scrollProgress;
+  const skew = p * 12;
+  const r = Math.round(33 + (255 - 33) * p);
+  const g = Math.round(32 + (255 - 32) * p);
+  const b = Math.round(34 + (255 - 34) * p);
+  const color = `rgb(${r},${g},${b})`;
+  const shadowPct = 1 - p;
+  const shadow = `${Math.round(8 * shadowPct)}px ${Math.round(8 * shadowPct)}px 0 var(--secondary)`;
 
   return (
     <section id="hero" style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center',
+      height: '100vh', display: 'flex', alignItems: 'center',
       justifyContent: 'center', padding: '120px 64px 80px',
-      position: 'relative', overflow: 'hidden',
+      position: 'sticky', top: 0, zIndex: 1, overflow: 'hidden',
       background: 'var(--primary)', color: 'var(--bg)',
     }}>
       <div style={{
@@ -119,18 +114,18 @@ export default function Hero() {
         </div>
         <h1 className="hero-title" style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,15vw,12.5rem)',
-          lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--bg)',
-          width: '100%', textShadow: '8px 8px 0 var(--secondary)',
+          lineHeight: 0.85, textTransform: 'uppercase', color,
+          width: '100%', textShadow: shadow,
         }}>
           <span className="line" style={{
-            display: 'block', transition: 'transform 0.6s cubic-bezier(0.5, 0, 0, 1)',
-            transform: skewed ? 'skewX(12deg)' : '',
+            display: 'block',
+            transform: `skewX(${skew}deg)`,
           }}>
             MILLION
           </span>
           <span className="line" style={{
-            display: 'block', transition: 'transform 0.6s cubic-bezier(0.5, 0, 0, 1)',
-            transform: skewed ? 'translateY(-8px) skewX(-12deg)' : 'translateY(-8px)',
+            display: 'block',
+            transform: `translateY(-8px) skewX(${-skew}deg)`,
           }}>
             PIXELS
           </span>
