@@ -570,6 +570,395 @@
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
+            opacity: 0.04;
+        }
+
+        .bg-marquee .track {
+            position: absolute;
+            white-space: nowrap;
+            font-family: 'Anton', sans-serif;
+            font-size: 15vw;
+            color: var(--primary);
+            line-height: 1;
+            text-transform: uppercase;
+            animation: marquee-diag 20s linear infinite;
+        }
+
+        .bg-marquee .track:nth-child(2) {
+            top: 60%;
+            color: var(--secondary);
+            animation-direction: reverse;
+            animation-duration: 25s;
+        }
+
+        @keyframes marquee-diag {
+            0% { transform: translateX(100%) translateY(-50%) rotate(-15deg); }
+            100% { transform: translateX(-100%) translateY(50%) rotate(-15deg); }
+        }
+
+        #process {
+            position: relative;
+            background: var(--bg);
+            padding: 120px 0 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        #process .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 64px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .grind-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface);
+            padding: 8px 16px 8px 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .grind-tag::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: repeating-linear-gradient(45deg, #000 0px, #000 3px, var(--primary) 3px, var(--primary) 6px);
+        }
+
+        .grind-tag span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .grind-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 10vw, 8.75rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: var(--primary);
+            mix-blend-mode: difference;
+            position: relative;
+            z-index: 1;
+        }
+
+        .grind-title .red {
+            color: var(--secondary);
+            display: inline-block;
+            margin-left: clamp(2rem, 6vw, 6rem);
+        }
+
+        .grind-desc {
+            font-family: 'Geist', sans-serif;
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-top: 48px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 24px;
+        }
+
+        .grind-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 48px;
+        }
+
+        .grind-btn {
+            padding: 16px 48px;
+            background: var(--primary);
+            color: var(--on-primary);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 4px 4px 0 var(--secondary);
+            transition: all 0.2s;
+        }
+
+        .grind-btn:hover {
+            box-shadow: 8px 8px 0 var(--secondary);
+            transform: translate(-2px, -2px);
+        }
+
+        .grind-btn.ghost {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--text);
+            box-shadow: none;
+        }
+
+        .grind-btn.ghost:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+            transform: none;
+        }
+
+        .grind-tech {
+            position: absolute;
+            right: 64px;
+            bottom: 0;
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            opacity: 0.5;
+        }
+
+        .grind-tech span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .grind-tech .bars {
+            display: flex;
+            gap: 8px;
+        }
+
+        .grind-tech .bars div {
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        .grind-tech .bars div:nth-child(1) { width: 48px; }
+        .grind-tech .bars div:nth-child(2) { width: 16px; }
+        .grind-tech .bars div:nth-child(3) { width: 8px; }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            padding: 80px 0 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bento-card {
+            background: rgba(20, 19, 21, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--surface-highest);
+            padding: 32px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .bento-card:hover {
+            border-color: var(--primary);
+        }
+
+        .bento-card::before, .bento-card::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 3px solid var(--secondary);
+            pointer-events: none;
+        }
+
+        .bento-card::before {
+            top: 0; left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .bento-card::after {
+            bottom: 0; right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .bento-card.wide {
+            grid-column: span 2;
+        }
+
+        .bento-card.full {
+            grid-column: span 3;
+            background: var(--primary);
+            border-color: var(--primary);
+            padding: 48px;
+        }
+
+        .bento-card.full::before, .bento-card.full::after {
+            border-color: var(--bg);
+        }
+
+        .bento-card .phase {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            color: var(--secondary);
+            line-height: 1;
+            display: block;
+            margin-bottom: 32px;
+        }
+
+        .bento-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .bento-card:hover .icon {
+            transform: rotate(90deg);
+        }
+
+        .bento-card.full .icon {
+            color: var(--bg);
+        }
+
+        .bento-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+        }
+
+        .bento-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .bento-card p {
+            font-family: 'Geist', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        .bento-card.full h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--bg);
+            text-transform: uppercase;
+        }
+
+        .bento-card.full p {
+            color: rgba(20, 19, 21, 0.8);
+            font-weight: 600;
+        }
+
+        .bento-card.full .phase {
+            font-size: 2rem;
+            color: rgba(20, 19, 21, 0.5);
+        }
+
+        .bento-card .glow {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 128px; height: 128px;
+            background: rgba(225, 0, 0, 0.06);
+            filter: blur(40px);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: background 0.3s;
+        }
+
+        .bento-card:hover .glow {
+            background: rgba(255, 211, 0, 0.1);
+        }
+
+        .bento-card.full .full-inner {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-card.full .full-inner .right {
+            max-width: 400px;
+        }
+
+        .bento-card.full .dots-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        /* Marquee Strip */
+        .marquee-strip {
+            background: var(--secondary);
+            padding: 24px 0;
+            overflow: hidden;
+            transform: rotate(-3deg) scale(1.05);
+            position: relative;
+            z-index: 3;
+            margin: 48px 0 0;
+        }
+
+        .marquee-strip .inner {
+            display: flex;
+            white-space: nowrap;
+            width: max-content;
+            animation: marquee-h 20s linear infinite;
+        }
+
+        .marquee-strip .inner span {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-transform: uppercase;
+            color: var(--on-secondary);
+            padding: 0 32px;
+        }
+
+        .marquee-strip .inner .sep {
+            color: rgba(255,255,255,0.4);
+        }
+
+        @keyframes marquee-h {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (min-width: 901px) {
+            .grind-tech { display: flex; }
+        }
+
+        /* ========== HORIZONTAL SCROLL ========== */
+        .h-scroll-wrap {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .h-scroll {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .h-scroll-track {
+            display: flex;
+            height: 100%;
+            flex: none;
+            will-change: transform;
         }
 
         .h-scroll .slide {
@@ -1497,9 +1886,7 @@
                 const maxW = hTrack ? hTrack.scrollWidth - hScroll.clientWidth : 0;
                 const offset = target.offsetLeft;
                 const progress = maxW > 0 ? offset / maxW : 0;
-                // carousel finishes in first 25%, then track slides. Showcase is at 0.
-                const pr = progress > 0 ? 0.25 + progress * 0.75 : 0;
-                const targetY = tp + pr * (spacer ? spacer.offsetHeight : 0);
+                const targetY = tp + progress * (spacer ? spacer.offsetHeight : 0);
                 window.scrollTo({ top: targetY, behavior: 'smooth' });
                 return true;
             }
@@ -1568,8 +1955,15 @@
                 carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(0deg)`;
             }
 
+            // Debug overlay
+            const debugEl = document.createElement('div');
+            debugEl.id = 'hdebug';
+            debugEl.style.cssText = 'position:fixed;bottom:10px;left:10px;z-index:99999;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.4 monospace;padding:8px 12px;border-radius:4px;white-space:pre;pointer-events:none';
+            document.body.appendChild(debugEl);
+
             // Page scroll drives horizontal scroll
             if (hTrack && wrap && spacer) {
+                debugEl.textContent += '\nhScroll: OK';
                 let ticking = false;
 
                 const numSlides = hTrack.children.length;
@@ -1593,15 +1987,21 @@
                     const sc = Math.max(0, window.scrollY - tp);
                     const sh = spacer.offsetHeight;
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
-                    // Carousel rotates in first 25% of scroll, then track translates
-                    const trackPhase = pr > 0.25 ? (pr - 0.25) / 0.75 : 0;
-                    const tx = trackPhase * mw;
+                    const tx = pr * mw;
+
+                    console.log({tp, scrollY: window.scrollY, sc, sh, pr, tx, mw, cw, trackW});
+
+                    debugEl.textContent =
+                        `tp=${tp} | scY=${window.scrollY}\n` +
+                        `sc=${sc.toFixed(0)} | spH=${sh}\n` +
+                        `pr=${pr.toFixed(4)} | maxW=${mw}\n` +
+                        `tx=${tx.toFixed(0)} | sw=${sw} | cw=${cw}\n` +
+                        `slides=${numSlides} | tw(calc)=${trackW} | tw(scroll)=${hTrack.scrollWidth}`;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
                     if (carousel) {
-                        const carouselPhase = Math.min(1, pr / 0.25);
-                        const rot = carouselPhase * -180;
+                        const rot = pr * -180;
                         carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${rot}deg)`;
                     }
 
@@ -1619,7 +2019,9 @@
 
                 setTrackWidth();
                 driveScroll();
+                let scrollCount = 0;
                 window.addEventListener('scroll', () => {
+                    scrollCount++;
                     if (!ticking) {
                         requestAnimationFrame(() => { ticking = false; driveScroll(); });
                         ticking = true;
@@ -1627,6 +2029,10 @@
                 }, { passive: true });
                 window.addEventListener('resize', () => { setTrackWidth(); driveScroll(); }, { passive: true });
                 window.addEventListener('load', () => { setTrackWidth(); driveScroll(); }, { passive: true });
+                driveScroll();
+                setInterval(() => { console.log('scrollCount:', scrollCount, 'scY:', window.scrollY, 'docH:', document.documentElement.scrollHeight); }, 2000);
+            } else {
+                debugEl.textContent = `hTrack=${!!hTrack} wrap=${!!wrap} spacer=${!!spacer}`;
             }
 
             // Reveal on scroll (page vertical scroll)
