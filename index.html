@@ -962,6 +962,7 @@
         }
 
         .h-scroll .slide {
+            width: 100vw;
             flex: 0 0 100vw;
             height: 100vh;
             position: relative;
@@ -1973,10 +1974,19 @@
                 debugEl.textContent += '\nhScroll: OK';
                 let ticking = false;
 
+                const numSlides = hTrack.children.length;
+                function calcTrackWidth() {
+                    return numSlides * window.innerWidth;
+                }
+                function setTrackWidth() {
+                    hTrack.style.width = calcTrackWidth() + 'px';
+                }
+
                 function driveScroll() {
                     const ps = document.getElementById('process');
                     const tp = ps ? ps.offsetTop + ps.offsetHeight : 0;
-                    const mw = hTrack.scrollWidth - hScroll.clientWidth;
+                    const trackW = calcTrackWidth();
+                    const mw = trackW - hScroll.clientWidth;
                     const sc = Math.max(0, window.scrollY - tp);
                     const sh = spacer.offsetHeight;
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
@@ -1986,8 +1996,8 @@
                         `tp=${tp} | scY=${window.scrollY}\n` +
                         `sc=${sc.toFixed(0)} | spH=${sh}\n` +
                         `pr=${pr.toFixed(4)} | maxW=${mw}\n` +
-                        `tx=${tx.toFixed(0)} | tw=${hTrack.scrollWidth} | cw=${hScroll.clientWidth}\n` +
-                        `slideW=${hTrack.children[0]?.offsetWidth || 0} | slides=${hTrack.children.length}`;
+                        `tx=${tx.toFixed(0)} | tw(calc)=${trackW} | cw=${hScroll.clientWidth}\n` +
+                        `tw(scroll)=${hTrack.scrollWidth} | slides=${numSlides}`;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
@@ -2008,14 +2018,15 @@
                     });
                 }
 
+                setTrackWidth();
                 window.addEventListener('scroll', () => {
                     if (!ticking) {
                         requestAnimationFrame(() => { ticking = false; driveScroll(); });
                         ticking = true;
                     }
                 }, { passive: true });
-                window.addEventListener('resize', driveScroll, { passive: true });
-                window.addEventListener('load', driveScroll, { passive: true });
+                window.addEventListener('resize', () => { setTrackWidth(); driveScroll(); }, { passive: true });
+                window.addEventListener('load', () => { setTrackWidth(); driveScroll(); }, { passive: true });
                 driveScroll();
             } else {
                 debugEl.textContent = `hTrack=${!!hTrack} wrap=${!!wrap} spacer=${!!spacer}`;
