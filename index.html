@@ -384,96 +384,224 @@
             color: rgba(255,255,255,0.6);
         }
 
-        /* ========== SHOWCASE ========== */
+        /* ========== SHOWCASE CAROUSEL ========== */
         #showcase {
-            padding: 120px 0;
-            background: var(--bg);
-        }
-
-        .showcase-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 64px;
-        }
-
-        .showcase-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--text);
-            border-left: 8px solid var(--primary);
-            padding-left: 16px;
-        }
-
-        .showcase-title span { color: var(--secondary); }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-        }
-
-        .showcase-card {
             position: relative;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            cursor: pointer;
-            background: #111;
-            border: 2px solid #333;
-            transition: border-color 0.3s;
+            background: var(--bg);
+            height: 300vh;
+            z-index: 1;
         }
 
-        .showcase-card:hover { border-color: var(--primary); }
-
-        .showcase-card:nth-child(2) { margin-top: 64px; }
-
-        .showcase-card-img {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            filter: grayscale(100%) contrast(130%);
-            transition: all 0.5s ease;
-        }
-
-        .showcase-card:hover .showcase-card-img {
-            transform: scale(1.05);
-            filter: grayscale(0%) contrast(100%);
-        }
-
-        .showcase-card-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(33, 32, 34, 0.6);
-            transition: background 0.5s;
-        }
-
-        .showcase-card:hover .showcase-card-overlay {
-            background: rgba(33, 32, 34, 0.2);
-        }
-
-        .showcase-card-body {
-            position: absolute;
-            bottom: 0; left: 0;
-            padding: 28px;
+        #showcase .sticky-wrap {
+            position: sticky;
+            top: 0;
             width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .showcase-card-body .label {
+        .carousel-scene {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            perspective: 1500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-3d {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .carousel-cell {
+            position: absolute;
+            left: calc(50% - 200px);
+            top: calc(50% - 300px);
+            width: 400px;
+            height: 600px;
+            backface-visibility: hidden;
+        }
+
+        @media (max-width: 900px) {
+            .carousel-cell {
+                left: calc(50% - 150px);
+                top: calc(50% - 225px);
+                width: 300px;
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .carousel-cell {
+                left: calc(50% - 130px);
+                top: calc(50% - 195px);
+                width: 260px;
+                height: 390px;
+            }
+        }
+
+        .carousel-card {
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .carousel-card::before, .carousel-card::after {
+            content: '';
+            position: absolute;
+            width: 30px; height: 30px;
+            border: 2px solid var(--secondary);
+            pointer-events: none;
+        }
+
+        .carousel-card::before {
+            top: 0; left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .carousel-card::after {
+            bottom: 0; right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .carousel-card .card-img {
+            height: 50%;
+            width: 100%;
+            background: var(--surface-highest);
+            margin-bottom: 16px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .carousel-card .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s;
+        }
+
+        .carousel-card:hover .card-img img {
+            transform: scale(1.1);
+        }
+
+        .carousel-card .card-img .overlay {
+            position: absolute;
+            inset: 0;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        .carousel-card .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .carousel-card .hazard-tag {
+            background: repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 5px, #000 5px, #000 10px);
+            background-size: 20px 100%;
+            background-repeat: no-repeat;
+            padding-left: 28px;
+            background-color: rgba(255,255,255,0.1);
+            display: inline-block;
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
             letter-spacing: 0.05em;
-            color: var(--primary);
+            color: var(--text);
+            padding: 4px 12px 4px 28px;
             margin-bottom: 8px;
+            width: fit-content;
+            text-transform: uppercase;
         }
 
-        .showcase-card-body .label.red { color: var(--secondary); }
-
-        .showcase-card-body h3 {
+        .carousel-card h2 {
             font-family: 'Anton', sans-serif;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
             text-transform: uppercase;
             color: var(--text);
             line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .carousel-card h2 .red { color: var(--secondary); }
+        .carousel-card h2 .yellow { color: var(--primary); }
+
+        .carousel-card .view-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #000;
+            font-family: 'Anton', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .carousel-card .view-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border: 2px solid var(--primary);
+            z-index: -1;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .carousel-card .view-btn:hover::before {
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            opacity: 1;
+        }
+
+        .carousel-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+            pointer-events: none;
+        }
+
+        .carousel-hint span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
         }
 
         /* ========== REVIEWS ========== */
@@ -788,32 +916,94 @@
         <div class="shard-divider"></div>
     </section>
 
-    <!-- Showcase -->
+    <!-- Showcase 3D Carousel -->
     <section id="showcase">
-        <div class="section-inner">
-            <div class="showcase-header reveal">
-                <h2 class="showcase-title font-anton">MASTER<br><span>CLASS</span></h2>
-                <a href="#" class="font-mono" style="color: var(--primary); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;">
-                    VIEW ARCHIVE <span class="material-icons" style="font-size: 0.9rem;">arrow_forward</span>
-                </a>
+        <div class="sticky-wrap">
+            <div class="carousel-scene">
+                <div class="carousel-3d" id="carousel3d">
+                    <div class="carousel-cell">
+                        <div class="carousel-card">
+                            <div class="card-img">
+                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Project" loading="lazy">
+                                <div class="overlay" style="background: rgba(255,211,0,0.15);"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="hazard-tag">FINTECH / WEB3</div>
+                                <h2>NEO-BANK <span class="red">ALPHA</span></h2>
+                                <button class="view-btn">VIEW PROJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-cell">
+                        <div class="carousel-card">
+                            <div class="card-img">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Project" loading="lazy">
+                                <div class="overlay" style="background: rgba(225,0,0,0.15);"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="hazard-tag">AI / DATA</div>
+                                <h2>DATA <span class="yellow">SHARD</span></h2>
+                                <button class="view-btn">VIEW PROJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-cell">
+                        <div class="carousel-card">
+                            <div class="card-img">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" alt="Project" loading="lazy">
+                                <div class="overlay" style="background: rgba(0,0,0,0.3);"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="hazard-tag">AGENCY / BRAND</div>
+                                <h2>KINETIC <span class="red">VIBE</span></h2>
+                                <button class="view-btn">VIEW PROJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-cell">
+                        <div class="carousel-card">
+                            <div class="card-img">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Project" loading="lazy">
+                                <div class="overlay" style="background: rgba(255,211,0,0.1);"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="hazard-tag">GAMING / SAAS</div>
+                                <h2>PIXEL <span class="yellow">GENESIS</span></h2>
+                                <button class="view-btn">VIEW PROJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-cell">
+                        <div class="carousel-card">
+                            <div class="card-img">
+                                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop" alt="Project" loading="lazy">
+                                <div class="overlay" style="background: rgba(225,0,0,0.1);"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="hazard-tag">ML / BACKEND</div>
+                                <h2>NEURAL <span class="red">FLOW</span></h2>
+                                <button class="view-btn">VIEW PROJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-cell">
+                        <div class="carousel-card">
+                            <div class="card-img">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Project" loading="lazy">
+                                <div class="overlay" style="background: rgba(255,211,0,0.15);"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="hazard-tag">DEVOPS / CLOUD</div>
+                                <h2>STORM <span class="yellow">CORE</span></h2>
+                                <button class="view-btn">VIEW PROJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="showcase-grid reveal">
-                <div class="showcase-card bracket">
-                    <div class="showcase-card-img" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');"></div>
-                    <div class="showcase-card-overlay"></div>
-                    <div class="showcase-card-body">
-                        <div class="label">FINTECH / WEB3</div>
-                        <h3>NEO-BANK ALPHA</h3>
-                    </div>
-                </div>
-                <div class="showcase-card bracket">
-                    <div class="showcase-card-img" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');"></div>
-                    <div class="showcase-card-overlay"></div>
-                    <div class="showcase-card-body">
-                        <div class="label red">SAAS / AI</div>
-                        <h3>DATA SHARD</h3>
-                    </div>
-                </div>
+            <div class="carousel-hint">
+                <span class="material-icons" style="font-size: 1.25rem;">mouse</span>
+                <span>SCROLL TO ROTATE</span>
             </div>
         </div>
     </section>
@@ -956,6 +1146,37 @@
             document.addEventListener('wheel', handleWheel, { passive: false });
             document.addEventListener('touchstart', handleTouchStart, { passive: true });
             document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+            // 3D Carousel
+            const carousel = document.getElementById('carousel3d');
+            if (carousel) {
+                const cells = carousel.querySelectorAll('.carousel-cell');
+                const cellCount = cells.length;
+                const cardW = 400;
+                const radius = Math.round((cardW / 2) / Math.tan(Math.PI / cellCount)) + 100;
+                const theta = 360 / cellCount;
+
+                cells.forEach((cell, i) => {
+                    const angle = theta * i;
+                    cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+                });
+
+                carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
+
+                const showcaseSection = document.getElementById('showcase');
+                window.addEventListener('scroll', () => {
+                    const rect = showcaseSection.getBoundingClientRect();
+                    const sectionTop = rect.top;
+                    const sectionHeight = showcaseSection.offsetHeight;
+                    const vh = window.innerHeight;
+                    const scrolledInSection = vh - sectionTop;
+                    const totalScrollable = sectionHeight;
+                    let progress = scrolledInSection / totalScrollable;
+                    progress = Math.max(0, Math.min(1, progress));
+                    const rotation = progress * -360;
+                    carousel.style.transform = `translateZ(${-radius}px) rotateY(${rotation}deg)`;
+                });
+            }
 
             // Reveal on scroll (only for sections below hero)
             const reveals = document.querySelectorAll('.reveal');
