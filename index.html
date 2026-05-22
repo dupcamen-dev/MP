@@ -1887,7 +1887,8 @@
                 const maxW = num > 0 ? num * sw - hScroll.clientWidth : 0;
                 const offset = target.offsetLeft;
                 const progress = maxW > 0 ? offset / maxW : 0;
-                const targetY = tp + progress * (spacer ? spacer.offsetHeight : 0);
+                const pr = progress > 0 ? 0.25 + progress * 0.75 : 0;
+                const targetY = tp + pr * (spacer ? spacer.offsetHeight : 0);
                 window.scrollTo({ top: targetY, behavior: 'smooth' });
                 return true;
             }
@@ -1981,12 +1982,15 @@
                     const sc = Math.max(0, window.scrollY - tp);
                     const sh = spacer.offsetHeight;
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
-                    const tx = pr * mw;
+
+                    const carouselPhase = Math.min(1, pr / 0.25);
+                    const trackPhase = pr > 0.25 ? (pr - 0.25) / 0.75 : 0;
+                    const tx = trackPhase * mw;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
                     if (carousel) {
-                        const rot = pr * -180;
+                        const rot = carouselPhase * -180;
                         carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${rot}deg)`;
                     }
 
