@@ -1894,10 +1894,12 @@
             function scrollToHSlide(targetId) {
                 const target = document.getElementById(targetId);
                 if (!target || !target.closest('.h-scroll')) return false;
+                const processSection = document.getElementById('process');
+                const tp = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
                 const maxW = hTrack ? hTrack.scrollWidth - hScroll.clientWidth : 0;
                 const offset = target.offsetLeft;
                 const progress = maxW > 0 ? offset / maxW : 0;
-                const targetY = (wrap ? wrap.offsetTop : 0) + progress * (spacer ? spacer.offsetHeight : 0);
+                const targetY = tp + progress * (spacer ? spacer.offsetHeight : 0);
                 window.scrollTo({ top: targetY, behavior: 'smooth' });
                 return true;
             }
@@ -1968,11 +1970,13 @@
 
             // Page scroll drives horizontal scroll
             if (hTrack && wrap && spacer) {
+                const processSection = document.getElementById('process');
+                const triggerPoint = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
                 let ticking = false;
 
                 function driveScroll() {
                     const maxW = hTrack.scrollWidth - hScroll.clientWidth;
-                    const scrolled = Math.max(0, window.scrollY - wrap.offsetTop);
+                    const scrolled = Math.max(0, window.scrollY - triggerPoint);
                     const progress = Math.min(1, scrolled / spacer.offsetHeight);
                     const tx = progress * maxW;
 
@@ -2002,6 +2006,7 @@
                     }
                 }, { passive: true });
                 window.addEventListener('resize', driveScroll, { passive: true });
+                window.addEventListener('load', driveScroll, { passive: true });
                 driveScroll();
             }
 
