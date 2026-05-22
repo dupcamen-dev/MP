@@ -36,11 +36,6 @@
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
-            overflow-y: hidden;
-        }
-
-        body.unlocked {
-            overflow-y: auto;
         }
 
         ::selection { background: var(--primary); color: var(--bg); }
@@ -944,10 +939,12 @@
 
         /* ========== HORIZONTAL SCROLL ========== */
         .h-scroll-wrap {
+            position: sticky;
+            top: 0;
             height: 100vh;
             width: 100%;
             overflow: hidden;
-            position: relative;
+            z-index: 1;
         }
 
         .h-scroll {
@@ -1923,22 +1920,6 @@
                 if (href && scrollToHSlide(href.slice(1))) e.preventDefault();
             });
 
-            const titleFill = document.getElementById('titleFill');
-            const progressFill = document.getElementById('progressFill');
-            const progressPercent = document.getElementById('progressPercent');
-            const scrollHint = document.getElementById('scrollHint');
-            const hero = document.getElementById('hero');
-            const body = document.body;
-
-            let isUnlocked = false;
-
-            function unlockScroll() {
-                if (!isUnlocked) {
-                    isUnlocked = true;
-                    body.classList.add('unlocked');
-                }
-            }
-
             // Hero shards parallax
             const shards = document.querySelectorAll('.shard');
             document.addEventListener('mousemove', (e) => {
@@ -1951,9 +1932,6 @@
                     s.style.transform = `translate(${x}px, ${y}px)`;
                 });
             });
-
-            // Unlock scroll after a short delay
-            setTimeout(unlockScroll, 2000);
 
             // 3D Carousel + horizontal scroll
             const carousel = document.getElementById('carousel3d');
@@ -1998,7 +1976,6 @@
 
             // Convert vertical wheel to horizontal scroll on h-scroll
             if (hScroll) {
-                let isScrolling = false;
                 hScroll.addEventListener('wheel', (e) => {
                     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
                         e.preventDefault();
