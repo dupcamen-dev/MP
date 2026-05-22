@@ -942,44 +942,174 @@
             .grind-tech { display: flex; }
         }
 
-        /* ========== SHOWCASE CAROUSEL ========== */
-        #showcase {
-            position: relative;
-            background: var(--primary);
-            height: 300vh;
-            z-index: 1;
+        /* ========== HORIZONTAL SCROLL ========== */
+        .h-scroll {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            height: 100vh;
+            width: 100%;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        #showcase .sticky-wrap {
-            position: sticky;
-            top: 0;
-            width: 100%;
+        .h-scroll::-webkit-scrollbar { display: none; }
+
+        .h-scroll .slide {
+            min-width: 100vw;
             height: 100vh;
-            overflow: hidden;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
-        .carousel-scene {
+        .h-scroll .slide.showcase-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+        }
+
+        .h-scroll .slide.showcase-slide .carousel-scene {
+            position: relative;
             width: 100%;
             height: 100%;
-            position: absolute;
             perspective: 1500px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .carousel-3d {
+        .h-scroll .slide.showcase-slide .carousel-3d {
             width: 100%;
             height: 100%;
             position: absolute;
             transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
         }
 
-        .carousel-cell {
+        .h-scroll .slide.showcase-slide .carousel-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.4;
+            animation: float-hint 2.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .h-scroll .slide.showcase-slide .carousel-hint span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        .h-scroll .slide.showcase-slide .carousel-hint .mouse-icon {
+            width: 20px; height: 32px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0.4;
+        }
+
+        .h-scroll .slide.showcase-slide .carousel-hint .mouse-icon::after {
+            content: '';
+            position: absolute;
+            top: 6px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 8px;
+            background: #000;
+            animation: scroll-wheel 2s ease-in-out infinite;
+        }
+
+        .h-scroll .slide.reviews-slide {
+            background: var(--surface-low);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 64px;
+        }
+
+        .h-scroll .slide.manifesto-slide {
+            background: var(--surface-high);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 64px;
+        }
+
+        .h-scroll .slide.cta-slide {
+            background: var(--primary);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 64px;
+        }
+
+        .cta-slide-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: var(--bg);
+            text-shadow: 8px 8px 0 rgba(0,0,0,0.15);
+            letter-spacing: 0.08em;
+            margin-bottom: 32px;
+        }
+
+        .cta-slide-title .line {
+            display: block;
+            transition: transform 0.5s, color 0.5s, text-shadow 0.5s;
+            cursor: crosshair;
+            letter-spacing: 0.12em;
+        }
+
+        .cta-slide-title .line:hover {
+            transform: skewX(-8deg);
+            color: var(--bg);
+            text-shadow: 12px 12px 0 rgba(0,0,0,0.25);
+        }
+
+        .cta-slide-title .line:nth-child(2) {
+            transform: translateY(-6px);
+            color: var(--secondary);
+            text-shadow: 8px 8px 0 var(--bg);
+        }
+
+        .cta-slide-title .line:nth-child(2):hover {
+            transform: translateY(-6px) skewX(8deg);
+            color: var(--secondary);
+        }
+
+        .cta-slide-sub {
+            font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+            letter-spacing: 0.15em;
+            color: var(--bg);
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        .h-scroll .slide.footer-slide {
+            background: var(--bg-dim);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 64px;
+        }
+
+        .h-scroll .slide.showcase-slide .carousel-cell {
             position: absolute;
             left: calc(50% - 200px);
             top: calc(50% - 300px);
@@ -989,7 +1119,7 @@
         }
 
         @media (max-width: 900px) {
-            .carousel-cell {
+            .h-scroll .slide.showcase-slide .carousel-cell {
                 left: calc(50% - 150px);
                 top: calc(50% - 225px);
                 width: 300px;
@@ -998,7 +1128,7 @@
         }
 
         @media (max-width: 600px) {
-            .carousel-cell {
+            .h-scroll .slide.showcase-slide .carousel-cell {
                 left: calc(50% - 120px);
                 top: calc(50% - 180px);
                 width: 240px;
@@ -1569,9 +1699,11 @@
         </div>
     </section>
 
+    <!-- Horizontal Scroll Sections -->
+    <div class="h-scroll" id="hScroll">
+
     <!-- Showcase 3D Carousel -->
-    <section id="showcase">
-        <div class="sticky-wrap">
+    <section class="slide showcase-slide" id="showcase">
             <div class="carousel-scene">
                 <div class="carousel-3d" id="carousel3d">
                     <div class="carousel-cell">
@@ -1662,12 +1794,10 @@
     </section>
 
     <!-- Reviews -->
-    <section id="reviews" class="shard-bg">
-        <div class="section-inner">
-            <div class="reveal">
-                <h2 class="reviews-title font-anton">FIELD<br><span>REVIEWS</span></h2>
-            </div>
-            <div class="reviews-grid reveal">
+    <section class="slide reviews-slide" id="reviews">
+        <div style="max-width: 1100px; width: 100%;">
+            <h2 class="reviews-title font-anton" style="margin-bottom: 48px;">FIELD<br><span>REVIEWS</span></h2>
+            <div class="reviews-grid">
                 <div class="review-card glass">
                     <p>"They ripped through our backlog in days. The raw execution speed is terrifyingly good. We launched months ahead of schedule."</p>
                     <div class="review-author">
@@ -1688,46 +1818,48 @@
                 </div>
             </div>
         </div>
-        <div class="shard-divider"></div>
     </section>
 
     <!-- Manifesto -->
-    <section id="manifesto">
-        <div class="manifesto-accent"></div>
-        <div class="section-inner">
-            <div class="manifesto-content reveal">
-                <h2 class="font-anton">SPEED IS A <span>FEATURE.</span></h2>
-                <p>
-                    We reject the bureaucracy of modern software development. No endless meetings. No pixel-pushing committees. We code on instinct. We build for impact. <span class="highlight">Vibe coding is the raw translation of thought to reality.</span> Slash the rules. Grind the raw.
+    <section class="slide manifesto-slide" id="manifesto">
+        <div style="max-width: 900px; width: 100%; text-align: center;">
+            <div class="manifesto-accent" style="position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: rgba(255,211,0,0.12); transform: skew(12deg) translateX(25%); pointer-events: none;"></div>
+            <div style="position: relative; z-index: 2;">
+                <h2 class="font-anton" style="font-size: clamp(2.5rem,5vw,4rem); color: var(--text); margin-bottom: 32px;">SPEED IS A <span style="color: var(--secondary);">FEATURE.</span></h2>
+                <p style="font-family: 'Geist', sans-serif; font-size: clamp(1.1rem,2vw,1.5rem); line-height: 1.6; color: var(--text); text-transform: uppercase; letter-spacing: 0.05em;">
+                    We reject the bureaucracy of modern software development. No endless meetings. No pixel-pushing committees. We code on instinct. We build for impact. <span style="background: var(--primary); color: var(--bg); padding: 2px 8px;">Vibe coding is the raw translation of thought to reality.</span> Slash the rules. Grind the raw.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section id="cta">
-        <div class="section-inner">
-            <div class="reveal">
-                <h2 class="cta-title font-anton">START YOUR<br><span>WEEK</span></h2>
-                <p class="cta-sub">SECURE YOUR SLOT. WE BUILD YOUR MVP IN 7 DAYS. NO EXCUSES.</p>
-                <button class="cta-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'});">
-                    INITIATE PROTOCOL
-                    <span class="material-icons" style="font-size: 2.5rem;">arrow_forward</span>
-                </button>
-            </div>
+    <section class="slide cta-slide" id="cta">
+        <div style="max-width: 900px; width: 100%; text-align: center;">
+            <h2 class="cta-slide-title">
+                <span class="line reveal" style="transition-delay:0.1s">START YOUR</span>
+                <span class="line reveal" style="transition-delay:0.3s">WEEK</span>
+            </h2>
+            <p class="cta-slide-sub reveal" style="font-family: 'Geist', sans-serif; font-weight: 600;">SECURE YOUR SLOT. WE BUILD YOUR MVP IN 7 DAYS. NO EXCUSES.</p>
+            <button class="reveal" style="display: inline-flex; align-items: center; gap: 16px; padding: 24px 60px; background: var(--bg); color: var(--primary); font-family: 'Anton', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.75rem); text-transform: uppercase; border: 4px solid var(--bg); cursor: pointer; transition: all 0.3s;">
+                INITIATE PROTOCOL
+                <span class="material-icons" style="font-size: 2.5rem;">arrow_forward</span>
+            </button>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="brand">&copy;2024 <span>MILLIONPIXELS.DEV</span> — SLASH THE RULES</div>
-        <nav>
-            <a href="#">Terms</a>
-            <a href="#">Privacy</a>
-            <a href="#">Twitter</a>
-            <a href="#">GitHub</a>
+    <footer class="slide footer-slide" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; border-top: 2px solid var(--surface-highest);">
+        <div class="brand" style="font-family: 'Anton', sans-serif; font-size: 1.5rem; text-transform: uppercase; color: var(--text);">&copy;2024 <span style="color: var(--secondary);">MILLIONPIXELS.DEV</span> — SLASH THE RULES</div>
+        <nav style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <a href="#" style="font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;">Terms</a>
+            <a href="#" style="font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;">Privacy</a>
+            <a href="#" style="font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;">Twitter</a>
+            <a href="#" style="font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;">GitHub</a>
         </nav>
     </footer>
+
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1756,9 +1888,29 @@
 
             menuBtn.addEventListener('click', toggleMenu);
             menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
+                link.addEventListener('click', (e) => {
                     if (menuOpen) toggleMenu();
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#') && document.querySelector('[id="' + href.slice(1) + '"]')) {
+                        const target = document.querySelector('[id="' + href.slice(1) + '"]');
+                        if (target && target.closest('.h-scroll')) {
+                            e.preventDefault();
+                            target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                        }
+                    }
                 });
+            });
+
+            // Handle all anchor clicks for h-scroll targets
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a[href^="#"]');
+                if (!link) return;
+                const href = link.getAttribute('href');
+                const target = document.querySelector('[id="' + href.slice(1) + '"]');
+                if (target && target.closest('.h-scroll')) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                }
             });
 
             const titleFill = document.getElementById('titleFill');
@@ -1793,8 +1945,10 @@
             // Unlock scroll after a short delay
             setTimeout(unlockScroll, 2000);
 
-            // 3D Carousel
+            // 3D Carousel + horizontal scroll setup
             const carousel = document.getElementById('carousel3d');
+            const hScroll = document.getElementById('hScroll');
+
             if (carousel) {
                 const cells = carousel.querySelectorAll('.carousel-cell');
                 const cellCount = cells.length;
@@ -1809,23 +1963,40 @@
 
                 carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
 
-                const showcaseSection = document.getElementById('showcase');
-                window.addEventListener('scroll', () => {
-                    const rect = showcaseSection.getBoundingClientRect();
-                    const sectionTop = rect.top;
-                    const sectionHeight = showcaseSection.offsetHeight;
-                    const vh = window.innerHeight;
-                    const scrolledInSection = vh - sectionTop;
-                    const totalScrollable = sectionHeight;
-                    let progress = scrolledInSection / totalScrollable;
-                    progress = Math.max(0, Math.min(1, progress));
+                function updateCarousel() {
+                    const scrollLeft = hScroll.scrollLeft;
+                    const maxScroll = hScroll.scrollWidth - hScroll.clientWidth;
+                    const progress = maxScroll > 0 ? Math.min(1, scrollLeft / maxScroll) : 0;
                     const rotation = progress * -360;
                     carousel.style.transform = `translateZ(${-radius}px) rotateY(${rotation}deg)`;
-                });
+                }
+                hScroll.addEventListener('scroll', updateCarousel);
             }
 
-            // Reveal on scroll (only for sections below hero)
-            const reveals = document.querySelectorAll('.reveal');
+            if (hScroll) {
+                // Convert vertical wheel to horizontal scroll
+                hScroll.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        e.preventDefault();
+                        hScroll.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
+
+                // Reveal on horizontal scroll inside h-scroll
+                const hReveals = hScroll.querySelectorAll('.reveal');
+                const hRevealObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            hRevealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { root: hScroll, threshold: 0.3 });
+                hReveals.forEach(r => hRevealObserver.observe(r));
+            }
+
+            // Reveal on scroll (page vertical scroll)
+            const reveals = document.querySelectorAll('.reveal:not(.h-scroll .reveal)');
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1834,7 +2005,6 @@
                     }
                 });
             }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
             reveals.forEach(r => revealObserver.observe(r));
 
             // Particles

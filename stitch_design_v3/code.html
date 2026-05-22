@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MillionPixels.dev - Showcase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;600&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#ecc300",
+                        "on-secondary": "#690000",
+                        "outline-variant": "#4d4632",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-tertiary-container": "#5c5d5e",
+                        "secondary": "#ffb4a8",
+                        "background": "#141315",
+                        "secondary-container": "#e10000",
+                        "inverse-surface": "#e6e1e4",
+                        "on-surface-variant": "#d0c6ab",
+                        "tertiary": "#f3f3f3",
+                        "primary": "#fff3d4",
+                        "surface-variant": "#363436",
+                        "on-primary-fixed-variant": "#554500",
+                        "inverse-on-surface": "#313032",
+                        "surface-container-lowest": "#0f0e10",
+                        "on-background": "#e6e1e4",
+                        "surface-bright": "#3a393b",
+                        "inverse-primary": "#715c00",
+                        "surface-dim": "#141315",
+                        "on-tertiary": "#2f3131",
+                        "on-secondary-fixed": "#410000",
+                        "outline": "#999077",
+                        "on-primary": "#3b2f00",
+                        "surface-container-low": "#1c1b1d",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#363436",
+                        "surface-container-high": "#2b292c",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-secondary-container": "#fff1ef",
+                        "on-primary-fixed": "#231b00",
+                        "secondary-fixed": "#ffdad4",
+                        "primary-container": "#ffd300",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-primary-container": "#705b00",
+                        "on-error": "#690005",
+                        "surface": "#141315",
+                        "tertiary-container": "#d7d7d7",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#ffe17a",
+                        "on-surface": "#e6e1e4",
+                        "surface-container": "#201f21",
+                        "secondary-fixed-dim": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#930100",
+                        "surface-tint": "#ecc300"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "24px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "shard-angle": "15deg",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Anton"],
+                        "subheading": ["Geist"],
+                        "headline-lg-mobile": ["Anton"],
+                        "label-mono": ["Space Mono"],
+                        "body-md": ["Geist"],
+                        "display-xl": ["Anton"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["64px", { "lineHeight": "70px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "subheading": ["20px", { "lineHeight": "28px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["48px", { "lineHeight": "52px", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-xl": ["120px", { "lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            height: 300vh;
+            overflow-x: hidden;
+            background-color: theme('colors.background');
+        }
+
+        .scene {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            perspective: 1500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 10;
+            pointer-events: none; /* Let clicks pass through background */
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            pointer-events: auto; /* Re-enable pointer events for the carousel itself */
+        }
+
+        .carousel__cell {
+            position: absolute;
+            left: calc(50% - 200px); /* Adjust based on card width */
+            top: calc(50% - 300px); /* Adjust based on card height */
+            width: 400px;
+            height: 600px;
+            transition: transform 1s, opacity 1s;
+            backface-visibility: hidden;
+            pointer-events: auto;
+        }
+
+        @media (max-width: 768px) {
+            .carousel__cell {
+                left: calc(50% - 160px);
+                top: calc(50% - 240px);
+                width: 320px;
+                height: 480px;
+            }
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px;
+        }
+
+        /* Red Bracket Details */
+        .glass-card::before, .glass-card::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid theme('colors.secondary-container');
+            pointer-events: none;
+        }
+
+        .glass-card::before {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .glass-card::after {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Primary Button Style */
+        .btn-primary {
+            background-color: theme('colors.primary-container');
+            color: black;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid theme('colors.primary-container');
+            z-index: -1;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn-primary:hover::before {
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            opacity: 1;
+        }
+
+        /* Tag Style */
+        .hazard-tag {
+            background: repeating-linear-gradient(
+                -45deg,
+                theme('colors.primary-container'),
+                theme('colors.primary-container') 5px,
+                #000 5px,
+                #000 10px
+            );
+            background-size: 20px 100%;
+            background-repeat: no-repeat;
+            padding-left: 28px;
+            position: relative;
+            background-color: rgba(255,255,255,0.1);
+            color: theme('colors.on-surface');
+            display: inline-block;
+        }
+
+        /* Slash Divider (Background Elements) */
+        .bg-slash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://lh3.googleusercontent.com/aida/ADBb0ujUiuNWZjE8OpG22hLW01Pn55Y0JGpfVpHdAG06Ow_Vy4TZOn4z05wYWGFtUHrK-poqP4kZiH1CEusudL_AN8CnanxosqTby6dbT9jQFYHQMF3klZzTUKy_Q0jwjF3Ob2ejvUSTeeaYdAEmlXQUmsNGIk1mFqn8ETSmcAq6foFCSO1DLYUt1h6zecgGFI4Rd4I1ibrX_sD8WH7TPuHv468x8UfcCqVjnZlHlkYCJ8AnC5rbNtNg6c2lIEI');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .shards-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(20,19,21,0.9) 0%, rgba(20,19,21,0.4) 50%, rgba(20,19,21,0.9) 100%);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-primary-container selection:text-black">
+<!-- Background Elements -->
+<div class="bg-slash"></div>
+<div class="shards-overlay"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-background/60 backdrop-blur-xl border-b-2 border-primary/20 flat no shadows hidden md:flex">
+<div class="font-headline-lg text-headline-lg uppercase tracking-tighter text-primary-container">
+            MillionPixels.dev
+        </div>
+<nav class="flex gap-8">
+<a class="font-label-mono text-label-mono text-primary-container font-bold border-b-2 border-primary-container scale-95 transition-transform hover:text-primary-container transition-colors duration-300" href="#">PROJECTS</a>
+<a class="font-label-mono text-label-mono text-on-background/70 font-medium hover:text-primary-container transition-colors duration-300" href="#">LABS</a>
+<a class="font-label-mono text-label-mono text-on-background/70 font-medium hover:text-primary-container transition-colors duration-300" href="#">CONTACT</a>
+</nav>
+<button class="font-headline-lg text-subheading uppercase text-primary px-6 py-2 border-2 border-outline hover:border-primary-container hover:text-primary-container transition-all">
+            HIRE ME
+        </button>
+</header>
+<!-- Mobile TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile py-4 bg-background/60 backdrop-blur-xl border-b-2 border-primary/20 md:hidden">
+<div class="font-headline-lg text-headline-lg-mobile uppercase tracking-tighter text-primary-container">
+            MP.dev
+        </div>
+<button class="font-headline-lg text-subheading uppercase text-primary px-4 py-2 border-2 border-outline">
+            HIRE ME
+        </button>
+</header>
+<!-- 3D Carousel Scene -->
+<main class="scene">
+<div class="carousel" id="carousel">
+<!-- Cell 1 -->
+<div class="carousel__cell glass-card">
+<div class="h-1/2 w-full bg-surface-variant mb-4 relative overflow-hidden group">
+<img alt="Dashboard UI" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-tech digital dashboard interface displaying complex financial data visualizations. The aesthetic is dark mode, sleek, and highly polished, featuring neon cyan and vibrant yellow accents against a deep charcoal background. The composition is precise and dense with information, evoking a sophisticated, modern fintech SaaS platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrgiJK8GrTJbFKjHe6QOVnqYEtGaPv29zRXJ_sBBrOnA2Q9Fi4rGx9WnoMkTVzD5Da1Sp5GZCaA9H4_QyLLRCPAcjsowKE5XBDYKZIIs3WBqVxHoSxQbgLq1oFx5pGY1BedVFPZBTW7eH6e4iIaiDKvm5JcWZb2NO212ArRatpSFr3p13dj91fgJxdJ3RFNySQA1aH3Utgn47X9Da4UaEyzeuFln0ZWHGnlr3l-LvTh54ZpeAWPKOECgwQu64zNCKxl3WIi4UZnW0"/>
+<div class="absolute inset-0 bg-primary-container/20 mix-blend-overlay"></div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<div class="hazard-tag font-label-mono text-label-mono py-1 pr-2 mb-2 w-max uppercase">FINTECH / WEB3</div>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-headline-lg-mobile uppercase text-white leading-none mb-4">NEO-BANK <span class="text-secondary-container">ALPHA</span></h2>
+<button class="btn-primary font-headline-lg text-subheading uppercase w-full py-3 mt-auto">VIEW PROJECT</button>
+</div>
+</div>
+<!-- Cell 2 -->
+<div class="carousel__cell glass-card">
+<div class="h-1/2 w-full bg-surface-variant mb-4 relative overflow-hidden group">
+<img alt="Abstract Data" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An abstract 3D rendering of digital data shards exploding in a chaotic yet controlled manner. Geometric crystalline forms in vibrant yellow and stark white clash against a pitch-black background. The scene is illuminated by harsh, directional lighting, creating high-contrast edges and a sense of aggressive, dynamic motion typical of a high-octane tech brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5PkS5LBLxOMiZ5qOohNFEXRpoSD09hDJIHZmRwToo3k-kM2KrObAfseCYgNpHbwLL-ikB0HpjqyZfmesfZAtwT2k7zyUx7RkjZyue-RoC_-0PXsxKBOwrM4Dz5o7VSnWV3HPz3SkzAKoug93nKUY-9NltZb7kp4-VpI4B7UnxtRRtBMf0LQbcKRC9KvYGQm10PmFt7zlVFEb8aXUt-swEDHO7fIUd1-wbfZ6TZgKvttbTyyAoZ0CK4RyHHuaur7wcp-0N0TbwgvE"/>
+<div class="absolute inset-0 bg-secondary-container/20 mix-blend-overlay"></div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<div class="hazard-tag font-label-mono text-label-mono py-1 pr-2 mb-2 w-max uppercase">AI / DATA</div>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-headline-lg-mobile uppercase text-white leading-none mb-4">DATA <span class="text-primary-container">SHARD</span></h2>
+<button class="btn-primary font-headline-lg text-subheading uppercase w-full py-3 mt-auto">VIEW PROJECT</button>
+</div>
+</div>
+<!-- Cell 3 -->
+<div class="carousel__cell glass-card">
+<div class="h-1/2 w-full bg-surface-variant mb-4 relative overflow-hidden group">
+<img alt="Kinetic Typography" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A striking visual composition featuring bold, distorted typography stretching across an abstract plane. The design is heavily inspired by brutalist web design and street-wear aesthetics, utilizing a stark black, white, and primary yellow color palette. The typography feels kinetic, as if in motion, with jagged intersections and a raw, uncompromising energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApiPK333N2Lwa0-R4H9BfDMOma_6dhT2sg4VJu887CPlyk3rJ5pjWzTHgINvBoJZV9-ud83_udk4WgOROMhIZmM8Huz5eFLdFxCSCzlJDAHmd5-w1ETUnmXM_6IFzr9Bia1FIuZfiB35h9QUT7h15gtEgUezw_qEh6ppuzWTCwa1BmdlVQz0MyfiYlQ-7b6Do1i8A3jlSlX_yFVKSlq5n3DdcpdaMdqJdrdgOTbxM2GKr8s6fSXCCzi5jIN9KAwTyt9cX9HTupLxc"/>
+<div class="absolute inset-0 bg-black/40 mix-blend-overlay"></div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<div class="hazard-tag font-label-mono text-label-mono py-1 pr-2 mb-2 w-max uppercase">AGENCY / BRAND</div>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-headline-lg-mobile uppercase text-white leading-none mb-4">KINETIC <span class="text-secondary-container">VIBE</span></h2>
+<button class="btn-primary font-headline-lg text-subheading uppercase w-full py-3 mt-auto">VIEW PROJECT</button>
+</div>
+</div>
+<!-- Cell 4 -->
+<div class="carousel__cell glass-card">
+<div class="h-1/2 w-full bg-surface-variant mb-4 relative overflow-hidden group">
+<img alt="Retro Gaming UI" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A nostalgic yet modern digital interface blending retro 8-bit arcade aesthetics with sleek contemporary UI elements. Glowing neon red and yellow pixel art accents contrast sharply with a polished, dark glassmorphic background container. The scene feels like a high-end homage to early digital culture, designed for a modern web application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_XAEVSo2B7Qw11NGXVJfr8zmvoZLfUQYJYwc9mVRep2lbYDJGB38QBX433enPq-Z8Ft7r9Fr0KG4ccFAqmf-FDxSYc4AO6UPjHXYU3erv7qFE5PD363I3kHTITbXcmKSlxcBhXcM-H7tiHsGqupRX5SHNVOtptx-Z5pBKQ7l_ZhfzRbmjJst1yQzqQdOAKkC9anoLvab6yIjm-g-MR5p27avzoYJXOvfWcyr9NV717qVagpHMahyATxAkuVI5u75oXsfs2aGFkI"/>
+<div class="absolute inset-0 bg-primary-container/10 mix-blend-overlay"></div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<div class="hazard-tag font-label-mono text-label-mono py-1 pr-2 mb-2 w-max uppercase">GAMING / SAAS</div>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-headline-lg-mobile uppercase text-white leading-none mb-4">PIXEL <span class="text-primary-container">GENESIS</span></h2>
+<button class="btn-primary font-headline-lg text-subheading uppercase w-full py-3 mt-auto">VIEW PROJECT</button>
+</div>
+</div>
+<!-- Cell 5 -->
+<div class="carousel__cell glass-card">
+<div class="h-1/2 w-full bg-surface-variant mb-4 relative overflow-hidden group">
+<img alt="Code Matrix" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A dense, abstract visualization of neural network architecture represented by glowing, intersecting lines of light in deep red and harsh white. The lines form a complex, chaotic web against a pitch-black void, suggesting intense computational power and rapid data processing. The aesthetic is heavily technical, moody, and futuristic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyzsqTZkKpmXE-b0WdBvcbNvYH__vnQLvc5Jtzzg6Oe6aCw7CEcvTaz3bh7tQCXE81WFA1BM6dQlouc7JtRD-zG2ETWPRVvEycnEpQyStj-FR6S7OMOkjBnsTkqgCf5YdMpyRbsSfZzcTkI98yE1Vunq8wnI_oH7zGiZ8jALMNTbDqm5WrluISfvpOASVYWmrez4vH0FkgzjI4wZFV9-QBMJO1MTq0joGb5B6_QY8wR6F-gmQ7WiO2vj9ua1KVyum9K3FeykBq428"/>
+<div class="absolute inset-0 bg-secondary-container/10 mix-blend-overlay"></div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<div class="hazard-tag font-label-mono text-label-mono py-1 pr-2 mb-2 w-max uppercase">ML / BACKEND</div>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-headline-lg-mobile uppercase text-white leading-none mb-4">NEURAL <span class="text-secondary-container">FLOW</span></h2>
+<button class="btn-primary font-headline-lg text-subheading uppercase w-full py-3 mt-auto">VIEW PROJECT</button>
+</div>
+</div>
+<!-- Cell 6 -->
+<div class="carousel__cell glass-card">
+<div class="h-1/2 w-full bg-surface-variant mb-4 relative overflow-hidden group">
+<img alt="Cloud Infrastructure" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An imposing, monolithic server room visualized through a dramatic, cinematic lens. Towering racks of equipment are silhouetted against intense bursts of yellow and red ambient light, creating a sense of massive scale and power. The scene is atmospheric, with subtle fog and sharp geometric shadows dominating the composition, embodying an uncompromising build quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_mG3-Le9h-9YGJTMSYzBxQV9zlLcieahsBxLUezZjEOov8OsktPXLkY5kxhsCgC7cRHN7gDxcAZsFVk_wpAw4c_TUKP_8v7OnTQ-26W5-Pc60IBHMG4RSSte650gfuwFqWocK_88wTmGwobgzbM98UyUtquZtLyIQUZSpcyiqHgRHrv_Z232EURzozUnRfQ8DFu4wQI6Mo1F4rZg_y4FEzyoDIcKX_bESe22uBO5GZtaCl8orHA8A9EPVHrrhkuDTHuLtcFUH0fQ"/>
+<div class="absolute inset-0 bg-primary-container/20 mix-blend-overlay"></div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<div class="hazard-tag font-label-mono text-label-mono py-1 pr-2 mb-2 w-max uppercase">DEVOPS / CLOUD</div>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-headline-lg-mobile uppercase text-white leading-none mb-4">STORM <span class="text-primary-container">CORE</span></h2>
+<button class="btn-primary font-headline-lg text-subheading uppercase w-full py-3 mt-auto">VIEW PROJECT</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Scroll Indicator -->
+<div class="scroll-indicator">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 0;">mouse</span>
+<span class="font-label-mono text-label-mono text-primary-container uppercase tracking-widest text-xs">SCROLL TO ROTATE</span>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full py-unit px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-lowest border-t-4 border-secondary-container flat Transition-all duration-200 ease-in-out z-50">
+<div class="font-label-mono text-label-mono uppercase text-on-surface-variant">
+            ©2024 MILLIONPIXELS.DEV // UNCOMPROMISING BUILD
+        </div>
+<div class="flex gap-4 font-label-mono text-label-mono uppercase">
+<a class="text-on-surface-variant hover:text-secondary-fixed-dim" href="#">GITHUB</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed-dim" href="#">TWITTER</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed-dim" href="#">LINKEDIN</a>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('carousel');
+            const cells = carousel.querySelectorAll('.carousel__cell');
+            const cellCount = cells.length;
+            const radius = Math.round( ( 400 / 2 ) / Math.tan( Math.PI / cellCount ) ) + 100; // Adjust radius based on card width
+            const theta = 360 / cellCount;
+
+            // Initialize cell positions
+            cells.forEach((cell, i) => {
+                const angle = theta * i;
+                cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+            });
+
+            // Handle scroll to rotate
+            let currentRotation = 0;
+            const rotationSensitivity = 0.1; // Adjust how fast it rotates per pixel scrolled
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                currentRotation = scrollY * -rotationSensitivity; // Negative to scroll 'forward'
+                carousel.style.transform = `translateZ(${-radius}px) rotateY(${currentRotation}deg)`;
+            });
+            
+            // Initial transform
+            carousel.style.transform = `translateZ(${-radius}px) rotateY(${currentRotation}deg)`;
+        });
+    </script>
+</body></html>
