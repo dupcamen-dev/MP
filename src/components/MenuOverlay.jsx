@@ -68,6 +68,7 @@ export default function MenuOverlay() {
         onClick={toggle}
         className={open ? 'menu-btn open' : 'menu-btn'}
         style={{
+          position: 'relative', zIndex: 61, mixBlendMode: 'initial',
           display: 'flex', flexDirection: 'column', gap: 6,
           width: 48, height: 48, justifyContent: 'center', alignItems: 'flex-end',
           cursor: 'pointer', background: 'none', border: 'none', outline: 'none',
@@ -75,8 +76,8 @@ export default function MenuOverlay() {
       >
         <span className="l1" style={{
           display: 'block', height: 3, background: 'var(--primary)', transition: 'all 0.3s', borderRadius: 0,
-          width: open ? 36 : 36,
-          transform: open ? 'rotate(45deg) translate(5px,5px)' : 'none',
+          width: 36,
+          transform: open ? 'rotate(45deg) translate(6px,6px)' : 'none',
         }}></span>
         <span className="l2" style={{
           display: 'block', height: 3, background: 'var(--primary)', transition: 'all 0.3s', borderRadius: 0,
@@ -85,7 +86,7 @@ export default function MenuOverlay() {
         <span className="l3" style={{
           display: 'block', height: 3, background: 'var(--primary)', transition: 'all 0.3s', borderRadius: 0,
           width: open ? 36 : 40,
-          transform: open ? 'rotate(-45deg) translate(7px,-8px)' : 'none',
+          transform: open ? 'rotate(-45deg) translate(6px,-6px)' : 'none',
         }}></span>
       </button>
     </>
