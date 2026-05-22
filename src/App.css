@@ -68,8 +68,7 @@ body {
 }
 
 /* Hero title line hover with color change */
-.hero-title .line { display: block; cursor: crosshair; }
-.hero-title .line:nth-child(2):hover { color: var(--text) !important; transform: translateY(-8px) skewX(-12deg) !important; }
+.hero-title .line { display: block; }
 
 /* Keyframe animations */
 @keyframes marquee-h {
