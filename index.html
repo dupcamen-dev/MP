@@ -954,7 +954,7 @@
         }
 
         .cta-overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -2028,8 +2028,14 @@
 
                     const ctaOverlay = document.querySelector('.cta-overlay');
                     if (ctaOverlay) {
-                        const ctaTx = 100 - ctaPhase * 100;
-                        ctaOverlay.style.transform = `translateX(${ctaTx}%)`;
+                        if (pr > 0.75) {
+                            const ctaTx = 100 - ((pr - 0.75) / 0.25) * 100;
+                            ctaOverlay.style.transform = `translateX(${ctaTx}%)`;
+                            ctaOverlay.style.visibility = 'visible';
+                        } else {
+                            ctaOverlay.style.transform = 'translateX(100%)';
+                            ctaOverlay.style.visibility = 'hidden';
+                        }
                     }
 
                     const reveals = hScroll.querySelectorAll('.reveal');
