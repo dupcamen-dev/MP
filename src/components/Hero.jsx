@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
   const shardsRef = useRef(null);
+  const [animState, setAnimState] = useState('idle');
 
   useEffect(() => {
     const shards = shardsRef.current?.querySelectorAll('.shard');
@@ -19,6 +20,29 @@ export default function Hero() {
     window.addEventListener('mousemove', onMove);
     return () => window.removeEventListener('mousemove', onMove);
   }, []);
+
+  useEffect(() => {
+    if (animState !== 'idle') return;
+    function onScroll() { setAnimState('playing'); }
+    window.addEventListener('wheel', onScroll, { passive: true });
+    window.addEventListener('touchstart', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('wheel', onScroll);
+      window.removeEventListener('touchstart', onScroll);
+    };
+  }, [animState]);
+
+  useEffect(() => {
+    if (animState !== 'playing') return;
+    document.body.style.overflow = 'hidden';
+    const timer = setTimeout(() => {
+      setAnimState('complete');
+      document.body.style.overflow = '';
+    }, 800);
+    return () => { clearTimeout(timer); document.body.style.overflow = ''; };
+  }, [animState]);
+
+  const skewed = animState !== 'idle';
 
   return (
     <section id="hero" style={{
@@ -98,17 +122,16 @@ export default function Hero() {
           lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--bg)',
           width: '100%', textShadow: '8px 8px 0 var(--secondary)',
         }}>
-          <span className="line" style={{ display: 'block', transition: 'transform 0.5s, color 0.5s' }}
-            onMouseEnter={(e) => e.target.style.transform = 'skewX(12deg)'}
-            onMouseLeave={(e) => e.target.style.transform = ''}>
+          <span className="line" style={{
+            display: 'block', transition: 'transform 0.6s cubic-bezier(0.5, 0, 0, 1)',
+            transform: skewed ? 'skewX(12deg)' : '',
+          }}>
             MILLION
           </span>
           <span className="line" style={{
-            display: 'block', transition: 'transform 0.5s, color 0.5s',
-            transform: 'translateY(-8px)',
-          }}
-            onMouseEnter={(e) => e.target.style.transform = 'translateY(-8px) skewX(-12deg)'}
-            onMouseLeave={(e) => e.target.style.transform = 'translateY(-8px)'}>
+            display: 'block', transition: 'transform 0.6s cubic-bezier(0.5, 0, 0, 1)',
+            transform: skewed ? 'translateY(-8px) skewX(-12deg)' : 'translateY(-8px)',
+          }}>
             PIXELS
           </span>
         </h1>
