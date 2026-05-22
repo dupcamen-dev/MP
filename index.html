@@ -1975,8 +1975,11 @@
                 let ticking = false;
 
                 const numSlides = hTrack.children.length;
+                function getSlideWidth() {
+                    return hTrack.children[0]?.offsetWidth || window.innerWidth;
+                }
                 function calcTrackWidth() {
-                    return numSlides * window.innerWidth;
+                    return numSlides * getSlideWidth();
                 }
                 function setTrackWidth() {
                     hTrack.style.width = calcTrackWidth() + 'px';
@@ -1985,8 +1988,10 @@
                 function driveScroll() {
                     const ps = document.getElementById('process');
                     const tp = ps ? ps.offsetTop + ps.offsetHeight : 0;
-                    const trackW = calcTrackWidth();
-                    const mw = trackW - hScroll.clientWidth;
+                    const sw = getSlideWidth();
+                    const trackW = numSlides * sw;
+                    const cw = hScroll.clientWidth;
+                    const mw = trackW - cw;
                     const sc = Math.max(0, window.scrollY - tp);
                     const sh = spacer.offsetHeight;
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
@@ -1996,8 +2001,8 @@
                         `tp=${tp} | scY=${window.scrollY}\n` +
                         `sc=${sc.toFixed(0)} | spH=${sh}\n` +
                         `pr=${pr.toFixed(4)} | maxW=${mw}\n` +
-                        `tx=${tx.toFixed(0)} | tw(calc)=${trackW} | cw=${hScroll.clientWidth}\n` +
-                        `tw(scroll)=${hTrack.scrollWidth} | slides=${numSlides}`;
+                        `tx=${tx.toFixed(0)} | sw=${sw} | cw=${cw}\n` +
+                        `slides=${numSlides} | tw(calc)=${trackW} | tw(scroll)=${hTrack.scrollWidth}`;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
