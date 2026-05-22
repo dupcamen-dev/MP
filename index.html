@@ -1997,6 +1997,8 @@
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
                     const tx = pr * mw;
 
+                    console.log({tp, scrollY: window.scrollY, sc, sh, pr, tx, mw, cw, trackW});
+
                     debugEl.textContent =
                         `tp=${tp} | scY=${window.scrollY}\n` +
                         `sc=${sc.toFixed(0)} | spH=${sh}\n` +
@@ -2024,7 +2026,10 @@
                 }
 
                 setTrackWidth();
+                driveScroll();
+                let scrollCount = 0;
                 window.addEventListener('scroll', () => {
+                    scrollCount++;
                     if (!ticking) {
                         requestAnimationFrame(() => { ticking = false; driveScroll(); });
                         ticking = true;
@@ -2033,6 +2038,7 @@
                 window.addEventListener('resize', () => { setTrackWidth(); driveScroll(); }, { passive: true });
                 window.addEventListener('load', () => { setTrackWidth(); driveScroll(); }, { passive: true });
                 driveScroll();
+                setInterval(() => { console.log('scrollCount:', scrollCount, 'scY:', window.scrollY, 'docH:', document.documentElement.scrollHeight); }, 2000);
             } else {
                 debugEl.textContent = `hTrack=${!!hTrack} wrap=${!!wrap} spacer=${!!spacer}`;
             }
