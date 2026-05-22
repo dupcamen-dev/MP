@@ -954,6 +954,12 @@
             overflow: hidden;
         }
 
+        .h-scroll-track {
+            display: flex;
+            height: 100%;
+            will-change: transform;
+        }
+
         .h-scroll-spacer {
             height: 500vh;
             pointer-events: none;
@@ -962,7 +968,6 @@
         .h-scroll .slide {
             min-width: 100vw;
             height: 100vh;
-            scroll-snap-align: start;
             flex-shrink: 0;
             position: relative;
             display: flex;
@@ -1704,6 +1709,7 @@
     <!-- Horizontal Scroll Sections -->
     <div class="h-scroll-wrap">
     <div class="h-scroll" id="hScroll">
+        <div class="h-scroll-track" id="hScrollTrack">
 
     <!-- Showcase 3D Carousel -->
     <section class="slide showcase-slide" id="showcase">
@@ -1864,6 +1870,7 @@
 
     </div>
     </div>
+    </div>
     <div class="h-scroll-spacer"></div>
 
     <script>
@@ -1880,15 +1887,16 @@
 
             // Horizontal scroll elements
             const hScroll = document.getElementById('hScroll');
+            const hTrack = document.getElementById('hScrollTrack');
             const wrap = document.querySelector('.h-scroll-wrap');
             const spacer = document.querySelector('.h-scroll-spacer');
 
             function scrollToHSlide(targetId) {
                 const target = document.getElementById(targetId);
                 if (!target || !target.closest('.h-scroll')) return false;
-                const maxH = hScroll ? hScroll.scrollWidth - hScroll.clientWidth : 0;
+                const maxW = hTrack ? hTrack.scrollWidth - hScroll.clientWidth : 0;
                 const offset = target.offsetLeft;
-                const progress = maxH > 0 ? offset / maxH : 0;
+                const progress = maxW > 0 ? offset / maxW : 0;
                 const targetY = (wrap ? wrap.offsetTop : 0) + progress * (spacer ? spacer.offsetHeight : 0);
                 window.scrollTo({ top: targetY, behavior: 'smooth' });
                 return true;
@@ -1959,13 +1967,15 @@
             }
 
             // Page scroll drives horizontal scroll
-            if (hScroll && wrap && spacer) {
-                const maxH = hScroll.scrollWidth - hScroll.clientWidth;
+            if (hTrack && wrap && spacer) {
+                const maxW = hTrack.scrollWidth - hScroll.clientWidth;
 
                 function driveScroll() {
                     const scrolled = Math.max(0, window.scrollY - wrap.offsetTop);
                     const progress = Math.min(1, scrolled / spacer.offsetHeight);
-                    hScroll.scrollLeft = progress * maxH;
+                    const tx = progress * maxW;
+
+                    hTrack.style.transform = `translateX(${-tx}px)`;
 
                     if (carousel) {
                         carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${progress * -360}deg)`;
@@ -1977,15 +1987,34 @@
                         const slide = r.closest('.slide');
                         if (slide) {
                             const slideOffset = slide.offsetLeft;
-                            const slideProgress = (hScroll.scrollLeft - slideOffset + vw) / vw;
+                            const slideProgress = (tx - slideOffset + vw) / vw;
                             if (slideProgress > 0.3) r.classList.add('active');
                         }
                     });
                 }
 
+                // Use both scroll and wheel for reliability
                 window.addEventListener('scroll', driveScroll, { passive: true });
                 window.addEventListener('resize', driveScroll, { passive: true });
                 driveScroll();
+
+                // Fallback: wheel on window when h-scroll is stuck
+                window.addEventListener('wheel', (e) => {
+                    const rect = wrap.getBoundingClientRect();
+                    if (rect.top <= 0 && rect.bottom > 0 && hTrack) {
+                        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                            e.preventDefault();
+                            const maxW = hTrack.scrollWidth - hScroll.clientWidth;
+                            const tx = parseFloat(hTrack.style.transform.replace(/[^0-9\-.]/g, '')) || 0;
+                            const newTx = Math.max(0, Math.min(maxW, tx + e.deltaY));
+                            hTrack.style.transform = `translateX(${-newTx}px)`;
+                            const p = maxW > 0 ? newTx / maxW : 0;
+                            if (carousel) {
+                                carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${p * -360}deg)`;
+                            }
+                        }
+                    }
+                }, { passive: false });
             }
 
             // Reveal on scroll (page vertical scroll)
