@@ -975,6 +975,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            outline: 3px solid var(--secondary);
         }
 
         .h-scroll .slide.showcase-slide {
@@ -1969,8 +1970,15 @@
                 carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(0deg)`;
             }
 
+            // Debug overlay
+            const debugEl = document.createElement('div');
+            debugEl.id = 'hdebug';
+            debugEl.style.cssText = 'position:fixed;bottom:10px;left:10px;z-index:99999;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.4 monospace;padding:8px 12px;border-radius:4px;white-space:pre;pointer-events:none';
+            document.body.appendChild(debugEl);
+
             // Page scroll drives horizontal scroll
             if (hTrack && wrap && spacer) {
+                debugEl.textContent += '\nhScroll: OK';
                 let ticking = false;
 
                 function driveScroll() {
@@ -1980,6 +1988,12 @@
                     const scrolled = Math.max(0, window.scrollY - triggerPoint);
                     const progress = Math.min(1, scrolled / spacer.offsetHeight);
                     const tx = progress * maxW;
+
+                    debugEl.textContent =
+                        `tp=${triggerPoint} | scY=${window.scrollY}\n` +
+                        `sc=${scrolled.toFixed(0)} | spH=${spacer.offsetHeight}\n` +
+                        `pr=${progress.toFixed(4)} | maxW=${maxW}\n` +
+                        `tx=${tx.toFixed(0)} | tw=${hTrack.scrollWidth} | cw=${hScroll.clientWidth}`;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
@@ -2009,6 +2023,8 @@
                 window.addEventListener('resize', driveScroll, { passive: true });
                 window.addEventListener('load', driveScroll, { passive: true });
                 driveScroll();
+            } else {
+                debugEl.textContent = `hTrack=${!!hTrack} wrap=${!!wrap} spacer=${!!spacer}`;
             }
 
             // Reveal on scroll (page vertical scroll)
