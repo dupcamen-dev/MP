@@ -13,7 +13,7 @@ export default function Process() {
   return (
     <section id="process" style={{
       position: 'relative', background: 'var(--bg)', padding: '120px 0 0',
-      transform: 'translateY(-50vh)',
+      marginTop: '-50vh',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
