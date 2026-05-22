@@ -36,6 +36,11 @@
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        body.unlocked {
+            overflow-y: auto;
         }
 
         ::selection { background: var(--primary); color: var(--bg); }
@@ -749,6 +754,13 @@
                 <a href="#cta" class="btn-primary btn-large">ENGAGE PROTOCOL</a>
                 <a href="#process" class="btn-ghost btn-large">VIEW LOGIC</a>
             </div>
+            <div id="scrollProgress" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; color: rgba(255,255,255,0.3); text-transform: uppercase;">
+                <span id="scrollHint">SCROLL TO INITIALIZE</span>
+                <div style="width: 120px; height: 2px; background: rgba(255,255,255,0.1); position: relative;">
+                    <div id="progressFill" style="position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: var(--secondary); transition: width 0.05s linear;"></div>
+                </div>
+                <span id="progressPercent" style="font-family: 'Space Mono', monospace;">0%</span>
+            </div>
         </div>
     </section>
 
@@ -876,25 +888,76 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Text fill animation on scroll
             const titleFill = document.getElementById('titleFill');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            const scrollHint = document.getElementById('scrollHint');
             const hero = document.getElementById('hero');
+            const body = document.body;
+            const scrollDistance = window.innerHeight;
 
-            function updateTitleFill() {
-                const rect = hero.getBoundingClientRect();
-                const heroHeight = hero.offsetHeight;
-                const windowHeight = window.innerHeight;
-                const scrolled = windowHeight - rect.top;
-                const total = heroHeight + windowHeight;
-                let progress = scrolled / total;
-                progress = Math.max(0, Math.min(1, progress));
+            let progress = 0;
+            let isUnlocked = false;
+
+            function applyProgress(p) {
+                progress = Math.max(0, Math.min(1, p));
                 titleFill.style.width = (progress * 100) + '%';
+                progressFill.style.width = (progress * 100) + '%';
+                progressPercent.textContent = Math.round(progress * 100) + '%';
+
+                if (progress >= 1 && !isUnlocked) {
+                    isUnlocked = true;
+                    body.classList.add('unlocked');
+                    scrollHint.textContent = 'SYSTEM UNLOCKED';
+                    progressPercent.textContent = '100%';
+                }
             }
 
-            window.addEventListener('scroll', updateTitleFill);
-            updateTitleFill();
+            function handleWheel(e) {
+                if (isUnlocked) return;
 
-            // Reveal on scroll
+                const heroBottom = hero.getBoundingClientRect().bottom;
+                if (heroBottom <= 0) {
+                    isUnlocked = true;
+                    body.classList.add('unlocked');
+                    return;
+                }
+
+                e.preventDefault();
+                const delta = Math.abs(e.deltaY);
+                const increment = delta / scrollDistance;
+                applyProgress(progress + increment);
+            }
+
+            function handleTouchStart(e) {
+                if (isUnlocked) return;
+                this._touchStartY = e.touches[0].clientY;
+                this._touchStartTime = Date.now();
+            }
+
+            function handleTouchMove(e) {
+                if (isUnlocked) return;
+
+                const heroBottom = hero.getBoundingClientRect().bottom;
+                if (heroBottom <= 0) {
+                    isUnlocked = true;
+                    body.classList.add('unlocked');
+                    return;
+                }
+
+                const deltaY = this._touchStartY - e.touches[0].clientY;
+                if (deltaY > 0) {
+                    e.preventDefault();
+                    const increment = deltaY / scrollDistance;
+                    applyProgress(progress + increment);
+                }
+            }
+
+            document.addEventListener('wheel', handleWheel, { passive: false });
+            document.addEventListener('touchstart', handleTouchStart, { passive: true });
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+            // Reveal on scroll (only for sections below hero)
             const reveals = document.querySelectorAll('.reveal');
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -906,13 +969,6 @@
             }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
             reveals.forEach(r => revealObserver.observe(r));
-
-            setTimeout(() => {
-                reveals.forEach(r => {
-                    const rect = r.getBoundingClientRect();
-                    if (rect.top < window.innerHeight) r.classList.add('active');
-                });
-            }, 100);
 
             // Particles
             const container = document.getElementById('particles');
