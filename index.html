@@ -1062,6 +1062,20 @@
             background: var(--primary);
         }
 
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateX(100%);
+            will-change: transform;
+        }
+
         .cta-slide-title {
             font-family: 'Anton', sans-serif;
             font-size: clamp(4rem, 12vw, 10rem);
@@ -1830,8 +1844,11 @@
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="slide cta-slide" id="cta" style="display: flex; flex-direction: column; align-items: center; position: relative; padding-bottom: 0;">
+    </div>
+    </div>
+
+    <!-- CTA Overlay (slides over previous slides) -->
+    <section class="slide cta-slide cta-overlay" id="cta">
         <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 900px; width: 100%; text-align: center;">
             <h2 class="cta-slide-title">
                 <span class="line reveal" style="transition-delay:0.1s">START YOUR</span>
@@ -1855,8 +1872,6 @@
     </section>
 
     </div>
-    </div>
-    </div>
     <div class="h-scroll-spacer"></div>
 
     <script>
@@ -1878,6 +1893,14 @@
             const spacer = document.querySelector('.h-scroll-spacer');
 
             function scrollToHSlide(targetId) {
+                if (targetId === 'cta') {
+                    const processSection = document.getElementById('process');
+                    const tp = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
+                    const targetPr = 0.85;
+                    const targetY = tp + targetPr * (spacer ? spacer.offsetHeight : 0);
+                    window.scrollTo({ top: targetY, behavior: 'smooth' });
+                    return true;
+                }
                 const target = document.getElementById(targetId);
                 if (!target || !target.closest('.h-scroll')) return false;
                 const processSection = document.getElementById('process');
@@ -1887,7 +1910,7 @@
                 const maxW = num > 0 ? num * sw - hScroll.clientWidth : 0;
                 const offset = target.offsetLeft;
                 const progress = maxW > 0 ? offset / maxW : 0;
-                const pr = progress > 0 ? 0.25 + progress * 0.75 : 0;
+                const pr = progress > 0 ? 0.25 + progress * 0.5 : 0;
                 const targetY = tp + pr * (spacer ? spacer.offsetHeight : 0);
                 window.scrollTo({ top: targetY, behavior: 'smooth' });
                 return true;
@@ -1984,7 +2007,8 @@
                     const pr = sh > 0 ? Math.min(1, sc / sh) : 0;
 
                     const carouselPhase = Math.min(1, pr / 0.25);
-                    const trackPhase = pr > 0.25 ? (pr - 0.25) / 0.75 : 0;
+                    const trackPhase = pr > 0.25 ? Math.min(1, (pr - 0.25) / 0.5) : 0;
+                    const ctaPhase = pr > 0.75 ? Math.min(1, (pr - 0.75) / 0.25) : 0;
                     const tx = trackPhase * mw;
 
                     hTrack.style.transform = `translateX(${-tx}px)`;
@@ -1992,6 +2016,12 @@
                     if (carousel) {
                         const rot = carouselPhase * -180;
                         carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${rot}deg)`;
+                    }
+
+                    const ctaOverlay = document.querySelector('.cta-overlay');
+                    if (ctaOverlay) {
+                        const ctaTx = 100 - ctaPhase * 100;
+                        ctaOverlay.style.transform = `translateX(${ctaTx}%)`;
                     }
 
                     const reveals = hScroll.querySelectorAll('.reveal');
@@ -2003,6 +2033,11 @@
                             const slideProgress = (tx - slideOffset + vw) / vw;
                             if (slideProgress > 0.3) r.classList.add('active');
                         }
+                    });
+
+                    const ctaReveals = document.querySelectorAll('.cta-overlay .reveal');
+                    ctaReveals.forEach(r => {
+                        if (ctaPhase > 0.3) r.classList.add('active');
                     });
                 }
 
