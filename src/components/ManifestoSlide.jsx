@@ -31,6 +31,26 @@ export default function ManifestoSlide() {
           Slash the rules. Grind the raw.
         </p>
       </div>
+      <div style={{
+        position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
+        zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
+        gap: 6, opacity: 0.4, pointerEvents: 'none',
+      }}>
+        <span style={{
+          fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
+          letterSpacing: '0.1em', color: 'var(--text)', textTransform: 'uppercase',
+        }}>SCROLL TO EXPLORE</span>
+        <div style={{
+          width: 20, height: 32, border: '2px solid var(--text)', borderRadius: 10,
+          position: 'relative', opacity: 0.4,
+        }}>
+          <div style={{
+            position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
+            width: 2, height: 8, background: 'var(--text)',
+            animation: 'scroll-wheel 2s ease-in-out infinite',
+          }} />
+        </div>
+      </div>
     </section>
   );
 }
