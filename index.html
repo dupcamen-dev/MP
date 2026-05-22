@@ -1968,9 +1968,10 @@
 
             // Page scroll drives horizontal scroll
             if (hTrack && wrap && spacer) {
-                const maxW = hTrack.scrollWidth - hScroll.clientWidth;
+                let ticking = false;
 
                 function driveScroll() {
+                    const maxW = hTrack.scrollWidth - hScroll.clientWidth;
                     const scrolled = Math.max(0, window.scrollY - wrap.offsetTop);
                     const progress = Math.min(1, scrolled / spacer.offsetHeight);
                     const tx = progress * maxW;
@@ -1978,7 +1979,8 @@
                     hTrack.style.transform = `translateX(${-tx}px)`;
 
                     if (carousel) {
-                        carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${progress * -360}deg)`;
+                        const rot = progress * -180;
+                        carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${rot}deg)`;
                     }
 
                     const reveals = hScroll.querySelectorAll('.reveal');
@@ -1993,28 +1995,14 @@
                     });
                 }
 
-                // Use both scroll and wheel for reliability
-                window.addEventListener('scroll', driveScroll, { passive: true });
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => { ticking = false; driveScroll(); });
+                        ticking = true;
+                    }
+                }, { passive: true });
                 window.addEventListener('resize', driveScroll, { passive: true });
                 driveScroll();
-
-                // Fallback: wheel on window when h-scroll is stuck
-                window.addEventListener('wheel', (e) => {
-                    const rect = wrap.getBoundingClientRect();
-                    if (rect.top <= 0 && rect.bottom > 0 && hTrack) {
-                        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                            e.preventDefault();
-                            const maxW = hTrack.scrollWidth - hScroll.clientWidth;
-                            const tx = parseFloat(hTrack.style.transform.replace(/[^0-9\-.]/g, '')) || 0;
-                            const newTx = Math.max(0, Math.min(maxW, tx + e.deltaY));
-                            hTrack.style.transform = `translateX(${-newTx}px)`;
-                            const p = maxW > 0 ? newTx / maxW : 0;
-                            if (carousel) {
-                                carousel.style.transform = `translateZ(${-carouselRadius}px) rotateY(${p * -360}deg)`;
-                            }
-                        }
-                    }
-                }, { passive: false });
             }
 
             // Reveal on scroll (page vertical scroll)
