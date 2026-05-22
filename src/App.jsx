@@ -13,7 +13,7 @@ export default function App() {
     <>
       <Particles />
       <Header />
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', marginBottom: '-50vh' }}>
         <Hero />
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
       </div>
