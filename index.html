@@ -957,6 +957,7 @@
         .h-scroll-track {
             display: flex;
             height: 100%;
+            flex: none;
             will-change: transform;
         }
 
@@ -1970,11 +1971,11 @@
 
             // Page scroll drives horizontal scroll
             if (hTrack && wrap && spacer) {
-                const processSection = document.getElementById('process');
-                const triggerPoint = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
                 let ticking = false;
 
                 function driveScroll() {
+                    const processSection = document.getElementById('process');
+                    const triggerPoint = processSection ? processSection.offsetTop + processSection.offsetHeight : 0;
                     const maxW = hTrack.scrollWidth - hScroll.clientWidth;
                     const scrolled = Math.max(0, window.scrollY - triggerPoint);
                     const progress = Math.min(1, scrolled / spacer.offsetHeight);
