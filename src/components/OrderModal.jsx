@@ -11,14 +11,14 @@ const inputStyle = {
 };
 
 export default function OrderModal({ onClose }) {
-  const [form, setForm] = useState({ idea: '', deadline: '', budget: '' });
+  const [form, setForm] = useState({ idea: '', deadline: '', budget: '', contact: '' });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
 
   const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async () => {
-    if (!form.idea.trim() || !form.deadline.trim() || !form.budget.trim()) return;
+    if (!form.idea.trim() || !form.deadline.trim() || !form.budget.trim() || !form.contact.trim()) return;
     setSending(true);
     const now = new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' });
     const msg = [
@@ -28,6 +28,7 @@ export default function OrderModal({ onClose }) {
       `*IDEA:* ${form.idea}`,
       `*DEADLINE:* ${form.deadline}`,
       `*BUDGET:* $${form.budget}`,
+      `*CONTACT:* ${form.contact}`,
     ].join('\n');
 
     try {
@@ -128,7 +129,7 @@ export default function OrderModal({ onClose }) {
           />
         </div>
 
-        <div style={{ marginBottom: 32 }}>
+        <div style={{ marginBottom: 20 }}>
           <label style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
             color: '#141315', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
@@ -139,6 +140,22 @@ export default function OrderModal({ onClose }) {
             onChange={update('budget')}
             placeholder="1000"
             min="0"
+            style={inputStyle}
+            onFocus={e => e.target.style.borderColor = '#141315'}
+            onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
+          />
+        </div>
+
+        <div style={{ marginBottom: 32 }}>
+          <label style={{
+            fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
+            color: '#141315', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
+          }}>CONTACT (EMAIL / TG / PHONE)</label>
+          <input
+            type="text"
+            value={form.contact}
+            onChange={update('contact')}
+            placeholder="@username or email@example.com"
             style={inputStyle}
             onFocus={e => e.target.style.borderColor = '#141315'}
             onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
