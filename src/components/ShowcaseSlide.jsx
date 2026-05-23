@@ -5,8 +5,10 @@ const CARD_H = 840;
 
 export default function ShowcaseSlide({ cardIndex }) {
   const carouselRef = useRef(null);
+  const sectionRef = useRef(null);
   const radiusRef = useRef(0);
   const [entered, setEntered] = useState(false);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -21,20 +23,40 @@ export default function ShowcaseSlide({ cardIndex }) {
       cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
     });
     carousel.style.transition = 'none';
-    carousel.style.transform = `translateZ(${-radius}px) rotateY(-25deg) scale(0.85)`;
+    carousel.style.transform = `translateZ(${-radius}px) rotateY(-25deg) scale(0.88)`;
     carousel.style.opacity = '0';
-    void carousel.offsetHeight;
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const r = radiusRef.current;
     carousel.style.transition = 'transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease';
-    carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg) scale(1)`;
+    carousel.style.transform = `translateZ(${-r}px) rotateY(0deg) scale(1)`;
     carousel.style.opacity = '1';
     const timer = setTimeout(() => setEntered(true), 1200);
     return () => clearTimeout(timer);
+  }, [inView]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true);
+        observer.unobserve(el);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel || !entered) return;
     const rot = (cardIndex / 6) * -360;
+    carousel.style.transition = 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${rot}deg)`;
   }, [cardIndex, entered]);
 
@@ -48,7 +70,7 @@ export default function ShowcaseSlide({ cardIndex }) {
   ];
 
   return (
-    <section className="slide showcase-slide" id="showcase" style={{
+    <section ref={sectionRef} className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
@@ -66,7 +88,6 @@ export default function ShowcaseSlide({ cardIndex }) {
         <div ref={carouselRef} className="carousel-3d" style={{
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d',
-          transition: 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
         }}>
           {projects.map((p, i) => (
             <div key={i} className="carousel-cell" style={{
