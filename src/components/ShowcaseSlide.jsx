@@ -20,10 +20,10 @@ export default function ShowcaseSlide({ cardIndex }) {
     const theta = 360 / cellCount;
     cells.forEach((cell, i) => {
       const angle = theta * i;
-      cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+      cell.style.transform = `rotateY(${angle}deg) translateZ(0px)`;
     });
     carousel.style.transition = 'none';
-    carousel.style.transform = `translateZ(${-radius}px) rotateY(-25deg) scale(0.88)`;
+    carousel.style.transform = `translateZ(${-radius}px) rotateY(-15deg) scale(0.85)`;
     carousel.style.opacity = '0';
   }, []);
 
@@ -32,10 +32,18 @@ export default function ShowcaseSlide({ cardIndex }) {
     const carousel = carouselRef.current;
     if (!carousel) return;
     const r = radiusRef.current;
-    carousel.style.transition = 'transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease';
+    const cells = carousel.querySelectorAll('.carousel-cell');
+    const cellCount = cells.length;
+    const bounce = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+    carousel.style.transition = `transform 1.6s ${bounce}, opacity 1.2s ease`;
     carousel.style.transform = `translateZ(${-r}px) rotateY(0deg) scale(1)`;
     carousel.style.opacity = '1';
-    const timer = setTimeout(() => setEntered(true), 1200);
+    cells.forEach((cell, i) => {
+      const angle = (360 / cellCount) * i;
+      cell.style.transition = `transform 0.9s ${bounce} ${i * 0.07}s`;
+      cell.style.transform = `rotateY(${angle}deg) translateZ(${r}px)`;
+    });
+    const timer = setTimeout(() => setEntered(true), 2200);
     return () => clearTimeout(timer);
   }, [inView]);
 
