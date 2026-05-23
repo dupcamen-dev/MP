@@ -1,12 +1,34 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
-export default function ShowcaseSlide({ carouselRot, progress }) {
+export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const mobile = window.innerWidth < 900;
   const CARD_W = mobile ? 320 : 600;
   const CARD_H = mobile ? 480 : 840;
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
+  const touchRef = useRef(null);
   const [colored, setColored] = useState({});
+  const [swipeIdx, setSwipeIdx] = useState(0);
+
+  const handleTouchStart = useCallback((e) => {
+    touchRef.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+    if (touchRef.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchRef.current;
+    touchRef.current = null;
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0) {
+      setSwipeIdx(prev => {
+        if (prev < 5) return prev + 1;
+        onCardEnd?.();
+        return prev;
+      });
+    } else {
+      setSwipeIdx(prev => Math.max(0, prev - 1));
+    }
+  }, []);
 
   useEffect(() => {
     const el = document.getElementById('showcase');
@@ -50,7 +72,12 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
   }, [carouselRot]);
 
   const totalCards = 6;
-  const cardIndex = mobile ? Math.min(Math.floor(progress / 0.15), totalCards - 1) : 0;
+  const cardIndex = mobile ? swipeIdx : 0;
+
+  const touchProps = mobile ? {
+    onTouchStart: handleTouchStart,
+    onTouchEnd: handleTouchEnd,
+  } : {};
 
   const projects = [
     { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
@@ -77,9 +104,9 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
         position: 'relative', width: '100%', height: '100%',
         perspective: 1800, display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <div ref={carouselRef} className="carousel-3d" style={mobile ? {
+        <div ref={carouselRef} className="carousel-3d" {...touchProps} style={mobile ? {
           width: '100%', height: '100%', position: 'relative',
-          overflow: 'hidden',
+          overflow: 'hidden', touchAction: 'pan-y',
         } : {
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d', willChange: 'transform',
@@ -162,7 +189,7 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
           letterSpacing: '0.1em', color: '#000', textTransform: 'uppercase',
-        }}>SCROLL TO EXPLORE</span>
+        }}>{mobile ? `SWIPE • ${swipeIdx + 1}/${totalCards}` : 'SCROLL TO EXPLORE'}</span>
         <div style={{
           width: 20, height: 32, border: '2px solid #000', borderRadius: 10,
           position: 'relative', opacity: 0.4,
