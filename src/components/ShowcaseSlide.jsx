@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const mobile = window.innerWidth < 900;
@@ -10,28 +10,34 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const [colored, setColored] = useState({});
   const [swipeIdx, setSwipeIdx] = useState(0);
 
-  const handleTouchStart = useCallback((e) => {
-    touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-  }, []);
-
-  const handleTouchEnd = useCallback((e) => {
-    if (!touchRef.current) return;
-    const dy = e.changedTouches[0].clientY - touchRef.current.y;
-    const dx = e.changedTouches[0].clientX - touchRef.current.x;
-    touchRef.current = null;
-    if (Math.abs(dy) < 50 && Math.abs(dx) < 50) return;
-    if (Math.abs(dy) > Math.abs(dx)) {
-      if (dy < -50) {
+  useEffect(() => {
+    if (!mobile) return;
+    const el = carouselRef.current;
+    if (!el) return;
+    let startY = null;
+    function onTouchStart(e) { startY = e.touches[0].clientY; }
+    function onTouchEnd(e) {
+      if (startY === null) return;
+      const dy = e.changedTouches[0].clientY - startY;
+      startY = null;
+      if (Math.abs(dy) < 40) return;
+      if (dy < -40) {
         setSwipeIdx(prev => {
           if (prev < 5) return prev + 1;
           onCardEnd?.();
           return prev;
         });
-      } else if (dy > 50) {
+      } else {
         setSwipeIdx(prev => Math.max(0, prev - 1));
       }
     }
-  }, []);
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [mobile, onCardEnd]);
 
   useEffect(() => {
     const el = document.getElementById('showcase');
@@ -77,11 +83,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const totalCards = 6;
   const cardIndex = mobile ? swipeIdx : 0;
 
-  const touchProps = mobile ? {
-    onTouchStart: handleTouchStart,
-    onTouchEnd: handleTouchEnd,
-  } : {};
-
   const projects = [
     { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
     { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
@@ -107,9 +108,9 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
         position: 'relative', width: '100%', height: '100%',
         perspective: 1800, display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <div ref={carouselRef} className="carousel-3d" {...touchProps} style={mobile ? {
+        <div ref={carouselRef} className="carousel-3d" style={mobile ? {
           width: '100%', height: '100%', position: 'relative',
-          overflow: 'hidden', touchAction: 'pan-y',
+          overflow: 'hidden',
         } : {
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d', willChange: 'transform',
