@@ -1,8 +1,10 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import OrderModal from './OrderModal';
 
 export default function CtaOverlay({ progress }) {
   const overlayRef = useRef(null);
   const mobile = window.innerWidth < 900;
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const el = overlayRef.current;
@@ -59,13 +61,16 @@ export default function CtaOverlay({ progress }) {
         }}>
           SECURE YOUR SLOT. WE BUILD YOUR MVP IN 7 DAYS. NO EXCUSES.
         </p>
-        <button className="cta-btn reveal" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 16,
-          padding: '24px 60px', background: '#141315', color: '#ffd300',
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.2rem,2.5vw,1.75rem)',
-          textTransform: 'uppercase', border: '4px solid #141315',
-          cursor: 'pointer',
-        }}>
+        <button
+          className="cta-btn reveal"
+          onClick={() => setShowModal(true)}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 16,
+            padding: '24px 60px', background: '#141315', color: '#ffd300',
+            fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.2rem,2.5vw,1.75rem)',
+            textTransform: 'uppercase', border: '4px solid #141315',
+            cursor: 'pointer',
+          }}>
           INITIATE PROTOCOL
           <span className="material-icons" style={{ fontSize: '2.5rem' }}>arrow_forward</span>
         </button>
@@ -93,6 +98,7 @@ export default function CtaOverlay({ progress }) {
           ))}
         </nav>
       </div>
+      {showModal && <OrderModal onClose={() => setShowModal(false)} />}
     </section>
   );
 }
