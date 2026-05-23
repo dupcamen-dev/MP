@@ -20,10 +20,10 @@ export default function ShowcaseSlide({ cardIndex }) {
     const theta = 360 / cellCount;
     cells.forEach((cell, i) => {
       const angle = theta * i;
-      cell.style.transform = `rotateY(${angle}deg) translateZ(0px)`;
+      cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
     });
     carousel.style.transition = 'none';
-    carousel.style.transform = `translateZ(${-radius}px) rotateY(-15deg) scale(0.85)`;
+    carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg) scale(1)`;
     carousel.style.opacity = '0';
   }, []);
 
@@ -32,18 +32,9 @@ export default function ShowcaseSlide({ cardIndex }) {
     const carousel = carouselRef.current;
     if (!carousel) return;
     const r = radiusRef.current;
-    const cells = carousel.querySelectorAll('.carousel-cell');
-    const cellCount = cells.length;
-    const bounce = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
-    carousel.style.transition = `transform 1.6s ${bounce}, opacity 1.2s ease`;
-    carousel.style.transform = `translateZ(${-r}px) rotateY(0deg) scale(1)`;
+    carousel.style.transition = 'opacity 0.8s ease';
     carousel.style.opacity = '1';
-    cells.forEach((cell, i) => {
-      const angle = (360 / cellCount) * i;
-      cell.style.transition = `transform 0.9s ${bounce} ${i * 0.07}s`;
-      cell.style.transform = `rotateY(${angle}deg) translateZ(${r}px)`;
-    });
-    const timer = setTimeout(() => setEntered(true), 2200);
+    const timer = setTimeout(() => setEntered(true), 800);
     return () => clearTimeout(timer);
   }, [inView]);
 
@@ -84,7 +75,7 @@ export default function ShowcaseSlide({ cardIndex }) {
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
     }}>
       <div style={{
-        position: 'absolute', inset: 0, opacity: entered ? 0.08 : 0,
+        position: 'absolute', inset: 0, opacity: entered ? 0.06 : 0,
         background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
         transition: 'opacity 1.5s ease',
         pointerEvents: 'none',
@@ -159,7 +150,7 @@ export default function ShowcaseSlide({ cardIndex }) {
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
         zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
         gap: 6, opacity: entered ? 0.4 : 0,
-        transition: 'opacity 0.8s ease 0.6s', pointerEvents: 'none',
+        transition: 'opacity 0.8s ease', pointerEvents: 'none',
       }}>
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
