@@ -11,22 +11,25 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const [swipeIdx, setSwipeIdx] = useState(0);
 
   const handleTouchStart = useCallback((e) => {
-    touchRef.current = e.touches[0].clientX;
+    touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   }, []);
 
   const handleTouchEnd = useCallback((e) => {
-    if (touchRef.current === null) return;
-    const dx = e.changedTouches[0].clientX - touchRef.current;
+    if (!touchRef.current) return;
+    const dy = e.changedTouches[0].clientY - touchRef.current.y;
+    const dx = e.changedTouches[0].clientX - touchRef.current.x;
     touchRef.current = null;
-    if (Math.abs(dx) < 50) return;
-    if (dx < 0) {
-      setSwipeIdx(prev => {
-        if (prev < 5) return prev + 1;
-        onCardEnd?.();
-        return prev;
-      });
-    } else {
-      setSwipeIdx(prev => Math.max(0, prev - 1));
+    if (Math.abs(dy) < 50 && Math.abs(dx) < 50) return;
+    if (Math.abs(dy) > Math.abs(dx)) {
+      if (dy < -50) {
+        setSwipeIdx(prev => {
+          if (prev < 5) return prev + 1;
+          onCardEnd?.();
+          return prev;
+        });
+      } else if (dy > 50) {
+        setSwipeIdx(prev => Math.max(0, prev - 1));
+      }
     }
   }, []);
 
