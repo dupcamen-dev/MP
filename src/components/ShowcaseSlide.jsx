@@ -49,6 +49,9 @@ export default function ShowcaseSlide({ carouselRot }) {
     carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${carouselRot}deg)`;
   }, [carouselRot]);
 
+  const totalCards = 6;
+  const cardIndex = mobile ? Math.min(Math.floor(Math.abs(carouselRot) / (360 / totalCards)), totalCards - 1) : 0;
+
   const projects = [
     { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
     { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
@@ -74,8 +77,8 @@ export default function ShowcaseSlide({ carouselRot }) {
         perspective: 1800, display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <div ref={carouselRef} className="carousel-3d" style={mobile ? {
-          width: '100%', height: '100%', display: 'flex', alignItems: 'center',
-          justifyContent: 'center', gap: 12, overflow: 'hidden',
+          width: '100%', height: '100%', position: 'relative',
+          overflow: 'hidden',
         } : {
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d', willChange: 'transform',
@@ -86,10 +89,11 @@ export default function ShowcaseSlide({ carouselRot }) {
               className="carousel-cell"
               onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
               style={mobile ? {
-                width: CARD_W, height: CARD_H, flexShrink: 0,
-                transform: i === 0 ? 'none' : 'scale(0.9)',
-                opacity: i === 0 ? 1 : 0.5,
-                transition: 'opacity 0.3s, transform 0.3s',
+                width: CARD_W, height: CARD_H, position: 'absolute',
+                left: '50%', top: '50%',
+                transform: i === cardIndex ? 'translate(-50%,-50%)' : 'translate(-50%,-50%) scale(0.92)',
+                opacity: i === cardIndex ? 1 : 0,
+                transition: 'opacity 0.4s, transform 0.4s',
               } : {
                 position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
                 top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
