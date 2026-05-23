@@ -1,25 +1,30 @@
 import { useEffect, useRef } from 'react';
 
-export default function Process() {
+export default function Process({ progress }) {
   const marqueeRef = useRef(null);
+  const totalWRef = useRef(null);
 
   useEffect(() => {
+    totalWRef.current = marqueeRef.current ? marqueeRef.current.scrollWidth / 2 : null;
     const el = document.getElementById('process');
     if (!el) return;
-    function update() {
-      const sy = window.scrollY;
-      const vh = window.innerHeight;
-      const t = Math.max(0, Math.min(1, (sy - vh) / vh));
-      el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
-      if (marqueeRef.current) {
-        const totalW = marqueeRef.current.scrollWidth / 2;
-        const offset = (-sy * 0.5) % totalW;
-        marqueeRef.current.style.transform = `translateX(${offset}px)`;
-      }
+    const vh = window.innerHeight;
+    const sy = window.scrollY;
+    const t = Math.max(0, Math.min(1, (sy - vh) / vh));
+    el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
+    if (marqueeRef.current && totalWRef.current) {
+      const offset = (-sy * 0.5) % totalWRef.current;
+      marqueeRef.current.style.transform = `translateX(${offset}px)`;
     }
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
+  }, [progress]);
+
+  useEffect(() => {
+    const cards = document.querySelectorAll('#process .card-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    cards.forEach(c => observer.observe(c));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -35,6 +40,7 @@ export default function Process() {
     <section id="process" style={{
       position: 'relative', zIndex: 3, marginBottom: '-100vh',
       background: 'var(--bg)', padding: '120px 0 0',
+      willChange: 'transform',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
@@ -199,6 +205,7 @@ export default function Process() {
       }}>
         <div ref={marqueeRef} style={{
           display: 'flex', whiteSpace: 'nowrap', width: 'max-content',
+          willChange: 'transform',
         }}>
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i}>

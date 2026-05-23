@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 
-export default function Hero() {
+export default function Hero({ progress }) {
   const shardsRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    if (window.innerWidth < 900) return;
     const shards = shardsRef.current?.querySelectorAll('.shard');
     if (!shards) return;
     function onMove(e) {
@@ -21,16 +21,7 @@ export default function Hero() {
     return () => window.removeEventListener('mousemove', onMove);
   }, []);
 
-  useEffect(() => {
-    function onScroll() {
-      setScrollProgress(Math.min(1, window.scrollY / window.innerHeight));
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const p = scrollProgress;
+  const p = progress;
   const skew = p * 12;
   const r = Math.round(33 + (255 - 33) * p);
   const g = Math.round(32 + (255 - 32) * p);

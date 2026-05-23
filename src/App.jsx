@@ -14,10 +14,10 @@ export default function App() {
       <Particles />
       <Header />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <Hero />
+        <Hero progress={progress} />
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
       </div>
-      <Process />
+      <Process progress={progress} />
       <HorizontalScroll progress={progress} />
       <div className="h-scroll-spacer" style={{ height: '1000vh', pointerEvents: 'none' }} />
       <div style={{ height: '200vh', pointerEvents: 'none' }} />

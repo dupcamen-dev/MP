@@ -76,6 +76,11 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes loading-bar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
 @keyframes scroll-wheel {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
   50% { transform: translateX(-50%) translateY(8px); opacity: 0.3; }
@@ -141,6 +146,7 @@ body {
 
 @media (max-width: 900px) {
   :root { --section-padding: 24px; }
+  [style*="backdrop-filter"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
   header { padding: 16px 24px !important; }
   .header-logo { font-size: 1.2rem !important; }
