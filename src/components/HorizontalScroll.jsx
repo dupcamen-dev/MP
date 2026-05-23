@@ -35,13 +35,13 @@ export default function HorizontalScroll({ progress }) {
       }}
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(0)}%)`, transition: mobile ? 'transform 0.5s ease' : 'none' }}>
+        <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(0)}%)`, willChange: 'transform' }}>
           <ShowcaseSlide carouselRot={carouselRot} progress={progress} />
         </div>
-        <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)`, transition: mobile ? 'transform 0.5s ease' : 'none' }}>
+        <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)`, willChange: 'transform' }}>
           <ReviewsSlide cardPhase={cardPhase} />
         </div>
-        <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(2)}%)`, transition: mobile ? 'transform 0.5s ease' : 'none' }}>
+        <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(2)}%)`, willChange: 'transform' }}>
           <ManifestoSlide progress={slideP} />
         </div>
       </div>

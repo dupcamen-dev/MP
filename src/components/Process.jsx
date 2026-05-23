@@ -15,7 +15,7 @@ export default function Process({ progress }) {
       const t = Math.max(0, Math.min(1, (sy - vh) / vh));
       el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
       if (marqueeRef.current && totalWRef.current) {
-        const offset = (-sy * 0.5) % totalWRef.current;
+        const offset = Math.round((-sy * 0.5) % totalWRef.current);
         marqueeRef.current.style.transform = `translateX(${offset}px)`;
       }
     }
@@ -38,7 +38,7 @@ export default function Process({ progress }) {
     <section id="process" style={{
       position: 'relative', zIndex: 3, marginBottom: '-100vh',
       background: 'var(--bg)', padding: '120px 0 0',
-      willChange: 'transform', transition: 'transform 0.08s linear',
+      willChange: 'transform',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
@@ -203,7 +203,7 @@ export default function Process({ progress }) {
       }}>
         <div ref={marqueeRef} style={{
           display: 'flex', whiteSpace: 'nowrap', width: 'max-content',
-          willChange: 'transform', transition: 'transform 0.08s linear',
+          willChange: 'transform',
         }}>
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i}>

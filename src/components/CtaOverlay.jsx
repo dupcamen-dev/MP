@@ -31,7 +31,6 @@ export default function CtaOverlay({ progress }) {
         zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
         background: '#ffd300', transform: 'translateY(100%)',
         willChange: 'transform', visibility: 'hidden',
-        transition: mobile ? 'transform 0.5s ease' : 'none',
       }}
     >
       <div style={{

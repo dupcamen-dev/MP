@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 export function useScrollProgress(triggerId = 'process') {
   const [progress, setProgress] = useState(0);
   const ticking = useRef(false);
+  const last = useRef(0);
 
   useEffect(() => {
     function handleScroll() {
@@ -15,7 +16,10 @@ export function useScrollProgress(triggerId = 'process') {
           const spacer = document.querySelector('.h-scroll-spacer');
           const sh = spacer ? spacer.offsetHeight : 1;
           const pr = Math.min(1, sc / sh);
-          setProgress(pr);
+          if (Math.abs(pr - last.current) > 0.003) {
+            last.current = pr;
+            setProgress(pr);
+          }
           ticking.current = false;
         });
         ticking.current = true;

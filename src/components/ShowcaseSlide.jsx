@@ -66,7 +66,7 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
-      willChange: 'transform', transition: 'transform 0.08s linear',
+      willChange: 'transform',
     }}>
       <div style={{
         position: 'absolute', inset: 0, opacity: 0.06,
