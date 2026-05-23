@@ -29,7 +29,7 @@ export default function Process({ progress }) {
     const cards = document.querySelectorAll('#process .card-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
-    }, { threshold: 0.15 });
+    }, { threshold: 0 });
     cards.forEach(c => observer.observe(c));
     return () => observer.disconnect();
   }, []);

@@ -92,7 +92,7 @@ body {
 }
 
 .card-in { opacity: 0; }
-.card-in.active { animation: fade-up 0.6s cubic-bezier(0.5,0,0,1) forwards; }
+.card-in.active { animation: fade-up 0.4s cubic-bezier(0.5,0,0,1) forwards; }
 
 /* Bento card hover */
 .bento-card { transition: border-color 0.3s, transform 0.3s !important; }
