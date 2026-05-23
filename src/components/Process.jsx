@@ -16,6 +16,12 @@ export default function Process() {
         const offset = (-sy * 0.5) % totalW;
         marqueeRef.current.style.transform = `translateX(${offset}px)`;
       }
+      const showcase = document.getElementById('showcase');
+      if (showcase) {
+        const tp = el.offsetTop + el.offsetHeight;
+        const s = Math.max(0, Math.min(1, (sy - tp) / (vh * 2)));
+        showcase.style.transform = `translateY(${100 * (1 - s)}vh)`;
+      }
     }
     update();
     window.addEventListener('scroll', update, { passive: true });
