@@ -89,9 +89,8 @@ export default function ShowcaseSlide({ carouselRot }) {
               className="carousel-cell"
               onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
               style={mobile ? {
-                width: CARD_W, height: CARD_H, position: 'absolute',
-                left: '50%', top: '50%',
-                transform: i === cardIndex ? 'translate(-50%,-50%)' : 'translate(-50%,-50%) scale(0.92)',
+                position: 'absolute',
+                transform: i === cardIndex ? 'none' : 'scale(0.92)',
                 opacity: i === cardIndex ? 1 : 0,
                 transition: 'opacity 0.4s, transform 0.4s',
               } : {
