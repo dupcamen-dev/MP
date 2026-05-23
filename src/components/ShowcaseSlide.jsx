@@ -26,6 +26,7 @@ export default function ShowcaseSlide({ carouselRot }) {
   }, []);
 
   useEffect(() => {
+    if (mobile) return;
     const carousel = carouselRef.current;
     if (!carousel) return;
     const cells = carousel.querySelectorAll('.carousel-cell');
@@ -41,6 +42,7 @@ export default function ShowcaseSlide({ carouselRot }) {
   }, []);
 
   useEffect(() => {
+    if (mobile) return;
     const carousel = carouselRef.current;
     if (!carousel) return;
     carousel.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
@@ -71,7 +73,10 @@ export default function ShowcaseSlide({ carouselRot }) {
         position: 'relative', width: '100%', height: '100%',
         perspective: 1800, display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <div ref={carouselRef} className="carousel-3d" style={{
+        <div ref={carouselRef} className="carousel-3d" style={mobile ? {
+          width: '100%', height: '100%', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', gap: 12, overflow: 'hidden',
+        } : {
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d', willChange: 'transform',
         }}>
@@ -80,7 +85,12 @@ export default function ShowcaseSlide({ carouselRot }) {
               key={i}
               className="carousel-cell"
               onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
-              style={{
+              style={mobile ? {
+                width: CARD_W, height: CARD_H, flexShrink: 0,
+                transform: i === 0 ? 'none' : 'scale(0.9)',
+                opacity: i === 0 ? 1 : 0.5,
+                transition: 'opacity 0.3s, transform 0.3s',
+              } : {
                 position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
                 top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
                 backfaceVisibility: 'hidden', willChange: 'transform',
