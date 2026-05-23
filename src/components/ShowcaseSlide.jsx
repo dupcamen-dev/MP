@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function ShowcaseSlide({ carouselRot }) {
+export default function ShowcaseSlide({ carouselRot, progress }) {
   const mobile = window.innerWidth < 900;
   const CARD_W = mobile ? 320 : 600;
   const CARD_H = mobile ? 480 : 840;
@@ -50,7 +50,7 @@ export default function ShowcaseSlide({ carouselRot }) {
   }, [carouselRot]);
 
   const totalCards = 6;
-  const cardIndex = mobile ? Math.min(Math.floor(Math.abs(carouselRot) / (360 / totalCards)), totalCards - 1) : 0;
+  const cardIndex = mobile ? Math.min(Math.floor(progress / 0.1), totalCards - 1) : 0;
 
   const projects = [
     { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },

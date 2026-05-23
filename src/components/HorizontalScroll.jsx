@@ -35,7 +35,7 @@ export default function HorizontalScroll({ progress }) {
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(0)}%)` }}>
-          <ShowcaseSlide carouselRot={carouselRot} />
+          <ShowcaseSlide carouselRot={carouselRot} progress={progress} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)` }}>
           <ReviewsSlide cardPhase={cardPhase} />
