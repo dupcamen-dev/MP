@@ -167,7 +167,7 @@ body {
   #reviews { padding: 0 24px !important; }
   #manifesto { padding: 0 24px !important; }
 
-  .showcase-slide .carousel-scene { perspective: 900 !important; }
+  .showcase-slide .carousel-scene { perspective: 3000 !important; }
   .showcase-slide .carousel-cell { width: 320px !important; height: 480px !important; left: calc(50% - 160px) !important; top: calc(50% - 240px) !important; }
 
   #cta .cta-footer { flex-direction: column !important; padding: 24px !important; align-items: flex-start !important; }
