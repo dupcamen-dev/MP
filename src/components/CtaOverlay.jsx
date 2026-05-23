@@ -72,6 +72,7 @@ export default function CtaOverlay({ progress }) {
         display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', flexWrap: 'wrap', gap: 24,
         padding: '32px 64px 48px', borderTop: '2px solid var(--primary)',
+        background: '#000',
       }}>
         <div style={{
           fontFamily: "'Anton', sans-serif", fontSize: '1.25rem',
