@@ -6,7 +6,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const CARD_H = mobile ? 480 : 840;
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
-  const touchRef = useRef(null);
+  const cardEndedRef = useRef(false);
   const [colored, setColored] = useState({});
   const [swipeIdx, setSwipeIdx] = useState(0);
 
@@ -39,6 +39,24 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
       el.removeEventListener('touchend', onTouchEnd);
     };
   }, [mobile, onCardEnd]);
+
+  // Advance cards on scroll for mobile
+  useEffect(() => {
+    if (!mobile) return;
+    const totalCards = 6;
+    const cardFromProgress = Math.min(totalCards - 1, Math.floor(progress / 0.35 * totalCards));
+    setSwipeIdx(prev => Math.max(prev, cardFromProgress));
+  }, [progress, mobile]);
+
+  // Handle carousel completion when last card reached
+  useEffect(() => {
+    if (!mobile || cardEndedRef.current) return;
+    if (swipeIdx < 5) return;
+    cardEndedRef.current = true;
+    const el = carouselRef.current;
+    if (el) el.style.touchAction = 'auto';
+    onCardEnd?.();
+  }, [swipeIdx, mobile, onCardEnd]);
 
   useEffect(() => {
     const el = document.getElementById('showcase');
