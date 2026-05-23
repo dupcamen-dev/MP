@@ -9,6 +9,23 @@ export default function ShowcaseSlide({ carouselRot }) {
   const [colored, setColored] = useState({});
 
   useEffect(() => {
+    const el = document.getElementById('showcase');
+    if (!el) return;
+    const process = document.getElementById('process');
+    if (!process) return;
+    function update() {
+      const sy = window.scrollY;
+      const vh = window.innerHeight;
+      const tp = process.offsetTop + process.offsetHeight;
+      const t = Math.max(0, Math.min(1, (sy - (tp - vh)) / vh));
+      el.style.transform = `translateY(${-100 * (1 - t)}vh)`;
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+
+  useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
     const cells = carousel.querySelectorAll('.carousel-cell');

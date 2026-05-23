@@ -16,12 +16,6 @@ export default function Process() {
         const offset = (-sy * 0.5) % totalW;
         marqueeRef.current.style.transform = `translateX(${offset}px)`;
       }
-      const showcase = document.getElementById('showcase');
-      if (showcase) {
-        const tp = el.offsetTop + el.offsetHeight;
-        const s = Math.max(0, Math.min(1, (sy - tp) / (vh * 2)));
-        showcase.style.transform = `translateY(${100 * (1 - s)}vh)`;
-      }
     }
     update();
     window.addEventListener('scroll', update, { passive: true });
@@ -39,7 +33,8 @@ export default function Process() {
 
   return (
     <section id="process" style={{
-      position: 'relative', zIndex: 0, background: 'var(--bg)', padding: '120px 0 0',
+      position: 'relative', zIndex: 3, marginBottom: '-100vh',
+      background: 'var(--bg)', padding: '120px 0 0',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
