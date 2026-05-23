@@ -5,19 +5,20 @@ import ManifestoSlide from './ManifestoSlide';
 
 export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
-  const trackPhase = Math.min(1, Math.max(0, (progress - 0.25) / 0.5));
-
   const mobile = window.innerWidth < 900;
+  // On mobile, delay all slide transitions until after 6 carousel cards (progress 0.55)
+  const slideP = mobile ? Math.min(1, Math.max(0, (progress - 0.55) / 0.45)) : progress;
+
   const carouselRot = -360 * Math.min(1, progress / (mobile ? 0.35 : 0.15));
-  const cardPhase = Math.min(1, Math.max(0, (progress - 0.26) / 0.14));
-  const manifestoPhase = Math.min(1, Math.max(0, (progress - 0.44) / 0.10));
+  const cardPhase = Math.min(1, Math.max(0, (slideP - 0.26) / 0.14));
+  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.44) / 0.10));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return progress < 0.22 ? 100
-        : progress > 0.36 ? 0
-        : 100 - ((progress - 0.22) / 0.14) * 100;
+      return slideP < 0.22 ? 100
+        : slideP > 0.36 ? 0
+        : 100 - ((slideP - 0.22) / 0.14) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0
@@ -41,7 +42,7 @@ export default function HorizontalScroll({ progress }) {
           <ReviewsSlide cardPhase={cardPhase} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(2)}%)` }}>
-          <ManifestoSlide progress={progress} />
+          <ManifestoSlide progress={slideP} />
         </div>
       </div>
     </div>
