@@ -8,15 +8,15 @@ export default function HorizontalScroll({ progress }) {
   const trackPhase = Math.min(1, Math.max(0, (progress - 0.25) / 0.5));
 
   const carouselRot = -360 * Math.min(1, progress / 0.15);
-  const cardPhase = Math.min(1, Math.max(0, (progress - 0.60) / 0.12));
-  const manifestoPhase = Math.min(1, Math.max(0, (progress - 0.74) / 0.08));
+  const cardPhase = Math.min(1, Math.max(0, (progress - 0.26) / 0.14));
+  const manifestoPhase = Math.min(1, Math.max(0, (progress - 0.44) / 0.10));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return progress < 0.55 ? 100
-        : progress > 0.67 ? 0
-        : 100 - ((progress - 0.55) / 0.12) * 100;
+      return progress < 0.22 ? 100
+        : progress > 0.36 ? 0
+        : 100 - ((progress - 0.22) / 0.14) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0

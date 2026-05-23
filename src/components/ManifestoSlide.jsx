@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export default function ManifestoSlide({ progress }) {
   const ref = useRef(null);
-  const hlPct = Math.min(100, Math.max(0, ((progress - 0.82) / 0.10) * 100));
+  const hlPct = Math.min(100, Math.max(0, ((progress - 0.58) / 0.15) * 100));
 
   useEffect(() => {
     const el = ref.current;
