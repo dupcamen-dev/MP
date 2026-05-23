@@ -7,7 +7,7 @@ export default function CtaOverlay({ progress }) {
     const el = overlayRef.current;
     if (!el) return;
     const mobile = window.innerWidth < 900;
-    const p = mobile ? Math.min(1, Math.max(0, (progress - 0.55) / 0.45)) : progress;
+    const p = mobile ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : progress;
     if (p > 0.78) {
       const localPhase = Math.min(1, (p - 0.78) / 0.22);
       const ty = 100 - localPhase * 100;

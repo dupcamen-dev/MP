@@ -7,7 +7,7 @@ export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
   const mobile = window.innerWidth < 900;
   // On mobile, delay all slide transitions until after 6 carousel cards (progress 0.55)
-  const slideP = mobile ? Math.min(1, Math.max(0, (progress - 0.55) / 0.45)) : progress;
+  const slideP = mobile ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : progress;
 
   const carouselRot = -360 * Math.min(1, progress / (mobile ? 0.35 : 0.15));
   const cardPhase = Math.min(1, Math.max(0, (slideP - 0.26) / 0.14));
