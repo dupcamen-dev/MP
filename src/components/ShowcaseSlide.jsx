@@ -3,17 +3,26 @@ import { useEffect, useRef, useState } from 'react';
 const CARD_W = 600;
 const CARD_H = 840;
 
-export default function ShowcaseSlide({ carouselRot, showcaseOffset }) {
-  const sectionRef = useRef(null);
+export default function ShowcaseSlide({ carouselRot }) {
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
   const [colored, setColored] = useState({});
 
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = document.getElementById('showcase');
     if (!el) return;
-    el.style.transform = `translateY(${showcaseOffset}vh)`;
-  }, [showcaseOffset]);
+    function update() {
+      const sy = window.scrollY;
+      const process = document.getElementById('process');
+      if (!process) return;
+      const tp = process.offsetTop + process.offsetHeight;
+      const t = Math.max(0, Math.min(1, (sy - tp) / (window.innerHeight * 1.5)));
+      el.style.transform = `translateY(${40 * (1 - t)}vh)`;
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -47,7 +56,7 @@ export default function ShowcaseSlide({ carouselRot, showcaseOffset }) {
   ];
 
   return (
-    <section ref={sectionRef} className="slide showcase-slide" id="showcase" style={{
+    <section className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
