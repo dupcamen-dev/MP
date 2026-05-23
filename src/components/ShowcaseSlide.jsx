@@ -1,12 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const CARD_W = 600;
 const CARD_H = 840;
 
-export default function ShowcaseSlide({ carouselRot }) {
+export default function ShowcaseSlide({ carouselRot, showcaseOffset }) {
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
-  const fadeDone = useRef(false);
+  const [colored, setColored] = useState({});
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -21,22 +21,6 @@ export default function ShowcaseSlide({ carouselRot }) {
       cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
     });
     carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
-    carousel.style.opacity = '0';
-  }, []);
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel || fadeDone.current) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        fadeDone.current = true;
-        carousel.style.transition = 'opacity 0.8s ease';
-        carousel.style.opacity = '1';
-        observer.unobserve(entry.target);
-      }
-    }, { threshold: 0.15 });
-    observer.observe(carousel);
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -60,6 +44,7 @@ export default function ShowcaseSlide({ carouselRot }) {
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
+      transform: `translateY(${showcaseOffset}vh)`,
     }}>
       <div style={{
         position: 'absolute', inset: 0, opacity: 0.06,
@@ -75,11 +60,16 @@ export default function ShowcaseSlide({ carouselRot }) {
           transformStyle: 'preserve-3d',
         }}>
           {projects.map((p, i) => (
-            <div key={i} className="carousel-cell" style={{
-              position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
-              top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
-              backfaceVisibility: 'hidden',
-            }}>
+            <div
+              key={i}
+              className="carousel-cell"
+              onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
+              style={{
+                position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
+                top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
+                backfaceVisibility: 'hidden',
+              }}
+            >
               <div className="carousel-card" style={{
                 width: '100%', height: '100%', background: 'rgba(255,255,255,0.08)',
                 backdropFilter: 'blur(24px)', border: '1px solid rgba(0,0,0,0.04)',
@@ -90,7 +80,9 @@ export default function ShowcaseSlide({ carouselRot }) {
                   height: '55%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
                 }}>
                   <img src={p.img} alt={p.title} loading="lazy" style={{
-                    width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(0.4) contrast(1.1)',
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: colored[i] ? 'grayscale(0) contrast(1.1)' : 'grayscale(1) contrast(1.1)',
+                    transition: 'transform 0.5s, filter 0.3s',
                   }} />
                   <div style={{
                     position: 'absolute', inset: 0,
