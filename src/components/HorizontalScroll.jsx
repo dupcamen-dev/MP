@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import ShowcaseSlide from './ShowcaseSlide';
 import ReviewsSlide from './ReviewsSlide';
 import ManifestoSlide from './ManifestoSlide';
@@ -6,9 +6,11 @@ import ManifestoSlide from './ManifestoSlide';
 export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
   const mobile = window.innerWidth < 900;
-  const slideP = mobile ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : progress;
+  const [carouselDone, setCarouselDone] = useState(!mobile);
+  const slideP = mobile ? (carouselDone ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : 0) : progress;
 
   const handleCardEnd = useCallback(() => {
+    setCarouselDone(true);
     const trigger = document.getElementById('process');
     const spacer = document.querySelector('.h-scroll-spacer');
     if (!trigger || !spacer) return;
