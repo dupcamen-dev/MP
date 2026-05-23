@@ -101,7 +101,7 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
             >
               <div className="carousel-card" style={{
                 width: '100%', height: '100%', background: 'rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(24px)', border: '1px solid rgba(0,0,0,0.04)',
+                backdropFilter: 'blur(12px)', border: '1px solid rgba(0,0,0,0.04)',
                 position: 'relative', overflow: 'hidden', display: 'flex',
                 flexDirection: 'column',
               }}>
@@ -122,7 +122,7 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
                 <div className="card-body" style={{
                   flex: 1, padding: '20px 24px 24px',
                   display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-                  background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(4px)',
+                  background: 'rgba(255,255,255,0.85)',
                 }}>
                   <div style={{
                     fontFamily: "'Space Mono', monospace", fontSize: '0.65rem',

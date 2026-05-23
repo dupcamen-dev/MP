@@ -24,7 +24,8 @@ export default function Hero({ progress }) {
 
   useEffect(() => {
     const el = pixelsRef.current;
-    if (!el) return;
+    const title = el?.closest('.hero-title');
+    if (!el || !title) return;
     function onScroll() {
       const p = Math.min(1, window.scrollY / window.innerHeight);
       const skew = p * 12;
@@ -33,6 +34,8 @@ export default function Hero({ progress }) {
       const b = Math.round(34 + (255 - 34) * p);
       el.style.color = `rgb(${r},${g},${b})`;
       el.style.transform = `translateY(-8px) skewX(${-skew}deg)`;
+      const shadowPct = 1 - p;
+      title.style.textShadow = `${Math.round(8 * shadowPct)}px ${Math.round(8 * shadowPct)}px 0 var(--secondary)`;
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
