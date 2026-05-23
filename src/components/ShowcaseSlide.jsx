@@ -4,9 +4,16 @@ const CARD_W = 600;
 const CARD_H = 840;
 
 export default function ShowcaseSlide({ carouselRot, showcaseOffset }) {
+  const sectionRef = useRef(null);
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
   const [colored, setColored] = useState({});
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    el.style.transform = `translateY(${showcaseOffset}vh)`;
+  }, [showcaseOffset]);
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -40,11 +47,10 @@ export default function ShowcaseSlide({ carouselRot, showcaseOffset }) {
   ];
 
   return (
-    <section className="slide showcase-slide" id="showcase" style={{
+    <section ref={sectionRef} className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
-      transform: `translateY(${showcaseOffset}vh)`,
     }}>
       <div style={{
         position: 'absolute', inset: 0, opacity: 0.06,

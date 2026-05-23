@@ -7,7 +7,7 @@ export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
   const trackPhase = Math.min(1, Math.max(0, (progress - 0.25) / 0.5));
 
-  const showcaseOffset = -40 * (1 - Math.min(1, trackPhase / 0.3));
+  const showcaseOffset = 40 * (1 - Math.min(1, trackPhase / 0.3));
   const carouselRot = -360 * Math.min(1, trackPhase / 0.55);
   const cardPhase = Math.min(1, Math.max(0, (progress - 0.60) / 0.12));
   const manifestoPhase = Math.min(1, Math.max(0, (progress - 0.74) / 0.08));
