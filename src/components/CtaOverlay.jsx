@@ -8,12 +8,12 @@ export default function CtaOverlay({ progress }) {
     if (!el) return;
     if (progress > 0.78) {
       const localPhase = Math.min(1, (progress - 0.78) / 0.22);
-      const tx = 100 - localPhase * 100;
-      el.style.transform = `translateX(${tx}%)`;
+      const ty = 100 - localPhase * 100;
+      el.style.transform = `translateY(${ty}%)`;
       el.style.visibility = 'visible';
       el.querySelectorAll('.reveal').forEach(r => r.classList.add('active'));
     } else {
-      el.style.transform = 'translateX(100%)';
+      el.style.transform = 'translateY(100%)';
       el.style.visibility = 'hidden';
     }
   }, [progress]);
@@ -25,7 +25,7 @@ export default function CtaOverlay({ progress }) {
       style={{
         position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
         zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
-        background: 'var(--secondary)', transform: 'translateX(100%)',
+        background: 'var(--secondary)', transform: 'translateY(100%)',
         willChange: 'transform', visibility: 'hidden',
       }}
     >
