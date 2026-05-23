@@ -18,7 +18,7 @@ export default function ShowcaseSlide({ carouselRot }) {
       const vh = window.innerHeight;
       const tp = process.offsetTop + process.offsetHeight;
       const t = Math.max(0, Math.min(1, (sy - (tp - 1.5 * vh)) / (1.5 * vh)));
-      el.style.transform = `translateY(${-100 * (1 - t)}vh)`;
+      el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
     }
     update();
     window.addEventListener('scroll', update, { passive: true });
