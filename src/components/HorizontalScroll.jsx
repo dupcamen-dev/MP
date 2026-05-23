@@ -29,7 +29,7 @@ export default function HorizontalScroll({ progress }) {
     if (!wrap) return;
     function onWheel(e) {
       accRef.current += e.deltaY;
-      if (Math.abs(accRef.current) >= 80) {
+      if (Math.abs(accRef.current) >= 150) {
         const dir = accRef.current > 0 ? 1 : -1;
         accRef.current = 0;
         setCardIndex(prev => Math.max(0, Math.min(5, prev + dir)));

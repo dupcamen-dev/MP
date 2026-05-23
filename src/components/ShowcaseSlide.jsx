@@ -49,7 +49,7 @@ export default function ShowcaseSlide({ cardIndex }) {
         <div ref={carouselRef} className="carousel-3d" style={{
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d',
-          transition: 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+          transition: 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
         }}>
           {projects.map((p, i) => (
             <div key={i} className="carousel-cell" style={{
