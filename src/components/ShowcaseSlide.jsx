@@ -47,7 +47,7 @@ export default function ShowcaseSlide({ cardIndex }) {
         setInView(true);
         observer.unobserve(el);
       }
-    }, { threshold: 0.05 });
+    }, { threshold: 0.95 });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
