@@ -16,11 +16,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     if (!el) return;
     let startY = null;
     function onTouchStart(e) { startY = e.touches[0].clientY; }
-    function onTouchMove(e) {
-      if (startY === null) return;
-      const dy = Math.abs(e.touches[0].clientY - startY);
-      if (dy > 20) e.preventDefault();
-    }
     function onTouchEnd(e) {
       if (startY === null) return;
       const dy = e.changedTouches[0].clientY - startY;
@@ -29,6 +24,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
       if (dy < -40) {
         setSwipeIdx(prev => {
           if (prev < 5) return prev + 1;
+          el.style.touchAction = 'auto';
           onCardEnd?.();
           return prev;
         });
@@ -37,11 +33,9 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
       }
     }
     el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchmove', onTouchMove, { passive: false });
     el.addEventListener('touchend', onTouchEnd, { passive: true });
     return () => {
       el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchmove', onTouchMove);
       el.removeEventListener('touchend', onTouchEnd);
     };
   }, [mobile, onCardEnd]);
@@ -117,7 +111,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
       }}>
         <div ref={carouselRef} className="carousel-3d" style={mobile ? {
           width: '100%', height: '100%', position: 'relative',
-          overflow: 'hidden',
+          overflow: 'hidden', touchAction: 'none',
         } : {
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d', willChange: 'transform',
