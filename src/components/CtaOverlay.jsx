@@ -6,8 +6,10 @@ export default function CtaOverlay({ progress }) {
   useEffect(() => {
     const el = overlayRef.current;
     if (!el) return;
-    if (progress > 0.78) {
-      const localPhase = Math.min(1, (progress - 0.78) / 0.22);
+    const mobile = window.innerWidth < 900;
+    const p = mobile ? Math.min(1, Math.max(0, (progress - 0.55) / 0.45)) : progress;
+    if (p > 0.78) {
+      const localPhase = Math.min(1, (p - 0.78) / 0.22);
       const ty = 100 - localPhase * 100;
       el.style.transform = `translateY(${ty}%)`;
       el.style.visibility = 'visible';
