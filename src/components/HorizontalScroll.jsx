@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import ShowcaseSlide from './ShowcaseSlide';
 import ReviewsSlide from './ReviewsSlide';
 import ManifestoSlide from './ManifestoSlide';
@@ -6,51 +6,21 @@ import ManifestoSlide from './ManifestoSlide';
 export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
   const trackPhase = Math.min(1, Math.max(0, (progress - 0.25) / 0.5));
-  const cardPhase = Math.min(1, Math.max(0, (progress - 0.625) / 0.115));
+
+  const carouselRot = -360 * Math.min(1, trackPhase / 0.55);
+  const cardPhase = Math.min(1, Math.max(0, (progress - 0.60) / 0.12));
   const manifestoPhase = Math.min(1, Math.max(0, (progress - 0.74) / 0.08));
-  const [cardIndex, setCardIndex] = useState(0);
-  const accRef = useRef(0);
-  const enteredRef = useRef(false);
-
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !enteredRef.current) {
-        enteredRef.current = true;
-        setCardIndex(0);
-        accRef.current = 0;
-      }
-    }, { threshold: 0 });
-    observer.observe(wrap);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-    function onWheel(e) {
-      accRef.current += e.deltaY;
-      if (Math.abs(accRef.current) >= 200) {
-        const dir = accRef.current > 0 ? 1 : -1;
-        accRef.current = 0;
-        setCardIndex(prev => Math.max(0, Math.min(5, prev + dir)));
-      }
-    }
-    wrap.addEventListener('wheel', onWheel, { passive: true });
-    return () => wrap.removeEventListener('wheel', onWheel);
-  }, []);
 
   const getX = (i) => {
     if (i === 0) return 0;
-    if (i === 1) {
-      if (trackPhase < 0.5) return 100;
-      if (trackPhase > 0.75) return 0;
-      return 100 - ((trackPhase - 0.5) / 0.25) * 100;
-    }
-    if (manifestoPhase < 0) return 100;
-    if (manifestoPhase > 1) return 0;
-    return 100 - manifestoPhase * 100;
+    if (i === 1)
+      return progress < 0.55 ? 100
+        : progress > 0.67 ? 0
+        : 100 - ((progress - 0.55) / 0.12) * 100;
+    if (i === 2)
+      return manifestoPhase < 0 ? 100
+        : manifestoPhase > 1 ? 0
+        : 100 - manifestoPhase * 100;
   };
 
   return (
@@ -64,7 +34,7 @@ export default function HorizontalScroll({ progress }) {
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(0)}%)` }}>
-          <ShowcaseSlide cardIndex={cardIndex} />
+          <ShowcaseSlide carouselRot={carouselRot} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)` }}>
           <ReviewsSlide cardPhase={cardPhase} />

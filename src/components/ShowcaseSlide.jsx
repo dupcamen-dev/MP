@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const CARD_W = 600;
 const CARD_H = 840;
 
-export default function ShowcaseSlide({ cardIndex }) {
+export default function ShowcaseSlide({ carouselRot }) {
   const carouselRef = useRef(null);
-  const sectionRef = useRef(null);
   const radiusRef = useRef(0);
-  const [entered, setEntered] = useState(false);
-  const [inView, setInView] = useState(false);
+  const fadeDone = useRef(false);
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -22,42 +20,31 @@ export default function ShowcaseSlide({ cardIndex }) {
       const angle = theta * i;
       cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
     });
-    carousel.style.transition = 'none';
-    carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg) scale(1)`;
+    carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
     carousel.style.opacity = '0';
   }, []);
 
   useEffect(() => {
-    if (!inView) return;
     const carousel = carouselRef.current;
-    if (!carousel) return;
-    const r = radiusRef.current;
-    carousel.style.transition = 'opacity 0.8s ease';
-    carousel.style.opacity = '1';
-    const timer = setTimeout(() => setEntered(true), 800);
-    return () => clearTimeout(timer);
-  }, [inView]);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
+    if (!carousel || fadeDone.current) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        setInView(true);
-        observer.unobserve(el);
+        fadeDone.current = true;
+        carousel.style.transition = 'opacity 0.8s ease';
+        carousel.style.opacity = '1';
+        observer.unobserve(entry.target);
       }
     }, { threshold: 0.15 });
-    observer.observe(el);
+    observer.observe(carousel);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     const carousel = carouselRef.current;
-    if (!carousel || !entered) return;
-    const rot = (cardIndex / 6) * -360;
-    carousel.style.transition = 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${rot}deg)`;
-  }, [cardIndex, entered]);
+    if (!carousel) return;
+    carousel.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${carouselRot}deg)`;
+  }, [carouselRot]);
 
   const projects = [
     { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
@@ -69,15 +56,14 @@ export default function ShowcaseSlide({ cardIndex }) {
   ];
 
   return (
-    <section ref={sectionRef} className="slide showcase-slide" id="showcase" style={{
+    <section className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
     }}>
       <div style={{
-        position: 'absolute', inset: 0, opacity: entered ? 0.06 : 0,
+        position: 'absolute', inset: 0, opacity: 0.06,
         background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
-        transition: 'opacity 1.5s ease',
         pointerEvents: 'none',
       }} />
       <div className="carousel-scene" style={{
@@ -149,8 +135,7 @@ export default function ShowcaseSlide({ cardIndex }) {
       <div style={{
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
         zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
-        gap: 6, opacity: entered ? 0.4 : 0,
-        transition: 'opacity 0.8s ease', pointerEvents: 'none',
+        gap: 6, opacity: 0.4, pointerEvents: 'none',
       }}>
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
