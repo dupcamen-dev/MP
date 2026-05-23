@@ -13,10 +13,10 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
     if (!el) return;
     const process = document.getElementById('process');
     if (!process) return;
+    const tp = process.offsetTop + process.offsetHeight;
     function update() {
       const sy = window.scrollY;
       const vh = window.innerHeight;
-      const tp = process.offsetTop + process.offsetHeight;
       const t = Math.max(0, Math.min(1, (sy - (tp - 1.5 * vh)) / (1.5 * vh)));
       el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
     }
@@ -66,6 +66,7 @@ export default function ShowcaseSlide({ carouselRot, progress }) {
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
+      willChange: 'transform', transition: 'transform 0.08s linear',
     }}>
       <div style={{
         position: 'absolute', inset: 0, opacity: 0.06,

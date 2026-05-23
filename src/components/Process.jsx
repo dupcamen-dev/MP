@@ -38,7 +38,7 @@ export default function Process({ progress }) {
     <section id="process" style={{
       position: 'relative', zIndex: 3, marginBottom: '-100vh',
       background: 'var(--bg)', padding: '120px 0 0',
-      willChange: 'transform',
+      willChange: 'transform', transition: 'transform 0.08s linear',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
@@ -203,7 +203,7 @@ export default function Process({ progress }) {
       }}>
         <div ref={marqueeRef} style={{
           display: 'flex', whiteSpace: 'nowrap', width: 'max-content',
-          willChange: 'transform',
+          willChange: 'transform', transition: 'transform 0.08s linear',
         }}>
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i}>
