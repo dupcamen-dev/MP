@@ -1,7 +1,8 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Hero({ progress }) {
   const shardsRef = useRef(null);
+  const pixelsRef = useRef(null);
 
   useEffect(() => {
     if (window.innerWidth < 900) return;
@@ -21,14 +22,22 @@ export default function Hero({ progress }) {
     return () => window.removeEventListener('mousemove', onMove);
   }, []);
 
-  const p = progress;
-  const skew = p * 12;
-  const r = Math.round(33 + (255 - 33) * p);
-  const g = Math.round(32 + (255 - 32) * p);
-  const b = Math.round(34 + (255 - 34) * p);
-  const color = `rgb(${r},${g},${b})`;
-  const shadowPct = 1 - p;
-  const shadow = `${Math.round(8 * shadowPct)}px ${Math.round(8 * shadowPct)}px 0 var(--secondary)`;
+  useEffect(() => {
+    const el = pixelsRef.current;
+    if (!el) return;
+    function onScroll() {
+      const p = Math.min(1, window.scrollY / window.innerHeight);
+      const skew = p * 12;
+      const r = Math.round(33 + (255 - 33) * p);
+      const g = Math.round(32 + (255 - 32) * p);
+      const b = Math.round(34 + (255 - 34) * p);
+      el.style.color = `rgb(${r},${g},${b})`;
+      el.style.transform = `translateY(-8px) skewX(${-skew}deg)`;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <section id="hero" style={{
@@ -111,9 +120,8 @@ export default function Hero({ progress }) {
           <span className="line" style={{ display: 'block' }}>
             MILLION
           </span>
-          <span className="line" style={{
-            display: 'block', color,
-            transform: `translateY(-8px) skewX(${-skew}deg)`,
+          <span ref={pixelsRef} className="line" style={{
+            display: 'block', willChange: 'transform, color',
           }}>
             PIXELS
           </span>

@@ -5,26 +5,24 @@ export default function Process({ progress }) {
   const totalWRef = useRef(null);
 
   useEffect(() => {
-    totalWRef.current = marqueeRef.current ? marqueeRef.current.scrollWidth / 2 : null;
+    if (marqueeRef.current) totalWRef.current = marqueeRef.current.scrollWidth / 2;
     const el = document.getElementById('process');
     if (!el) return;
-    const vh = window.innerHeight;
-    const sy = window.scrollY;
-    const t = Math.max(0, Math.min(1, (sy - vh) / vh));
-    el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
-    if (marqueeRef.current && totalWRef.current) {
-      const offset = (-sy * 0.5) % totalWRef.current;
-      marqueeRef.current.style.transform = `translateX(${offset}px)`;
-    }
-  }, [progress]);
 
-  useEffect(() => {
-    const cards = document.querySelectorAll('#process .card-in');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    cards.forEach(c => observer.observe(c));
-    return () => observer.disconnect();
+    function update() {
+      const sy = window.scrollY;
+      const vh = window.innerHeight;
+      const t = Math.max(0, Math.min(1, (sy - vh) / vh));
+      el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
+      if (marqueeRef.current && totalWRef.current) {
+        const offset = (-sy * 0.5) % totalWRef.current;
+        marqueeRef.current.style.transform = `translateX(${offset}px)`;
+      }
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
   useEffect(() => {
