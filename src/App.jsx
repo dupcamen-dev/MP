@@ -19,8 +19,8 @@ export default function App() {
       </div>
       <Process />
       <HorizontalScroll progress={progress} />
-      <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />
-      <div style={{ height: '100vh', pointerEvents: 'none' }} />
+      <div className="h-scroll-spacer" style={{ height: '700vh', pointerEvents: 'none' }} />
+      <div style={{ height: '150vh', pointerEvents: 'none' }} />
       <CtaOverlay progress={progress} />
     </>
   );

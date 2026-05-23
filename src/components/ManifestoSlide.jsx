@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-export default function ManifestoSlide() {
+export default function ManifestoSlide({ progress }) {
   const ref = useRef(null);
+  const hlPct = Math.min(100, Math.max(0, ((progress - 0.75) / 0.13) * 100));
 
   useEffect(() => {
     const el = ref.current;
@@ -39,7 +40,10 @@ export default function ManifestoSlide() {
         }}>
           We reject the bureaucracy of modern software development. No endless meetings.
           No pixel-pushing committees. We code on instinct. We build for impact.{' '}
-          <span style={{ background: 'var(--primary)', color: 'var(--bg)', padding: '2px 8px' }}>
+          <span style={{
+            background: `linear-gradient(90deg, var(--primary) ${hlPct}%, transparent ${hlPct}%)`,
+            padding: '2px 8px', color: 'var(--text)',
+          }}>
             Vibe coding is the raw translation of thought to reality.
           </span>{' '}
           Slash the rules. Grind the raw.

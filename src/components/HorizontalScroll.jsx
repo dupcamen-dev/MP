@@ -65,7 +65,7 @@ export default function HorizontalScroll({ progress }) {
           <ReviewsSlide />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(2)}%)` }}>
-          <ManifestoSlide />
+          <ManifestoSlide progress={progress} />
         </div>
       </div>
     </div>
