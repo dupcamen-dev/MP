@@ -123,9 +123,9 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
               onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
               style={mobile ? {
                 position: 'absolute',
-                transform: i === cardIndex ? 'none' : 'scale(0.92)',
+                transform: i === cardIndex ? 'translateY(0) scale(1)' : i < cardIndex ? 'translateY(-120%) scale(0.9)' : 'translateY(120%) scale(0.9)',
                 opacity: i === cardIndex ? 1 : 0,
-                transition: 'opacity 0.4s, transform 0.4s',
+                transition: 'opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)',
               } : {
                 position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
                 top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
