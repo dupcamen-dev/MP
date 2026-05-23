@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Process() {
+  const marqueeRef = useRef(null);
+
   useEffect(() => {
     const el = document.getElementById('process');
     if (!el) return;
@@ -9,6 +11,11 @@ export default function Process() {
       const vh = window.innerHeight;
       const t = Math.max(0, Math.min(1, (sy - vh) / vh));
       el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
+      if (marqueeRef.current) {
+        const totalW = marqueeRef.current.scrollWidth / 2;
+        const offset = (-sy * 0.5) % totalW;
+        marqueeRef.current.style.transform = `translateX(${offset}px)`;
+      }
     }
     update();
     window.addEventListener('scroll', update, { passive: true });
@@ -189,9 +196,8 @@ export default function Process() {
         transform: 'rotate(-3deg) scale(1.05)', position: 'relative',
         zIndex: 3, marginTop: 48,
       }}>
-        <div style={{
+        <div ref={marqueeRef} style={{
           display: 'flex', whiteSpace: 'nowrap', width: 'max-content',
-          animation: 'marquee-h 20s linear infinite',
         }}>
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i}>
