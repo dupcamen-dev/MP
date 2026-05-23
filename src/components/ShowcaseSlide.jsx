@@ -1,31 +1,42 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+const CARD_W = 600;
+const CARD_H = 840;
 
 export default function ShowcaseSlide({ cardIndex }) {
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
     const cells = carousel.querySelectorAll('.carousel-cell');
     const cellCount = cells.length;
-    const cardW = 500;
-    const radius = Math.round((cardW / 2) / Math.tan(Math.PI / cellCount)) + 100;
+    const radius = Math.round((CARD_W / 2) / Math.tan(Math.PI / cellCount)) + 100;
     radiusRef.current = radius;
     const theta = 360 / cellCount;
     cells.forEach((cell, i) => {
       const angle = theta * i;
       cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
     });
-    carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
+    carousel.style.transition = 'none';
+    carousel.style.transform = `translateZ(${-radius}px) rotateY(-25deg) scale(0.85)`;
+    carousel.style.opacity = '0';
+    void carousel.offsetHeight;
+    carousel.style.transition = 'transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease';
+    carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg) scale(1)`;
+    carousel.style.opacity = '1';
+    const timer = setTimeout(() => setEntered(true), 1200);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     const carousel = carouselRef.current;
-    if (!carousel) return;
+    if (!carousel || !entered) return;
     const rot = (cardIndex / 6) * -360;
     carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${rot}deg)`;
-  }, [cardIndex]);
+  }, [cardIndex, entered]);
 
   const projects = [
     { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
@@ -42,9 +53,15 @@ export default function ShowcaseSlide({ cardIndex }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
     }}>
+      <div style={{
+        position: 'absolute', inset: 0, opacity: entered ? 0.08 : 0,
+        background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
+        transition: 'opacity 1.5s ease',
+        pointerEvents: 'none',
+      }} />
       <div className="carousel-scene" style={{
         position: 'relative', width: '100%', height: '100%',
-        perspective: 1500, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        perspective: 1800, display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <div ref={carouselRef} className="carousel-3d" style={{
           width: '100%', height: '100%', position: 'absolute',
@@ -53,8 +70,8 @@ export default function ShowcaseSlide({ cardIndex }) {
         }}>
           {projects.map((p, i) => (
             <div key={i} className="carousel-cell" style={{
-              position: 'absolute', left: 'calc(50% - 250px)',
-              top: 'calc(50% - 350px)', width: 500, height: 700,
+              position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
+              top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
               backfaceVisibility: 'hidden',
             }}>
               <div className="carousel-card" style={{
@@ -112,7 +129,8 @@ export default function ShowcaseSlide({ cardIndex }) {
       <div style={{
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
         zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
-        gap: 6, opacity: 0.4, pointerEvents: 'none',
+        gap: 6, opacity: entered ? 0.4 : 0,
+        transition: 'opacity 0.8s ease 0.6s', pointerEvents: 'none',
       }}>
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
