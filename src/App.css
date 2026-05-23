@@ -165,6 +165,7 @@ body {
 
   .reviews-grid { grid-template-columns: 1fr !important; }
   #reviews { padding: 0 24px !important; }
+  #reviews .reviews-grid { gap: 16px !important; }
   #manifesto { padding: 0 24px !important; }
 
   .showcase-slide .carousel-scene { perspective: 3000 !important; }
