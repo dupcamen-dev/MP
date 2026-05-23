@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-const CARD_W = 600;
-const CARD_H = 840;
-
 export default function ShowcaseSlide({ carouselRot }) {
+  const mobile = window.innerWidth < 900;
+  const CARD_W = mobile ? 320 : 600;
+  const CARD_H = mobile ? 480 : 840;
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
   const [colored, setColored] = useState({});
@@ -73,7 +73,7 @@ export default function ShowcaseSlide({ carouselRot }) {
       }}>
         <div ref={carouselRef} className="carousel-3d" style={{
           width: '100%', height: '100%', position: 'absolute',
-          transformStyle: 'preserve-3d',
+          transformStyle: 'preserve-3d', willChange: 'transform',
         }}>
           {projects.map((p, i) => (
             <div
@@ -83,7 +83,7 @@ export default function ShowcaseSlide({ carouselRot }) {
               style={{
                 position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
                 top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
-                backfaceVisibility: 'hidden',
+                backfaceVisibility: 'hidden', willChange: 'transform',
               }}
             >
               <div className="carousel-card" style={{
