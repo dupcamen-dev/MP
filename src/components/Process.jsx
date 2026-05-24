@@ -9,15 +9,20 @@ export default function Process({ progress }) {
     const el = document.getElementById('process');
     if (!el) return;
 
+    const supportsSDA = CSS.supports('(animation-timeline: view()) and (animation-range: entry)');
+
     function update() {
       const sy = window.scrollY;
-      const vh = window.innerHeight;
-      const t = Math.max(0, Math.min(1, (sy - vh) / vh));
-      el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
+      // Marquee always needs JS
       if (marqueeRef.current && totalWRef.current) {
         const offset = Math.round((-sy * 0.5) % totalWRef.current);
         marqueeRef.current.style.transform = `translateX(${offset}px)`;
       }
+      // Parallax: use CSS SDA when supported
+      if (supportsSDA) return;
+      const vh = window.innerHeight;
+      const t = Math.max(0, Math.min(1, (sy - vh) / vh));
+      el.style.transform = `translateY(${-50 * (1 - t)}vh)`;
     }
 
     window.addEventListener('scroll', update, { passive: true });
@@ -38,7 +43,6 @@ export default function Process({ progress }) {
     <section id="process" style={{
       position: 'relative', zIndex: 3, marginBottom: '-100vh',
       background: 'var(--bg)', padding: '120px 0 0',
-      willChange: 'transform',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
