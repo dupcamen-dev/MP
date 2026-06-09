@@ -20,16 +20,18 @@ export default function HorizontalScroll({ progress }) {
     window.scrollTo({ top: tp + 0.85 * sh, behavior: 'smooth' });
   }, []);
 
-  const carouselRot = -360 * Math.min(1, progress / (mobile ? 0.35 : 0.15));
-  const cardPhase = Math.min(1, Math.max(0, (slideP - 0.26) / 0.14));
-  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.44) / 0.10));
+  const carouselRot = mobile
+    ? -360 * Math.min(1, progress / 0.35)
+    : -360 * progress;
+  const cardPhase = Math.min(1, Math.max(0, (slideP - 0.7) / 0.12));
+  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.85) / 0.12));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return slideP < 0.22 ? 100
-        : slideP > 0.36 ? 0
-        : 100 - ((slideP - 0.22) / 0.14) * 100;
+      return slideP < 0.68 ? 100
+        : slideP > 0.82 ? 0
+        : 100 - ((slideP - 0.68) / 0.14) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0
