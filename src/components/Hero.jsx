@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useMobile } from '../hooks/useMobile';
+import { useMobile, useTablet } from '../hooks/useMobile';
 
 export default function Hero({ progress }) {
   const shardsRef = useRef(null);
   const pixelsRef = useRef(null);
   const mobile = useMobile();
+  const tablet = useTablet();
 
   useEffect(() => {
     if (mobile) return;
@@ -30,9 +31,9 @@ export default function Hero({ progress }) {
     if (!el || !title) return;
     function onScroll() {
       const p = Math.min(1, window.scrollY / window.innerHeight);
-      const maxSkew = mobile ? 4 : 12;
+      const maxSkew = mobile ? (tablet ? 6 : 4) : 12;
       const skew = p * maxSkew;
-      const shadowPx = mobile ? 4 : 8;
+      const shadowPx = mobile ? (tablet ? 6 : 4) : 8;
       const r = Math.round(33 + (255 - 33) * p);
       const g = Math.round(32 + (255 - 32) * p);
       const b = Math.round(34 + (255 - 34) * p);

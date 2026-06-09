@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useMobile } from '../hooks/useMobile';
+import { useMobile, useTablet } from '../hooks/useMobile';
 
 const projects = [
   { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London.', img: '/zhyto.png', link: 'https://zhyto.london' },
@@ -79,6 +79,9 @@ function ProjectCard({ p }) {
 function MobileProjectList() {
   const [activeIdx, setActiveIdx] = useState(0);
   const containerRef = useRef(null);
+  const tablet = useTablet();
+  const cardMaxW = tablet ? 460 : 360;
+  const cardMaxH = tablet ? 680 : 560;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -128,7 +131,7 @@ function MobileProjectList() {
               pointerEvents: 'none',
             }} />
             <div style={{
-              width: '100%', maxWidth: 360, height: '75dvh', maxHeight: 560,
+              width: '100%', maxWidth: cardMaxW, height: '75dvh', maxHeight: cardMaxH,
               position: 'relative', zIndex: 2,
             }}>
               <ProjectCard

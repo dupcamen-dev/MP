@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useMobile } from '../hooks/useMobile';
+import { useMobile, useTablet } from '../hooks/useMobile';
 
 export default function ReviewsSlide({ cardPhase }) {
   const mobile = useMobile();
+  const tablet = useTablet();
   const gridRef = useRef(null);
 
   const reviews = [
@@ -15,7 +16,7 @@ export default function ReviewsSlide({ cardPhase }) {
   const cardStyle = (i, visible) => {
     if (mobile) {
       return {
-        padding: 24,
+        padding: mobile ? (tablet ? 28 : 24) : 32,
         background: 'rgba(15,15,18,0.8)',
         borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #d4001a',
         opacity: visible ? 1 : 0,
@@ -99,8 +100,8 @@ export default function ReviewsSlide({ cardPhase }) {
       </div>
 
       <div ref={gridRef} className="reviews-grid" style={{
-        display: 'grid', gridTemplateColumns: mobile ? '1fr' : 'repeat(2, 1fr)',
-        gap: mobile ? 16 : 20, maxWidth: 1200, width: '100%',
+        display: 'grid', gridTemplateColumns: (mobile && !tablet) ? '1fr' : 'repeat(2, 1fr)',
+        gap: mobile ? (tablet ? 20 : 16) : 20, maxWidth: 1200, width: '100%',
       }}>
         {reviews.slice(0, 2).map((r, i) => (
           <div key={i} className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(i, !mobile || true)}>

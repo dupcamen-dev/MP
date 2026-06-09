@@ -1,10 +1,11 @@
 import { useRef, useEffect, useState } from 'react';
-import { useMobile } from '../hooks/useMobile';
+import { useMobile, useTablet } from '../hooks/useMobile';
 import OrderModal from './OrderModal';
 
 export default function CtaOverlay({ progress }) {
   const overlayRef = useRef(null);
   const mobile = useMobile();
+  const tablet = useTablet();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -37,9 +38,9 @@ export default function CtaOverlay({ progress }) {
     }
   }, [progress, mobile]);
 
-  const btnPadding = mobile ? '18px 32px' : '24px 60px';
-  const btnIconSize = mobile ? '1.5rem' : '2.5rem';
-  const footerPadding = mobile ? '24px' : '32px 64px 48px';
+  const btnPadding = tablet ? '20px 48px' : (mobile ? '18px 32px' : '24px 60px');
+  const btnIconSize = tablet ? '2rem' : (mobile ? '1.5rem' : '2.5rem');
+  const footerPadding = tablet ? '28px 48px 40px' : (mobile ? '24px' : '32px 64px 48px');
 
   return (
     <>
@@ -57,7 +58,7 @@ export default function CtaOverlay({ progress }) {
         <div style={{
           flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
           justifyContent: 'center', maxWidth: 900, width: '100%', textAlign: 'center',
-          padding: mobile ? '0 24px' : 0,
+          padding: mobile ? (tablet ? '0 48px' : '0 24px') : 0,
         }}>
           <h2 className="cta-slide-title" style={{
             fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,12vw,10rem)',

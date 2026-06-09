@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useMobile } from '../hooks/useMobile';
+import { useMobile, useTablet } from '../hooks/useMobile';
 
 export default function Process({ progress }) {
   const marqueeRef = useRef(null);
   const totalWRef = useRef(null);
   const mobile = useMobile();
+  const tablet = useTablet();
 
   useEffect(() => {
     if (marqueeRef.current) totalWRef.current = marqueeRef.current.scrollWidth / 2;
@@ -45,7 +46,7 @@ export default function Process({ progress }) {
     <section id="process" style={{
       position: 'relative', zIndex: 3,
       marginBottom: mobile ? '0' : '-100vh',
-      background: 'var(--bg)', padding: mobile ? '60px 0 0' : '120px 0 0',
+      background: 'var(--bg)', padding: mobile ? (tablet ? '80px 0 0' : '60px 0 0') : '120px 0 0',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',

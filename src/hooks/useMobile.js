@@ -14,3 +14,18 @@ export function useMobile(breakpoint = 900) {
 
   return isMobile;
 }
+
+export function useTablet() {
+  const [isTablet, setIsTablet] = useState(
+    () => window.matchMedia('(min-width: 601px) and (max-width: 900px)').matches
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 601px) and (max-width: 900px)');
+    const handler = (e) => setIsTablet(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return isTablet;
+}

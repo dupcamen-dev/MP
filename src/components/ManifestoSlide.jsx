@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMobile } from '../hooks/useMobile';
+import { useMobile, useTablet } from '../hooks/useMobile';
 
 const highlightWords = 'Vibe coding is the raw translation of thought to reality.'.split(' ');
 
@@ -7,6 +7,7 @@ export default function ManifestoSlide({ progress }) {
   const ref = useRef(null);
   const containerRef = useRef(null);
   const mobile = useMobile();
+  const tablet = useTablet();
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const hlPct = mobile
@@ -168,7 +169,7 @@ export default function ManifestoSlide({ progress }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '60px 24px',
+            padding: tablet ? '80px 40px' : '60px 24px',
           }}
         >
           {mobileSection}

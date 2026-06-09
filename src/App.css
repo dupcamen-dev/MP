@@ -16,6 +16,7 @@
   --text: #ffffff;
   --text-dim: #b8b0a0;
   --glass: rgba(18, 18, 21, 0.85);
+  color-scheme: dark;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -198,6 +199,13 @@ body::after {
   .slide { min-height: 100dvh !important; height: auto !important; }
 
   .menu-btn { width: 44px !important; height: 44px !important; }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .process-grid { grid-template-columns: 1fr 1fr !important; }
+  .process-grid .bento-wide { grid-column: span 2 !important; }
+  .process-grid .bento-full { grid-column: span 2 !important; }
+  .process-grid .bento-full > div { flex-direction: row !important; align-items: flex-end !important; }
 }
 
 @media (max-width: 480px) {
