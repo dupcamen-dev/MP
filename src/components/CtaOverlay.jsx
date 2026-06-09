@@ -96,29 +96,96 @@ export default function CtaOverlay({ progress }) {
           <span className="material-icons" style={{ fontSize: btnIconSize }}>arrow_forward</span>
         </button>
       </div>
-      <div className="cta-footer" style={{
-        marginTop: 'auto', width: '100%', maxWidth: 1100,
-        display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
-        alignItems: 'center', flexWrap: 'wrap', gap: 24,
-        padding: footerPadding, borderTop: '2px solid #141315',
-        background: '#141315',
-      }}>
-        <div style={{
-          fontFamily: "'Anton', sans-serif", fontSize: '1.25rem',
-          textTransform: 'uppercase', color: '#ffd300',
+      {mobile && (
+        <footer style={{
+          width: '100%',
+          minHeight: '100dvh',
+          background: '#141315',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          justifyContent: 'center',
+          padding: '120px 24px 48px',
+          position: 'relative',
         }}>
-          &copy;2024 <span style={{ color: '#e6e1e4' }}>MILLIONPIXELS.DEV</span> — SLASH THE RULES
+          <div style={{
+            width: '100%', maxWidth: 900, textAlign: 'center',
+            flex: 1, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+          }}>
+            <h2 style={{
+              fontFamily: "'Anton', sans-serif", fontSize: 'clamp(3rem,10vw,5rem)',
+              lineHeight: 0.9, textTransform: 'uppercase', color: '#ffd300',
+              letterSpacing: '0.08em', marginBottom: 24,
+            }}>
+              MILLION<br /><span style={{ color: '#e20000' }}>PIXELS</span>
+            </h2>
+            <p style={{
+              fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.85rem,3vw,1rem)',
+              lineHeight: 1.6, color: '#e6e1e4', letterSpacing: '0.05em',
+              textTransform: 'uppercase', maxWidth: 400, marginBottom: 48,
+            }}>
+              BUILDING RAW DIGITAL EXPERIENCES.<br />
+              NO BUREAUCRACY. NO EXCUSES.
+            </p>
+            <div style={{
+              display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center',
+            }}>
+              {['Twitter', 'GitHub', 'LinkedIn', 'Dribbble'].map((link) => (
+                <a key={link} href="#" style={{
+                  fontFamily: "'Space Mono', monospace", fontSize: '0.7rem',
+                  letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: '#e6e1e4', textDecoration: 'none',
+                  padding: '10px 20px', border: '1px solid rgba(255,255,255,0.15)',
+                  transition: 'border-color 0.3s, color 0.3s',
+                }}>{link}</a>
+              ))}
+            </div>
+          </div>
+          <div style={{
+            width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)',
+            paddingTop: 24, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', gap: 12,
+          }}>
+            <div style={{
+              fontFamily: "'Anton', sans-serif", fontSize: '1rem',
+              textTransform: 'uppercase', color: '#ffd300',
+            }}>
+              &copy;2024 <span style={{ color: '#e6e1e4' }}>MILLIONPIXELS.DEV</span>
+            </div>
+            <div style={{
+              fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
+              letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)',
+              textTransform: 'uppercase',
+            }}>
+              SLASH THE RULES
+            </div>
+          </div>
+        </footer>
+      )}
+      {!mobile && (
+        <div className="cta-footer" style={{
+          marginTop: 'auto', width: '100%', maxWidth: 1100,
+          display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
+          alignItems: 'center', flexWrap: 'wrap', gap: 24,
+          padding: '32px 64px 48px', borderTop: '2px solid #141315',
+          background: '#141315',
+        }}>
+          <div style={{
+            fontFamily: "'Anton', sans-serif", fontSize: '1.25rem',
+            textTransform: 'uppercase', color: '#ffd300',
+          }}>
+            &copy;2024 <span style={{ color: '#e6e1e4' }}>MILLIONPIXELS.DEV</span> — SLASH THE RULES
+          </div>
+          <nav style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+            {['Terms', 'Privacy', 'Twitter', 'GitHub'].map((link) => (
+              <a key={link} href="#" style={{
+                fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
+                letterSpacing: '0.05em', textTransform: 'uppercase',
+                color: '#e6e1e4', textDecoration: 'none',
+              }}>{link}</a>
+            ))}
+          </nav>
         </div>
-        <nav style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-          {['Terms', 'Privacy', 'Twitter', 'GitHub'].map((link) => (
-            <a key={link} href="#" style={{
-              fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
-              letterSpacing: '0.05em', textTransform: 'uppercase',
-              color: '#e6e1e4', textDecoration: 'none',
-            }}>{link}</a>
-          ))}
-        </nav>
-      </div>
+      )}
       {showModal && <OrderModal onClose={() => setShowModal(false)} />}
     </section>
   );
