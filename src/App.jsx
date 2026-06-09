@@ -4,10 +4,12 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Process from './components/Process';
 import HorizontalScroll from './components/HorizontalScroll';
+import ShowcaseSlide from './components/ShowcaseSlide';
 import CtaOverlay from './components/CtaOverlay';
 
 export default function App() {
   const progress = useScrollProgress('process');
+  const mobile = window.innerWidth < 900;
 
   return (
     <>
@@ -18,8 +20,9 @@ export default function App() {
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
       </div>
       <Process progress={progress} />
+      {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
-      <div className="h-scroll-spacer" style={{ height: '1000vh', pointerEvents: 'none' }} />
+      {!mobile && <div className="h-scroll-spacer" style={{ height: '1000vh', pointerEvents: 'none' }} />}
       <div style={{ height: '200vh', pointerEvents: 'none' }} />
       <CtaOverlay progress={progress} />
     </>

@@ -35,6 +35,21 @@ export default function HorizontalScroll({ progress }) {
         : 100 - manifestoPhase * 100;
   };
 
+  if (mobile) {
+    return (
+      <div
+        ref={wrapRef}
+        className="h-scroll-wrap"
+        style={{
+          position: 'relative', width: '100%', zIndex: 2,
+        }}
+      >
+        <ReviewsSlide cardPhase={1} />
+        <ManifestoSlide progress={1} />
+      </div>
+    );
+  }
+
   return (
     <div
       ref={wrapRef}

@@ -1,5 +1,109 @@
 import { useEffect, useRef, useState } from 'react';
 
+const projects = [
+  { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
+  { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
+  { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop' },
+  { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop' },
+  { tag: 'GAMING / WEB3', title: 'DUNGEON', subtitle: 'DEEP', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop' },
+  { tag: 'HEALTH / AI', title: 'MED', subtitle: 'PULSE', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop' },
+];
+
+function ProjectCard({ p, colored, onToggle }) {
+  return (
+    <div className="carousel-card" style={{
+      width: '100%', height: '100%', background: 'rgba(255,255,255,0.08)',
+      backdropFilter: 'blur(12px)', border: '1px solid rgba(0,0,0,0.04)',
+      position: 'relative', overflow: 'hidden', display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <div className="card-img" style={{
+        height: '55%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
+      }}>
+        <img src={p.img} alt={p.title} loading="lazy" style={{
+          width: '100%', height: '100%', objectFit: 'cover',
+          filter: colored ? 'grayscale(0) contrast(1.1)' : 'grayscale(1) contrast(1.1)',
+          transition: 'transform 0.5s, filter 0.3s',
+        }} />
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: p.tag.includes('AI') ? 'rgba(225,0,0,0.15)' : 'rgba(255,211,0,0.15)',
+          mixBlendMode: 'soft-light', pointerEvents: 'none',
+        }} />
+      </div>
+      <div className="card-body" style={{
+        flex: 1, padding: '20px 24px 24px',
+        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+        background: 'rgba(255,255,255,0.85)',
+      }}>
+        <div style={{
+          fontFamily: "'Space Mono', monospace", fontSize: '0.65rem',
+          letterSpacing: '0.08em', textTransform: 'uppercase',
+          padding: '3px 10px 3px 24px', marginBottom: 6, width: 'fit-content',
+          background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, #000 4px, #000 8px)',
+          backgroundSize: '16px 100%', backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'left center', color: 'rgba(0,0,0,0.5)',
+        }}>
+          {p.tag}
+        </div>
+        <h2 style={{
+          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.3rem,2.5vw,2rem)',
+          textTransform: 'uppercase', color: '#000', lineHeight: 1.05,
+          marginBottom: 14, letterSpacing: '0.01em',
+        }}>
+          {p.title} <span style={{ color: p.color }}>{p.subtitle}</span>
+        </h2>
+        <button onClick={onToggle} style={{
+          width: '100%', padding: 10, background: '#000', color: '#fff',
+          fontFamily: "'Anton', sans-serif", fontSize: '0.9rem',
+          textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+          letterSpacing: '0.05em',
+        }}>VIEW PROJECT</button>
+      </div>
+    </div>
+  );
+}
+
+function MobileProjectList() {
+  const [colored, setColored] = useState({});
+  const toggle = (i) => setColored(prev => ({ ...prev, [i]: !prev[i] }));
+
+  return (
+    <section id="showcase" style={{
+      width: '100%', position: 'relative', zIndex: 10,
+    }}>
+      {projects.map((p, i) => (
+        <div
+          key={i}
+          className="carousel-cell"
+          style={{
+            width: '100%', height: '100dvh',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'var(--primary)', overflow: 'hidden', position: 'relative',
+            padding: '24px',
+          }}
+        >
+          <div style={{
+            position: 'absolute', inset: 0, opacity: 0.06,
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
+            pointerEvents: 'none',
+          }} />
+          <div style={{
+            width: '100%', maxWidth: 360, height: '80dvh', maxHeight: 560,
+            position: 'relative', zIndex: 2,
+          }}>
+            <ProjectCard
+              p={p}
+              colored={colored[i]}
+              onToggle={() => toggle(i)}
+            />
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const mobile = window.innerWidth < 900;
   const CARD_W = mobile ? 320 : 600;
@@ -40,7 +144,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     };
   }, [mobile, onCardEnd]);
 
-  // Advance cards on scroll for mobile
   useEffect(() => {
     if (!mobile) return;
     const totalCards = 6;
@@ -48,7 +151,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     setSwipeIdx(prev => Math.max(prev, cardFromProgress));
   }, [progress, mobile]);
 
-  // Handle carousel completion when last card reached
   useEffect(() => {
     if (!mobile || cardEndedRef.current) return;
     if (swipeIdx < 5) return;
@@ -102,14 +204,9 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const totalCards = 6;
   const cardIndex = mobile ? swipeIdx : 0;
 
-  const projects = [
-    { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
-    { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
-    { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop' },
-    { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop' },
-    { tag: 'GAMING / WEB3', title: 'DUNGEON', subtitle: 'DEEP', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop' },
-    { tag: 'HEALTH / AI', title: 'MED', subtitle: 'PULSE', color: 'var(--secondary)', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop' },
-  ];
+  if (mobile) {
+    return <MobileProjectList />;
+  }
 
   return (
     <section className="slide showcase-slide" id="showcase" style={{
@@ -126,10 +223,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
         position: 'relative', width: '100%', height: '100%',
         perspective: 1800, display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <div ref={carouselRef} className="carousel-3d" style={mobile ? {
-          width: '100%', height: '100%', position: 'relative',
-          overflow: 'hidden', touchAction: 'none',
-        } : {
+        <div ref={carouselRef} className="carousel-3d" style={{
           width: '100%', height: '100%', position: 'absolute',
           transformStyle: 'preserve-3d', willChange: 'transform',
         }}>
@@ -138,67 +232,17 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
               key={i}
               className="carousel-cell"
               onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
-              style={mobile ? {
-                position: 'absolute',
-                transform: i === cardIndex ? 'translateY(0) scale(1)' : i < cardIndex ? 'translateY(-120%) scale(0.9)' : 'translateY(120%) scale(0.9)',
-                opacity: i === cardIndex ? 1 : 0,
-                transition: 'opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)',
-              } : {
+              style={{
                 position: 'absolute', left: `calc(50% - ${CARD_W / 2}px)`,
                 top: `calc(50% - ${CARD_H / 2}px)`, width: CARD_W, height: CARD_H,
                 backfaceVisibility: 'hidden', willChange: 'transform',
               }}
             >
-              <div className="carousel-card" style={{
-                width: '100%', height: '100%', background: 'rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(12px)', border: '1px solid rgba(0,0,0,0.04)',
-                position: 'relative', overflow: 'hidden', display: 'flex',
-                flexDirection: 'column',
-              }}>
-                <div className="card-img" style={{
-                  height: '55%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
-                }}>
-                  <img src={p.img} alt={p.title} loading="lazy" style={{
-                    width: '100%', height: '100%', objectFit: 'cover',
-                    filter: colored[i] ? 'grayscale(0) contrast(1.1)' : 'grayscale(1) contrast(1.1)',
-                    transition: 'transform 0.5s, filter 0.3s',
-                  }} />
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: p.tag.includes('AI') ? 'rgba(225,0,0,0.15)' : 'rgba(255,211,0,0.15)',
-                    mixBlendMode: 'soft-light', pointerEvents: 'none',
-                  }} />
-                </div>
-                <div className="card-body" style={{
-                  flex: 1, padding: '20px 24px 24px',
-                  display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-                  background: 'rgba(255,255,255,0.85)',
-                }}>
-                  <div style={{
-                    fontFamily: "'Space Mono', monospace", fontSize: '0.65rem',
-                    letterSpacing: '0.08em', textTransform: 'uppercase',
-                    padding: '3px 10px 3px 24px', marginBottom: 6, width: 'fit-content',
-                    background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, #000 4px, #000 8px)',
-                    backgroundSize: '16px 100%', backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'left center', color: 'rgba(0,0,0,0.5)',
-                  }}>
-                    {p.tag}
-                  </div>
-                  <h2 style={{
-                    fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.3rem,2.5vw,2rem)',
-                    textTransform: 'uppercase', color: '#000', lineHeight: 1.05,
-                    marginBottom: 14, letterSpacing: '0.01em',
-                  }}>
-                    {p.title} <span style={{ color: p.color }}>{p.subtitle}</span>
-                  </h2>
-                  <button style={{
-                    width: '100%', padding: 10, background: '#000', color: '#fff',
-                    fontFamily: "'Anton', sans-serif", fontSize: '0.9rem',
-                    textTransform: 'uppercase', border: 'none', cursor: 'pointer',
-                    letterSpacing: '0.05em',
-                  }}>VIEW PROJECT</button>
-                </div>
-              </div>
+              <ProjectCard
+                p={p}
+                colored={colored[i]}
+                onToggle={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
+              />
             </div>
           ))}
         </div>
@@ -211,7 +255,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
           letterSpacing: '0.1em', color: '#000', textTransform: 'uppercase',
-        }}>{mobile ? `SWIPE • ${swipeIdx + 1}/${totalCards}` : 'SCROLL TO EXPLORE'}</span>
+        }}>SCROLL TO EXPLORE</span>
         <div style={{
           width: 20, height: 32, border: '2px solid #000', borderRadius: 10,
           position: 'relative', opacity: 0.4,
