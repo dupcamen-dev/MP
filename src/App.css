@@ -153,6 +153,12 @@ body::after {
 }
 
 .bento-card { transition: border-color 0.3s, transform 0.3s !important; }
+.bento-wide { grid-column: span 2; }
+.bento-full { grid-column: span 3; }
+.phase3-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+@media (max-width: 900px) {
+  .phase3-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
 .carousel-cell { cursor: pointer; }
 .carousel-cell .card-body button { transition: background 0.3s, color 0.3s; }
 .card-img img { transition: transform 0.5s, filter 0.5s; }
@@ -205,7 +211,7 @@ body::after {
   .process-grid { grid-template-columns: 1fr; }
   .process-grid .bento-wide { grid-column: span 1; }
   .process-grid .bento-full { grid-column: span 1; }
-  .process-grid .bento-full > div { flex-direction: column; align-items: flex-start; }
+  .process-grid .bento-full > div { flex-direction: column; align-items: flex-start; gap: 16px; }
 
   .process-actions { flex-direction: column !important; }
   .process-actions a { text-align: center !important; min-height: 44px; display: flex; align-items: center; justify-content: center; }

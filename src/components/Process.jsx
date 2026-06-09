@@ -118,7 +118,7 @@ export default function Process({ progress }) {
           padding: '80px 0 120px', position: 'relative', zIndex: 2,
         }}>
           <div className="bento-card wide bento-wide card-in" style={{
-            gridColumn: 'span 2', background: 'rgba(15,15,18,0.7)',
+            background: 'rgba(15,15,18,0.7)',
             backdropFilter: 'blur(12px)', border: '1px solid rgba(107,110,115,0.2)',
             padding: 32, position: 'relative',
           }}>
@@ -171,7 +171,7 @@ export default function Process({ progress }) {
             </p>
           </div>
           <div className="bento-card full bento-full card-in" style={{
-            gridColumn: 'span 3', background: 'var(--primary)',
+            background: 'var(--primary)',
             border: '1px solid var(--primary)', padding: 48, position: 'relative',
           }}>
             <div style={{
@@ -179,9 +179,8 @@ export default function Process({ progress }) {
               backgroundImage: 'radial-gradient(circle, rgba(15,15,18,0.15) 1px, transparent 1px)',
               backgroundSize: '20px 20px', mixBlendMode: 'overlay', pointerEvents: 'none',
             }} />
-            <div style={{
-              display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
-              gap: 32, position: 'relative', zIndex: 1,
+            <div className="phase3-inner" style={{
+              position: 'relative', zIndex: 1,
             }}>
               <div>
                 <span style={{
