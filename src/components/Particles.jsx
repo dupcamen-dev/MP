@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
+import { useMobile } from '../hooks/useMobile';
 
 export default function Particles() {
   const containerRef = useRef(null);
+  const mobile = useMobile();
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    const count = 20;
+    const count = mobile ? 6 : 20;
     const colors = ['#363436', '#454747', '#ffd300', '#e20000'];
     const elements = [];
 

@@ -1,5 +1,10 @@
+import { useEffect, useRef } from 'react';
+import { useMobile } from '../hooks/useMobile';
+
 export default function ReviewsSlide({ cardPhase }) {
-  const mobile = window.innerWidth < 900;
+  const mobile = useMobile();
+  const gridRef = useRef(null);
+
   const reviews = [
     { text: '"No fluff, no endless spec docs. Just pure, unadulterated shipping. The MVP was live before we even finished our internal meetings."', author: 'CTO, SaaS Platform' },
     { text: '"We went from napkin sketch to production in 8 days. MILLIONPIXELS doesn\'t just build — they weaponize code."', author: 'Founder, Web3 Startup' },
@@ -7,7 +12,17 @@ export default function ReviewsSlide({ cardPhase }) {
     { text: '"The speed of delivery broke our traditional procurement cycles. We had to adapt our entire operational model to keep up. That\'s how fast they are."', author: 'Head of Engineering, DeFi Protocol' },
   ];
 
-  const cardStyle = (i) => {
+  const cardStyle = (i, visible) => {
+    if (mobile) {
+      return {
+        padding: 24,
+        background: 'rgba(255,255,255,0.04)',
+        borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #e20000',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.5s ease, transform 0.5s ease',
+      };
+    }
     const stagger = i * 0.18;
     const p = Math.min(1, Math.max(0, (cardPhase - stagger) / 0.32));
     return {
@@ -21,6 +36,26 @@ export default function ReviewsSlide({ cardPhase }) {
     };
   };
 
+  useEffect(() => {
+    if (!mobile) return;
+    const grid = gridRef.current;
+    if (!grid) return;
+    const cards = grid.querySelectorAll('.review-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(cards).indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.setAttribute('data-visible', 'true');
+          }, idx * 120);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach((c) => observer.observe(c));
+    return () => observer.disconnect();
+  }, [mobile]);
+
   return (
     <section className="slide reviews-slide" id="reviews" style={{
       width: '100vw', flex: '0 0 100vw',
@@ -30,7 +65,7 @@ export default function ReviewsSlide({ cardPhase }) {
       position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center',
-      padding: mobile ? '80px 24px' : '0 80px',
+      padding: mobile ? '60px 24px' : '0 80px',
     }}>
       <div style={{
         position: 'absolute', top: '-30%', right: '-10%', width: '60%', height: '80%',
@@ -44,18 +79,18 @@ export default function ReviewsSlide({ cardPhase }) {
       }} />
 
       <div style={{
-        width: '100%', maxWidth: 1200, marginBottom: 48,
-        display: 'flex', alignItems: 'baseline', gap: 24,
+        width: '100%', maxWidth: 1200, marginBottom: 32,
+        display: 'flex', alignItems: 'baseline', gap: 16,
       }}>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(3rem,7vw,6rem)',
+          fontFamily: "'Anton', sans-serif", fontSize: mobile ? 'clamp(2.5rem,10vw,4rem)' : 'clamp(3rem,7vw,6rem)',
           lineHeight: 0.9, color: '#fff', textTransform: 'uppercase',
           letterSpacing: '0.02em', margin: 0,
         }}>
           TRUSTED BY
         </h2>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(3.5rem,8vw,7rem)',
+          fontFamily: "'Anton', sans-serif", fontSize: mobile ? 'clamp(3rem,12vw,5rem)' : 'clamp(3.5rem,8vw,7rem)',
           lineHeight: 0.9, color: '#e20000', textTransform: 'uppercase',
           letterSpacing: '0.02em', margin: 0, textShadow: '4px 4px 0 rgba(0,0,0,0.3)',
         }}>
@@ -63,15 +98,15 @@ export default function ReviewsSlide({ cardPhase }) {
         </h2>
       </div>
 
-      <div className="reviews-grid" style={{
-        display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20,
-        maxWidth: 1200, width: '100%',
+      <div ref={gridRef} className="reviews-grid" style={{
+        display: 'grid', gridTemplateColumns: mobile ? '1fr' : 'repeat(2, 1fr)',
+        gap: mobile ? 16 : 20, maxWidth: 1200, width: '100%',
       }}>
         {reviews.slice(0, 2).map((r, i) => (
-          <div key={i} style={cardStyle(i)}>
+          <div key={i} className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(i, !mobile || true)}>
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: '1rem',
-              lineHeight: '1.6', color: 'rgba(255,255,255,0.8)', margin: 0,
+              fontFamily: "'Geist', sans-serif", fontSize: mobile ? '0.9rem' : '1rem',
+              lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0,
             }}>{r.text}</p>
             <h4 style={{
               fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
@@ -80,10 +115,10 @@ export default function ReviewsSlide({ cardPhase }) {
             }}>{r.author}</h4>
           </div>
         ))}
-        <div style={cardStyle(2)}>
+        <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(2, !mobile || true)}>
           <p style={{
-            fontFamily: "'Geist', sans-serif", fontSize: '1rem',
-            lineHeight: '1.6', color: 'rgba(255,255,255,0.8)', margin: 0,
+            fontFamily: "'Geist', sans-serif", fontSize: mobile ? '0.9rem' : '1rem',
+            lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0,
           }}>{reviews[2].text}</p>
           <h4 style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
@@ -91,37 +126,16 @@ export default function ReviewsSlide({ cardPhase }) {
             color: '#ffd300', marginTop: 16,
           }}>{reviews[2].author}</h4>
         </div>
-        <div style={{ gridColumn: '1 / -1', ...cardStyle(3) }}>
+        <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle(3, !mobile || true) }}>
           <p style={{
-            fontFamily: "'Geist', sans-serif", fontSize: '1rem',
-            lineHeight: '1.6', color: 'rgba(255,255,255,0.8)', margin: 0,
+            fontFamily: "'Geist', sans-serif", fontSize: mobile ? '0.9rem' : '1rem',
+            lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0,
           }}>{reviews[3].text}</p>
           <h4 style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
             fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
             color: '#e20000', marginTop: 16,
           }}>{reviews[3].author}</h4>
-        </div>
-      </div>
-
-      <div style={{
-        position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
-        zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
-        gap: 6, opacity: 0.3,
-      }}>
-        <span style={{
-          fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
-          letterSpacing: '0.1em', color: '#fff', textTransform: 'uppercase',
-        }}>SCROLL TO EXPLORE</span>
-        <div style={{
-          width: 20, height: 32, border: '2px solid rgba(255,255,255,0.4)', borderRadius: 10,
-          position: 'relative',
-        }}>
-          <div style={{
-            position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
-            width: 2, height: 8, background: '#fff',
-            animation: 'scroll-wheel 2s ease-in-out infinite',
-          }} />
         </div>
       </div>
     </section>

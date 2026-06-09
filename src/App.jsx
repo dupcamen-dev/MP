@@ -1,4 +1,5 @@
 import { useScrollProgress } from './hooks/useScrollProgress';
+import { useMobile } from './hooks/useMobile';
 import Particles from './components/Particles';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -9,7 +10,7 @@ import CtaOverlay from './components/CtaOverlay';
 
 export default function App() {
   const progress = useScrollProgress('process');
-  const mobile = window.innerWidth < 900;
+  const mobile = useMobile();
 
   return (
     <>

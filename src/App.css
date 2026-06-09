@@ -48,10 +48,6 @@ body {
   pointer-events: none;
 }
 
-.glass:hover::after {
-  transform: rotate(30deg) translateY(100%);
-}
-
 .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; }
 .font-geist { font-family: 'Geist', sans-serif; }
 .font-mono { font-family: 'Space Mono', monospace; }
@@ -67,10 +63,8 @@ body {
   transform: translateY(0);
 }
 
-/* Hero title line hover with color change */
 .hero-title .line { display: block; }
 
-/* Keyframe animations */
 @keyframes marquee-h {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -91,37 +85,46 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* CSS Scroll-driven animation for Process parallax */
 @keyframes process-parallax {
   from { transform: translateY(-50vh); }
   to { transform: translateY(0); }
 }
 
 @supports ((animation-timeline: view()) and (animation-range: entry)) {
-  #process {
-    animation: process-parallax linear both;
-    animation-timeline: view(block);
-    animation-range: entry 0% entry 100%;
+  @media (min-width: 901px) {
+    #process {
+      animation: process-parallax linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% entry 100%;
+    }
   }
 }
 
 .card-in { opacity: 0; }
 .card-in.active { animation: fade-up 0.4s cubic-bezier(0.5,0,0,1) forwards; }
 
-/* Bento card hover */
+@media (hover: hover) {
+  .glass:hover::after { transform: rotate(30deg) translateY(100%); }
+  .bento-card:hover { border-color: var(--primary) !important; transform: scale(1.02); }
+  .bento-card.wide:hover, .bento-card.full:hover { border-color: var(--secondary) !important; }
+  .carousel-cell:hover .card-img img { transform: scale(1.08); filter: grayscale(0) contrast(1.2) !important; }
+  .carousel-cell .card-body button:hover { background: var(--primary) !important; color: var(--bg) !important; }
+  .menu-link:hover { transform: translateX(12px) !important; color: var(--primary) !important; }
+  .menu-link:hover::after { width: 100%; }
+  .cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }
+  .cta-slide-title .line-yellow:hover { transform: translateY(-6px) skewX(-6deg) !important; color: var(--primary) !important; }
+  .cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 rgba(0,0,0,0.25) !important; }
+  .process-btn.primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--secondary); }
+  .process-btn.outline:hover { background: var(--text); color: var(--bg); }
+  .header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
+  .menu-btn:hover span { width: 44px !important; }
+  .menu-btn.open:hover span:nth-child(2) { width: 0 !important; }
+}
+
 .bento-card { transition: border-color 0.3s, transform 0.3s !important; }
-.bento-card:hover { border-color: var(--primary) !important; transform: scale(1.02); }
-.bento-card.wide:hover, .bento-card.full:hover { border-color: var(--secondary) !important; }
-
-/* Carousel card hover */
 .carousel-cell { cursor: pointer; }
-.carousel-cell:hover .card-img img { transform: scale(1.08); filter: grayscale(0) contrast(1.2) !important; }
-.carousel-cell .card-body button:hover { background: var(--primary) !important; color: var(--bg) !important; }
-
-/* Carousel card img transition */
+.carousel-cell .card-body button { transition: background 0.3s, color 0.3s; }
 .card-img img { transition: transform 0.5s, filter 0.5s; }
-
-/* Menu link hover */
 .menu-link { position: relative !important; }
 .menu-link::after {
   content: '';
@@ -131,32 +134,12 @@ body {
   background: var(--secondary);
   transition: width 0.3s;
 }
-.menu-link:hover { transform: translateX(12px) !important; color: var(--primary) !important; }
 .menu-link.highlight::after { background: var(--primary); }
 .menu-link.highlight:hover { color: var(--secondary) !important; }
-.menu-link:hover::after { width: 100%; }
-
-/* CTA title hover */
 .cta-slide-title .line { transition: transform 0.5s, color 0.5s, text-shadow 0.5s !important; cursor: crosshair; }
-.cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }
-.cta-slide-title .line-yellow:hover { transform: translateY(-6px) skewX(-6deg) !important; color: var(--primary) !important; }
-
-/* CTA button hover */
 .cta-btn { transition: all 0.3s !important; }
-.cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 rgba(0,0,0,0.25) !important; }
-
-/* Process button hover */
 .process-btn { transition: all 0.2s !important; }
-.process-btn.primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--secondary); }
-.process-btn.outline:hover { background: var(--text); color: var(--bg); }
-
-/* Header logo hover */
 .header-logo { transition: text-shadow 0.3s; }
-.header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
-
-/* Burger button hover - expand spans */
-.menu-btn:hover span { width: 44px !important; }
-.menu-btn.open:hover span:nth-child(2) { width: 0 !important; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -175,7 +158,7 @@ body {
   :root { --section-padding: 24px; }
   [style*="backdrop-filter"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
-  header { padding: 16px 24px !important; }
+  header { mix-blend-mode: normal !important; padding: 16px 24px !important; }
   .header-logo { font-size: 1.2rem !important; }
 
   #hero { padding: 100px 24px 60px !important; }
@@ -196,20 +179,10 @@ body {
   .process-actions { flex-direction: column !important; }
   .process-actions a { text-align: center !important; }
 
-  .reviews-grid { grid-template-columns: 1fr !important; }
-  #reviews { padding: 0 24px !important; }
-  #reviews .reviews-grid { gap: 16px !important; }
-  #manifesto { padding: 0 24px !important; }
-
-  .showcase-slide .carousel-scene { perspective: 3000 !important; }
-  .showcase-slide .carousel-cell { width: 320px !important; height: 480px !important; left: calc(50% - 160px) !important; top: calc(50% - 240px) !important; }
-
-  #cta .cta-footer { flex-direction: column !important; padding: 24px !important; align-items: flex-start !important; }
-
   .h-scroll-wrap { height: auto !important; }
   .slide { min-height: 100dvh !important; height: auto !important; }
 
-  .menu-btn { width: 40px !important; height: 40px !important; }
+  .menu-btn { width: 44px !important; height: 44px !important; }
 }
 
 @media (max-width: 480px) {
@@ -217,10 +190,11 @@ body {
   #hero .hero-sub { padding: 16px 20px !important; }
   #hero .hero-sub p { font-size: clamp(0.8rem,3.5vw,1rem) !important; }
 
-  .showcase-slide .carousel-cell { width: 260px !important; height: 390px !important; left: calc(50% - 130px) !important; top: calc(50% - 195px) !important; }
-  .showcase-slide .carousel-scene { perspective: 600 !important; }
-
   #process .process-badge { font-size: 0.65rem !important; }
+}
+
+@supports (padding: max(0px)) {
+  #cta .cta-footer { padding-bottom: max(48px, calc(48px + env(safe-area-inset-bottom))) !important; }
 }
 
 .material-icons {

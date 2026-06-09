@@ -37,6 +37,12 @@ export function useScrollProgress(triggerId = 'process') {
 export function useScrollTo() {
   return (targetId) => {
     if (targetId === 'cta') {
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      if (isMobile) {
+        const cta = document.getElementById('cta');
+        if (cta) cta.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
       const trigger = document.getElementById('process');
       const tp = trigger ? trigger.offsetTop + trigger.offsetHeight : 0;
       const spacer = document.querySelector('.h-scroll-spacer');

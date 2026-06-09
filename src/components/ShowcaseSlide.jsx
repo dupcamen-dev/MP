@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useMobile } from '../hooks/useMobile';
 
 const projects = [
   { tag: 'FINTECH / WEB3', title: 'NEO-BANK', subtitle: 'ALPHA', color: 'var(--primary)', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop' },
@@ -66,102 +67,95 @@ function ProjectCard({ p, colored, onToggle }) {
 
 function MobileProjectList() {
   const [colored, setColored] = useState({});
+  const [activeIdx, setActiveIdx] = useState(0);
   const toggle = (i) => setColored(prev => ({ ...prev, [i]: !prev[i] }));
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const sections = container.querySelectorAll('.mobile-project-slide');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(sections).indexOf(entry.target);
+          if (idx >= 0) setActiveIdx(idx);
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="showcase" style={{
       width: '100%', position: 'relative', zIndex: 4,
     }}>
-      {projects.map((p, i) => (
-        <div
-          key={i}
-          className="carousel-cell"
-          style={{
-            width: '100%', height: '100vh', minHeight: '100dvh',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: 'var(--primary)', overflow: 'hidden', position: 'relative',
-            padding: '24px',
-          }}
-        >
-          <div style={{
-            position: 'absolute', inset: 0, opacity: 0.06,
-            background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
-            pointerEvents: 'none',
-          }} />
-          <div style={{
-            width: '100%', maxWidth: 360, height: '80dvh', maxHeight: 560,
-            position: 'relative', zIndex: 2,
-          }}>
-            <ProjectCard
-              p={p}
-              colored={colored[i]}
-              onToggle={() => toggle(i)}
-            />
+      <div
+        ref={containerRef}
+        style={{
+          width: '100%',
+          scrollSnapType: 'y mandatory',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
+        {projects.map((p, i) => (
+          <div
+            key={i}
+            className="mobile-project-slide"
+            style={{
+              width: '100%', height: '100vh',
+              minHeight: '100dvh',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'var(--primary)', overflow: 'hidden', position: 'relative',
+              padding: '24px',
+              scrollSnapAlign: 'center',
+            }}
+          >
+            <div style={{
+              position: 'absolute', inset: 0, opacity: 0.06,
+              background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }} />
+            <div style={{
+              width: '100%', maxWidth: 360, height: '75dvh', maxHeight: 560,
+              position: 'relative', zIndex: 2,
+            }}>
+              <ProjectCard
+                p={p}
+                colored={colored[i]}
+                onToggle={() => toggle(i)}
+              />
+            </div>
+            <nav style={{
+              position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
+              display: 'flex', gap: 8, zIndex: 10,
+            }}>
+              {projects.map((_, j) => (
+                <span key={j} style={{
+                  width: activeIdx === j ? 20 : 8, height: 8, borderRadius: 4,
+                  background: activeIdx === j ? '#000' : 'rgba(0,0,0,0.25)',
+                  transition: 'all 0.3s ease',
+                }} />
+              ))}
+            </nav>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }
 
 export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
-  const mobile = window.innerWidth < 900;
-  const CARD_W = mobile ? 320 : 600;
-  const CARD_H = mobile ? 480 : 840;
+  const mobile = useMobile();
+  const CARD_W = 600;
+  const CARD_H = 840;
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
-  const cardEndedRef = useRef(false);
   const [colored, setColored] = useState({});
-  const [swipeIdx, setSwipeIdx] = useState(0);
 
   useEffect(() => {
-    if (!mobile) return;
-    const el = carouselRef.current;
-    if (!el) return;
-    let startY = null;
-    function onTouchStart(e) { startY = e.touches[0].clientY; }
-    function onTouchEnd(e) {
-      if (startY === null) return;
-      const dy = e.changedTouches[0].clientY - startY;
-      startY = null;
-      if (Math.abs(dy) < 40) return;
-      if (dy < -40) {
-        setSwipeIdx(prev => {
-          if (prev < 5) return prev + 1;
-          el.style.touchAction = 'auto';
-          onCardEnd?.();
-          return prev;
-        });
-      } else {
-        setSwipeIdx(prev => Math.max(0, prev - 1));
-      }
-    }
-    el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchend', onTouchEnd, { passive: true });
-    return () => {
-      el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchend', onTouchEnd);
-    };
-  }, [mobile, onCardEnd]);
-
-  useEffect(() => {
-    if (!mobile) return;
-    const totalCards = 6;
-    const cardFromProgress = Math.min(totalCards - 1, Math.floor(progress / 0.35 * totalCards));
-    setSwipeIdx(prev => Math.max(prev, cardFromProgress));
-  }, [progress, mobile]);
-
-  useEffect(() => {
-    if (!mobile || cardEndedRef.current) return;
-    if (swipeIdx < 5) return;
-    cardEndedRef.current = true;
-    const el = carouselRef.current;
-    if (el) el.style.touchAction = 'auto';
-    onCardEnd?.();
-  }, [swipeIdx, mobile, onCardEnd]);
-
-  useEffect(() => {
-    if (mobile) return;
     const el = document.getElementById('showcase');
     if (!el) return;
     const process = document.getElementById('process');
@@ -176,10 +170,9 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     update();
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
-  }, [mobile]);
+  }, []);
 
   useEffect(() => {
-    if (mobile) return;
     const carousel = carouselRef.current;
     if (!carousel) return;
     const cells = carousel.querySelectorAll('.carousel-cell');
@@ -195,15 +188,11 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   }, []);
 
   useEffect(() => {
-    if (mobile) return;
     const carousel = carouselRef.current;
     if (!carousel) return;
     carousel.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${carouselRot}deg)`;
   }, [carouselRot]);
-
-  const totalCards = 6;
-  const cardIndex = mobile ? swipeIdx : 0;
 
   if (mobile) {
     return <MobileProjectList />;

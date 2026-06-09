@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
+import { useMobile } from '../hooks/useMobile';
 
 export default function Hero({ progress }) {
   const shardsRef = useRef(null);
   const pixelsRef = useRef(null);
+  const mobile = useMobile();
 
   useEffect(() => {
-    if (window.innerWidth < 900) return;
+    if (mobile) return;
     const shards = shardsRef.current?.querySelectorAll('.shard');
     if (!shards) return;
     function onMove(e) {
@@ -28,14 +30,16 @@ export default function Hero({ progress }) {
     if (!el || !title) return;
     function onScroll() {
       const p = Math.min(1, window.scrollY / window.innerHeight);
-      const skew = p * 12;
+      const maxSkew = mobile ? 4 : 12;
+      const skew = p * maxSkew;
+      const shadowPx = mobile ? 4 : 8;
       const r = Math.round(33 + (255 - 33) * p);
       const g = Math.round(32 + (255 - 32) * p);
       const b = Math.round(34 + (255 - 34) * p);
       el.style.color = `rgb(${r},${g},${b})`;
       el.style.transform = `translateY(-8px) skewX(${-skew}deg)`;
       const shadowPct = 1 - p;
-      title.style.textShadow = `${Math.round(8 * shadowPct)}px ${Math.round(8 * shadowPct)}px 0 var(--secondary)`;
+      title.style.textShadow = `${Math.round(shadowPx * shadowPct)}px ${Math.round(shadowPx * shadowPct)}px 0 var(--secondary)`;
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -131,12 +135,12 @@ export default function Hero({ progress }) {
         </h1>
           <div className="hero-sub" style={{
           maxWidth: 700, width: '100%', background: 'var(--bg)',
-          padding: '24px 32px', transform: 'rotate(1deg)',
+          padding: '24px 32px', transform: mobile ? 'none' : 'rotate(1deg)',
+          boxShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)',
           transition: 'transform 0.3s', position: 'relative',
-          boxShadow: '8px 8px 0 var(--secondary)',
         }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(0deg)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(1deg)'}>
+          onMouseEnter={(e) => !mobile && (e.currentTarget.style.transform = 'rotate(0deg)')}
+          onMouseLeave={(e) => !mobile && (e.currentTarget.style.transform = 'rotate(1deg)')}>
           <div style={{
             position: 'absolute', top: -12, left: -12,
             width: 24, height: 24,

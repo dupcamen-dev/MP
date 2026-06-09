@@ -1,21 +1,32 @@
 import { useRef, useEffect, useState } from 'react';
+import { useMobile } from '../hooks/useMobile';
 import OrderModal from './OrderModal';
 
 export default function CtaOverlay({ progress }) {
   const overlayRef = useRef(null);
-  const mobile = window.innerWidth < 900;
+  const mobile = useMobile();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const el = overlayRef.current;
     if (!el) return;
+
     if (mobile) {
-      el.querySelectorAll('.reveal').forEach(r => r.classList.add('active'));
-      return;
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          const reveals = el.querySelectorAll('.reveal');
+          reveals.forEach((r, i) => {
+            setTimeout(() => r.classList.add('active'), i * 150);
+          });
+          observer.disconnect();
+        }
+      }, { threshold: 0.2 });
+      observer.observe(el);
+      return () => observer.disconnect();
     }
-    const p = progress;
-    if (p > 0.78) {
-      const localPhase = Math.min(1, (p - 0.78) / 0.22);
+
+    if (progress > 0.78) {
+      const localPhase = Math.min(1, (progress - 0.78) / 0.22);
       const ty = 100 - localPhase * 100;
       el.style.transform = `translateY(${ty}%)`;
       el.style.visibility = 'visible';
@@ -25,6 +36,10 @@ export default function CtaOverlay({ progress }) {
       el.style.visibility = 'hidden';
     }
   }, [progress, mobile]);
+
+  const btnPadding = mobile ? '18px 32px' : '24px 60px';
+  const btnIconSize = mobile ? '1.5rem' : '2.5rem';
+  const footerPadding = mobile ? '24px' : '32px 64px 48px';
 
   return (
     <section
@@ -42,11 +57,12 @@ export default function CtaOverlay({ progress }) {
       <div style={{
         flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
         justifyContent: 'center', maxWidth: 900, width: '100%', textAlign: 'center',
+        padding: mobile ? '0 24px' : 0,
       }}>
         <h2 className="cta-slide-title" style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,12vw,10rem)',
           lineHeight: 0.85, textTransform: 'uppercase', color: '#141315',
-          textShadow: '8px 8px 0 #e10000', letterSpacing: '0.08em',
+          textShadow: mobile ? '4px 4px 0 #e10000' : '8px 8px 0 #e10000', letterSpacing: '0.08em',
           marginBottom: 32,
         }}>
           <span className="line line-white reveal" style={{
@@ -55,7 +71,7 @@ export default function CtaOverlay({ progress }) {
           }}>START YOUR</span>
           <span className="line line-yellow reveal" style={{
             display: 'block', letterSpacing: '0.12em', transform: 'translateY(-6px)',
-            color: '#141315', textShadow: '8px 8px 0 #e10000',
+            color: '#141315', textShadow: mobile ? '4px 4px 0 #e10000' : '8px 8px 0 #e10000',
             transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
           }}>WEEK</span>
         </h2>
@@ -70,21 +86,21 @@ export default function CtaOverlay({ progress }) {
           className="cta-btn reveal"
           onClick={() => setShowModal(true)}
           style={{
-            display: 'inline-flex', alignItems: 'center', gap: 16,
-            padding: '24px 60px', background: '#141315', color: '#ffd300',
+            display: 'inline-flex', alignItems: 'center', gap: mobile ? 10 : 16,
+            padding: btnPadding, background: '#141315', color: '#ffd300',
             fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.2rem,2.5vw,1.75rem)',
             textTransform: 'uppercase', border: '4px solid #141315',
             cursor: 'pointer',
           }}>
           INITIATE PROTOCOL
-          <span className="material-icons" style={{ fontSize: '2.5rem' }}>arrow_forward</span>
+          <span className="material-icons" style={{ fontSize: btnIconSize }}>arrow_forward</span>
         </button>
       </div>
       <div className="cta-footer" style={{
         marginTop: 'auto', width: '100%', maxWidth: 1100,
         display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', flexWrap: 'wrap', gap: 24,
-        padding: '32px 64px 48px', borderTop: '2px solid #141315',
+        padding: footerPadding, borderTop: '2px solid #141315',
         background: '#141315',
       }}>
         <div style={{

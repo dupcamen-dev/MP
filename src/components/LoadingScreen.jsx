@@ -10,9 +10,11 @@ export default function LoadingScreen({ onFinish }) {
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
     async function load() {
+      const timeout = new Promise((r) => setTimeout(r, 2000));
       await Promise.all([
         document.fonts.ready,
         wait(800),
+        timeout,
       ]);
       if (cancelled) return;
       setPhase('done');

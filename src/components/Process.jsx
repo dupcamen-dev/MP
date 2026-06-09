@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
+import { useMobile } from '../hooks/useMobile';
 
 export default function Process({ progress }) {
   const marqueeRef = useRef(null);
   const totalWRef = useRef(null);
+  const mobile = useMobile();
 
   useEffect(() => {
     if (marqueeRef.current) totalWRef.current = marqueeRef.current.scrollWidth / 2;
@@ -42,8 +44,8 @@ export default function Process({ progress }) {
   return (
     <section id="process" style={{
       position: 'relative', zIndex: 3,
-      marginBottom: window.innerWidth < 900 ? '0' : '-100vh',
-      background: 'var(--bg)', padding: '120px 0 0',
+      marginBottom: mobile ? '0' : '-100vh',
+      background: 'var(--bg)', padding: mobile ? '60px 0 0' : '120px 0 0',
     }}>
       <div className="section-inner" style={{
         maxWidth: 1200, margin: '0 auto', padding: '0 64px',
@@ -203,7 +205,7 @@ export default function Process({ progress }) {
 
       <div style={{
         background: 'var(--secondary)', padding: '24px 0', overflow: 'hidden',
-        transform: 'rotate(-3deg) scale(1.05)', position: 'relative',
+        transform: mobile ? 'rotate(-2deg)' : 'rotate(-3deg) scale(1.05)', position: 'relative',
         zIndex: 3, marginTop: 48,
       }}>
         <div ref={marqueeRef} style={{

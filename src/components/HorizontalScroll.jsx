@@ -1,12 +1,13 @@
 import { useRef, useCallback, useState } from 'react';
+import { useMobile } from '../hooks/useMobile';
 import ShowcaseSlide from './ShowcaseSlide';
 import ReviewsSlide from './ReviewsSlide';
 import ManifestoSlide from './ManifestoSlide';
 
 export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
-  const mobile = window.innerWidth < 900;
-  const [carouselDone, setCarouselDone] = useState(!mobile);
+  const mobile = useMobile();
+  const [carouselDone, setCarouselDone] = useState(false);
   const slideP = mobile ? (carouselDone ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : 0) : progress;
 
   const handleCardEnd = useCallback(() => {
@@ -44,7 +45,7 @@ export default function HorizontalScroll({ progress }) {
           position: 'relative', width: '100%', zIndex: 1,
         }}
       >
-        <ReviewsSlide cardPhase={1} />
+        <ReviewsSlide />
         <ManifestoSlide progress={1} />
       </div>
     );
