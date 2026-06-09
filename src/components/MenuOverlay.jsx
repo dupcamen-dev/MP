@@ -38,7 +38,7 @@ export default function MenuOverlay() {
           clipPath: open ? 'circle(150% at top right)' : 'circle(0% at top right)',
         }}
       >
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 8, position: 'relative', zIndex: 1 }}>
+        <nav id="main-nav" style={{ display: 'flex', flexDirection: 'column', gap: 8, position: 'relative', zIndex: 1 }}>
           {links.map((l) => (
             <a
               key={l.id}
@@ -46,7 +46,7 @@ export default function MenuOverlay() {
               onClick={(e) => { e.preventDefault(); handleClick(l.id); }}
               className={l.highlight ? 'menu-link highlight' : 'menu-link'}
               style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(3rem,8vw,7.5rem)',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,8vw,7.5rem)',
                 lineHeight: 1, textTransform: 'uppercase', color: l.highlight ? 'var(--primary)' : 'var(--text)',
                 textDecoration: 'none', transition: 'all 0.3s', position: 'relative',
                 display: 'inline-block', width: 'fit-content', cursor: 'pointer',
@@ -67,6 +67,8 @@ export default function MenuOverlay() {
       <button
         onClick={toggle}
         className={open ? 'menu-btn open' : 'menu-btn'}
+        aria-expanded={open}
+        aria-controls="main-nav"
         style={{
           position: 'relative', zIndex: 61, mixBlendMode: 'initial',
           display: 'flex', flexDirection: 'column', gap: 6,
@@ -75,18 +77,18 @@ export default function MenuOverlay() {
         }}
       >
         <span className="l1" style={{
-          display: 'block', height: 3, background: '#0d0d0f', transition: 'all 0.3s', borderRadius: 0,
+          display: 'block', height: 3, background: 'var(--surface-low)', transition: 'all 0.3s', borderRadius: 0,
           boxShadow: '0 0 0 2px var(--primary)',
           width: 36,
           transform: open ? 'rotate(45deg) translate(6px,6px)' : 'none',
         }}></span>
         <span className="l2" style={{
-          display: 'block', height: 3, background: '#0d0d0f', transition: 'all 0.3s', borderRadius: 0,
+          display: 'block', height: 3, background: 'var(--surface-low)', transition: 'all 0.3s', borderRadius: 0,
           boxShadow: open ? 'none' : '0 0 0 2px var(--primary)',
           width: open ? 0 : 28, opacity: open ? 0 : 1,
         }}></span>
         <span className="l3" style={{
-          display: 'block', height: 3, background: '#0d0d0f', transition: 'all 0.3s', borderRadius: 0,
+          display: 'block', height: 3, background: 'var(--surface-low)', transition: 'all 0.3s', borderRadius: 0,
           boxShadow: '0 0 0 2px var(--primary)',
           width: open ? 36 : 40,
           transform: open ? 'rotate(-45deg) translate(6px,-6px)' : 'none',

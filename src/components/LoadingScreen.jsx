@@ -31,7 +31,7 @@ export default function LoadingScreen({ onFinish }) {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
-      background: '#0f0f12',
+      background: 'var(--surface-low)',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center', gap: 48,
       transition: 'opacity 0.6s',
@@ -39,7 +39,7 @@ export default function LoadingScreen({ onFinish }) {
       pointerEvents: phase === 'done' ? 'none' : 'auto',
     }}>
       <h1 style={{
-        fontFamily: "'Anton', sans-serif", fontSize: 'clamp(3rem,10vw,6rem)',
+        fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,10vw,6rem)',
         color: '#ffd300', textTransform: 'uppercase', lineHeight: 0.85,
         textAlign: 'center',
       }}>

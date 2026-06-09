@@ -104,7 +104,7 @@ export default function ManifestoSlide({ progress }) {
       }} />
       <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,8vw,4rem)',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,8vw,4rem)',
           color: 'var(--text)', marginBottom: 32, lineHeight: 0.9,
         }}>
           SPEED IS A <span style={{ color: 'var(--secondary)' }}>FEATURE.</span>
@@ -137,7 +137,7 @@ export default function ManifestoSlide({ progress }) {
           <div style={{
             position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
             width: 2, height: 8, background: 'var(--text)',
-            animation: 'scroll-wheel 2s ease-in-out infinite',
+            animation: 'scroll-wheel-alt 2s ease-in-out infinite alternate',
           }} />
         </div>
       </div>
@@ -163,7 +163,7 @@ export default function ManifestoSlide({ progress }) {
             top: 0,
             width: '100%',
             height: '100dvh',
-            background: '#0d0d0f',
+            background: 'var(--surface-low)',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
@@ -181,7 +181,7 @@ export default function ManifestoSlide({ progress }) {
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
-      background: '#0d0d0f', overflow: 'hidden', position: 'relative',
+      background: 'var(--surface-low)', overflow: 'hidden', position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center', padding: '0 64px',
     }}>
@@ -192,7 +192,7 @@ export default function ManifestoSlide({ progress }) {
       }} />
       <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
           color: 'var(--text)', marginBottom: 32, lineHeight: 0.9,
         }}>
           SPEED IS A <span style={{ color: 'var(--secondary)' }}>FEATURE.</span>
@@ -229,7 +229,7 @@ export default function ManifestoSlide({ progress }) {
           <div style={{
             position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
             width: 2, height: 8, background: 'var(--text)',
-            animation: 'scroll-wheel 2s ease-in-out infinite',
+            animation: 'scroll-wheel-alt 2s ease-in-out infinite alternate',
           }} />
         </div>
       </div>

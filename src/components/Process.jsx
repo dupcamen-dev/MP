@@ -8,6 +8,9 @@ export default function Process({ progress }) {
   const tablet = useTablet();
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
     if (marqueeRef.current) totalWRef.current = marqueeRef.current.scrollWidth / 2;
     const el = document.getElementById('process');
     if (!el) return;
@@ -59,7 +62,7 @@ export default function Process({ progress }) {
         }}>
           <div style={{
             position: 'absolute', left: 0, top: 0, bottom: 0, width: 4,
-            background: 'repeating-linear-gradient(45deg, #0d0d0f 0px, #0d0d0f 3px, var(--primary) 3px, var(--primary) 6px)',
+            background: 'repeating-linear-gradient(45deg, var(--surface-low) 0px, var(--surface-low) 3px, var(--primary) 3px, var(--primary) 6px)',
           }} />
           <span style={{
             marginLeft: 8, fontFamily: "'Space Mono', monospace",
@@ -70,7 +73,7 @@ export default function Process({ progress }) {
           </span>
         </div>
         <h1 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,10vw,8.75rem)',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(4rem,10vw,8.75rem)',
           lineHeight: 0.85, textTransform: 'uppercase',
           color: 'var(--primary)', mixBlendMode: 'difference',
           position: 'relative', zIndex: 1,
@@ -94,14 +97,14 @@ export default function Process({ progress }) {
         <div className="process-actions" style={{ display: 'flex', gap: 16, marginTop: 48 }}>
           <a href="#process" className="process-btn primary" style={{
             padding: '16px clamp(24px,4vw,48px)', background: 'var(--primary)',
-            color: 'var(--on-primary)', fontFamily: "'Anton', sans-serif",
+            color: 'var(--on-primary)', fontFamily: "'Anton', Impact, sans-serif",
             fontSize: 'clamp(1rem,2.5vw,1.25rem)', textTransform: 'uppercase',
             textDecoration: 'none', boxShadow: '4px 4px 0 var(--secondary)',
             display: 'inline-block',
           }}>ENGAGE</a>
           <a href="#showcase" className="process-btn outline" style={{
             padding: '16px clamp(24px,4vw,48px)', background: 'transparent',
-            color: 'var(--text)', fontFamily: "'Anton', sans-serif",
+            color: 'var(--text)', fontFamily: "'Anton', Impact, sans-serif",
             fontSize: 'clamp(1rem,2.5vw,1.25rem)', textTransform: 'uppercase',
             textDecoration: 'none', border: '2px solid var(--text)',
             display: 'inline-block',
@@ -123,13 +126,13 @@ export default function Process({ progress }) {
               display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 48,
             }}>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: '3rem',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: '3rem',
                 color: 'var(--secondary)', lineHeight: 1, display: 'block',
               }}>PHASE.1</span>
               <span className="material-icons" style={{ fontSize: '2.5rem', color: 'var(--primary)' }}>target</span>
             </div>
             <h3 style={{
-              fontFamily: "'Anton', sans-serif", fontSize: '2rem',
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
               textTransform: 'uppercase', color: 'var(--text)',
               marginBottom: 16, lineHeight: 1.1,
             }}>TACTICAL IDEATION</h3>
@@ -149,13 +152,13 @@ export default function Process({ progress }) {
               display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 48,
             }}>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: '3rem',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: '3rem',
                 color: 'var(--secondary)', lineHeight: 1, display: 'block',
               }}>PHASE.2</span>
               <span className="material-icons" style={{ fontSize: '2.5rem', color: 'var(--primary)' }}>code</span>
             </div>
             <h3 style={{
-              fontFamily: "'Anton', sans-serif", fontSize: '2rem',
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
               textTransform: 'uppercase', color: 'var(--text)',
               marginBottom: 16, lineHeight: 1.1,
             }}>VIBE CODING</h3>
@@ -173,7 +176,7 @@ export default function Process({ progress }) {
           }}>
             <div style={{
               position: 'absolute', inset: 0, opacity: 0.1,
-              backgroundImage: 'radial-gradient(circle, rgba(13,13,15,0.15) 1px, transparent 1px)',
+              backgroundImage: 'radial-gradient(circle, rgba(15,15,18,0.15) 1px, transparent 1px)',
               backgroundSize: '20px 20px', mixBlendMode: 'overlay', pointerEvents: 'none',
             }} />
             <div style={{
@@ -182,11 +185,11 @@ export default function Process({ progress }) {
             }}>
               <div>
                 <span style={{
-                  fontFamily: "'Anton', sans-serif", fontSize: '2rem',
+                  fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
                   color: 'rgba(15,15,18,0.5)', lineHeight: 1, display: 'block', marginBottom: 16,
                 }}>PHASE.3 // TERMINAL</span>
                 <h3 style={{
-                  fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                  fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
                   color: 'var(--bg)', textTransform: 'uppercase', lineHeight: 1.1,
                 }}>IMPACT<br />LAUNCH</h3>
               </div>
@@ -216,27 +219,27 @@ export default function Process({ progress }) {
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i}>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
-                textTransform: 'uppercase', color: '#fff', padding: '0 32px',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                textTransform: 'uppercase', color: 'var(--text)', padding: '0 32px',
               }}>SLASH THE RULES</span>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
                 textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', padding: '0 32px',
               }}>///</span>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
-                textTransform: 'uppercase', color: '#fff', padding: '0 32px',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                textTransform: 'uppercase', color: 'var(--text)', padding: '0 32px',
               }}>PIXELS ARE A PROMISE</span>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
                 textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', padding: '0 32px',
               }}>///</span>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
-                textTransform: 'uppercase', color: '#fff', padding: '0 32px',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                textTransform: 'uppercase', color: 'var(--text)', padding: '0 32px',
               }}>FRONTEND AS RITUAL</span>
               <span style={{
-                fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
+                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
                 textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', padding: '0 32px',
               }}>///</span>
             </span>

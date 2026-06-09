@@ -121,7 +121,7 @@ export default function Hero({ progress }) {
           <span style={{ marginLeft: 8 }}>SYSTEM OVERRIDE ACTIVE</span>
         </div>
         <h1 className="hero-title" style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,15vw,12.5rem)',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(4rem,15vw,12.5rem)',
           lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--bg)',
           width: '100%', textShadow: '8px 8px 0 var(--secondary)',
         }}>

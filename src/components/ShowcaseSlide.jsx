@@ -23,7 +23,9 @@ function ProjectCard({ p }) {
       <div className="card-img" style={{
         height: '55%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
       }}>
-        <img src={p.img} alt={p.title} loading="lazy" style={{
+        <img src={p.img} alt={p.title} loading="lazy"
+          onError={e => { e.target.style.display = 'none'; e.target.parentNode.style.background = p.color + '33'; }}
+          style={{
           width: '100%', height: '100%', objectFit: 'cover',
           filter: 'contrast(1.1)',
           transition: 'transform 0.5s',
@@ -43,14 +45,14 @@ function ProjectCard({ p }) {
           fontFamily: "'Space Mono', monospace", fontSize: '0.65rem',
           letterSpacing: '0.08em', textTransform: 'uppercase',
           padding: '3px 10px 3px 24px', marginBottom: 8, width: 'fit-content',
-          background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, #0d0d0f 4px, #0d0d0f 8px)',
+          background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, var(--surface-low) 4px, var(--surface-low) 8px)',
           backgroundSize: '16px 100%', backgroundRepeat: 'no-repeat',
           backgroundPosition: 'left center', color: 'rgba(230,225,228,0.5)',
         }}>
           {p.tag}
         </div>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.3rem,2.5vw,2rem)',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.3rem,2.5vw,2rem)',
           textTransform: 'uppercase', color: 'var(--text)', lineHeight: 1.05,
           marginBottom: 8, letterSpacing: '0.01em',
         }}>
@@ -66,7 +68,7 @@ function ProjectCard({ p }) {
         <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
           width: '100%', padding: '12px 0', background: 'var(--surface-high)',
           color: 'var(--text)',
-          fontFamily: "'Anton', sans-serif", fontSize: '0.85rem',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.85rem',
           textTransform: 'uppercase', border: 'none', cursor: 'pointer',
           letterSpacing: '0.08em', transition: 'background 0.3s, color 0.3s',
           textDecoration: 'none', display: 'block', textAlign: 'center',
@@ -143,11 +145,12 @@ function MobileProjectList() {
               display: 'flex', gap: 8, zIndex: 10,
             }}>
               {projects.map((_, j) => (
-                <span key={j} style={{
-                  width: activeIdx === j ? 20 : 8, height: 8, borderRadius: 4,
-                  background: activeIdx === j ? '#0d0d0f' : 'rgba(13,13,15,0.25)',
-                  transition: 'all 0.3s ease',
-                }} />
+                <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
+                  width: activeIdx === j ? 20 : 8, height: 8, minWidth: 44, minHeight: 44,
+                  borderRadius: 4, border: 'none', padding: 0,
+                  background: activeIdx === j ? 'var(--surface-low)' : 'rgba(15,15,18,0.25)',
+                  transition: 'all 0.3s ease', cursor: 'pointer',
+                }} aria-label={`Go to project ${j + 1}`} />
               ))}
             </nav>
           </div>
@@ -279,16 +282,17 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
           display: 'flex', gap: 6, marginBottom: 4,
         }}>
           {projects.map((_, j) => (
-            <span key={j} style={{
-              width: activeIdx === j ? 24 : 8, height: 8, borderRadius: 4,
-              background: activeIdx === j ? '#0d0d0f' : 'rgba(13,13,15,0.3)',
-              transition: 'all 0.3s ease',
-            }} />
+            <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
+              width: activeIdx === j ? 24 : 8, height: 8, minWidth: 44, minHeight: 44,
+              borderRadius: 4, border: 'none', padding: 0,
+              background: activeIdx === j ? 'var(--surface-low)' : 'rgba(15,15,18,0.3)',
+              transition: 'all 0.3s ease', cursor: 'pointer',
+            }} aria-label={`Go to project ${j + 1}`} />
           ))}
         </div>
         <span style={{
-          fontFamily: "'Anton', sans-serif", fontSize: '0.85rem',
-          letterSpacing: '0.1em', color: '#0d0d0f', textTransform: 'uppercase',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.85rem',
+          letterSpacing: '0.1em', color: 'var(--surface-low)', textTransform: 'uppercase',
           opacity: 0.7,
         }}>
           {currentProject?.title} {currentProject?.subtitle}

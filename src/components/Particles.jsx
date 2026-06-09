@@ -6,6 +6,9 @@ export default function Particles() {
   const mobile = useMobile();
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
     const container = containerRef.current;
     if (!container) return;
     const count = mobile ? 6 : 20;

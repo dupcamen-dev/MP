@@ -62,7 +62,7 @@ export default function ReviewsSlide({ cardPhase }) {
       width: '100vw', flex: '0 0 100vw',
       height: mobile ? 'auto' : '100vh',
       minHeight: mobile ? '100dvh' : undefined,
-      background: '#0d0d0f', overflow: mobile ? 'visible' : 'hidden',
+      background: 'var(--surface-low)', overflow: mobile ? 'visible' : 'hidden',
       position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center',
@@ -84,16 +84,16 @@ export default function ReviewsSlide({ cardPhase }) {
         display: 'flex', alignItems: 'baseline', gap: 16,
       }}>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: mobile ? 'clamp(2.5rem,10vw,4rem)' : 'clamp(3rem,7vw,6rem)',
-          lineHeight: 0.9, color: '#fff', textTransform: 'uppercase',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.5rem,10vw,4rem)' : 'clamp(3rem,7vw,6rem)',
+          lineHeight: 0.9, color: 'var(--text)', textTransform: 'uppercase',
           letterSpacing: '0.02em', margin: 0,
         }}>
           TRUSTED BY
         </h2>
         <h2 style={{
-          fontFamily: "'Anton', sans-serif", fontSize: mobile ? 'clamp(3rem,12vw,5rem)' : 'clamp(3.5rem,8vw,7rem)',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(3rem,12vw,5rem)' : 'clamp(3.5rem,8vw,7rem)',
           lineHeight: 0.9, color: '#d4001a', textTransform: 'uppercase',
-          letterSpacing: '0.02em', margin: 0, textShadow: '4px 4px 0 rgba(13,13,15,0.3)',
+          letterSpacing: '0.02em', margin: 0, textShadow: '4px 4px 0 rgba(15,15,18,0.3)',
         }}>
           BUILDERS
         </h2>
