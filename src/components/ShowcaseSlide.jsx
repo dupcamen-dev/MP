@@ -241,25 +241,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
         background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
-      <div style={{
-        position: 'absolute', top: 40, left: 64, zIndex: 10,
-        display: 'inline-flex', alignItems: 'center', gap: 8,
-        background: 'rgba(13,13,15,0.7)', backdropFilter: 'blur(8px)',
-        padding: '6px 14px 6px 20px', overflow: 'hidden',
-      }}>
-        <div style={{
-          position: 'absolute', left: 0, top: 0, bottom: 0, width: 4,
-          background: 'repeating-linear-gradient(45deg, #0d0d0f 0px, #0d0d0f 3px, var(--primary) 3px, var(--primary) 6px)',
-        }} />
-        <span style={{
-          fontFamily: "'Space Mono', monospace", fontSize: '0.7rem',
-          letterSpacing: '0.12em', color: 'var(--primary)', textTransform: 'uppercase',
-          marginLeft: 4,
-        }}>
-          SELECTED WORK // {activeIdx + 1}/{projects.length}
-        </span>
-      </div>
-
       <div className="carousel-scene" style={{
         position: 'relative', width: '100%', height: '100%',
         perspective: 1300, display: 'flex', alignItems: 'center', justifyContent: 'center',
