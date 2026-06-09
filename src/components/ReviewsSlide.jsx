@@ -16,8 +16,8 @@ export default function ReviewsSlide({ cardPhase }) {
     if (mobile) {
       return {
         padding: 24,
-        background: 'rgba(255,255,255,0.04)',
-        borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #e20000',
+        background: 'rgba(15,15,18,0.8)',
+        borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #d4001a',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(30px)',
         transition: 'opacity 0.5s ease, transform 0.5s ease',
@@ -27,9 +27,9 @@ export default function ReviewsSlide({ cardPhase }) {
     const p = Math.min(1, Math.max(0, (cardPhase - stagger) / 0.32));
     return {
       padding: 32,
-      background: 'rgba(255,255,255,0.04)',
+      background: 'rgba(15,15,18,0.8)',
       backdropFilter: 'blur(12px)',
-      borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #e20000',
+      borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #d4001a',
       opacity: p,
       transform: `translateY(${30 * (1 - p)}px)`,
       transition: 'border-color 0.3s',
@@ -61,7 +61,7 @@ export default function ReviewsSlide({ cardPhase }) {
       width: '100vw', flex: '0 0 100vw',
       height: mobile ? 'auto' : '100vh',
       minHeight: mobile ? '100dvh' : undefined,
-      background: '#000', overflow: mobile ? 'visible' : 'hidden',
+      background: '#0d0d0f', overflow: mobile ? 'visible' : 'hidden',
       position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center',
@@ -74,7 +74,7 @@ export default function ReviewsSlide({ cardPhase }) {
       }} />
       <div style={{
         position: 'absolute', bottom: '-20%', left: '-10%', width: '50%', height: '60%',
-        background: 'radial-gradient(ellipse, rgba(226,0,0,0.06) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse, rgba(212,0,26,0.06) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -91,8 +91,8 @@ export default function ReviewsSlide({ cardPhase }) {
         </h2>
         <h2 style={{
           fontFamily: "'Anton', sans-serif", fontSize: mobile ? 'clamp(3rem,12vw,5rem)' : 'clamp(3.5rem,8vw,7rem)',
-          lineHeight: 0.9, color: '#e20000', textTransform: 'uppercase',
-          letterSpacing: '0.02em', margin: 0, textShadow: '4px 4px 0 rgba(0,0,0,0.3)',
+          lineHeight: 0.9, color: '#d4001a', textTransform: 'uppercase',
+          letterSpacing: '0.02em', margin: 0, textShadow: '4px 4px 0 rgba(13,13,15,0.3)',
         }}>
           BUILDERS
         </h2>
@@ -111,7 +111,7 @@ export default function ReviewsSlide({ cardPhase }) {
             <h4 style={{
               fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
               fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-              color: i % 2 === 0 ? '#ffd300' : '#e20000', marginTop: 16,
+              color: i % 2 === 0 ? '#ffd300' : '#d4001a', marginTop: 16,
             }}>{r.author}</h4>
           </div>
         ))}
@@ -134,7 +134,7 @@ export default function ReviewsSlide({ cardPhase }) {
           <h4 style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
             fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-            color: '#e20000', marginTop: 16,
+            color: '#d4001a', marginTop: 16,
           }}>{reviews[3].author}</h4>
         </div>
       </div>

@@ -58,7 +58,7 @@ export default function Process({ progress }) {
         }}>
           <div style={{
             position: 'absolute', left: 0, top: 0, bottom: 0, width: 4,
-            background: 'repeating-linear-gradient(45deg, #000 0px, #000 3px, var(--primary) 3px, var(--primary) 6px)',
+            background: 'repeating-linear-gradient(45deg, #0d0d0f 0px, #0d0d0f 3px, var(--primary) 3px, var(--primary) 6px)',
           }} />
           <span style={{
             marginLeft: 8, fontFamily: "'Space Mono', monospace",
@@ -114,8 +114,8 @@ export default function Process({ progress }) {
           padding: '80px 0 120px', position: 'relative', zIndex: 2,
         }}>
           <div className="bento-card wide bento-wide card-in" style={{
-            gridColumn: 'span 2', background: 'rgba(20,19,21,0.6)',
-            backdropFilter: 'blur(12px)', border: '1px solid var(--surface-highest)',
+            gridColumn: 'span 2', background: 'rgba(15,15,18,0.7)',
+            backdropFilter: 'blur(12px)', border: '1px solid rgba(107,110,115,0.2)',
             padding: 32, position: 'relative',
           }}>
             <div style={{
@@ -141,8 +141,8 @@ export default function Process({ progress }) {
             </p>
           </div>
           <div className="bento-card card-in" style={{
-            background: 'rgba(20,19,21,0.6)', backdropFilter: 'blur(12px)',
-            border: '1px solid var(--surface-highest)', padding: 32, position: 'relative',
+            background: 'rgba(15,15,18,0.7)', backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(107,110,115,0.2)', padding: 32, position: 'relative',
           }}>
             <div style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 48,
@@ -172,7 +172,7 @@ export default function Process({ progress }) {
           }}>
             <div style={{
               position: 'absolute', inset: 0, opacity: 0.1,
-              backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px)',
+              backgroundImage: 'radial-gradient(circle, rgba(13,13,15,0.15) 1px, transparent 1px)',
               backgroundSize: '20px 20px', mixBlendMode: 'overlay', pointerEvents: 'none',
             }} />
             <div style={{
@@ -182,7 +182,7 @@ export default function Process({ progress }) {
               <div>
                 <span style={{
                   fontFamily: "'Anton', sans-serif", fontSize: '2rem',
-                  color: 'rgba(20,19,21,0.5)', lineHeight: 1, display: 'block', marginBottom: 16,
+                  color: 'rgba(15,15,18,0.5)', lineHeight: 1, display: 'block', marginBottom: 16,
                 }}>PHASE.3 // TERMINAL</span>
                 <h3 style={{
                   fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
@@ -192,7 +192,7 @@ export default function Process({ progress }) {
               <div style={{ maxWidth: 400 }}>
                 <p style={{
                   fontFamily: "'Geist', sans-serif", fontSize: '0.95rem',
-                  lineHeight: 1.6, color: 'rgba(20,19,21,0.8)', fontWeight: 600,
+                  lineHeight: 1.6, color: 'rgba(15,15,18,0.8)', fontWeight: 600,
                 }}>
                   DEPLOYMENT IS NOT THE END. IT IS THE IGNITION. WE PUSH TO PRODUCTION
                   WITH THE FORCE OF A KINETIC STRIKE.

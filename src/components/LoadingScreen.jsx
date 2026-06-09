@@ -31,7 +31,7 @@ export default function LoadingScreen({ onFinish }) {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
-      background: '#141315',
+      background: '#0f0f12',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center', gap: 48,
       transition: 'opacity 0.6s',
@@ -43,7 +43,7 @@ export default function LoadingScreen({ onFinish }) {
         color: '#ffd300', textTransform: 'uppercase', lineHeight: 0.85,
         textAlign: 'center',
       }}>
-        MILLION<span style={{ color: '#e20000' }}>PIXELS</span>
+        MILLION<span style={{ color: '#d4001a' }}>PIXELS</span>
       </h1>
       <div style={{
         width: 160, height: 3, background: 'rgba(255,255,255,0.1)',

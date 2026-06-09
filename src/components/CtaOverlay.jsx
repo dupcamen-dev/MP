@@ -61,8 +61,8 @@ export default function CtaOverlay({ progress }) {
         }}>
           <h2 className="cta-slide-title" style={{
             fontFamily: "'Anton', sans-serif", fontSize: 'clamp(4rem,12vw,10rem)',
-            lineHeight: 0.85, textTransform: 'uppercase', color: '#141315',
-            textShadow: mobile ? '4px 4px 0 #e10000' : '8px 8px 0 #e10000', letterSpacing: '0.08em',
+            lineHeight: 0.85, textTransform: 'uppercase', color: '#0f0f12',
+            textShadow: mobile ? '4px 4px 0 #d4001a' : '8px 8px 0 #d4001a', letterSpacing: '0.08em',
             marginBottom: 32,
           }}>
             <span className="line line-white reveal" style={{
@@ -71,14 +71,14 @@ export default function CtaOverlay({ progress }) {
             }}>START YOUR</span>
             <span className="line line-yellow reveal" style={{
               display: 'block', letterSpacing: '0.12em', transform: 'translateY(-6px)',
-              color: '#141315', textShadow: mobile ? '4px 4px 0 #e10000' : '8px 8px 0 #e10000',
+              color: '#0f0f12', textShadow: mobile ? '4px 4px 0 #d4001a' : '8px 8px 0 #d4001a',
               transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
             }}>WEEK</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 600,
             fontSize: 'clamp(0.9rem,1.5vw,1.25rem)', letterSpacing: '0.15em',
-            color: '#141315', marginBottom: 48, maxWidth: 600,
+            color: '#0f0f12', marginBottom: 48, maxWidth: 600,
           }}>
             SECURE YOUR SLOT. WE BUILD YOUR MVP IN 7 DAYS. NO EXCUSES.
           </p>
@@ -87,9 +87,9 @@ export default function CtaOverlay({ progress }) {
             onClick={() => setShowModal(true)}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: mobile ? 10 : 16,
-              padding: btnPadding, background: '#141315', color: '#ffd300',
+              padding: btnPadding, background: '#0f0f12', color: '#ffd300',
               fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.2rem,2.5vw,1.75rem)',
-              textTransform: 'uppercase', border: '4px solid #141315',
+              textTransform: 'uppercase', border: '4px solid #0f0f12',
               cursor: 'pointer',
             }}>
             INITIATE PROTOCOL
@@ -101,8 +101,8 @@ export default function CtaOverlay({ progress }) {
             marginTop: 'auto', width: '100%', maxWidth: 1100,
             display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
             alignItems: 'center', flexWrap: 'wrap', gap: 24,
-            padding: '32px 64px 48px', borderTop: '2px solid #141315',
-            background: '#141315',
+            padding: '32px 64px 48px', borderTop: '2px solid #0f0f12',
+            background: '#0f0f12',
           }}>
             <div style={{
               fontFamily: "'Anton', sans-serif", fontSize: '1.25rem',
@@ -127,7 +127,7 @@ export default function CtaOverlay({ progress }) {
         <footer style={{
           width: '100%',
           minHeight: '100dvh',
-          background: '#141315',
+          background: '#0f0f12',
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           justifyContent: 'center',
           padding: '120px 24px 48px',
@@ -143,7 +143,7 @@ export default function CtaOverlay({ progress }) {
               lineHeight: 0.9, textTransform: 'uppercase', color: '#ffd300',
               letterSpacing: '0.08em', marginBottom: 24,
             }}>
-              MILLION<br /><span style={{ color: '#e20000' }}>PIXELS</span>
+              MILLION<br /><span style={{ color: '#d4001a' }}>PIXELS</span>
             </h2>
             <p style={{
               fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.85rem,3vw,1rem)',
@@ -161,14 +161,14 @@ export default function CtaOverlay({ progress }) {
                   fontFamily: "'Space Mono', monospace", fontSize: '0.7rem',
                   letterSpacing: '0.1em', textTransform: 'uppercase',
                   color: '#e6e1e4', textDecoration: 'none',
-                  padding: '10px 20px', border: '1px solid rgba(255,255,255,0.15)',
+                  padding: '10px 20px', border: '1px solid rgba(107,110,115,0.3)',
                   transition: 'border-color 0.3s, color 0.3s',
                 }}>{link}</a>
               ))}
             </div>
           </div>
           <div style={{
-            width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)',
+            width: '100%', borderTop: '1px solid rgba(107,110,115,0.15)',
             paddingTop: 24, display: 'flex', flexDirection: 'column',
             alignItems: 'center', gap: 12,
           }}>
@@ -180,7 +180,7 @@ export default function CtaOverlay({ progress }) {
             </div>
             <div style={{
               fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
-              letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)',
+              letterSpacing: '0.1em', color: 'rgba(107,110,115,0.5)',
               textTransform: 'uppercase',
             }}>
               SLASH THE RULES

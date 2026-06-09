@@ -13,8 +13,8 @@ const projects = [
 function ProjectCard({ p, colored, onToggle }) {
   return (
     <div className="carousel-card" style={{
-      width: '100%', height: '100%', background: 'rgba(255,255,255,0.08)',
-      backdropFilter: 'blur(12px)', border: '1px solid rgba(0,0,0,0.04)',
+      width: '100%', height: '100%', background: 'rgba(107,110,115,0.12)',
+      backdropFilter: 'blur(12px)', border: '1px solid rgba(107,110,115,0.15)',
       position: 'relative', overflow: 'hidden', display: 'flex',
       flexDirection: 'column',
     }}>
@@ -28,7 +28,7 @@ function ProjectCard({ p, colored, onToggle }) {
         }} />
         <div style={{
           position: 'absolute', inset: 0,
-          background: p.tag.includes('AI') ? 'rgba(225,0,0,0.15)' : 'rgba(255,211,0,0.15)',
+          background: p.tag.includes('AI') ? 'rgba(212,0,26,0.15)' : 'rgba(255,211,0,0.15)',
           mixBlendMode: 'soft-light', pointerEvents: 'none',
         }} />
       </div>
@@ -41,21 +41,21 @@ function ProjectCard({ p, colored, onToggle }) {
           fontFamily: "'Space Mono', monospace", fontSize: '0.65rem',
           letterSpacing: '0.08em', textTransform: 'uppercase',
           padding: '3px 10px 3px 24px', marginBottom: 6, width: 'fit-content',
-          background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, #000 4px, #000 8px)',
+          background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, #0d0d0f 4px, #0d0d0f 8px)',
           backgroundSize: '16px 100%', backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'left center', color: 'rgba(0,0,0,0.5)',
+          backgroundPosition: 'left center', color: 'rgba(13,13,15,0.5)',
         }}>
           {p.tag}
         </div>
         <h2 style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(1.3rem,2.5vw,2rem)',
-          textTransform: 'uppercase', color: '#000', lineHeight: 1.05,
+          textTransform: 'uppercase', color: '#0d0d0f', lineHeight: 1.05,
           marginBottom: 14, letterSpacing: '0.01em',
         }}>
           {p.title} <span style={{ color: p.color }}>{p.subtitle}</span>
         </h2>
         <button onClick={onToggle} style={{
-          width: '100%', padding: 10, background: '#000', color: '#fff',
+          width: '100%', padding: 10, background: '#0d0d0f', color: '#fff',
           fontFamily: "'Anton', sans-serif", fontSize: '0.9rem',
           textTransform: 'uppercase', border: 'none', cursor: 'pointer',
           letterSpacing: '0.05em',
@@ -135,7 +135,7 @@ function MobileProjectList() {
               {projects.map((_, j) => (
                 <span key={j} style={{
                   width: activeIdx === j ? 20 : 8, height: 8, borderRadius: 4,
-                  background: activeIdx === j ? '#000' : 'rgba(0,0,0,0.25)',
+                  background: activeIdx === j ? '#0d0d0f' : 'rgba(13,13,15,0.25)',
                   transition: 'all 0.3s ease',
                 }} />
               ))}
@@ -244,15 +244,15 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
       }}>
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
-          letterSpacing: '0.1em', color: '#000', textTransform: 'uppercase',
+          letterSpacing: '0.1em', color: '#0d0d0f', textTransform: 'uppercase',
         }}>SCROLL TO EXPLORE</span>
         <div style={{
-          width: 20, height: 32, border: '2px solid #000', borderRadius: 10,
+          width: 20, height: 32, border: '2px solid #0d0d0f', borderRadius: 10,
           position: 'relative', opacity: 0.4,
         }}>
           <div style={{
             position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)',
-            width: 2, height: 8, background: '#000',
+            width: 2, height: 8, background: '#0d0d0f',
             animation: 'scroll-wheel 2s ease-in-out infinite',
           }} />
         </div>

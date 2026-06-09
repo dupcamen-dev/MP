@@ -4,9 +4,9 @@ const TG_BOT_TOKEN = 'YOUR_BOT_TOKEN';
 const TG_CHAT_ID = 'YOUR_CHAT_ID';
 
 const inputStyle = {
-  width: '100%', padding: '14px 16px', background: 'rgba(20,19,21,0.08)',
-  border: '2px solid rgba(20,19,21,0.2)', borderRadius: 0,
-  fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: '#141315',
+  width: '100%', padding: '14px 16px', background: 'rgba(15,15,18,0.08)',
+  border: '2px solid rgba(15,15,18,0.2)', borderRadius: 0,
+  fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: '#0f0f12',
   outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
 };
 
@@ -48,10 +48,10 @@ export default function OrderModal({ onClose }) {
     return (
       <div style={{
         position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)',
+        justifyContent: 'center', background: 'rgba(13,13,15,0.75)', backdropFilter: 'blur(8px)',
       }} onClick={onClose}>
         <div onClick={e => e.stopPropagation()} style={{
-          background: '#141315', padding: '60px 48px', maxWidth: 420, width: '90%',
+          background: '#0f0f12', padding: '60px 48px', maxWidth: 420, width: '90%',
           textAlign: 'center', border: '2px solid #ffd300',
         }}>
           <div style={{ fontSize: '4rem', marginBottom: 16 }}>⚡</div>
@@ -66,7 +66,7 @@ export default function OrderModal({ onClose }) {
             Your signal has been intercepted. We'll reach out within 24h.
           </p>
           <button onClick={onClose} style={{
-            padding: '16px 48px', background: '#ffd300', color: '#141315',
+            padding: '16px 48px', background: '#ffd300', color: '#0f0f12',
             fontFamily: "'Anton', sans-serif", fontSize: '1.1rem', textTransform: 'uppercase',
             border: '2px solid #ffd300', cursor: 'pointer',
           }}>CLOSE</button>
@@ -78,21 +78,21 @@ export default function OrderModal({ onClose }) {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center',
-      justifyContent: 'center', background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)',
+      justifyContent: 'center', background: 'rgba(13,13,15,0.75)', backdropFilter: 'blur(8px)',
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
         background: '#ffd300', padding: '48px 40px', maxWidth: 480, width: '90%',
-        border: '4px solid #141315',
+        border: '4px solid #0f0f12',
       }}>
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32,
         }}>
           <h3 style={{
-            fontFamily: "'Anton', sans-serif", fontSize: '1.8rem', color: '#141315',
+            fontFamily: "'Anton', sans-serif", fontSize: '1.8rem', color: '#0f0f12',
             textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
           }}>INITIATE</h3>
           <button onClick={onClose} style={{
-            background: 'none', border: 'none', fontSize: '2rem', color: '#141315',
+            background: 'none', border: 'none', fontSize: '2rem', color: '#0f0f12',
             cursor: 'pointer', padding: '4px 12px', lineHeight: 1,
           }}>✕</button>
         </div>
@@ -100,7 +100,7 @@ export default function OrderModal({ onClose }) {
         <div style={{ marginBottom: 20 }}>
           <label style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: '#141315', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
+            color: '#0f0f12', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
           }}>WHAT DO YOU WANT TO BUILD?</label>
           <textarea
             value={form.idea}
@@ -108,7 +108,7 @@ export default function OrderModal({ onClose }) {
             rows={3}
             placeholder="Describe your idea…"
             style={{ ...inputStyle, resize: 'vertical' }}
-            onFocus={e => e.target.style.borderColor = '#141315'}
+            onFocus={e => e.target.style.borderColor = '#0f0f12'}
             onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
           />
         </div>
@@ -116,7 +116,7 @@ export default function OrderModal({ onClose }) {
         <div style={{ marginBottom: 20 }}>
           <label style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: '#141315', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
+            color: '#0f0f12', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
           }}>DEADLINE</label>
           <input
             type="text"
@@ -124,7 +124,7 @@ export default function OrderModal({ onClose }) {
             onChange={update('deadline')}
             placeholder="e.g. 2 weeks, June 15, ASAP"
             style={inputStyle}
-            onFocus={e => e.target.style.borderColor = '#141315'}
+            onFocus={e => e.target.style.borderColor = '#0f0f12'}
             onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
           />
         </div>
@@ -132,7 +132,7 @@ export default function OrderModal({ onClose }) {
         <div style={{ marginBottom: 20 }}>
           <label style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: '#141315', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
+            color: '#0f0f12', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
           }}>BUDGET (USD)</label>
           <input
             type="number"
@@ -141,7 +141,7 @@ export default function OrderModal({ onClose }) {
             placeholder="1000"
             min="0"
             style={inputStyle}
-            onFocus={e => e.target.style.borderColor = '#141315'}
+            onFocus={e => e.target.style.borderColor = '#0f0f12'}
             onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
           />
         </div>
@@ -149,7 +149,7 @@ export default function OrderModal({ onClose }) {
         <div style={{ marginBottom: 32 }}>
           <label style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: '#141315', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
+            color: '#0f0f12', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
           }}>CONTACT (EMAIL / TG / PHONE)</label>
           <input
             type="text"
@@ -157,7 +157,7 @@ export default function OrderModal({ onClose }) {
             onChange={update('contact')}
             placeholder="@username or email@example.com"
             style={inputStyle}
-            onFocus={e => e.target.style.borderColor = '#141315'}
+            onFocus={e => e.target.style.borderColor = '#0f0f12'}
             onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
           />
         </div>
@@ -166,9 +166,9 @@ export default function OrderModal({ onClose }) {
           onClick={handleSubmit}
           disabled={sending}
           style={{
-            width: '100%', padding: '18px', background: '#141315', color: '#ffd300',
+            width: '100%', padding: '18px', background: '#0f0f12', color: '#ffd300',
             fontFamily: "'Anton', sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
-            border: '3px solid #141315', cursor: sending ? 'wait' : 'pointer',
+            border: '3px solid #0f0f12', cursor: sending ? 'wait' : 'pointer',
             opacity: sending ? 0.6 : 1,
           }}
         >

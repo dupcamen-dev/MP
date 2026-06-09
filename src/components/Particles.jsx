@@ -9,7 +9,7 @@ export default function Particles() {
     const container = containerRef.current;
     if (!container) return;
     const count = mobile ? 6 : 20;
-    const colors = ['#363436', '#454747', '#ffd300', '#e20000'];
+    const colors = ['#3d3d42', '#5e6166', '#ffd300', '#d4001a'];
     const elements = [];
 
     for (let i = 0; i < count; i++) {

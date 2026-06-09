@@ -75,18 +75,18 @@ export default function MenuOverlay() {
         }}
       >
         <span className="l1" style={{
-          display: 'block', height: 3, background: '#000', transition: 'all 0.3s', borderRadius: 0,
+          display: 'block', height: 3, background: '#0d0d0f', transition: 'all 0.3s', borderRadius: 0,
           boxShadow: '0 0 0 2px var(--primary)',
           width: 36,
           transform: open ? 'rotate(45deg) translate(6px,6px)' : 'none',
         }}></span>
         <span className="l2" style={{
-          display: 'block', height: 3, background: '#000', transition: 'all 0.3s', borderRadius: 0,
+          display: 'block', height: 3, background: '#0d0d0f', transition: 'all 0.3s', borderRadius: 0,
           boxShadow: open ? 'none' : '0 0 0 2px var(--primary)',
           width: open ? 0 : 28, opacity: open ? 0 : 1,
         }}></span>
         <span className="l3" style={{
-          display: 'block', height: 3, background: '#000', transition: 'all 0.3s', borderRadius: 0,
+          display: 'block', height: 3, background: '#0d0d0f', transition: 'all 0.3s', borderRadius: 0,
           boxShadow: '0 0 0 2px var(--primary)',
           width: open ? 36 : 40,
           transform: open ? 'rotate(-45deg) translate(6px,-6px)' : 'none',

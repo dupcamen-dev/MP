@@ -116,7 +116,7 @@ export default function ManifestoSlide({ progress }) {
             top: 0,
             width: '100%',
             height: '100dvh',
-            background: '#000',
+            background: '#0d0d0f',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
@@ -134,7 +134,7 @@ export default function ManifestoSlide({ progress }) {
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
-      background: '#000', overflow: 'hidden', position: 'relative',
+      background: '#0d0d0f', overflow: 'hidden', position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center', padding: '0 64px',
     }}>

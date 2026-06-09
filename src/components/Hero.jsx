@@ -55,13 +55,13 @@ export default function Hero({ progress }) {
     }}>
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'linear-gradient(to right, rgba(20,19,21,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,19,21,0.08) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(to right, rgba(15,15,18,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(15,15,18,0.08) 1px, transparent 1px)',
         backgroundSize: '40px 40px', zIndex: 0, pointerEvents: 'none',
       }} />
       <div className="coord-label" style={{
         position: 'absolute', fontFamily: "'Space Mono', monospace",
         fontSize: '0.7rem', letterSpacing: '0.1em',
-        color: 'rgba(20,19,21,0.4)', zIndex: 1, pointerEvents: 'none',
+        color: 'rgba(15,15,18,0.4)', zIndex: 1, pointerEvents: 'none',
         top: 120, left: 64, transformOrigin: 'left',
         transform: 'rotate(90deg) translateX(-50%)',
       }}>
@@ -70,7 +70,7 @@ export default function Hero({ progress }) {
       <div className="sys-ver" style={{
         position: 'absolute', fontFamily: "'Space Mono', monospace",
         fontSize: '0.7rem', letterSpacing: '0.1em',
-        color: 'rgba(20,19,21,0.4)', zIndex: 1, pointerEvents: 'none',
+        color: 'rgba(15,15,18,0.4)', zIndex: 1, pointerEvents: 'none',
         bottom: 48, right: 64,
       }}>
         SYS.VER_9.0.4 [ACTIVE]
@@ -79,10 +79,10 @@ export default function Hero({ progress }) {
         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden',
       }}>
         {[
-          { className: 'shard shard-1', speed: 0.2, clipPath: 'polygon(0 0, 100% 20%, 80% 100%, 10% 80%)', w: '40vw', h: '40vh', t: '40px', l: '-10vw', bg: 'rgba(20,19,21,0.9)' },
-          { className: 'shard shard-2', speed: -0.3, clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)', w: '30vw', h: '50vh', t: '', l: '', b: '80px', r: '-5vw', bg: 'rgba(20,19,21,0.9)', border: '4px solid var(--secondary)' },
-          { className: 'shard shard-3', speed: 0.5, clipPath: 'polygon(20% 0%, 100% 0, 80% 100%, 0% 100%)', w: '50vw', h: '20vh', t: '50%', l: '25%', bg: 'rgba(54,52,54,0.6)', mixBlend: 'multiply' },
-          { className: 'shard shard-4', speed: -0.1, clipPath: 'polygon(0 50%, 100% 0, 100% 50%, 0 100%)', w: '20vw', h: '30vh', t: '20%', r2: '10%', bg: 'rgba(255,255,255,0.08)', backdrop: 'blur(4px)', border2: '1px solid rgba(20,19,21,0.15)' },
+          { className: 'shard shard-1', speed: 0.2, clipPath: 'polygon(0 0, 100% 20%, 80% 100%, 10% 80%)', w: '40vw', h: '40vh', t: '40px', l: '-10vw', bg: 'rgba(15,15,18,0.9)' },
+          { className: 'shard shard-2', speed: -0.3, clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)', w: '30vw', h: '50vh', t: '', l: '', b: '80px', r: '-5vw', bg: 'rgba(15,15,18,0.9)', border: '4px solid var(--secondary)' },
+          { className: 'shard shard-3', speed: 0.5, clipPath: 'polygon(20% 0%, 100% 0, 80% 100%, 0% 100%)', w: '50vw', h: '20vh', t: '50%', l: '25%', bg: 'rgba(61,61,66,0.6)', mixBlend: 'multiply' },
+          { className: 'shard shard-4', speed: -0.1, clipPath: 'polygon(0 50%, 100% 0, 100% 50%, 0 100%)', w: '20vw', h: '30vh', t: '20%', r2: '10%', bg: 'rgba(107,110,115,0.08)', backdrop: 'blur(4px)', border2: '1px solid rgba(15,15,18,0.15)' },
           { className: 'shard shard-5', speed: 0.4, clipPath: 'polygon(10% 10%, 90% 0, 100% 90%, 0 100%)', w: '15vw', h: '15vw', b2: '10%', l2: '20%', bg2: 'var(--secondary)', mixBlend2: 'multiply', opacity: 0.8 },
         ].map((s, i) => (
           <div key={i} className={s.className} data-speed={s.speed} style={{
@@ -109,7 +109,7 @@ export default function Hero({ progress }) {
           fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
           letterSpacing: '0.15em', textTransform: 'uppercase',
           color: 'var(--bg)', padding: '8px 24px 8px 32px',
-          border: '1px solid rgba(20,19,21,0.15)',
+          border: '1px solid rgba(15,15,18,0.15)',
           background: 'var(--primary)', boxShadow: '4px 4px 0 var(--bg)',
           position: 'relative', overflow: 'hidden',
         }}>
