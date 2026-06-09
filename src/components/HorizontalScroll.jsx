@@ -22,16 +22,16 @@ export default function HorizontalScroll({ progress }) {
 
   const carouselRot = mobile
     ? -360 * Math.min(1, progress / 0.35)
-    : -360 * progress;
-  const cardPhase = Math.min(1, Math.max(0, (slideP - 0.7) / 0.12));
-  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.85) / 0.12));
+    : -360 * Math.min(1, progress / 0.55);
+  const cardPhase = Math.min(1, Math.max(0, (slideP - 0.55) / 0.13));
+  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.70) / 0.10));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return slideP < 0.68 ? 100
-        : slideP > 0.82 ? 0
-        : 100 - ((slideP - 0.68) / 0.14) * 100;
+      return slideP < 0.55 ? 100
+        : slideP > 0.68 ? 0
+        : 100 - ((slideP - 0.55) / 0.13) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0
