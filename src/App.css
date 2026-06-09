@@ -122,8 +122,8 @@ body::after {
   .glass:hover::after { transform: rotate(30deg) translateY(100%); }
   .bento-card:hover { border-color: var(--primary) !important; transform: scale(1.02); }
   .bento-card.wide:hover, .bento-card.full:hover { border-color: var(--secondary) !important; }
-  .carousel-cell:hover .card-img img { transform: scale(1.08); filter: grayscale(0) contrast(1.2) !important; }
-  .carousel-cell .card-body button:hover { background: var(--primary) !important; color: #0d0d0f !important; }
+  .carousel-cell:hover .card-img img { transform: scale(1.05); }
+  .carousel-cell .card-body a:hover { background: var(--primary) !important; color: #0d0d0f !important; }
   .menu-link:hover { transform: translateX(12px) !important; color: var(--primary) !important; }
   .menu-link:hover::after { width: 100%; }
   .cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }

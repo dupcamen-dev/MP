@@ -2,21 +2,21 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMobile } from '../hooks/useMobile';
 
 const projects = [
-  { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London.', img: '/zhyto.png' },
-  { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', desc: 'Real-time data visualization and AI-powered analytics.', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
-  { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', desc: 'Zero-knowledge DeFi protocol with instant settlements.', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop' },
-  { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', desc: 'Autonomous AI agent orchestration platform.', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop' },
-  { tag: 'GAMING / WEB3', title: 'DUNGEON', subtitle: 'DEEP', color: 'var(--primary)', desc: 'Immersive on-chain gaming experience.', img: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop' },
-  { tag: 'HEALTH / AI', title: 'MED', subtitle: 'PULSE', color: 'var(--secondary)', desc: 'AI-driven health monitoring and diagnostics.', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop' },
+  { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London.', img: '/zhyto.png', link: 'https://zhyto.london' },
+  { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', desc: 'Real-time data visualization and AI-powered analytics.', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', link: '#' },
+  { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', desc: 'Zero-knowledge DeFi protocol with instant settlements.', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop', link: '#' },
+  { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', desc: 'Autonomous AI agent orchestration platform.', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop', link: '#' },
+  { tag: 'GAMING / WEB3', title: 'DUNGEON', subtitle: 'DEEP', color: 'var(--primary)', desc: 'Immersive on-chain gaming experience.', img: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop', link: '#' },
+  { tag: 'HEALTH / AI', title: 'MED', subtitle: 'PULSE', color: 'var(--secondary)', desc: 'AI-driven health monitoring and diagnostics.', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop', link: '#' },
 ];
 
-function ProjectCard({ p, active, onToggle }) {
+function ProjectCard({ p }) {
   return (
     <div className="carousel-card" style={{
       width: '100%', height: '100%',
       background: 'rgba(15,15,18,0.92)',
       backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
-      border: active ? '2px solid var(--primary)' : '1px solid rgba(107,110,115,0.2)',
+      border: '1px solid rgba(107,110,115,0.2)',
       position: 'relative', overflow: 'hidden', display: 'flex',
       flexDirection: 'column', transition: 'border-color 0.4s',
     }}>
@@ -25,8 +25,8 @@ function ProjectCard({ p, active, onToggle }) {
       }}>
         <img src={p.img} alt={p.title} loading="lazy" style={{
           width: '100%', height: '100%', objectFit: 'cover',
-          filter: active ? 'grayscale(0) contrast(1.15)' : 'grayscale(1) contrast(1.1)',
-          transition: 'transform 0.5s, filter 0.4s',
+          filter: 'contrast(1.1)',
+          transition: 'transform 0.5s',
         }} />
         <div style={{
           position: 'absolute', inset: 0,
@@ -63,22 +63,21 @@ function ProjectCard({ p, active, onToggle }) {
         }}>
           {p.desc}
         </p>
-        <button onClick={onToggle} style={{
-          width: '100%', padding: '12px 0', background: active ? 'var(--primary)' : 'var(--surface-high)',
-          color: active ? '#0d0d0f' : 'var(--text)',
+        <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
+          width: '100%', padding: '12px 0', background: 'var(--surface-high)',
+          color: 'var(--text)',
           fontFamily: "'Anton', sans-serif", fontSize: '0.85rem',
           textTransform: 'uppercase', border: 'none', cursor: 'pointer',
           letterSpacing: '0.08em', transition: 'background 0.3s, color 0.3s',
-        }}>{active ? 'ACTIVATED' : 'ACTIVATE'}</button>
+          textDecoration: 'none', display: 'block', textAlign: 'center',
+        }}>VISIT</a>
       </div>
     </div>
   );
 }
 
 function MobileProjectList() {
-  const [colored, setColored] = useState({});
   const [activeIdx, setActiveIdx] = useState(0);
-  const toggle = (i) => setColored(prev => ({ ...prev, [i]: !prev[i] }));
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -134,8 +133,6 @@ function MobileProjectList() {
             }}>
               <ProjectCard
                 p={p}
-                active={colored[i]}
-                onToggle={() => toggle(i)}
               />
             </div>
             <nav style={{
@@ -162,7 +159,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
   const cardSizeRef = useRef({ w: 600, h: 840 });
-  const [colored, setColored] = useState({});
   const [activeIdx, setActiveIdx] = useState(0);
 
   const CARD_W = 600;
@@ -276,7 +272,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
             <div
               key={i}
               className="carousel-cell"
-              onClick={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
               style={{
                 position: 'absolute',
                 backfaceVisibility: 'hidden', willChange: 'transform, opacity',
@@ -285,8 +280,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
             >
               <ProjectCard
                 p={p}
-                active={colored[i]}
-                onToggle={() => setColored(prev => ({ ...prev, [i]: !prev[i] }))}
               />
             </div>
           ))}
