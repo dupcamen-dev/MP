@@ -41,7 +41,7 @@ export default function HorizontalScroll({ progress }) {
         ref={wrapRef}
         className="h-scroll-wrap"
         style={{
-          position: 'relative', width: '100%', zIndex: 2,
+          position: 'relative', width: '100%', zIndex: 1,
         }}
       >
         <ReviewsSlide cardPhase={1} />

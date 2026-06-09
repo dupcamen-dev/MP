@@ -9,7 +9,11 @@ export default function CtaOverlay({ progress }) {
   useEffect(() => {
     const el = overlayRef.current;
     if (!el) return;
-    const p = mobile ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : progress;
+    if (mobile) {
+      el.querySelectorAll('.reveal').forEach(r => r.classList.add('active'));
+      return;
+    }
+    const p = progress;
     if (p > 0.78) {
       const localPhase = Math.min(1, (p - 0.78) / 0.22);
       const ty = 100 - localPhase * 100;
@@ -20,17 +24,17 @@ export default function CtaOverlay({ progress }) {
       el.style.transform = 'translateY(100%)';
       el.style.visibility = 'hidden';
     }
-  }, [progress]);
+  }, [progress, mobile]);
 
   return (
     <section
       ref={overlayRef}
       id="cta"
       style={{
-        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+        position: mobile ? 'relative' : 'fixed', top: 0, left: 0, width: '100%', height: '100%',
         zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
-        background: '#ffd300', transform: 'translateY(100%)',
-        willChange: 'transform', visibility: 'hidden',
+        background: '#ffd300', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
+        willChange: 'transform', visibility: mobile ? 'visible' : 'hidden',
       }}
     >
       <div style={{

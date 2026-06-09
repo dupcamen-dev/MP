@@ -70,7 +70,7 @@ function MobileProjectList() {
 
   return (
     <section id="showcase" style={{
-      width: '100%', position: 'relative', zIndex: 10,
+      width: '100%', position: 'relative', zIndex: 1,
     }}>
       {projects.map((p, i) => (
         <div

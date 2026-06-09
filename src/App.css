@@ -206,8 +206,8 @@ body {
 
   #cta .cta-footer { flex-direction: column !important; padding: 24px !important; align-items: flex-start !important; }
 
-  .h-scroll-wrap { height: 100dvh !important; }
-  .slide { height: 100dvh !important; }
+  .h-scroll-wrap { height: auto !important; }
+  .slide { min-height: 100dvh !important; height: auto !important; }
 
   .menu-btn { width: 40px !important; height: 40px !important; }
 }
