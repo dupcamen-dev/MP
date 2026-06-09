@@ -1,4 +1,5 @@
 export default function ReviewsSlide({ cardPhase }) {
+  const mobile = window.innerWidth < 900;
   const reviews = [
     { text: '"No fluff, no endless spec docs. Just pure, unadulterated shipping. The MVP was live before we even finished our internal meetings."', author: 'CTO, SaaS Platform' },
     { text: '"We went from napkin sketch to production in 8 days. MILLIONPIXELS doesn\'t just build — they weaponize code."', author: 'Founder, Web3 Startup' },
@@ -22,10 +23,14 @@ export default function ReviewsSlide({ cardPhase }) {
 
   return (
     <section className="slide reviews-slide" id="reviews" style={{
-      width: '100vw', flex: '0 0 100vw', height: '100vh',
-      background: '#000', overflow: 'hidden', position: 'relative',
+      width: '100vw', flex: '0 0 100vw',
+      height: mobile ? 'auto' : '100vh',
+      minHeight: mobile ? '100dvh' : undefined,
+      background: '#000', overflow: mobile ? 'visible' : 'hidden',
+      position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center', padding: '0 80px',
+      justifyContent: 'center',
+      padding: mobile ? '80px 24px' : '0 80px',
     }}>
       <div style={{
         position: 'absolute', top: '-30%', right: '-10%', width: '60%', height: '80%',

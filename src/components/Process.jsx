@@ -41,7 +41,8 @@ export default function Process({ progress }) {
 
   return (
     <section id="process" style={{
-      position: 'relative', zIndex: 3, marginBottom: '-100vh',
+      position: 'relative', zIndex: 3,
+      marginBottom: window.innerWidth < 900 ? '0' : '-100vh',
       background: 'var(--bg)', padding: '120px 0 0',
     }}>
       <div className="section-inner" style={{

@@ -23,7 +23,7 @@ export default function App() {
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
       {!mobile && <div className="h-scroll-spacer" style={{ height: '1000vh', pointerEvents: 'none' }} />}
-      <div style={{ height: '200vh', pointerEvents: 'none' }} />
+      {!mobile && <div style={{ height: '200vh', pointerEvents: 'none' }} />}
       <CtaOverlay progress={progress} />
     </>
   );

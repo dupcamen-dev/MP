@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export default function ManifestoSlide({ progress }) {
   const ref = useRef(null);
+  const mobile = window.innerWidth < 900;
   const hlPct = Math.min(100, Math.max(0, ((progress - 0.58) / 0.15) * 100));
 
   useEffect(() => {
@@ -16,10 +17,14 @@ export default function ManifestoSlide({ progress }) {
 
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
-      width: '100vw', flex: '0 0 100vw', height: '100vh',
-      background: '#000', overflow: 'hidden', position: 'relative',
+      width: '100vw', flex: '0 0 100vw',
+      height: mobile ? 'auto' : '100vh',
+      minHeight: mobile ? '100dvh' : undefined,
+      background: '#000', overflow: mobile ? 'visible' : 'hidden',
+      position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center', padding: '0 64px',
+      justifyContent: 'center',
+      padding: mobile ? '80px 24px' : '0 64px',
     }}>
       <div style={{
         position: 'absolute', top: 0, right: 0, width: '50%', height: '100%',

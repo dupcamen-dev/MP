@@ -161,6 +161,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   }, [swipeIdx, mobile, onCardEnd]);
 
   useEffect(() => {
+    if (mobile) return;
     const el = document.getElementById('showcase');
     if (!el) return;
     const process = document.getElementById('process');
@@ -175,7 +176,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     update();
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
-  }, []);
+  }, [mobile]);
 
   useEffect(() => {
     if (mobile) return;

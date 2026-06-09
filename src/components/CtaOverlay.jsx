@@ -32,7 +32,7 @@ export default function CtaOverlay({ progress }) {
       id="cta"
       style={{
         position: mobile ? 'relative' : 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-        zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
+        zIndex: mobile ? 1 : 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
         background: '#ffd300', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
         willChange: 'transform', visibility: mobile ? 'visible' : 'hidden',
       }}
