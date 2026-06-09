@@ -25,8 +25,8 @@ export default function CtaOverlay({ progress }) {
       return () => observer.disconnect();
     }
 
-    if (progress > 0.78) {
-      const localPhase = Math.min(1, (progress - 0.78) / 0.22);
+    if (progress > 0.94) {
+      const localPhase = Math.min(1, (progress - 0.94) / 0.06);
       const ty = 100 - localPhase * 100;
       el.style.transform = `translateY(${ty}%)`;
       el.style.visibility = 'visible';

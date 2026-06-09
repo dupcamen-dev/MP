@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
 
+const highlightWords = 'Vibe coding is the raw translation of thought to reality.'.split(' ');
+
 export default function ManifestoSlide({ progress }) {
   const ref = useRef(null);
   const containerRef = useRef(null);
@@ -9,7 +11,7 @@ export default function ManifestoSlide({ progress }) {
 
   const hlPct = mobile
     ? Math.min(100, Math.max(0, scrollProgress * 100))
-    : Math.min(100, Math.max(0, ((progress - 0.58) / 0.15) * 100));
+    : Math.min(100, Math.max(0, ((progress - 0.78) / 0.16) * 100));
 
   useEffect(() => {
     if (!mobile) return;
@@ -41,34 +43,79 @@ export default function ManifestoSlide({ progress }) {
     return () => observer.disconnect();
   }, []);
 
+  const wordsRevealed = Math.min(highlightWords.length, Math.floor((hlPct / 100) * highlightWords.length));
+  const isComplete = hlPct >= 99;
+  const textRevealed = hlPct > 5;
+
+  const renderHighlightedText = () => (
+    <span style={{ position: 'relative', display: 'inline' }}>
+      {highlightWords.map((word, i) => {
+        const isRevealed = i < wordsRevealed;
+        const isCurrentWord = i === wordsRevealed - 1;
+        return (
+          <span key={i} style={{
+            display: 'inline-block',
+            opacity: isRevealed ? 1 : 0,
+            transform: isRevealed ? 'translateY(0)' : 'translateY(8px)',
+            transition: `opacity 0.3s ease ${i * 0.04}s, transform 0.3s ease ${i * 0.04}s`,
+            marginRight: 5,
+            background: isRevealed
+              ? `linear-gradient(90deg, var(--primary) ${isCurrentWord ? '0%' : '100%'}, var(--primary) ${isCurrentWord ? '0%' : '100%'}%, transparent ${isCurrentWord ? '0%' : '100%'})`
+              : 'none',
+            padding: '2px 4px',
+            color: isRevealed ? 'var(--text)' : 'transparent',
+            fontWeight: isRevealed ? 700 : 400,
+          }}>
+            {word}
+          </span>
+        );
+      })}
+      {!isComplete && (
+        <span style={{
+          display: 'inline-block',
+          width: 2, height: '1.1em', background: 'var(--primary)',
+          marginLeft: 2, verticalAlign: 'text-bottom',
+          animation: 'blink 0.6s step-end infinite',
+        }} />
+      )}
+    </span>
+  );
+
+  const renderGradientText = () => (
+    <span style={{
+      background: `linear-gradient(90deg, var(--primary) ${hlPct}%, rgba(255,255,255,0.15) ${hlPct}%)`,
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      backgroundClip: 'text',
+      padding: '2px 8px',
+      willChange: 'background',
+    }}>
+      Vibe coding is the raw translation of thought to reality.
+    </span>
+  );
+
   const mobileSection = (
     <>
       <div style={{
         position: 'absolute', top: 0, right: 0, width: '50%', height: '100%',
-        background: 'rgba(255,211,0,0.12)',
+        background: 'rgba(255,211,0,0.08)',
         transform: 'skew(12deg) translateX(25%)', pointerEvents: 'none',
       }} />
       <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
         <h2 style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,8vw,4rem)',
-          color: 'var(--text)', marginBottom: 32,
+          color: 'var(--text)', marginBottom: 32, lineHeight: 0.9,
         }}>
           SPEED IS A <span style={{ color: 'var(--secondary)' }}>FEATURE.</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.95rem,3.5vw,1.5rem)',
-          lineHeight: 1.6, color: 'var(--text)', textTransform: 'uppercase',
-          letterSpacing: '0.05em',
+          lineHeight: 1.7, color: 'var(--text)', textTransform: 'uppercase',
+          letterSpacing: '0.05em', textAlign: 'center',
         }}>
           We reject the bureaucracy of modern software development. No endless meetings.
           No pixel-pushing committees. We code on instinct. We build for impact.{' '}
-          <span style={{
-            background: `linear-gradient(90deg, var(--primary) ${hlPct}%, transparent ${hlPct}%)`,
-            padding: '2px 8px', color: 'var(--text)',
-            willChange: 'background',
-          }}>
-            Vibe coding is the raw translation of thought to reality.
-          </span>{' '}
+          {renderGradientText()}{' '}
           Slash the rules. Grind the raw.
         </p>
       </div>
@@ -76,8 +123,7 @@ export default function ManifestoSlide({ progress }) {
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
         zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
         gap: 6, opacity: mobile ? (scrollProgress < 0.9 ? 0.4 : 0) : 0.4,
-        transition: 'opacity 0.3s',
-        pointerEvents: 'none',
+        transition: 'opacity 0.3s', pointerEvents: 'none',
       }}>
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
@@ -104,7 +150,7 @@ export default function ManifestoSlide({ progress }) {
         style={{
           position: 'relative',
           width: '100%',
-          height: '150vh',
+          height: '200vh',
           zIndex: 1,
         }}
       >
@@ -140,36 +186,36 @@ export default function ManifestoSlide({ progress }) {
     }}>
       <div style={{
         position: 'absolute', top: 0, right: 0, width: '50%', height: '100%',
-        background: 'rgba(255,211,0,0.12)',
+        background: 'rgba(255,211,0,0.08)',
         transform: 'skew(12deg) translateX(25%)', pointerEvents: 'none',
       }} />
       <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
         <h2 style={{
           fontFamily: "'Anton', sans-serif", fontSize: 'clamp(2.5rem,5vw,4rem)',
-          color: 'var(--text)', marginBottom: 32,
+          color: 'var(--text)', marginBottom: 32, lineHeight: 0.9,
         }}>
           SPEED IS A <span style={{ color: 'var(--secondary)' }}>FEATURE.</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem,2vw,1.5rem)',
-          lineHeight: 1.6, color: 'var(--text)', textTransform: 'uppercase',
+          lineHeight: 1.7, color: 'var(--text)', textTransform: 'uppercase',
           letterSpacing: '0.05em',
         }}>
           We reject the bureaucracy of modern software development. No endless meetings.
           No pixel-pushing committees. We code on instinct. We build for impact.{' '}
+          {renderHighlightedText()}{' '}
           <span style={{
-            background: `linear-gradient(90deg, var(--primary) ${hlPct}%, transparent ${hlPct}%)`,
-            padding: '2px 8px', color: 'var(--text)',
-          }}>
-            Vibe coding is the raw translation of thought to reality.
-          </span>{' '}
-          Slash the rules. Grind the raw.
+            display: 'inline-block',
+            opacity: textRevealed ? 1 : 0,
+            transition: 'opacity 0.5s ease 0.8s',
+          }}>Slash the rules. Grind the raw.</span>
         </p>
       </div>
       <div style={{
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
         zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
-        gap: 6, opacity: 0.4, pointerEvents: 'none',
+        gap: 6, opacity: isComplete ? 0 : 0.4, pointerEvents: 'none',
+        transition: 'opacity 0.5s ease',
       }}>
         <span style={{
           fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
@@ -186,6 +232,12 @@ export default function ManifestoSlide({ progress }) {
           }} />
         </div>
       </div>
+      <style>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }
