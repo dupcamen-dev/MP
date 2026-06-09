@@ -70,14 +70,14 @@ function MobileProjectList() {
 
   return (
     <section id="showcase" style={{
-      width: '100%', position: 'relative', zIndex: 1,
+      width: '100%', position: 'relative', zIndex: 4,
     }}>
       {projects.map((p, i) => (
         <div
           key={i}
           className="carousel-cell"
           style={{
-            width: '100%', height: '100dvh',
+            width: '100%', height: '100vh', minHeight: '100dvh',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: 'var(--primary)', overflow: 'hidden', position: 'relative',
             padding: '24px',
