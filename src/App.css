@@ -1,5 +1,6 @@
 :root {
   --bg: #000000;
+  --bg-alt: #ffffff;
   --bg-dim: #000000;
   --surface: #0a0a0a;
   --surface-low: #000000;
@@ -145,8 +146,8 @@ body::after {
   .cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }
   .cta-slide-title .line-yellow:hover { transform: translateY(-6px) skewX(-6deg) !important; color: var(--primary) !important; }
   .cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 var(--steel) !important; }
-  .process-btn.primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--secondary); }
-  .process-btn.outline:hover { background: var(--text); color: var(--bg); }
+  .process-btn.primary:hover { transform: translate(-2px, -2px); }
+  .process-btn.outline:hover { background: #111; color: #fff; transition: all 0.2s; }
   .header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
   .menu-btn:hover span { width: 44px !important; }
   .menu-btn.open:hover span:nth-child(2) { width: 0 !important; }
