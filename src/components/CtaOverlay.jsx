@@ -51,7 +51,7 @@ export default function CtaOverlay({ progress }) {
           position: mobile ? 'relative' : 'fixed', top: 0, left: 0, width: '100%',
           height: mobile ? '100dvh' : '100%',
           zIndex: mobile ? 1 : 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
-          background: '#ffd300', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
+          background: 'var(--primary)', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
           willChange: 'transform', visibility: mobile ? 'visible' : 'hidden',
         }}
       >
@@ -63,7 +63,7 @@ export default function CtaOverlay({ progress }) {
           <h2 className="cta-slide-title" style={{
             fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(4rem,12vw,10rem)',
             lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--surface-low)',
-            textShadow: mobile ? '4px 4px 0 #d4001a' : '8px 8px 0 #d4001a', letterSpacing: '0.08em',
+            textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)', letterSpacing: '0.08em',
             marginBottom: 32,
           }}>
             <span className="line line-white reveal" style={{
@@ -72,7 +72,7 @@ export default function CtaOverlay({ progress }) {
             }}>START YOUR</span>
             <span className="line line-yellow reveal" style={{
               display: 'block', letterSpacing: '0.12em', transform: 'translateY(-6px)',
-              color: 'var(--surface-low)', textShadow: mobile ? '4px 4px 0 #d4001a' : '8px 8px 0 #d4001a',
+              color: 'var(--surface-low)', textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)',
               transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
             }}>WEEK</span>
           </h2>
@@ -88,7 +88,7 @@ export default function CtaOverlay({ progress }) {
             onClick={() => setShowModal(true)}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: mobile ? 10 : 16,
-              padding: btnPadding, background: 'var(--surface-low)', color: '#ffd300',
+              padding: btnPadding, background: 'var(--surface-low)', color: 'var(--primary)',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.2rem,2.5vw,1.75rem)',
               textTransform: 'uppercase', border: '4px solid var(--surface-low)',
               cursor: 'pointer',
@@ -107,7 +107,7 @@ export default function CtaOverlay({ progress }) {
           }}>
             <div style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem',
-              textTransform: 'uppercase', color: '#ffd300',
+              textTransform: 'uppercase', color: 'var(--primary)',
             }}>
               &copy;2024 <span style={{ color: 'var(--on-surface)' }}>MILLIONPIXELS.DEV</span> — SLASH THE RULES
             </div>
@@ -141,10 +141,10 @@ export default function CtaOverlay({ progress }) {
           }}>
             <h2 style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,10vw,5rem)',
-              lineHeight: 0.9, textTransform: 'uppercase', color: '#ffd300',
+              lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--primary)',
               letterSpacing: '0.08em', marginBottom: 24,
             }}>
-              MILLION<br /><span style={{ color: '#d4001a' }}>PIXELS</span>
+              MILLION<br /><span style={{ color: 'var(--secondary)' }}>PIXELS</span>
             </h2>
             <p style={{
               fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.85rem,3vw,1rem)',
@@ -175,7 +175,7 @@ export default function CtaOverlay({ progress }) {
           }}>
             <div style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-              textTransform: 'uppercase', color: '#ffd300',
+              textTransform: 'uppercase', color: 'var(--primary)',
             }}>
               &copy;2024 <span style={{ color: 'var(--on-surface)' }}>MILLIONPIXELS.DEV</span>
             </div>

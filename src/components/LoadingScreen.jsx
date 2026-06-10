@@ -40,10 +40,10 @@ export default function LoadingScreen({ onFinish }) {
     }}>
       <h1 style={{
         fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,10vw,6rem)',
-        color: '#ffd300', textTransform: 'uppercase', lineHeight: 0.85,
+        color: 'var(--primary)', textTransform: 'uppercase', lineHeight: 0.85,
         textAlign: 'center',
       }}>
-        MILLION<span style={{ color: '#d4001a' }}>PIXELS</span>
+        MILLION<span style={{ color: 'var(--secondary)' }}>PIXELS</span>
       </h1>
       <div style={{
         width: 160, height: 3, background: 'rgba(255,255,255,0.1)',
@@ -51,7 +51,7 @@ export default function LoadingScreen({ onFinish }) {
       }}>
         <div style={{
           position: 'absolute', top: 0, left: 0, height: '100%', width: '40%',
-          background: '#ffd300',
+          background: 'var(--primary)',
           animation: 'loading-bar 1.2s ease-in-out infinite',
         }} />
       </div>

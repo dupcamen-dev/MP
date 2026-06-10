@@ -52,11 +52,11 @@ export default function OrderModal({ onClose }) {
       }} onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div onClick={e => e.stopPropagation()} style={{
           background: 'var(--surface-low)', padding: '60px 48px', maxWidth: 420, width: '90%',
-          textAlign: 'center', border: '2px solid #ffd300',
+          textAlign: 'center', border: '2px solid var(--primary)',
         }}>
           <div style={{ fontSize: '4rem', marginBottom: 16 }}>⚡</div>
           <h3 style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem', color: '#ffd300',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem', color: 'var(--primary)',
             textTransform: 'uppercase', margin: '0 0 12px', letterSpacing: '0.05em',
           }}>ORDER RECEIVED</h3>
           <p style={{
@@ -66,9 +66,9 @@ export default function OrderModal({ onClose }) {
             Your signal has been intercepted. We'll reach out within 24h.
           </p>
           <button onClick={onClose} style={{
-            padding: '16px 48px', background: '#ffd300', color: 'var(--surface-low)',
+            padding: '16px 48px', background: 'var(--primary)', color: 'var(--surface-low)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.1rem', textTransform: 'uppercase',
-            border: '2px solid #ffd300', cursor: 'pointer',
+            border: '2px solid var(--primary)', cursor: 'pointer',
           }}>CLOSE</button>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function OrderModal({ onClose }) {
       justifyContent: 'center', background: 'rgba(15,15,18,0.85)', backdropFilter: 'blur(8px)',
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
-        background: '#ffd300', padding: '48px 40px', maxWidth: 480, width: '90%',
+        background: 'var(--primary)', padding: '48px 40px', maxWidth: 480, width: '90%',
         border: '4px solid var(--surface-low)',
       }}>
         <div style={{
@@ -166,7 +166,7 @@ export default function OrderModal({ onClose }) {
           onClick={handleSubmit}
           disabled={sending}
           style={{
-            width: '100%', padding: '18px', background: 'var(--surface-low)', color: '#ffd300',
+            width: '100%', padding: '18px', background: 'var(--surface-low)', color: 'var(--primary)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
             border: '3px solid var(--surface-low)', cursor: sending ? 'wait' : 'pointer',
             opacity: sending ? 0.6 : 1,

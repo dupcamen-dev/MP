@@ -18,7 +18,7 @@ export default function ReviewsSlide({ cardPhase }) {
       return {
         padding: mobile ? (tablet ? 28 : 24) : 32,
         background: 'rgba(15,15,18,0.8)',
-        borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #d4001a',
+        borderLeft: i % 2 === 0 ? '4px solid var(--primary)' : '4px solid var(--secondary)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(30px)',
         transition: 'opacity 0.5s ease, transform 0.5s ease',
@@ -30,7 +30,7 @@ export default function ReviewsSlide({ cardPhase }) {
       padding: 32,
       background: 'rgba(15,15,18,0.8)',
       backdropFilter: 'blur(12px)',
-      borderLeft: i % 2 === 0 ? '4px solid #ffd300' : '4px solid #d4001a',
+      borderLeft: i % 2 === 0 ? '4px solid var(--primary)' : '4px solid var(--secondary)',
       opacity: p,
       transform: `translateY(${30 * (1 - p)}px)`,
       transition: 'border-color 0.3s',
@@ -92,7 +92,7 @@ export default function ReviewsSlide({ cardPhase }) {
         </h2>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(3rem,12vw,5rem)' : 'clamp(3.5rem,8vw,7rem)',
-          lineHeight: 0.9, color: '#d4001a', textTransform: 'uppercase',
+          lineHeight: 0.9, color: 'var(--secondary)', textTransform: 'uppercase',
           letterSpacing: '0.02em', margin: 0, textShadow: '4px 4px 0 rgba(15,15,18,0.3)',
         }}>
           BUILDERS
@@ -112,7 +112,7 @@ export default function ReviewsSlide({ cardPhase }) {
             <h4 style={{
               fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
               fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-              color: i % 2 === 0 ? '#ffd300' : '#d4001a', marginTop: 16,
+              color: i % 2 === 0 ? 'var(--primary)' : 'var(--secondary)', marginTop: 16,
             }}>{r.author}</h4>
           </div>
         ))}
@@ -124,7 +124,7 @@ export default function ReviewsSlide({ cardPhase }) {
           <h4 style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
             fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-            color: '#ffd300', marginTop: 16,
+            color: 'var(--primary)', marginTop: 16,
           }}>{reviews[2].author}</h4>
         </div>
         <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle(3, !mobile || true) }}>
@@ -135,7 +135,7 @@ export default function ReviewsSlide({ cardPhase }) {
           <h4 style={{
             fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
             fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-            color: '#d4001a', marginTop: 16,
+            color: 'var(--secondary)', marginTop: 16,
           }}>{reviews[3].author}</h4>
         </div>
       </div>
