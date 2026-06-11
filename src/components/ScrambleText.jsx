@@ -1,33 +1,47 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const CHARS = '!<>-_\\/[]{}—=+*^?#________';
 
 export default function ScrambleText({ text, delay = 0, cascade = 80, speed = 80, ...props }) {
-  const [tick, setTick] = useState(0);
+  const ref = useRef(null);
 
   useEffect(() => {
-    const id = setInterval(() => setTick(t => t + 1), 50);
-    return () => clearInterval(id);
-  }, []);
+    const el = ref.current;
+    if (!el) return;
+    const len = text.length;
+    const start = performance.now();
+    let frame;
 
-  const t = Math.max(0, tick * 50 - delay);
-  const len = text.length;
-  let out = '';
-  for (let i = 0; i < len; i++) {
-    const cs = i * cascade;
-    const ce = cs + speed;
-    if (t >= ce) {
-      out += text[i];
-    } else if (t >= cs) {
-      out += CHARS[Math.floor(Math.random() * CHARS.length)];
-    } else {
-      out += ' ';
+    function tick(now) {
+      const elapsed = now - start;
+      const t = Math.max(0, elapsed - delay);
+      let out = '';
+      let running = false;
+
+      for (let i = 0; i < len; i++) {
+        const cs = i * cascade;
+        const ce = cs + speed;
+        if (t >= ce) {
+          out += text[i];
+        } else if (t >= cs) {
+          out += CHARS[Math.floor(Math.random() * CHARS.length)];
+          running = true;
+        } else {
+          out += ' ';
+          running = true;
+        }
+      }
+
+      el.textContent = out;
+
+      if (running) {
+        frame = requestAnimationFrame(tick);
+      }
     }
-  }
 
-  return (
-    <span {...props} style={{ whiteSpace: 'pre', ...(props.style || {}) }}>
-      {out}
-    </span>
-  );
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [text, delay, cascade, speed]);
+
+  return <span ref={ref} {...props} style={{ whiteSpace: 'pre', ...(props.style || {}) }} />;
 }
