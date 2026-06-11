@@ -74,7 +74,7 @@ export default function CtaOverlay({ progress }) {
               display: 'block', letterSpacing: '0.08em', transform: 'translateY(-6px)',
               color: 'var(--surface-low)', textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)',
               transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
-            }}>7-DAY MVP</span>
+            }}>WEEK</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 400,
