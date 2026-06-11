@@ -106,6 +106,36 @@ body::after {
 .card-in { opacity: 0; }
 .card-in.active { animation: fade-up 0.4s cubic-bezier(0.5,0,0,1) forwards; }
 
+.phase-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.5,0,0,1), transform 0.8s cubic-bezier(0.5,0,0,1);
+}
+.phase-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.phase-item.active:nth-child(2) { transition-delay: 0.1s; }
+.phase-item.active:nth-child(3) { transition-delay: 0.2s; }
+
+.review-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.5,0,0,1), transform 0.7s cubic-bezier(0.5,0,0,1);
+}
+.review-card.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.review-card.active:nth-child(2) { transition-delay: 0.15s; }
+.review-card.active:nth-child(3) { transition-delay: 0.3s; }
+
+.process-btn {
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), background 0.2s, color 0.2s, border-color 0.2s !important;
+}
+.process-btn.primary:hover { transform: translate(-2px, -2px); }
+.process-btn.outline:hover { background: #111; color: #fff; border-color: #111; }
+
 @media (hover: hover) {
   .carousel-cell:hover .card-img img { transform: scale(1.05); }
   .carousel-cell .card-body a:hover { background: var(--primary) !important; color: var(--surface-low) !important; }
@@ -114,8 +144,6 @@ body::after {
   .cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }
   .cta-slide-title .line-yellow:hover { transform: translateY(-6px) skewX(-6deg) !important; color: var(--secondary) !important; }
   .cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 var(--steel) !important; }
-  .process-btn.primary:hover { transform: translate(-2px, -2px); }
-  .process-btn.outline:hover { background: #111; color: #fff; transition: all 0.2s; }
   .header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
   .menu-btn:hover span { width: 44px !important; }
   .menu-btn.open:hover span:nth-child(2) { width: 0 !important; }
@@ -137,7 +165,6 @@ body::after {
 .menu-link.highlight:hover { color: var(--secondary) !important; }
 .cta-slide-title .line { transition: transform 0.5s, color 0.5s, text-shadow 0.5s !important; cursor: pointer; }
 .cta-btn { transition: all 0.3s !important; }
-.process-btn { transition: all 0.2s !important; }
 .header-logo { transition: text-shadow 0.3s; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -173,6 +200,7 @@ body::after {
   .slide { min-height: 100dvh !important; height: auto !important; }
 
   .menu-btn { width: 44px !important; height: 44px !important; }
+  body::after { display: none !important; }
 }
 
 @media (max-width: 480px) {

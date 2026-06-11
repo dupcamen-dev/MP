@@ -67,7 +67,7 @@ export default function OrderModal({ onClose }) {
             fontFamily: "'Geist', sans-serif", fontSize: '1.125rem', color: 'var(--on-surface)',
             marginBottom: 32, lineHeight: 1.5,
           }}>
-            Got it. We'll reach out within 24h.
+            We&apos;ll review and get back to you within 24h.
           </p>
           <button onClick={onClose} style={{
             padding: '16px 48px', background: 'var(--primary)', color: 'var(--surface-low)',
@@ -94,7 +94,7 @@ export default function OrderModal({ onClose }) {
           <h3 id="modal-title" style={{
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--surface-low)',
             textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
-          }}>INITIATE</h3>
+          }}>REQUEST MVP</h3>
           <button onClick={onClose} style={{
             background: 'none', border: 'none', fontSize: '2rem', color: 'var(--surface-low)',
             cursor: 'pointer', padding: '4px 12px', lineHeight: 1,
@@ -102,7 +102,7 @@ export default function OrderModal({ onClose }) {
         </div>
 
         <div style={{ marginBottom: 24 }}>
-          <label style={labelStyle}>YOUR IDEA</label>
+          <label style={labelStyle}>YOUR IDEA *</label>
           <textarea
             value={form.idea}
             onChange={update('idea')}
@@ -115,7 +115,7 @@ export default function OrderModal({ onClose }) {
         </div>
 
         <div style={{ marginBottom: 32 }}>
-          <label style={labelStyle}>CONTACT</label>
+          <label style={labelStyle}>CONTACT *</label>
           <input
             type="text"
             value={form.contact}

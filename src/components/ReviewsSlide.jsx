@@ -7,33 +7,12 @@ export default function ReviewsSlide({ cardPhase }) {
   const gridRef = useRef(null);
 
   const reviews = [
-    { text: '"Fast execution. Clean handoff. Exactly what we needed to ship on schedule."', author: 'CTO, SaaS Platform' },
-    { text: '"Eight days from sketch to live product. The pace is unmatched in our space."', author: 'Founder, Web3 Studio' },
-    { text: '"They reset our timeline expectations. We\'re still catching up internally."', author: 'Head of Engineering, DeFi' },
+    { text: '4 pages → 14. Stripe live. 312 signups in week one. The MVP we launched had paying users by day 3.', author: 'SaaS founder, B2B platform' },
+    { text: 'Smart contracts, landing page, and admin panel — all in 6 days. The audit passed on the first pass.', author: 'Studio lead, Web3 protocol' },
+    { text: 'Audit-ready MVP in 5 days. We saved 6 weeks of in-house engineering and shipped before our competitor.', author: 'CTO, DeFi protocol' },
   ];
 
-  const cardStyle = (visible) => {
-    if (mobile) {
-      return {
-        padding: mobile ? (tablet ? 28 : 24) : 32,
-        background: 'transparent',
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(30px)',
-        transition: 'opacity 0.5s ease, transform 0.5s ease',
-      };
-    }
-    const p = cardPhase;
-    return {
-      padding: 32,
-      background: 'transparent',
-      opacity: p,
-      transform: `translateY(${30 * (1 - p)}px)`,
-      transition: 'opacity 0.4s ease, transform 0.4s ease',
-    };
-  };
-
   useEffect(() => {
-    if (!mobile) return;
     const grid = gridRef.current;
     if (!grid) return;
     const cards = grid.querySelectorAll('.review-card');
@@ -41,16 +20,19 @@ export default function ReviewsSlide({ cardPhase }) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const idx = Array.from(cards).indexOf(entry.target);
-          setTimeout(() => {
-            entry.target.setAttribute('data-visible', 'true');
-          }, idx * 120);
+          setTimeout(() => entry.target.classList.add('active'), idx * 120);
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15 });
     cards.forEach((c) => observer.observe(c));
     return () => observer.disconnect();
-  }, [mobile]);
+  }, []);
+
+  const cardStyle = {
+    padding: mobile ? (tablet ? 28 : 24) : 32,
+    background: 'transparent',
+  };
 
   return (
     <section className="slide reviews-slide" id="reviews" style={{
@@ -77,11 +59,11 @@ export default function ReviewsSlide({ cardPhase }) {
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24,
       }}>
         <h2 style={{
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(3rem, 12vw, 5rem)' : 'clamp(3.5rem, 8vw, 7rem)',
-          lineHeight: 0.9, color: 'var(--primary)', textTransform: 'uppercase',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.5rem, 10vw, 4rem)' : 'clamp(3rem, 6vw, 5rem)',
+          lineHeight: 0.95, color: 'var(--primary)', textTransform: 'uppercase',
           letterSpacing: '0.01em', margin: 0, textAlign: 'center',
         }}>
-          TRUSTED BY BUILDERS
+          12 PROJECTS. 6.3 AVG DAYS.<br />ZERO HANDOVER DRAMA.
         </h2>
 
         <div ref={gridRef} className="reviews-grid" style={{
@@ -90,7 +72,7 @@ export default function ReviewsSlide({ cardPhase }) {
           marginTop: mobile ? 32 : 24,
         }}>
           {reviews.slice(0, 2).map((r, i) => (
-            <div key={i} className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(!mobile || true)}>
+            <div key={i} className="review-card" style={cardStyle}>
               <p style={{
                 fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
                 lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400,
@@ -102,7 +84,7 @@ export default function ReviewsSlide({ cardPhase }) {
               }}>{r.author}</h4>
             </div>
           ))}
-          <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle(!mobile || true) }}>
+          <div className="review-card" style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle }}>
             <p style={{
               fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
               lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400, maxWidth: 800,

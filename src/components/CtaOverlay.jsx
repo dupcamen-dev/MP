@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
+import { useMagnetic } from '../hooks/useMagnetic';
 import OrderModal from './OrderModal';
 
 export default function CtaOverlay({ progress }) {
@@ -39,6 +40,7 @@ export default function CtaOverlay({ progress }) {
   }, [progress, mobile]);
 
   const btnPadding = tablet ? '20px 48px' : (mobile ? '18px 32px' : '24px 60px');
+  const magnetic = useMagnetic();
 
   return (
     <>
@@ -72,26 +74,31 @@ export default function CtaOverlay({ progress }) {
               display: 'block', letterSpacing: '0.08em', transform: 'translateY(-6px)',
               color: 'var(--surface-low)', textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)',
               transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
-            }}>WEEK</span>
+            }}>7-DAY MVP</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 400,
             fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', letterSpacing: '0.02em',
             color: 'var(--surface-low)', marginBottom: 48, maxWidth: 600, lineHeight: 1.4,
           }}>
-            We build your MVP in 7 days.
+            One call to get started. Live URL in 7 days.
           </p>
           <button
+            ref={magnetic.ref}
             className="cta-btn reveal"
             onClick={() => setShowModal(true)}
+            onMouseMove={!mobile ? magnetic.onMouseMove : undefined}
+            onMouseLeave={!mobile ? magnetic.onMouseLeave : undefined}
             style={{
               display: 'inline-flex', alignItems: 'center',
               padding: btnPadding, background: 'var(--surface-low)', color: 'var(--primary)',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.4rem, 2.6vw, 2rem)',
               textTransform: 'uppercase', border: '4px solid var(--surface-low)',
               cursor: 'pointer', letterSpacing: '0.05em', fontWeight: 700,
+              transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
+              willChange: 'transform',
             }}>
-            INITIATE
+            START
           </button>
         </div>
         <div className="cta-footer" style={{
@@ -102,7 +109,7 @@ export default function CtaOverlay({ progress }) {
             fontFamily: "'Geist', sans-serif", fontSize: '0.875rem',
             letterSpacing: '0.05em', color: 'var(--surface-low)', opacity: 0.7,
           }}>
-            © 2024 MILLIONPIXELS.DEV
+            © 2025 MILLIONPIXELS.DEV
           </div>
         </div>
       </section>

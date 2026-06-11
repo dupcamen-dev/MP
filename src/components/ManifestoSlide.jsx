@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
+import ScrambleText from './ScrambleText';
 
 export default function ManifestoSlide({ progress }) {
   const ref = useRef(null);
@@ -60,15 +61,18 @@ export default function ManifestoSlide({ progress }) {
         fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem, 8vw, 5.5rem)',
         color: 'var(--text)', marginBottom: 40, lineHeight: 0.9, letterSpacing: '0.01em',
       }}>
-        SPEED IS A <span style={{ color: 'var(--secondary)' }}>FEATURE.</span>
+        WE SHIP IN DAYS.{' '}
+        <span style={{ color: 'var(--secondary)' }}>
+          <ScrambleText text="NOT WEEKS." cascade={70} speed={50} />
+        </span>
       </h2>
       <p style={{
         fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.35rem, 2.2vw, 1.75rem)',
         lineHeight: 1.5, color: 'var(--text)', fontWeight: 300,
-        maxWidth: 760, margin: '0 auto',
+        maxWidth: 820, margin: '0 auto',
       }}>
-        No meetings. No committees. We build on instinct.{' '}
-        {renderGradientText()}
+        12 MVPs in 6 months. Average 6.3 days from first call to live.{' '}
+        {renderGradientText()} It&apos;s not AI magic — it&apos;s senior engineers using AI to skip the boilerplate. Daily check-ins. Real product. No meetings about meetings.
       </p>
     </div>
   );

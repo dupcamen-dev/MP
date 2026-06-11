@@ -8,7 +8,7 @@ export default function MenuOverlay() {
   const links = [
     { label: 'PROCESS', id: 'process' },
     { label: 'WORK', id: 'showcase' },
-    { label: 'INITIATE', id: 'cta', highlight: true },
+    { label: 'REQUEST', id: 'cta', highlight: true },
   ];
 
   function handleClick(id) {

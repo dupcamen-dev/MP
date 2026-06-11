@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
+import { useMagnetic } from '../hooks/useMagnetic';
+import ScrambleText from './ScrambleText';
 
 const phases = [
-  { num: '01', title: 'IDEATION', desc: 'Define the core. Strip the rest.' },
-  { num: '02', title: 'BUILD', desc: 'Code in the moment. Zero bottlenecks.' },
-  { num: '03', title: 'LAUNCH', desc: 'Precision launch. Scale with confidence.' },
+  { num: '01', title: 'IDEATION', desc: 'Day 1–2. We align on scope, stack, and success criteria.' },
+  { num: '02', title: 'BUILD', desc: 'Day 2–6. Daily builds. You see real progress every 24h.' },
+  { num: '03', title: 'LAUNCH', desc: 'Day 7. Live, documented, yours. Repo access from day 1.' },
 ];
 
 export default function Process({ progress }) {
   const mobile = useMobile();
   const tablet = useTablet();
+  const magPrimary = useMagnetic();
+  const magOutline = useMagnetic();
 
   useEffect(() => {
     const cards = document.querySelectorAll('#process .phase-item');
@@ -36,35 +40,47 @@ export default function Process({ progress }) {
           color: 'var(--primary)',
           marginBottom: 32,
         }}>
-          THE GRIND<br />
+          FROM IDEA<br />
           <span style={{
             color: 'var(--secondary)', display: 'inline-block',
             marginLeft: 'clamp(2rem,6vw,6rem)',
-          }}>PROTOCOL</span>
+          }}>
+            <ScrambleText text="TO LIVE" cascade={70} speed={55} />
+          </span>
         </h1>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)',
           lineHeight: 1.2, letterSpacing: '0.01em',
           color: '#333', maxWidth: 900, fontWeight: 300, margin: 0,
         }}>
-          RAW CRAFT. ZERO EXCUSES.
+          Three phases. Seven days. One live URL.
         </p>
 
         <div className="process-actions" style={{ display: 'flex', gap: 16, marginTop: 64, flexWrap: 'wrap' }}>
-          <a href="#process" className="process-btn primary" style={{
+          <a ref={magPrimary.ref} href="#cta" className="process-btn primary"
+            onMouseMove={!mobile ? magPrimary.onMouseMove : undefined}
+            onMouseLeave={!mobile ? magPrimary.onMouseLeave : undefined}
+            style={{
             padding: '18px 56px', background: 'var(--primary)',
             color: '#111', fontFamily: "'Anton', Impact, sans-serif",
             fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)', textTransform: 'uppercase',
             textDecoration: 'none', border: 'none',
             display: 'inline-block', fontWeight: 700, letterSpacing: '0.05em',
-          }}>ENGAGE</a>
-          <a href="#showcase" className="process-btn outline" style={{
+            transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
+            willChange: 'transform',
+          }}>START YOUR MVP</a>
+          <a ref={magOutline.ref} href="#showcase" className="process-btn outline"
+            onMouseMove={!mobile ? magOutline.onMouseMove : undefined}
+            onMouseLeave={!mobile ? magOutline.onMouseLeave : undefined}
+            style={{
             padding: '18px 56px', background: 'transparent',
             color: '#111', fontFamily: "'Anton', Impact, sans-serif",
             fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)', textTransform: 'uppercase',
             textDecoration: 'none', border: '2px solid #111',
             display: 'inline-block', letterSpacing: '0.05em',
-          }}>VIEW WORK</a>
+            transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
+            willChange: 'transform',
+          }}>SEE OUR WORK</a>
         </div>
       </div>
 
