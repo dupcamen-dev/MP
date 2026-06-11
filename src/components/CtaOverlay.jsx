@@ -39,8 +39,6 @@ export default function CtaOverlay({ progress }) {
   }, [progress, mobile]);
 
   const btnPadding = tablet ? '20px 48px' : (mobile ? '18px 32px' : '24px 60px');
-  const btnIconSize = tablet ? '2rem' : (mobile ? '1.5rem' : '2.5rem');
-  const footerPadding = tablet ? '28px 48px 40px' : (mobile ? '24px' : '32px 64px 48px');
 
   return (
     <>
@@ -61,134 +59,54 @@ export default function CtaOverlay({ progress }) {
           padding: mobile ? (tablet ? '0 48px' : '0 24px') : 0,
         }}>
           <h2 className="cta-slide-title" style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(4rem,12vw,10rem)',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(5rem, 14vw, 12rem)',
             lineHeight: 0.85, textTransform: 'uppercase', color: 'var(--surface-low)',
-            textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)', letterSpacing: '0.08em',
-            marginBottom: 32,
+            textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)', letterSpacing: '0.05em',
+            marginBottom: 40,
           }}>
             <span className="line line-white reveal" style={{
-              display: 'block', letterSpacing: '0.12em',
+              display: 'block', letterSpacing: '0.08em',
               transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
             }}>START YOUR</span>
             <span className="line line-yellow reveal" style={{
-              display: 'block', letterSpacing: '0.12em', transform: 'translateY(-6px)',
+              display: 'block', letterSpacing: '0.08em', transform: 'translateY(-6px)',
               color: 'var(--surface-low)', textShadow: mobile ? '4px 4px 0 var(--secondary)' : '8px 8px 0 var(--secondary)',
               transition: 'transform 0.5s, color 0.5s, text-shadow 0.5s',
             }}>WEEK</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
-            fontFamily: "'Geist', sans-serif", fontWeight: 600,
-            fontSize: 'clamp(0.9rem,1.5vw,1.25rem)', letterSpacing: '0.15em',
-            color: 'var(--surface-low)', marginBottom: 48, maxWidth: 600,
+            fontFamily: "'Geist', sans-serif", fontWeight: 400,
+            fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', letterSpacing: '0.02em',
+            color: 'var(--surface-low)', marginBottom: 48, maxWidth: 600, lineHeight: 1.4,
           }}>
-            SECURE YOUR SLOT. WE BUILD YOUR MVP IN 7 DAYS. NO EXCUSES.
+            We build your MVP in 7 days.
           </p>
           <button
             className="cta-btn reveal"
             onClick={() => setShowModal(true)}
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: mobile ? 10 : 16,
+              display: 'inline-flex', alignItems: 'center',
               padding: btnPadding, background: 'var(--surface-low)', color: 'var(--primary)',
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.2rem,2.5vw,1.75rem)',
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.4rem, 2.6vw, 2rem)',
               textTransform: 'uppercase', border: '4px solid var(--surface-low)',
-              cursor: 'pointer',
+              cursor: 'pointer', letterSpacing: '0.05em', fontWeight: 700,
             }}>
-            INITIATE PROTOCOL
-            <span className="material-icons" style={{ fontSize: btnIconSize }}>arrow_forward</span>
+            INITIATE
           </button>
         </div>
-        {!mobile && (
-          <div className="cta-footer" style={{
-            marginTop: 'auto', width: '100%', maxWidth: 1100,
-            display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
-            alignItems: 'center', flexWrap: 'wrap', gap: 24,
-            padding: '32px 64px 48px', borderTop: '2px solid var(--surface-low)',
-            background: 'var(--surface-low)',
-          }}>
-            <div style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem',
-              textTransform: 'uppercase', color: 'var(--primary)',
-            }}>
-              &copy;2024 <span style={{ color: 'var(--on-surface)' }}>MILLIONPIXELS.DEV</span> — SLASH THE RULES
-            </div>
-            <nav style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-              {['Terms', 'Privacy', 'Twitter', 'GitHub'].map((link) => (
-                <a key={link} href="#" style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
-                  letterSpacing: '0.05em', textTransform: 'uppercase',
-                  color: 'var(--on-surface)', textDecoration: 'none',
-                }}>{link}</a>
-              ))}
-            </nav>
-          </div>
-        )}
-      </section>
-      {showModal && <OrderModal onClose={() => setShowModal(false)} />}
-      {mobile && (
-        <footer style={{
-          width: '100%',
-          minHeight: '100dvh',
-          background: 'var(--surface-low)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          justifyContent: 'center',
-          padding: '120px 24px 48px',
-          position: 'relative',
+        <div className="cta-footer" style={{
+          marginTop: 'auto', width: '100%', maxWidth: 1100,
+          padding: '24px 64px 32px', textAlign: 'center',
         }}>
           <div style={{
-            width: '100%', maxWidth: 900, textAlign: 'center',
-            flex: 1, display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
+            fontFamily: "'Geist', sans-serif", fontSize: '0.875rem',
+            letterSpacing: '0.05em', color: 'var(--surface-low)', opacity: 0.7,
           }}>
-            <h2 style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,10vw,5rem)',
-              lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--primary)',
-              letterSpacing: '0.08em', marginBottom: 24,
-            }}>
-              MILLION<br /><span style={{ color: 'var(--secondary)' }}>PIXELS</span>
-            </h2>
-            <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.85rem,3vw,1rem)',
-              lineHeight: 1.6, color: 'var(--on-surface)', letterSpacing: '0.05em',
-              textTransform: 'uppercase', maxWidth: 400, marginBottom: 48,
-            }}>
-              BUILDING RAW DIGITAL EXPERIENCES.<br />
-              NO BUREAUCRACY. NO EXCUSES.
-            </p>
-            <div style={{
-              display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center',
-            }}>
-              {['Twitter', 'GitHub', 'LinkedIn', 'Dribbble'].map((link) => (
-                <a key={link} href="#" style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: '0.7rem',
-                  letterSpacing: '0.1em', textTransform: 'uppercase',
-                  color: 'var(--on-surface)', textDecoration: 'none',
-                  padding: '10px 20px', border: '1px solid rgba(107,110,115,0.3)',
-                  transition: 'border-color 0.3s, color 0.3s',
-                }}>{link}</a>
-              ))}
-            </div>
+            © 2024 MILLIONPIXELS.DEV
           </div>
-          <div style={{
-            width: '100%', borderTop: '1px solid rgba(107,110,115,0.15)',
-            paddingTop: 24, display: 'flex', flexDirection: 'column',
-            alignItems: 'center', gap: 12,
-          }}>
-            <div style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-              textTransform: 'uppercase', color: 'var(--primary)',
-            }}>
-              &copy;2024 <span style={{ color: 'var(--on-surface)' }}>MILLIONPIXELS.DEV</span>
-            </div>
-            <div style={{
-              fontFamily: "'Space Mono', monospace", fontSize: '0.6rem',
-              letterSpacing: '0.1em', color: 'rgba(107,110,115,0.5)',
-              textTransform: 'uppercase',
-            }}>
-              SLASH THE RULES
-            </div>
-          </div>
-        </footer>
-      )}
+        </div>
+      </section>
+      {showModal && <OrderModal onClose={() => setShowModal(false)} />}
     </>
   );
 }

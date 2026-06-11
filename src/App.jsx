@@ -1,6 +1,5 @@
 import { useScrollProgress } from './hooks/useScrollProgress';
 import { useMobile } from './hooks/useMobile';
-import Particles from './components/Particles';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Process from './components/Process';
@@ -14,7 +13,6 @@ export default function App() {
 
   return (
     <>
-      <Particles />
       <Header />
       <div style={{ position: 'relative', zIndex: 10 }}>
         <Hero progress={progress} />

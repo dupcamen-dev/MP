@@ -4,21 +4,27 @@ const TG_BOT_TOKEN = 'YOUR_BOT_TOKEN';
 const TG_CHAT_ID = 'YOUR_CHAT_ID';
 
 const inputStyle = {
-  width: '100%', padding: '14px 16px', background: 'rgba(15,15,18,0.08)',
+  width: '100%', padding: '16px', background: 'rgba(15,15,18,0.08)',
   border: '2px solid rgba(15,15,18,0.2)', borderRadius: 0,
-  fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: 'var(--surface-low)',
+  fontFamily: "'Geist', sans-serif", fontSize: '1.125rem', color: 'var(--surface-low)',
   outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
 };
 
+const labelStyle = {
+  fontFamily: "'Geist', sans-serif", fontSize: '0.875rem', fontWeight: 500,
+  textTransform: 'uppercase', letterSpacing: '0.05em',
+  color: 'var(--surface-low)', display: 'block', marginBottom: 8,
+};
+
 export default function OrderModal({ onClose }) {
-  const [form, setForm] = useState({ idea: '', deadline: '', budget: '', contact: '' });
+  const [form, setForm] = useState({ idea: '', contact: '' });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
 
   const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async () => {
-    if (!form.idea.trim() || !form.deadline.trim() || !form.budget.trim() || !form.contact.trim()) return;
+    if (!form.idea.trim() || !form.contact.trim()) return;
     setSending(true);
     const now = new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' });
     const msg = [
@@ -26,8 +32,6 @@ export default function OrderModal({ onClose }) {
       `🕒 ${now}`,
       `━━━━━━━━━━━━━━━`,
       `*IDEA:* ${form.idea}`,
-      `*DEADLINE:* ${form.deadline}`,
-      `*BUDGET:* $${form.budget}`,
       `*CONTACT:* ${form.contact}`,
     ].join('\n');
 
@@ -56,19 +60,19 @@ export default function OrderModal({ onClose }) {
         }}>
           <div style={{ fontSize: '4rem', marginBottom: 16 }}>⚡</div>
           <h3 style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem', color: 'var(--primary)',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--primary)',
             textTransform: 'uppercase', margin: '0 0 12px', letterSpacing: '0.05em',
           }}>ORDER RECEIVED</h3>
           <p style={{
-            fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: 'var(--on-surface)',
+            fontFamily: "'Geist', sans-serif", fontSize: '1.125rem', color: 'var(--on-surface)',
             marginBottom: 32, lineHeight: 1.5,
           }}>
-            Your signal has been intercepted. We'll reach out within 24h.
+            Got it. We'll reach out within 24h.
           </p>
           <button onClick={onClose} style={{
             padding: '16px 48px', background: 'var(--primary)', color: 'var(--surface-low)',
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.1rem', textTransform: 'uppercase',
-            border: '2px solid var(--primary)', cursor: 'pointer',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
+            border: '2px solid var(--primary)', cursor: 'pointer', letterSpacing: '0.05em',
           }}>CLOSE</button>
         </div>
       </div>
@@ -88,7 +92,7 @@ export default function OrderModal({ onClose }) {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32,
         }}>
           <h3 id="modal-title" style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.8rem', color: 'var(--surface-low)',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--surface-low)',
             textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
           }}>INITIATE</h3>
           <button onClick={onClose} style={{
@@ -97,11 +101,8 @@ export default function OrderModal({ onClose }) {
           }}>✕</button>
         </div>
 
-        <div style={{ marginBottom: 20 }}>
-          <label style={{
-            fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: 'var(--surface-low)', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
-          }}>WHAT DO YOU WANT TO BUILD?</label>
+        <div style={{ marginBottom: 24 }}>
+          <label style={labelStyle}>YOUR IDEA</label>
           <textarea
             value={form.idea}
             onChange={update('idea')}
@@ -113,44 +114,8 @@ export default function OrderModal({ onClose }) {
           />
         </div>
 
-        <div style={{ marginBottom: 20 }}>
-          <label style={{
-            fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: 'var(--surface-low)', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
-          }}>DEADLINE</label>
-          <input
-            type="text"
-            value={form.deadline}
-            onChange={update('deadline')}
-            placeholder="e.g. 2 weeks, June 15, ASAP"
-            style={inputStyle}
-            onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
-          />
-        </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <label style={{
-            fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: 'var(--surface-low)', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
-          }}>BUDGET (USD)</label>
-          <input
-            type="number"
-            value={form.budget}
-            onChange={update('budget')}
-            placeholder="1000"
-            min="0"
-            style={inputStyle}
-            onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
-          />
-        </div>
-
         <div style={{ marginBottom: 32 }}>
-          <label style={{
-            fontFamily: "'Space Mono', monospace", fontSize: '0.7rem', textTransform: 'uppercase',
-            color: 'var(--surface-low)', letterSpacing: '0.1em', display: 'block', marginBottom: 6,
-          }}>CONTACT (EMAIL / TG / PHONE)</label>
+          <label style={labelStyle}>CONTACT</label>
           <input
             type="text"
             value={form.contact}
@@ -166,13 +131,13 @@ export default function OrderModal({ onClose }) {
           onClick={handleSubmit}
           disabled={sending}
           style={{
-            width: '100%', padding: '18px', background: 'var(--surface-low)', color: 'var(--primary)',
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
+            width: '100%', padding: '20px', background: 'var(--surface-low)', color: 'var(--primary)',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.5rem', textTransform: 'uppercase',
             border: '3px solid var(--surface-low)', cursor: sending ? 'wait' : 'pointer',
-            opacity: sending ? 0.6 : 1,
+            opacity: sending ? 0.6 : 1, letterSpacing: '0.05em', fontWeight: 700,
           }}
         >
-          {sending ? 'SENDING…' : 'SEND SIGNAL'}
+          {sending ? 'SENDING…' : 'SEND'}
         </button>
       </div>
     </div>

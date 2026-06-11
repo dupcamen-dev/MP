@@ -9,32 +9,26 @@ export default function ReviewsSlide({ cardPhase }) {
   const reviews = [
     { text: '"Fast execution. Clean handoff. Exactly what we needed to ship on schedule."', author: 'CTO, SaaS Platform' },
     { text: '"Eight days from sketch to live product. The pace is unmatched in our space."', author: 'Founder, Web3 Studio' },
-    { text: '"Vibe coding works. Don\'t knock it until you\'ve shipped with them."', author: 'VP Product, Fintech X' },
     { text: '"They reset our timeline expectations. We\'re still catching up internally."', author: 'Head of Engineering, DeFi' },
   ];
 
-  const cardStyle = (i, visible) => {
+  const cardStyle = (visible) => {
     if (mobile) {
       return {
         padding: mobile ? (tablet ? 28 : 24) : 32,
-        background: 'var(--surface)',
-        borderLeft: `3px solid ${i % 2 === 0 ? 'var(--primary)' : 'var(--secondary)'}`,
+        background: 'transparent',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(30px)',
         transition: 'opacity 0.5s ease, transform 0.5s ease',
-        boxShadow: '0 2px 8px rgba(135, 70, 38, 0.08)',
       };
     }
-    const stagger = i * 0.18;
-    const p = Math.min(1, Math.max(0, (cardPhase - stagger) / 0.32));
+    const p = cardPhase;
     return {
       padding: 32,
-      background: 'var(--surface)',
-      borderLeft: `3px solid ${i % 2 === 0 ? 'var(--primary)' : 'var(--secondary)'}`,
+      background: 'transparent',
       opacity: p,
       transform: `translateY(${30 * (1 - p)}px)`,
-      transition: 'border-color 0.3s, box-shadow 0.3s',
-      boxShadow: '0 4px 16px rgba(135, 70, 38, 0.1)',
+      transition: 'opacity 0.4s ease, transform 0.4s ease',
     };
   };
 
@@ -69,97 +63,55 @@ export default function ReviewsSlide({ cardPhase }) {
       justifyContent: 'center',
       padding: mobile ? '60px 24px' : '0 80px',
     }}>
-      {/* Layer 1: photo background */}
       <div style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'url(/reviews-bg.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        opacity: 0.18,
-        filter: 'sepia(0.4) saturate(0.7) contrast(1.1)',
+        opacity: 0.08,
+        filter: 'sepia(0.5) saturate(0.6) contrast(1.1)',
         pointerEvents: 'none',
       }} />
-      {/* Layer 2: warm gradient overlay for readability */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(135deg, rgba(250,246,240,0.88) 0%, rgba(243,217,201,0.78) 100%)',
-        pointerEvents: 'none',
-      }} />
-      {/* Layer 3: soft accent glows */}
-      <div style={{
-        position: 'absolute', top: '-20%', right: '-10%', width: '50%', height: '70%',
-        background: 'radial-gradient(ellipse, rgba(201, 123, 92, 0.12) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '-15%', left: '-10%', width: '40%', height: '50%',
-        background: 'radial-gradient(ellipse, rgba(135, 70, 38, 0.08) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
       <div style={{
         position: 'relative', zIndex: 1, width: '100%', maxWidth: 1200,
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24,
       }}>
-        <div style={{
-          width: '100%', marginBottom: 32,
-          display: 'flex', alignItems: 'baseline', gap: 16, justifyContent: 'center',
-          flexWrap: 'wrap',
+        <h2 style={{
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(3rem, 12vw, 5rem)' : 'clamp(3.5rem, 8vw, 7rem)',
+          lineHeight: 0.9, color: 'var(--primary)', textTransform: 'uppercase',
+          letterSpacing: '0.01em', margin: 0, textAlign: 'center',
         }}>
-          <h2 style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.5rem,10vw,4rem)' : 'clamp(3rem,7vw,6rem)',
-            lineHeight: 0.9, color: 'var(--text)', textTransform: 'uppercase',
-            letterSpacing: '0.02em', margin: 0,
-          }}>
-            TRUSTED BY
-          </h2>
-          <h2 style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(3rem,12vw,5rem)' : 'clamp(3.5rem,8vw,7rem)',
-            lineHeight: 0.9, color: 'var(--primary)', textTransform: 'uppercase',
-            letterSpacing: '0.02em', margin: 0,
-          }}>
-            BUILDERS
-          </h2>
-        </div>
+          TRUSTED BY BUILDERS
+        </h2>
 
         <div ref={gridRef} className="reviews-grid" style={{
           display: 'grid', gridTemplateColumns: (mobile && !tablet) ? '1fr' : 'repeat(2, 1fr)',
-          gap: mobile ? (tablet ? 20 : 16) : 20, maxWidth: 1200, width: '100%',
+          gap: mobile ? (tablet ? 32 : 24) : 48, maxWidth: 1200, width: '100%',
+          marginTop: mobile ? 32 : 24,
         }}>
           {reviews.slice(0, 2).map((r, i) => (
-            <div key={i} className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(i, !mobile || true)}>
+            <div key={i} className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(!mobile || true)}>
               <p style={{
-                fontFamily: "'Geist', sans-serif", fontSize: mobile ? '0.9rem' : '1rem',
-                lineHeight: 1.6, color: 'var(--text)', margin: 0,
+                fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
+                lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400,
               }}>{r.text}</p>
               <h4 style={{
-                fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
-                fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-                color: i % 2 === 0 ? 'var(--primary)' : 'var(--secondary)', marginTop: 16,
+                fontFamily: "'Geist', sans-serif", fontSize: '0.95rem',
+                fontWeight: 500, letterSpacing: '0.02em',
+                color: 'var(--text-dim)', marginTop: 20,
               }}>{r.author}</h4>
             </div>
           ))}
-          <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={cardStyle(2, !mobile || true)}>
+          <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle(!mobile || true) }}>
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: mobile ? '0.9rem' : '1rem',
-              lineHeight: 1.6, color: 'var(--text)', margin: 0,
+              fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
+              lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400, maxWidth: 800,
             }}>{reviews[2].text}</p>
             <h4 style={{
-              fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
-              fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-              color: 'var(--primary)', marginTop: 16,
+              fontFamily: "'Geist', sans-serif", fontSize: '0.95rem',
+              fontWeight: 500, letterSpacing: '0.02em',
+              color: 'var(--text-dim)', marginTop: 20,
             }}>{reviews[2].author}</h4>
-          </div>
-          <div className="review-card" data-visible={mobile ? 'false' : 'true'} style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle(3, !mobile || true) }}>
-            <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: mobile ? '0.9rem' : '1rem',
-              lineHeight: 1.6, color: 'var(--text)', margin: 0,
-            }}>{reviews[3].text}</p>
-            <h4 style={{
-              fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
-              fontWeight: 400, letterSpacing: '0.08em', textTransform: 'uppercase',
-              color: 'var(--secondary)', marginTop: 16,
-            }}>{reviews[3].author}</h4>
           </div>
         </div>
       </div>

@@ -7,10 +7,8 @@ export default function MenuOverlay() {
 
   const links = [
     { label: 'PROCESS', id: 'process' },
-    { label: 'SHOWCASE', id: 'showcase' },
-    { label: 'MANIFESTO', id: 'manifesto' },
-    { label: 'REVIEWS', id: 'reviews' },
-    { label: 'START PROJECT', id: 'cta', highlight: true },
+    { label: 'WORK', id: 'showcase' },
+    { label: 'INITIATE', id: 'cta', highlight: true },
   ];
 
   function handleClick(id) {
@@ -31,7 +29,7 @@ export default function MenuOverlay() {
         id="menu-overlay"
         className={open ? 'open' : ''}
         style={{
-          position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 60,
+          position: 'fixed', inset: 0, background: 'var(--secondary)', zIndex: 60,
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
           padding: '0 64px',
           transition: 'clip-path 0.5s cubic-bezier(0.77,0,0.175,1)',
@@ -47,7 +45,7 @@ export default function MenuOverlay() {
               className={l.highlight ? 'menu-link highlight' : 'menu-link'}
               style={{
                 fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,8vw,7.5rem)',
-                lineHeight: 1, textTransform: 'uppercase', color: l.highlight ? 'var(--primary)' : 'var(--text)',
+                lineHeight: 1, textTransform: 'uppercase',                 color: l.highlight ? 'var(--primary)' : 'var(--bg-alt)',
                 textDecoration: 'none', transition: 'all 0.3s', position: 'relative',
                 display: 'inline-block', width: 'fit-content', cursor: 'pointer',
               }}
@@ -56,13 +54,6 @@ export default function MenuOverlay() {
             </a>
           ))}
         </nav>
-        <div className="sys-footer" style={{
-          position: 'absolute', bottom: 48, left: 64,
-          fontFamily: "'Space Mono', monospace", fontSize: '0.75rem',
-          letterSpacing: '0.1em', color: 'var(--secondary)', textTransform: 'uppercase',
-        }}>
-          SYSTEM.NAV_ONLINE // GRIND_THE_RAW
-        </div>
       </div>
       <button
         onClick={toggle}

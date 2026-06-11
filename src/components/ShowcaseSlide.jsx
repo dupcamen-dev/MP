@@ -6,8 +6,6 @@ const projects = [
   { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', desc: 'Real-time data visualization and AI-powered analytics.', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', link: '#' },
   { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', desc: 'Zero-knowledge DeFi protocol with instant settlements.', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop', link: '#' },
   { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', desc: 'Autonomous AI agent orchestration platform.', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop', link: '#' },
-  { tag: 'GAMING / WEB3', title: 'DUNGEON', subtitle: 'DEEP', color: 'var(--primary)', desc: 'Immersive on-chain gaming experience.', img: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=1931&auto=format&fit=crop', link: '#' },
-  { tag: 'HEALTH / AI', title: 'MED', subtitle: 'PULSE', color: 'var(--secondary)', desc: 'AI-driven health monitoring and diagnostics.', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop', link: '#' },
 ];
 
 function ProjectCard({ p }) {
@@ -37,38 +35,28 @@ function ProjectCard({ p }) {
         }} />
       </div>
       <div className="card-body" style={{
-        flex: 1, padding: '20px 24px 24px',
+        flex: 1, padding: '24px 28px 28px',
         display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
         background: 'transparent',
       }}>
-        <div style={{
-          fontFamily: "'Space Mono', monospace", fontSize: '0.65rem',
-          letterSpacing: '0.08em', textTransform: 'uppercase',
-          padding: '3px 10px 3px 24px', marginBottom: 8, width: 'fit-content',
-          background: 'repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 4px, var(--surface-high) 4px, var(--surface-high) 8px)',
-          backgroundSize: '16px 100%', backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'left center', color: 'var(--text-dim)',
-        }}>
-          {p.tag}
-        </div>
         <h2 style={{
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.3rem,2.5vw,2rem)',
-          textTransform: 'uppercase', color: 'var(--text)', lineHeight: 1.05,
-          marginBottom: 8, letterSpacing: '0.01em',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+          textTransform: 'uppercase', color: 'var(--text)', lineHeight: 1,
+          marginBottom: 12, letterSpacing: '0.01em',
         }}>
           {p.title} <span style={{ color: p.color }}>{p.subtitle}</span>
         </h2>
         <p style={{
-          fontFamily: "'Geist', sans-serif", fontSize: '0.8rem',
-          lineHeight: 1.5, color: 'var(--text-dim)', marginBottom: 16,
-          letterSpacing: '0.02em',
+          fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.95rem, 1.4vw, 1.1rem)',
+          lineHeight: 1.5, color: 'var(--text-dim)', marginBottom: 20,
+          letterSpacing: '0.01em',
         }}>
           {p.desc}
         </p>
         <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
-          width: '100%', padding: '12px 0', background: 'var(--secondary)',
-          color: 'var(--on-primary)',
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.85rem',
+          width: '100%', padding: '14px 0', background: 'var(--secondary)',
+          color: '#fff',
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
           textTransform: 'uppercase', border: 'none', cursor: 'pointer',
           letterSpacing: '0.08em', transition: 'background 0.3s',
           textDecoration: 'none', display: 'block', textAlign: 'center',
@@ -127,11 +115,6 @@ function MobileProjectList() {
               scrollSnapAlign: 'center',
             }}
           >
-            <div style={{
-              position: 'absolute', inset: 0, opacity: 0.06,
-              background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
-              pointerEvents: 'none',
-            }} />
             <div style={{
               width: '100%', maxWidth: cardMaxW, height: '75dvh', maxHeight: cardMaxH,
               position: 'relative', zIndex: 2,
@@ -234,19 +217,12 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     return <MobileProjectList />;
   }
 
-  const currentProject = projects[activeIdx];
-
   return (
     <section className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--primary)', overflow: 'hidden', position: 'relative',
     }}>
-      <div style={{
-        position: 'absolute', inset: 0, opacity: 0.06,
-        background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
       <div className="carousel-scene" style={{
         position: 'relative', width: '100%', height: '100%',
         perspective: 1300, display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -290,13 +266,6 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
             }} aria-label={`Go to project ${j + 1}`} />
           ))}
         </div>
-        <span style={{
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.85rem',
-          letterSpacing: '0.1em', color: 'var(--text)', textTransform: 'uppercase',
-          opacity: 0.7,
-        }}>
-          {currentProject?.title} {currentProject?.subtitle}
-        </span>
       </div>
     </section>
   );

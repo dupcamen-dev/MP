@@ -55,11 +55,6 @@ export default function LoadingScreen({ onFinish }) {
           animation: 'loading-bar 1.2s ease-in-out infinite',
         }} />
       </div>
-      <span style={{
-        fontFamily: "'Space Mono', monospace", fontSize: '0.7rem',
-        letterSpacing: '0.15em', color: 'var(--text-dim)',
-        textTransform: 'uppercase',
-      }}>INITIALIZING SYSTEM…</span>
     </div>
   );
 }
