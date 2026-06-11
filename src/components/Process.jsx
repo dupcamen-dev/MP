@@ -45,7 +45,7 @@ export default function Process({ progress }) {
             color: 'var(--secondary)', display: 'inline-block',
             marginLeft: 'clamp(2rem,6vw,6rem)',
           }}>
-            <ScrambleText text="TO LIVE" cascade={70} speed={55} />
+            <ScrambleText text="TO LIVE" cascade={100} speed={110} />
           </span>
         </h1>
         <p style={{

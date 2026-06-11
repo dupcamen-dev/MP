@@ -54,12 +54,12 @@ export default function Hero({ progress }) {
           margin: 0,
         }}>
           <span className="line" style={{ display: 'block' }}>
-            <ScrambleText text="MILLION" delay={200} cascade={60} speed={50} />
+            <ScrambleText text="MILLION" delay={200} cascade={100} speed={120} />
           </span>
           <span ref={pixelsRef} className="line" style={{
             display: 'block', willChange: 'transform, color',
           }}>
-            <ScrambleText text="PIXELS" delay={650} cascade={50} speed={45} />
+            <ScrambleText text="PIXELS" delay={650} cascade={90} speed={100} />
           </span>
         </h1>
         <p className="hero-sub" style={{

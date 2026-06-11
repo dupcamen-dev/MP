@@ -63,7 +63,7 @@ export default function ManifestoSlide({ progress }) {
       }}>
         WE SHIP IN DAYS.{' '}
         <span style={{ color: 'var(--secondary)' }}>
-          <ScrambleText text="NOT WEEKS." cascade={70} speed={50} />
+          <ScrambleText text="NOT WEEKS." cascade={100} speed={110} />
         </span>
       </h2>
       <p style={{
