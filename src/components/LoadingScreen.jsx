@@ -46,7 +46,7 @@ export default function LoadingScreen({ onFinish }) {
         MILLION<span style={{ color: 'var(--secondary)' }}>PIXELS</span>
       </h1>
       <div style={{
-        width: 160, height: 3, background: 'rgba(255,255,255,0.1)',
+        width: 160, height: 3, background: 'var(--surface-highest)',
         position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
@@ -57,7 +57,7 @@ export default function LoadingScreen({ onFinish }) {
       </div>
       <span style={{
         fontFamily: "'Space Mono', monospace", fontSize: '0.7rem',
-        letterSpacing: '0.15em', color: 'rgba(255,255,255,0.4)',
+        letterSpacing: '0.15em', color: 'var(--text-dim)',
         textTransform: 'uppercase',
       }}>INITIALIZING SYSTEM…</span>
     </div>

@@ -99,7 +99,7 @@ export default function ManifestoSlide({ progress }) {
     <>
       <div style={{
         position: 'absolute', top: 0, right: 0, width: '50%', height: '100%',
-        background: 'rgba(255,211,0,0.08)',
+        background: 'rgba(201, 123, 92, 0.12)',
         transform: 'skew(12deg) translateX(25%)', pointerEvents: 'none',
       }} />
       <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
@@ -187,7 +187,7 @@ export default function ManifestoSlide({ progress }) {
     }}>
       <div style={{
         position: 'absolute', top: 0, right: 0, width: '50%', height: '100%',
-        background: 'rgba(255,211,0,0.08)',
+        background: 'rgba(201, 123, 92, 0.12)',
         transform: 'skew(12deg) translateX(25%)', pointerEvents: 'none',
       }} />
       <div ref={ref} className="card-in" style={{ maxWidth: 900, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
