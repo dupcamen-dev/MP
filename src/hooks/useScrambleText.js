@@ -24,14 +24,14 @@ export function useScrambleText(text, { delay = 0, cascade = 50, speed = 50 } = 
         frameRef.current = requestAnimationFrame(step);
         return;
       }
-      const localElapsed = elapsed - delay;
-      const progress = Math.min(1, localElapsed / (totalLen * speed + cascade));
+      const localElapsed = Math.max(0, elapsed - delay);
+      const progress = Math.min(1, localElapsed / (totalLen * cascade + speed));
       let result = '';
       for (let i = 0; i < totalLen; i++) {
         const charTime = i * cascade;
-        if (localElapsed >= delay + charTime + speed) {
+        if (localElapsed >= charTime + speed) {
           result += text[i];
-        } else if (localElapsed >= delay + charTime) {
+        } else if (localElapsed >= charTime) {
           result += CHARS[Math.floor(Math.random() * CHARS.length)];
         } else {
           result += ' ';
