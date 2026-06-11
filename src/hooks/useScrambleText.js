@@ -4,24 +4,21 @@ const CHARS = '!<>-_\\/[]{}—=+*^?#________';
 
 export function useScrambleText(text, { delay = 0, cascade = 80, speed = 80 } = {}) {
   const [display, setDisplay] = useState('');
-  const frameRef = useRef(null);
+  const intervalRef = useRef(null);
   const startRef = useRef(null);
 
   useEffect(() => {
+    startRef.current = Date.now();
     const len = text.length;
-    startRef.current = null;
 
-    function step(timestamp) {
-      if (!startRef.current) startRef.current = timestamp;
-      const elapsed = timestamp - startRef.current;
+    intervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startRef.current;
+      if (elapsed < delay) return;
 
-      if (elapsed < delay) {
-        frameRef.current = requestAnimationFrame(step);
-        return;
-      }
-
-      const t = Math.max(0, elapsed - delay);
+      const t = elapsed - delay;
       let out = '';
+      let running = false;
+
       for (let i = 0; i < len; i++) {
         const charStart = i * cascade;
         const charEnd = charStart + speed;
@@ -29,21 +26,21 @@ export function useScrambleText(text, { delay = 0, cascade = 80, speed = 80 } = 
           out += text[i];
         } else if (t >= charStart) {
           out += CHARS[Math.floor(Math.random() * CHARS.length)];
+          running = true;
         } else {
           out += ' ';
+          running = true;
         }
       }
+
       setDisplay(out);
 
-      if (t < len * cascade) {
-        frameRef.current = requestAnimationFrame(step);
+      if (!running) {
+        clearInterval(intervalRef.current);
       }
-    }
+    }, 50);
 
-    frameRef.current = requestAnimationFrame(step);
-    return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-    };
+    return () => clearInterval(intervalRef.current);
   }, [text, delay, cascade, speed]);
 
   return display;
