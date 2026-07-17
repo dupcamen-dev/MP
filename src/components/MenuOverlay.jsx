@@ -35,7 +35,6 @@ export default function MenuOverlay() {
           position: 'fixed', inset: 0, background: 'var(--secondary)', zIndex: 90,
           display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start',
           paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 120px)',
-          paddingTop: 'clamp(100px, 15vh, 160px)', paddingBottom: 'clamp(60px, 10vh, 100px)',
           transition: 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
           opacity: open ? 1 : 0,
           transform: open ? 'translateX(0)' : 'translateX(100%)',
@@ -95,22 +94,27 @@ export default function MenuOverlay() {
         aria-label="Open menu"
         style={{
           position: 'relative', zIndex: 95,
-          display: open ? 'none' : 'flex', flexDirection: 'column', gap: 6,
-          width: 48, height: 48, justifyContent: 'center', alignItems: 'flex-end',
-          cursor: 'pointer', background: 'none', border: 'none', outline: 'none',
+          display: open ? 'none' : 'flex', flexDirection: 'column', gap: 5,
+          width: 52, height: 52, justifyContent: 'center', alignItems: 'center',
+          cursor: 'pointer', background: 'var(--primary)', border: 'none', outline: 'none',
+          borderRadius: 12, padding: 14,
+          boxShadow: '0 4px 12px rgba(201, 123, 92, 0.25)',
+          transition: 'transform 0.3s, box-shadow 0.3s',
         }}
+        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(201, 123, 92, 0.35)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(201, 123, 92, 0.25)'; }}
       >
         <span style={{
-          display: 'block', height: 3, background: 'var(--primary)',
-          transition: 'all 0.3s', borderRadius: 2, width: 36,
+          display: 'block', height: 2.5, background: 'var(--surface-low)',
+          transition: 'all 0.3s', borderRadius: 2, width: '100%',
         }}></span>
         <span style={{
-          display: 'block', height: 3, background: 'var(--primary)',
-          transition: 'all 0.3s', borderRadius: 2, width: 28,
+          display: 'block', height: 2.5, background: 'var(--surface-low)',
+          transition: 'all 0.3s', borderRadius: 2, width: '100%',
         }}></span>
         <span style={{
-          display: 'block', height: 3, background: 'var(--primary)',
-          transition: 'all 0.3s', borderRadius: 2, width: 40,
+          display: 'block', height: 2.5, background: 'var(--surface-low)',
+          transition: 'all 0.3s', borderRadius: 2, width: '100%',
         }}></span>
       </button>
     </>
