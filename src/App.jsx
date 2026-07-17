@@ -10,6 +10,7 @@ import ShowcaseSlide from './components/ShowcaseSlide';
 import PricingFAQ from './components/PricingFAQ';
 import CtaOverlay from './components/CtaOverlay';
 import FloatingCTA from './components/FloatingCTA';
+import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
   const progress = useScrollProgress('process');
@@ -32,6 +33,7 @@ export default function App() {
       <PricingFAQ />
       <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} />
       <FloatingCTA onOpen={() => setShowModal(true)} />
+      <ScrollToTop />
     </>
   );
 }
