@@ -32,10 +32,7 @@ function Site({ showModal, setShowModal }) {
 
   return (
     <>
-      <div style={{ position: 'relative', zIndex: 10 }}>
-        <Hero onBook={openModal} />
-        <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
-      </div>
+      <Hero onBook={openModal} />
       <Process progress={progress} onBook={openModal} />
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />

@@ -23,7 +23,6 @@ export default function Process({ progress, onBook }) {
   return (
     <section id="process" style={{
       position: 'relative', zIndex: 3,
-      marginBottom: mobile ? '0' : '-100vh',
       background: 'var(--cream)',
       paddingTop: mobile ? (tablet ? '80px' : '60px') : '120px',
       paddingBottom: mobile ? (tablet ? '60px' : '40px') : '100px',
