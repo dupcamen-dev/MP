@@ -96,20 +96,6 @@ body::after {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes process-parallax {
-  from { transform: translateY(-50vh); }
-  to { transform: translateY(0); }
-}
-
-@supports ((animation-timeline: view()) and (animation-range: entry)) {
-  @media (min-width: 901px) {
-    #process {
-      animation: process-parallax linear;
-      animation-timeline: view(block);
-      animation-range: entry 0% entry 100%;
-    }
-  }
-}
 
 .card-in { opacity: 0; }
 .card-in.active { animation: fade-up 0.4s cubic-bezier(0.5,0,0,1) forwards; }

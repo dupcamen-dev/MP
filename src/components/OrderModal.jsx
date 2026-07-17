@@ -52,32 +52,41 @@ export default function OrderModal({ onClose }) {
       status: 'new',
     };
 
-    const { token, chatId } = getBotConfig();
-    const msg = [
-      `📦 *NEW REQUEST — $300 MVP*`,
-      `🕒 ${display}`,
-      `━━━━━━━━━━━━━━━━━`,
-      `*PROJECT:*`,
-      order.project,
-      ``,
-      `*CONTACT:* ${order.contact}`,
-    ].join('\n');
-
     try {
+      // Try Vercel serverless API first (works for all users in production)
+      const apiRes = await fetch('/api/send-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          project: order.project,
+          contact: order.contact,
+          displayTime: order.displayTime,
+        }),
+      });
+      if (!apiRes.ok) throw new Error('API failed');
+    } catch {
+      // Fallback: try localStorage config (admin's own browser)
+      const { token, chatId } = getBotConfig();
       if (token && chatId) {
+        const msg = [
+          `📦 *NEW REQUEST — $300 MVP*`,
+          `🕒 ${display}`,
+          `━━━━━━━━━━━━━━━━━`,
+          `*PROJECT:*`,
+          order.project,
+          ``,
+          `*CONTACT:* ${order.contact}`,
+        ].join('\n');
         await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' }),
         });
       }
-      saveOrder(order);
-      setDone(true);
-    } catch {
-      saveOrder(order);
-      setDone(true);
-    } finally {
-      setSending(false);
     }
+
+    saveOrder(order);
+    setDone(true);
+    setSending(false);
   };
 
   if (done) {

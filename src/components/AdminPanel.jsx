@@ -272,8 +272,12 @@ export default function AdminPanel({ user, onSignOut }) {
               fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
-              Connect your Telegram bot to receive instant notifications when someone submits a booking request.
-              Create a bot via <a href="https://t.me/BotFather" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terracotta)' }}>@BotFather</a>, then paste your token and chat ID below.
+              For production (Vercel): set <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0e9df', padding: '2px 6px' }}>TELEGRAM_BOT_TOKEN</code> and{' '}
+              <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0e9df', padding: '2px 6px' }}>TELEGRAM_CHAT_ID</code> in{' '}
+              <a href="https://vercel.com/dupcamen-dev/mp/settings/environment-variables" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terracotta)' }}>
+                Vercel Environment Variables
+              </a>.
+              The local config below works for local development only.
             </p>
 
             <div style={{ display: 'grid', gap: 20, maxWidth: 520 }}>
