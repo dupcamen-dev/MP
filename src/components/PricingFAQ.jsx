@@ -7,8 +7,8 @@ export default function PricingFAQ({ onBook }) {
   const mobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
 
   const faqs = [
-    { q: 'How does a week work?', a: 'One call to scope it. Five days to build it. Day seven it goes live — documented, tested, yours.' },
-    { q: 'What if I need more after?', a: 'Keep us on retainer, or take the repo and run. Your code, your call.' },
+    { q: 'How does a week work?', a: 'One message to scope it. Five days to build it. Day seven it goes live — documented, tested, yours.' },
+    { q: 'What if I need more after?', a: 'Keep us on retainer, or take the repo and run. Your code, your choice.' },
     { q: 'Do I own everything?', a: 'Yes. Full repo access from day one. No licenses, no lock-in.' },
     { q: 'What can you build in seven days?', a: 'Production MVPs: web apps, dashboards, marketplaces, booking platforms. Real users, real payments, live URL.' },
   ];

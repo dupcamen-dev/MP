@@ -43,7 +43,7 @@ export default function Process({ progress, onBook }) {
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
           lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 20px 0',
         }}>
-          From call to live<br /><span style={{ color: 'var(--terracotta)' }}>in 168 hours.</span>
+          From idea to live<br /><span style={{ color: 'var(--terracotta)' }}>in 168 hours.</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontWeight: 300,

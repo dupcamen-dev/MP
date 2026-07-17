@@ -65,19 +65,19 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
           padding: mobile ? (tablet ? '0 48px' : '0 24px') : 0,
         }}>
           <h2 className="cta-slide-title" style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3.5rem, 11vw, 9rem)',
-            lineHeight: 0.88, textTransform: 'uppercase', color: 'var(--cream)',
-            letterSpacing: '-0.01em', marginBottom: 32,
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5rem)',
+            lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--cream)',
+            letterSpacing: '-0.01em', marginBottom: 24,
           }}>
             <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
-            <span className="line reveal" style={{ display: 'block', color: 'var(--deep)' }}>with one call.</span>
+            <span className="line reveal" style={{ display: 'block', color: 'var(--deep)' }}>with one message.</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 300,
-            fontSize: 'clamp(1.15rem, 1.8vw, 1.5rem)', letterSpacing: '0.01em',
-            color: 'var(--cream)', opacity: 0.9, marginBottom: 48, maxWidth: 620, lineHeight: 1.4,
+            fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
+            color: 'var(--cream)', opacity: 0.9, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
           }}>
-            One conversation. Seven days. A live product with your name on it.
+            One message. Seven days. A live product with your name on it.
           </p>
           <button
             ref={magnetic.ref}
