@@ -134,7 +134,7 @@ function MobileProjectList() {
               width: '100%', height: '100vh',
               minHeight: '100dvh',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'var(--primary)', overflow: 'hidden', position: 'relative',
+              background: 'var(--terracotta)', overflow: 'hidden', position: 'relative',
               padding: '24px',
               scrollSnapAlign: 'center',
             }}
@@ -249,8 +249,23 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     <section className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'var(--primary)', overflow: 'hidden', position: 'relative',
+      background: 'var(--terracotta)', overflow: 'hidden', position: 'relative',
     }}>
+      {/* Header */}
+      <div style={{
+        position: 'absolute', top: 'clamp(32px, 6vh, 64px)', left: 'clamp(24px, 5%, 80px)',
+        zIndex: 20,
+      }}>
+        <p style={{
+          fontFamily: "'Geist Mono', monospace", fontSize: 12,
+          letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'var(--cream)', opacity: 0.7, margin: '0 0 8px 0',
+        }}>SELECTED WORK</p>
+        <h2 style={{
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
+          lineHeight: 1, color: 'var(--cream)', margin: 0, letterSpacing: '-0.01em',
+        }}>Real products. Real users.<br />Shipped in seven.</h2>
+      </div>
       <div className="carousel-scene" style={{
         position: 'relative', width: '100%', height: '100%',
         perspective: 1300, display: 'flex', alignItems: 'center', justifyContent: 'center',
