@@ -124,7 +124,7 @@ export default function App() {
               letterSpacing: '0.04em',
             }}>Sign in with Google</button>
             <br />
-            <a href="/" style={{
+            <a href="/#/" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 12,
               color: 'var(--text-dim)', textDecoration: 'none',
               display: 'inline-block', marginTop: 20,

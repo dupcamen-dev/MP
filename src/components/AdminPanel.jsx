@@ -181,7 +181,7 @@ export default function AdminPanel({ user, onSignOut }) {
               </div>
             )}
             <button onClick={onSignOut} style={{ ...s.btnSmall, color: '#994444', borderColor: '#994444' }}>Sign out</button>
-            <a href="/" style={s.link}>&#8592; Back to site</a>
+            <a href="/#/" style={s.link}>&#8592; Back to site</a>
           </div>
         </div>
 
