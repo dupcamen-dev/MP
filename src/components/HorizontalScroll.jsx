@@ -53,17 +53,13 @@ export default function HorizontalScroll({ progress }) {
     );
   }
 
-  const isVisible = progress > 0 && progress < 0.9;
-
   return (
     <div
       ref={wrapRef}
       className="h-scroll-wrap"
       style={{
-        position: 'fixed', top: 0, left: 0, height: '100vh', width: '100%',
+        position: 'sticky', top: 0, height: '100vh', width: '100%',
         overflow: 'hidden', zIndex: 2,
-        visibility: isVisible ? 'visible' : 'hidden',
-        pointerEvents: isVisible ? 'auto' : 'none',
       }}
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
