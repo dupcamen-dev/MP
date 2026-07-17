@@ -27,8 +27,8 @@ export default function ManifestoSlide({ progress }) {
         color: 'var(--cream)', margin: 0, letterSpacing: '0.005em',
       }}>
         We don&apos;t do meetings about meetings.<br />
-        We do <span style={{ color: 'var(--cream)' }}>live software</span>,<br />
-        in <span style={{ color: 'var(--cream)' }}>seven days</span>.
+        <span style={{ color: 'var(--terracotta)' }}>We do live </span><span style={{ color: 'var(--cream)' }}>software</span>,<br />
+        <span style={{ color: 'var(--terracotta)' }}>in </span><span style={{ color: 'var(--cream)' }}>seven days</span>.
       </h2>
     </div>
   );
