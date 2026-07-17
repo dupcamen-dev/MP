@@ -9,7 +9,6 @@ import HorizontalScroll from './components/HorizontalScroll';
 import ShowcaseSlide from './components/ShowcaseSlide';
 import PricingFAQ from './components/PricingFAQ';
 import CtaOverlay from './components/CtaOverlay';
-import FloatingCTA from './components/FloatingCTA';
 import ScrollToTop from './components/ScrollToTop';
 import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
@@ -82,7 +81,6 @@ function Site({ showModal, setShowModal, onBook }) {
         </div>
       </footer>
       <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
-      <FloatingCTA onOpen={onBook} />
       <ScrollToTop />
     </>
   );

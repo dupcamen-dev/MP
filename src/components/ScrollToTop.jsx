@@ -23,7 +23,7 @@ export default function ScrollToTop() {
       style={{
         position: 'fixed',
         bottom: 'max(32px, calc(32px + env(safe-area-inset-bottom)))',
-        left: 'max(24px, calc(24px + env(safe-area-inset-left)))',
+        right: 'max(24px, calc(24px + env(safe-area-inset-right)))',
         zIndex: 50,
         width: 52, height: 52, borderRadius: '50%',
         background: 'var(--secondary)', border: 'none',
