@@ -13,6 +13,7 @@ import ScrollToTop from './components/ScrollToTop';
 import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
 import CookieConsent from './components/CookieConsent';
+import PrivacyTerms from './components/PrivacyTerms';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -39,8 +40,7 @@ function Site({ showModal, setShowModal, onBook }) {
       {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
       <PricingFAQ onBook={onBook} />
       <footer style={{
-        background: 'var(--cream)',
-        borderTop: '1px solid var(--sienna)',
+        background: '#000000',
         paddingTop: 80, paddingBottom: 48,
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
         position: 'relative', zIndex: 3,
@@ -63,20 +63,32 @@ function Site({ showModal, setShowModal, onBook }) {
                   style={{
                     fontFamily: "'Geist Mono', monospace", fontSize: 12,
                     letterSpacing: '0.12em', textTransform: 'uppercase',
-                    color: 'var(--ink)', textDecoration: 'none',
+                    color: 'rgba(250,246,240,0.6)', textDecoration: 'none',
                   }}>{l.label}</a>
               ))}
             </nav>
           </div>
-          <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 16 }}>
+          <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
             <span style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.1em', color: 'var(--sienna)',
+              letterSpacing: '0.1em', color: 'var(--terracotta)',
             }}>EST. 2024</span>
             <span style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 12,
-              letterSpacing: '0.08em', color: 'var(--text-dim)',
-            }}>&copy; 2026 MILLIONPIXELS.DEV</span>
+              fontFamily: "'Geist Mono', monospace", fontSize: 11,
+              letterSpacing: '0.08em', color: 'rgba(250,246,240,0.4)',
+            }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
+            <div style={{ display: 'flex', gap: 20 }}>
+              <a href="#/privacy" style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 11,
+                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.4)',
+                textDecoration: 'none',
+              }}>Privacy Policy</a>
+              <a href="#/terms" style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 11,
+                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.4)',
+                textDecoration: 'none',
+              }}>Terms of Service</a>
+            </div>
           </div>
         </div>
       </footer>
@@ -110,6 +122,10 @@ export default function App() {
 
   if (route === '/login' || (route === '/admin' && !auth.isAuthenticated)) {
     return <LoginPage clientId={auth.clientId} onSignIn={handleLogin} />;
+  }
+
+  if (route === '/privacy' || route === '/terms') {
+    return <PrivacyTerms />;
   }
 
   if (route === '/admin' && auth.isAuthenticated) {

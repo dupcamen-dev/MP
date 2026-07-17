@@ -24,11 +24,11 @@ export default function ManifestoSlide({ progress }) {
         fontFamily: "'Anton', Impact, sans-serif",
         fontSize: 'clamp(2.5rem, 6vw, 5rem)',
         lineHeight: 0.95, textTransform: 'uppercase',
-        color: 'var(--ink)', margin: 0, letterSpacing: '0.005em',
+        color: 'var(--cream)', margin: 0, letterSpacing: '0.005em',
       }}>
         We don&apos;t do meetings about meetings.<br />
-        We do <span style={{ color: 'var(--terracotta)' }}>live software</span>,<br />
-        in <span style={{ color: 'var(--terracotta)' }}>seven days</span>.
+        We do <span style={{ color: 'var(--cream)' }}>live software</span>,<br />
+        in <span style={{ color: 'var(--cream)' }}>seven days</span>.
       </h2>
     </div>
   );
@@ -37,7 +37,7 @@ export default function ManifestoSlide({ progress }) {
     return (
       <section className="slide manifesto-slide" id="manifesto" style={{
         width: '100%', minHeight: '80vh',
-        background: 'var(--cream)', overflow: 'hidden',
+        background: 'radial-gradient(120% 120% at 50% 40%, #d98c6c 0%, var(--terracotta) 45%, var(--deep) 130%)', overflow: 'hidden',
         display: 'flex', alignItems: 'center',
         paddingTop: 'clamp(80px, 12vh, 140px)', paddingBottom: 'clamp(80px, 12vh, 140px)',
         paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
@@ -50,7 +50,7 @@ export default function ManifestoSlide({ progress }) {
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
-      background: 'var(--cream)', overflow: 'hidden', position: 'relative',
+      background: 'radial-gradient(120% 120% at 50% 40%, #d98c6c 0%, var(--terracotta) 45%, var(--deep) 130%)', overflow: 'hidden', position: 'relative',
       display: 'flex', alignItems: 'center',
       paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
     }}>

@@ -99,18 +99,40 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
         </div>
         <div className="cta-footer" style={{
           marginTop: 'auto', width: '100%',
-          background: 'var(--ink)',
+          background: '#000000',
           padding: '32px clamp(24px,5%,64px) 40px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: 24, flexWrap: 'wrap',
         }}>
           <div style={{
-            fontFamily: "'Geist Mono', monospace", fontSize: 12,
-            letterSpacing: '0.08em', color: 'var(--cream)', opacity: 0.7,
+            display: 'flex', flexDirection: 'column', gap: 8,
           }}>
-            © 2026 MILLIONPIXELS.DEV
+            <div style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 11,
+              letterSpacing: '0.08em', color: 'rgba(250,246,240,0.5)',
+            }}>
+              &copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.
+            </div>
+            <div style={{ display: 'flex', gap: 20 }}>
+              <a href="#/privacy" style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 11,
+                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.5)',
+                textDecoration: 'none', transition: 'color 0.2s',
+              }}
+              onMouseEnter={e => e.target.style.color = 'var(--cream)'}
+              onMouseLeave={e => e.target.style.color = 'rgba(250,246,240,0.5)'}
+              >Privacy Policy</a>
+              <a href="#/terms" style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 11,
+                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.5)',
+                textDecoration: 'none', transition: 'color 0.2s',
+              }}
+              onMouseEnter={e => e.target.style.color = 'var(--cream)'}
+              onMouseLeave={e => e.target.style.color = 'rgba(250,246,240,0.5)'}
+              >Terms of Service</a>
+            </div>
           </div>
-          <Stamp size={96} color="var(--cream)" />
+          <Stamp size={96} color="rgba(250,246,240,0.5)" />
         </div>
       </section>
       {isModalOpen && <OrderModal onClose={() => setIsModalOpen(false)} />}
