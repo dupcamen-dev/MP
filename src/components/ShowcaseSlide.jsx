@@ -3,7 +3,7 @@ import { useMobile, useTablet } from '../hooks/useMobile';
 
 const projects = [
   { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London.', img: '/zhyto.png', link: 'https://zhyto.london' },
-  { tag: 'AI / DATA', title: 'DATA', subtitle: 'SHARD', color: 'var(--secondary)', desc: 'Real-time data visualization and AI-powered analytics.', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', link: '#' },
+  { tag: 'CATERING / LONDON', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'London\'s premium catering service. Any cuisine, any culture, any dietary request — cooked flawlessly.', img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2070&auto=format&fit=crop', link: 'https://www.raqtfuel.com' },
   { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', desc: 'Zero-knowledge DeFi protocol with instant settlements.', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop', link: '#' },
   { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', desc: 'Autonomous AI agent orchestration platform.', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop', link: '#' },
 ];

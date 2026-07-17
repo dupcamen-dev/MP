@@ -47,7 +47,7 @@ export default function MenuOverlay() {
               className={l.highlight ? 'menu-link highlight' : 'menu-link'}
               style={{
                 fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,8vw,7.5rem)',
-                lineHeight: 1, textTransform: 'uppercase',                 color: l.highlight ? 'var(--primary)' : 'var(--bg-alt)',
+                lineHeight: 1, textTransform: 'uppercase', color: l.highlight ? 'var(--primary)' : 'var(--bg-alt)',
                 textDecoration: 'none', transition: 'all 0.3s', position: 'relative',
                 display: 'inline-block', width: 'fit-content', cursor: 'pointer',
               }}
