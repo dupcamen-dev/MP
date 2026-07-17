@@ -75,7 +75,7 @@ export default function Hero({ progress }) {
         </p>
         <div style={{
           display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start',
-          gap: mobile ? 12 : 20, maxWidth: 100%,
+          gap: mobile ? 12 : 20, width: '100%',
         }}>
           {['Next.js', 'React', 'Node', 'Postgres', 'Stripe', 'TypeScript'].map((s) => (
             <span key={s} style={{
