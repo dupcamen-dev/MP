@@ -1,21 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { } from 'react';
 
 export default function LoginModal({ onGoogleSignIn, onClose, loading }) {
-  const loaded = useRef(false);
-
-  useEffect(() => {
-    if (loaded.current) return;
-    const clientId = localStorage.getItem('mp_google_client_id') || '';
-    if (!clientId) return;
-
-    const script = document.createElement('script');
-    script.src = 'https://accounts.google.com/gsi/client';
-    script.async = true;
-    script.defer = true;
-    script.onload = () => { loaded.current = true; };
-    document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
-  }, []);
 
   return (
     <div style={{

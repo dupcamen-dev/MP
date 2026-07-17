@@ -39,7 +39,7 @@ export function useAuth() {
 
   const signInWithGoogle = useCallback(() => {
     setLoading(true);
-    const clientId = localStorage.getItem('mp_google_client_id') || '';
+    const clientId = localStorage.getItem('mp_google_client_id') || '727188971518-ijvkthta20eqaoo8rcl4mvvu4jkab565.apps.googleusercontent.com';
 
     if (!clientId) {
       alert('Google Client ID not configured. Go to Admin → Bot Config to set it.');
@@ -47,7 +47,7 @@ export function useAuth() {
       return;
     }
 
-    if (window.google?.accounts?.id) {
+    function initGoogle() {
       window.google.accounts.id.initialize({
         client_id: clientId,
         callback: (response) => {
@@ -74,9 +74,18 @@ export function useAuth() {
         auto_select: true,
       });
       window.google.accounts.id.prompt();
+    }
+
+    if (window.google?.accounts?.id) {
+      initGoogle();
     } else {
-      alert('Google SDK not loaded. Check your internet connection.');
-      setLoading(false);
+      const check = setInterval(() => {
+        if (window.google?.accounts?.id) {
+          clearInterval(check);
+          initGoogle();
+        }
+      }, 100);
+      setTimeout(() => { clearInterval(check); setLoading(false); }, 5000);
     }
   }, []);
 
