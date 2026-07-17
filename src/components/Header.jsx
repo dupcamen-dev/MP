@@ -67,17 +67,17 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         {/* Auth buttons */}
         {user ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="header-auth">
-            <span style={{
+            <span className="header-auth-email" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.04em', color: 'var(--text-dim)',
             }}>{user.email}</span>
-            <a href="/#/admin" style={{
+            <a href="/#/admin" className="header-auth-admin" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
               color: 'var(--sienna)', textDecoration: 'none', padding: '6px 12px',
               border: '1px solid var(--sienna)',
             }}>Admin</a>
-            <button onClick={onSignOut} style={{
+            <button onClick={onSignOut} className="header-auth-signout" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
               color: 'var(--text-dim)', background: 'none', border: 'none',

@@ -4,7 +4,7 @@ import { useMagnetic } from '../hooks/useMagnetic';
 import OrderModal from './OrderModal';
 import Stamp from './Stamp';
 
-export default function CtaOverlay({ progress, showModal: externalModal, setShowModal: externalSetShowModal }) {
+export default function CtaOverlay({ progress, showModal: externalModal, setShowModal: externalSetShowModal, onBook }) {
   const overlayRef = useRef(null);
   const mobile = useMobile();
   const tablet = useTablet();
@@ -82,7 +82,7 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
           <button
             ref={magnetic.ref}
             className="cta-btn reveal"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => onBook ? onBook() : setIsModalOpen(true)}
             onMouseMove={!mobile ? magnetic.onMouseMove : undefined}
             onMouseLeave={!mobile ? magnetic.onMouseLeave : undefined}
             style={{

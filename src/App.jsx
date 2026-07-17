@@ -25,20 +25,20 @@ function useHashRoute() {
   return route;
 }
 
-function Site({ showModal, setShowModal }) {
+function Site({ showModal, setShowModal, onBook }) {
   const progress = useScrollProgress('process');
   const mobile = useMobile();
   const openModal = () => setShowModal(true);
 
   return (
     <>
-      <Hero onBook={openModal} />
-      <Process progress={progress} onBook={openModal} />
+      <Hero onBook={onBook} />
+      <Process progress={progress} onBook={onBook} />
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
       {!mobile && <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />}
       {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
-      <PricingFAQ onBook={openModal} />
+      <PricingFAQ onBook={onBook} />
       <footer style={{
         background: 'var(--cream)',
         borderTop: '1px solid var(--sienna)',
@@ -81,8 +81,8 @@ function Site({ showModal, setShowModal }) {
           </div>
         </div>
       </footer>
-      <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} />
-      <FloatingCTA onOpen={openModal} />
+      <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
+      <FloatingCTA onOpen={onBook} />
       <ScrollToTop />
     </>
   );
@@ -151,7 +151,7 @@ export default function App() {
         onSignIn={() => { window.location.hash = '/login'; }}
         onSignOut={handleSignOut}
       />
-      <Site showModal={showModal} setShowModal={setShowModal} />
+      <Site showModal={showModal} setShowModal={setShowModal} onBook={openModal} />
       <CookieConsent />
     </>
   );
