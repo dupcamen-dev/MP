@@ -212,10 +212,9 @@ body::after {
   .menu-btn { width: 52px !important; height: 52px !important; }
   body::after { display: none !important; }
 
-  /* Header: hide inline nav + CTA + auth on mobile, show hamburger */
+  /* Header: hide inline nav + CTA on mobile, show hamburger */
   .header-nav { display: none !important; }
   .header-cta { display: none !important; }
-  .header-auth { display: none !important; }
   
   /* Better mobile typography */
   h2 { font-size: clamp(1.75rem, 8vw, 3rem) !important; }

@@ -92,11 +92,17 @@ export default function App() {
   const route = useHashRoute();
   const auth = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const openModal = () => setShowModal(true);
+  const openModal = () => {
+    if (!auth.isAuthenticated) {
+      window.location.hash = '/login';
+      return;
+    }
+    setShowModal(true);
+  };
 
   const handleLogin = (response) => {
     const u = auth.signIn(response);
-    if (u) window.location.hash = '/admin';
+    if (u && window.location.hash === '#/login') window.location.hash = '/';
   };
 
   const handleSignOut = () => {
