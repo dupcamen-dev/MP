@@ -47,17 +47,35 @@ export function useAuth() {
       return;
     }
 
-    function initGoogle() {
-      window.google.accounts.id.initialize({
+    function decodeJWT(token) {
+      const base64 = token.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64.padEnd(base64.length + (4 - base64.length % 4) % 4, '=');
+      return JSON.parse(atob(padded));
+    }
+
+    function getClient(cb) {
+      const client = window.google.accounts.oauth2.initTokenClient({
         client_id: clientId,
+        scope: 'openid profile email',
         callback: (response) => {
+          if (response.error) {
+            alert('Sign-in failed: ' + response.error);
+            setLoading(false);
+            return;
+          }
+          const jwt = response.id_token || response.access_token;
+          if (!jwt) {
+            alert('No token received from Google.');
+            setLoading(false);
+            return;
+          }
           try {
-            const payload = JSON.parse(atob(response.credential.split('.')[1]));
+            const payload = decodeJWT(jwt);
             const u = {
-              name: payload.name,
-              email: payload.email,
-              picture: payload.picture,
-              sub: payload.sub,
+              name: payload.name || '',
+              email: payload.email || '',
+              picture: payload.picture || '',
+              sub: payload.sub || '',
             };
             if (!isEmailAllowed(u.email)) {
               alert('This email is not authorized.');
@@ -71,22 +89,25 @@ export function useAuth() {
           }
           setLoading(false);
         },
-        auto_select: true,
       });
-      window.google.accounts.id.prompt();
+      cb(client);
     }
 
-    if (window.google?.accounts?.id) {
-      initGoogle();
-    } else {
-      const check = setInterval(() => {
-        if (window.google?.accounts?.id) {
-          clearInterval(check);
-          initGoogle();
-        }
-      }, 100);
-      setTimeout(() => { clearInterval(check); setLoading(false); }, 5000);
+    function trySignIn() {
+      if (window.google?.accounts?.oauth2) {
+        getClient(c => c.requestAccessToken());
+      } else {
+        const check = setInterval(() => {
+          if (window.google?.accounts?.oauth2) {
+            clearInterval(check);
+            getClient(c => c.requestAccessToken());
+          }
+        }, 100);
+        setTimeout(() => { clearInterval(check); setLoading(false); alert('Google SDK failed to load.'); }, 5000);
+      }
     }
+
+    trySignIn();
   }, []);
 
   const signOut = useCallback(() => {
