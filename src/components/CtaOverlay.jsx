@@ -54,8 +54,8 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
         style={{
           position: mobile ? 'relative' : 'fixed', top: 0, left: 0, width: '100%',
           height: mobile ? '100dvh' : '100%',
-          zIndex: mobile ? 1 : 10, display: 'flex', flexDirection: 'column',
-          background: 'var(--cream)', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
+          zIndex: mobile ? 1 : 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          background: 'linear-gradient(165deg, var(--terracotta) 0%, var(--sienna) 60%, var(--deep) 100%)', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
           willChange: 'transform', visibility: mobile ? 'visible' : 'hidden',
         }}
       >
@@ -66,16 +66,16 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
         }}>
           <h2 className="cta-slide-title" style={{
             fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-            lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)',
+            lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--cream)',
             letterSpacing: '-0.01em', marginBottom: 24,
           }}>
             <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
-            <span className="line reveal" style={{ display: 'block', color: 'var(--terracotta)' }}>with one message.</span>
+            <span className="line reveal" style={{ display: 'block', color: 'var(--deep)' }}>with one message.</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 300,
             fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
-            color: 'var(--text-dim)', marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
+            color: 'var(--cream)', opacity: 0.9, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
           }}>
             One message. Seven days. A live product with your name on it.
           </p>
@@ -87,7 +87,7 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
             onMouseLeave={!mobile ? magnetic.onMouseLeave : undefined}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
-              padding: btnPadding, background: 'var(--terracotta)', color: 'var(--cream)',
+              padding: btnPadding, background: 'var(--cream)', color: 'var(--deep)',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.4vw, 1.85rem)',
               textTransform: 'uppercase', border: 'none', borderRadius: 0,
               cursor: 'pointer', letterSpacing: '0.03em',
@@ -97,23 +97,19 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
             Book a week →
           </button>
         </div>
-        <div style={{
-          width: '100%', background: 'var(--ink)',
+        <div className="cta-footer" style={{
+          marginTop: 'auto', width: '100%', maxWidth: 1240,
           padding: '32px clamp(24px,5%,64px) 40px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 24, flexWrap: 'wrap',
         }}>
           <div style={{
-            maxWidth: 1240, margin: '0 auto',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            gap: 24, flexWrap: 'wrap',
+            fontFamily: "'Geist Mono', monospace", fontSize: 12,
+            letterSpacing: '0.08em', color: 'var(--cream)', opacity: 0.7,
           }}>
-            <div style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 12,
-              letterSpacing: '0.08em', color: 'var(--cream)', opacity: 0.7,
-            }}>
-              © 2026 MILLIONPIXELS.DEV
-            </div>
-            <Stamp size={96} color="var(--cream)" />
+            © 2026 MILLIONPIXELS.DEV
           </div>
+          <Stamp size={96} color="var(--cream)" />
         </div>
       </section>
       {isModalOpen && <OrderModal onClose={() => setIsModalOpen(false)} />}
