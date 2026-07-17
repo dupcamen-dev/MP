@@ -15,13 +15,13 @@ const reviews = [
   },
   {
     text: 'We needed an MVP fast to test the market. Got a production-ready app in 7 days. Saved us months of hiring.',
-    author: 'ZHYTO',
-    role: 'Ukrainian restaurant, London',
+    author: 'NORD STUDIO',
+    role: 'Architecture portfolio',
   },
   {
     text: 'Clean code, real deployment, everything documented. The kind of handoff that makes you want to come back for the next project.',
-    author: 'RAQT FUEL',
-    role: 'Direct-to-consumer brand',
+    author: 'KRAKOW BAKERY',
+    role: 'Online ordering system',
   },
 ];
 
