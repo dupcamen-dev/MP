@@ -12,7 +12,7 @@ import CtaOverlay from './components/CtaOverlay';
 import FloatingCTA from './components/FloatingCTA';
 import ScrollToTop from './components/ScrollToTop';
 import AdminPanel from './components/AdminPanel';
-import LoginModal from './components/LoginModal';
+import LoginPage from './components/LoginPage';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -93,67 +93,36 @@ function Site({ showModal, setShowModal }) {
 export default function App() {
   const route = useHashRoute();
   const auth = useAuth();
-  const [showLogin, setShowLogin] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
 
-  useEffect(() => {
-    if (auth.isAuthenticated) setShowLogin(false);
-  }, [auth.isAuthenticated]);
+  const handleLogin = (response) => {
+    const u = auth.signIn(response);
+    if (u) window.location.hash = '/admin';
+  };
 
-  if (route === '/admin') {
-    if (!auth.isAuthenticated) {
-      return (
-        <div style={{
-          minHeight: '100vh', background: 'var(--cream)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: "'Geist', sans-serif",
-        }}>
-          <div style={{ textAlign: 'center', padding: 40 }}>
-            <h2 style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
-              color: 'var(--ink)', textTransform: 'uppercase', margin: '0 0 12px 0',
-            }}>Admin Access</h2>
-            <p style={{ color: 'var(--text-dim)', marginBottom: 32 }}>
-              Sign in with Google to access the admin panel.
-            </p>
-            <button onClick={() => setShowLogin(true)} style={{
-              padding: '14px 32px', background: 'var(--terracotta)', color: 'var(--cream)',
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.1rem',
-              textTransform: 'uppercase', border: 'none', cursor: 'pointer',
-              letterSpacing: '0.04em',
-            }}>Sign in with Google</button>
-            <br />
-            <a href="/#/" style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 12,
-              color: 'var(--text-dim)', textDecoration: 'none',
-              display: 'inline-block', marginTop: 20,
-            }}>&#8592; Back to site</a>
-          </div>
-          {showLogin && (
-            <LoginModal
-              onGoogleSignIn={auth.signInWithGoogle}
-              onClose={() => setShowLogin(false)}
-              loading={auth.loading}
-            />
-          )}
-        </div>
-      );
-    }
-    return <AdminPanel user={auth.user} onSignOut={auth.signOut} />;
+  const handleSignOut = () => {
+    auth.signOut();
+    window.location.hash = '/';
+  };
+
+  if (route === '/login' || (route === '/admin' && !auth.isAuthenticated)) {
+    return <LoginPage clientId={auth.clientId} onSignIn={handleLogin} />;
+  }
+
+  if (route === '/admin' && auth.isAuthenticated) {
+    return <AdminPanel user={auth.user} onSignOut={handleSignOut} />;
   }
 
   return (
     <>
-      <Header onBook={openModal} user={auth.user} onSignIn={() => setShowLogin(true)} onSignOut={auth.signOut} />
+      <Header
+        onBook={openModal}
+        user={auth.user}
+        onSignIn={() => { window.location.hash = '/login'; }}
+        onSignOut={handleSignOut}
+      />
       <Site showModal={showModal} setShowModal={setShowModal} />
-      {showLogin && (
-        <LoginModal
-          onGoogleSignIn={auth.signInWithGoogle}
-          onClose={() => setShowLogin(false)}
-          loading={auth.loading}
-        />
-      )}
     </>
   );
 }
