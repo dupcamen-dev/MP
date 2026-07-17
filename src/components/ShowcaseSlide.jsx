@@ -2,8 +2,8 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 
 const projects = [
-  { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London.', img: '/zhyto.png', link: 'https://zhyto.london' },
-  { tag: 'CATERING / LONDON', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'London\'s premium catering service. Any cuisine, any culture, any dietary request — cooked flawlessly.', img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2070&auto=format&fit=crop', link: 'https://www.raqtfuel.com' },
+  { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London. Flawless execution, heritage cuisine.', img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2070&auto=format&fit=crop', link: 'https://zhyto.london' },
+  { tag: 'CATERING / LONDON', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'London\'s premium catering service. Any cuisine, any culture, any dietary request — cooked flawlessly.', img: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=2070&auto=format&fit=crop', link: 'https://www.raqtfuel.com' },
   { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', desc: 'Zero-knowledge DeFi protocol with instant settlements.', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop', link: '#' },
   { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', desc: 'Autonomous AI agent orchestration platform.', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop', link: '#' },
 ];
