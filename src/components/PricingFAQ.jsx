@@ -50,7 +50,7 @@ export default function PricingFAQ({ onBook }) {
                 <div style={{
                   fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem, 6vw, 4.5rem)',
                   color: 'var(--terracotta)', lineHeight: 0.9, marginBottom: 4,
-                }}>CUSTOM</div>
+                }}>$300</div>
                 <p style={{
                   fontFamily: "'Geist Mono', monospace", fontSize: 13, letterSpacing: '0.08em',
                   color: 'var(--sienna)', margin: '0 0 28px 0',

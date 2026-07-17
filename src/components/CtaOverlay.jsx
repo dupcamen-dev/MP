@@ -107,7 +107,7 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
             fontFamily: "'Geist Mono', monospace", fontSize: 12,
             letterSpacing: '0.08em', color: 'var(--cream)', opacity: 0.7,
           }}>
-            © 2026 MILLIONPIXELS · LONDON
+            © 2026 MILLIONPIXELS.DEV
           </div>
           <Stamp size={96} color="var(--cream)" />
         </div>

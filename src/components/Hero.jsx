@@ -40,7 +40,7 @@ export default function Hero({ onBook }) {
             letterSpacing: '0.14em', textTransform: 'uppercase',
             color: 'var(--cream)', opacity: 0.7, margin: '0 0 24px 0',
             ...reveal(0),
-          }}>LONDON · SHIPPED IN 7</p>
+          }}>SHIPPED IN 7</p>
 
           <h1 style={{
             fontFamily: "'Anton', Impact, sans-serif",
@@ -78,7 +78,7 @@ export default function Hero({ onBook }) {
           <ContactSheet
             src="/raqt-hero.png"
             alt="RAQT FUEL — live catering platform"
-            tag="Catering · London"
+            tag="Catering"
             caption="raqtfuel.com — shipped in 7"
             tilt={mobile ? 0 : 2}
           />

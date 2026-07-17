@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useScrollProgress } from './hooks/useScrollProgress';
 import { useMobile } from './hooks/useMobile';
+import { useAuth } from './hooks/useAuth';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Process from './components/Process';
@@ -10,16 +11,26 @@ import PricingFAQ from './components/PricingFAQ';
 import CtaOverlay from './components/CtaOverlay';
 import FloatingCTA from './components/FloatingCTA';
 import ScrollToTop from './components/ScrollToTop';
+import AdminPanel from './components/AdminPanel';
+import LoginModal from './components/LoginModal';
 
-export default function App() {
+function useHashRoute() {
+  const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
+  useEffect(() => {
+    const handler = () => setRoute(window.location.hash.slice(1) || '/');
+    window.addEventListener('hashchange', handler);
+    return () => window.removeEventListener('hashchange', handler);
+  }, []);
+  return route;
+}
+
+function Site({ showModal, setShowModal }) {
   const progress = useScrollProgress('process');
   const mobile = useMobile();
-  const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
 
   return (
     <>
-      <Header onBook={openModal} />
       <div style={{ position: 'relative', zIndex: 10 }}>
         <Hero onBook={openModal} />
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
@@ -64,17 +75,85 @@ export default function App() {
             <span style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', color: 'var(--sienna)',
-            }}>LONDON · EST. 2024</span>
+            }}>EST. 2024</span>
             <span style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 12,
               letterSpacing: '0.08em', color: 'var(--text-dim)',
-            }}>© 2026 MILLIONPIXELS.DEV</span>
+            }}>&copy; 2026 MILLIONPIXELS.DEV</span>
           </div>
         </div>
       </footer>
       <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} />
       <FloatingCTA onOpen={openModal} />
       <ScrollToTop />
+    </>
+  );
+}
+
+export default function App() {
+  const route = useHashRoute();
+  const auth = useAuth();
+  const [showLogin, setShowLogin] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => setShowModal(true);
+
+  useEffect(() => {
+    if (auth.isAuthenticated) setShowLogin(false);
+  }, [auth.isAuthenticated]);
+
+  if (route === '/admin') {
+    if (!auth.isAuthenticated) {
+      return (
+        <div style={{
+          minHeight: '100vh', background: 'var(--cream)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontFamily: "'Geist', sans-serif",
+        }}>
+          <div style={{ textAlign: 'center', padding: 40 }}>
+            <h2 style={{
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
+              color: 'var(--ink)', textTransform: 'uppercase', margin: '0 0 12px 0',
+            }}>Admin Access</h2>
+            <p style={{ color: 'var(--text-dim)', marginBottom: 32 }}>
+              Sign in with Google to access the admin panel.
+            </p>
+            <button onClick={() => setShowLogin(true)} style={{
+              padding: '14px 32px', background: 'var(--terracotta)', color: 'var(--cream)',
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.1rem',
+              textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+              letterSpacing: '0.04em',
+            }}>Sign in with Google</button>
+            <br />
+            <a href="/" style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 12,
+              color: 'var(--text-dim)', textDecoration: 'none',
+              display: 'inline-block', marginTop: 20,
+            }}>&#8592; Back to site</a>
+          </div>
+          {showLogin && (
+            <LoginModal
+              onGoogleSignIn={auth.signInWithGoogle}
+              onClose={() => setShowLogin(false)}
+              loading={auth.loading}
+            />
+          )}
+        </div>
+      );
+    }
+    return <AdminPanel user={auth.user} onSignOut={auth.signOut} />;
+  }
+
+  return (
+    <>
+      <Header onBook={openModal} user={auth.user} onSignIn={() => setShowLogin(true)} onSignOut={auth.signOut} />
+      <Site showModal={showModal} setShowModal={setShowModal} />
+      {showLogin && (
+        <LoginModal
+          onGoogleSignIn={auth.signInWithGoogle}
+          onClose={() => setShowLogin(false)}
+          loading={auth.loading}
+        />
+      )}
     </>
   );
 }

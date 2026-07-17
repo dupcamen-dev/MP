@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MenuOverlay from './MenuOverlay';
 import { PrimaryButton } from './Button';
 
-export default function Header({ onBook }) {
+export default function Header({ onBook, user, onSignIn, onSignOut }) {
   const [visible, setVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -45,7 +45,7 @@ export default function Header({ onBook }) {
         MILLIONPIXELS
       </a>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
         <nav className="header-nav" style={{ display: 'flex', gap: 28 }}>
           {navLinks.map((l) => (
             <a
@@ -63,6 +63,33 @@ export default function Header({ onBook }) {
             >{l.label}</a>
           ))}
         </nav>
+
+        {/* Auth buttons */}
+        {user ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }} className="header-auth">
+            <a href="/admin" style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 11,
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: 'var(--sienna)', textDecoration: 'none', padding: '6px 12px',
+              border: '1px solid var(--sienna)',
+            }}>Admin</a>
+            <button onClick={onSignOut} style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 11,
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: 'var(--text-dim)', background: 'none', border: 'none',
+              cursor: 'pointer', padding: '6px 0',
+            }}>Sign out</button>
+          </div>
+        ) : (
+          <button onClick={onSignIn} className="header-auth" style={{
+            fontFamily: "'Geist Mono', monospace", fontSize: 11,
+            letterSpacing: '0.1em', textTransform: 'uppercase',
+            color: 'var(--sienna)', background: 'none',
+            border: '1px solid var(--sienna)', cursor: 'pointer',
+            padding: '6px 14px',
+          }}>Sign in</button>
+        )}
+
         <div className="header-cta">
           <PrimaryButton onClick={onBook} style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
             Book a week →
