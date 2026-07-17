@@ -104,7 +104,7 @@ body::after {
 @supports ((animation-timeline: view()) and (animation-range: entry)) {
   @media (min-width: 901px) {
     #process {
-      animation: process-parallax linear both;
+      animation: process-parallax linear;
       animation-timeline: view(block);
       animation-range: entry 0% entry 100%;
     }
