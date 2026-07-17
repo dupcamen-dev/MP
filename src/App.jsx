@@ -111,6 +111,31 @@ export default function App() {
   }
 
   if (route === '/admin' && auth.isAuthenticated) {
+    if (auth.user?.email !== 'ringoosamsungj710@gmail.com') {
+      return (
+        <div style={{
+          minHeight: '100vh', background: 'var(--cream)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontFamily: "'Geist', sans-serif",
+        }}>
+          <div style={{ textAlign: 'center', padding: 40 }}>
+            <h2 style={{
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
+              color: 'var(--ink)', textTransform: 'uppercase', margin: '0 0 12px 0',
+            }}>Access Denied</h2>
+            <p style={{ color: 'var(--text-dim)', marginBottom: 32 }}>
+              This account does not have admin access.
+            </p>
+            <button onClick={handleSignOut} style={{
+              padding: '12px 28px', background: 'var(--terracotta)', color: 'var(--cream)',
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
+              textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+              letterSpacing: '0.04em',
+            }}>Sign out</button>
+          </div>
+        </div>
+      );
+    }
     return <AdminPanel user={auth.user} onSignOut={handleSignOut} />;
   }
 

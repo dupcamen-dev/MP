@@ -35,10 +35,6 @@ export function useAuth() {
   const signIn = useCallback((credentialResponse) => {
     try {
       const payload = decodeCredential(credentialResponse.credential);
-      if (!ALLOWED_EMAILS.includes(payload.email)) {
-        alert('Access denied.');
-        return null;
-      }
       const u = {
         name: payload.name || '',
         email: payload.email || '',
