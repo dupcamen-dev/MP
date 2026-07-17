@@ -2,46 +2,30 @@ import { useRef, useEffect, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 import { useMagnetic } from '../hooks/useMagnetic';
 import OrderModal from './OrderModal';
-import Stamp from './Stamp';
 
-export default function CtaOverlay({ progress, showModal: externalModal, setShowModal: externalSetShowModal, onBook }) {
+export default function CtaOverlay({ showModal: externalModal, setShowModal: externalSetShowModal, onBook }) {
   const overlayRef = useRef(null);
   const mobile = useMobile();
   const tablet = useTablet();
   const [showModal, setShowModal] = useState(false);
-  
+
   const isModalOpen = externalModal !== undefined ? externalModal : showModal;
   const setIsModalOpen = externalSetShowModal || setShowModal;
 
   useEffect(() => {
     const el = overlayRef.current;
     if (!el) return;
-
-    if (mobile) {
-      const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          const reveals = el.querySelectorAll('.reveal');
-          reveals.forEach((r, i) => {
-            setTimeout(() => r.classList.add('active'), i * 150);
-          });
-          observer.disconnect();
-        }
-      }, { threshold: 0.2 });
-      observer.observe(el);
-      return () => observer.disconnect();
-    }
-
-    if (progress > 0.94) {
-      const localPhase = Math.min(1, (progress - 0.94) / 0.06);
-      const ty = 100 - localPhase * 100;
-      el.style.transform = `translateY(${ty}%)`;
-      el.style.visibility = 'visible';
-      el.querySelectorAll('.reveal').forEach(r => r.classList.add('active'));
-    } else {
-      el.style.transform = 'translateY(100%)';
-      el.style.visibility = 'hidden';
-    }
-  }, [progress, mobile]);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        el.querySelectorAll('.reveal').forEach((r, i) => {
+          setTimeout(() => r.classList.add('active'), i * 150);
+        });
+        observer.disconnect();
+      }
+    }, { threshold: 0.15 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const btnPadding = tablet ? '20px 48px' : (mobile ? '18px 32px' : '24px 60px');
   const magnetic = useMagnetic();
@@ -52,11 +36,10 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
         ref={overlayRef}
         id="cta"
         style={{
-          position: mobile ? 'relative' : 'fixed', top: 0, left: 0, width: '100%',
-          height: mobile ? '100dvh' : '100%',
-          zIndex: mobile ? 1 : 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
-          background: 'var(--cream)', transform: mobile ? 'translateY(0)' : 'translateY(100%)',
-          willChange: 'transform', visibility: mobile ? 'visible' : 'hidden',
+          position: 'relative', width: '100%',
+          minHeight: mobile ? '100dvh' : '100vh',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          background: 'var(--cream)',
         }}
       >
         <div style={{
@@ -96,43 +79,6 @@ export default function CtaOverlay({ progress, showModal: externalModal, setShow
             }}>
             Book a week →
           </button>
-        </div>
-        <div className="cta-footer" style={{
-          marginTop: 'auto', width: '100%',
-          background: '#000000',
-          padding: '32px clamp(24px,5%,64px) 40px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          gap: 24, flexWrap: 'wrap',
-        }}>
-          <div style={{
-            display: 'flex', flexDirection: 'column', gap: 8,
-          }}>
-            <div style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.08em', color: 'rgba(250,246,240,0.5)',
-            }}>
-              &copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.
-            </div>
-            <div style={{ display: 'flex', gap: 20 }}>
-              <a href="#/privacy" style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 11,
-                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.5)',
-                textDecoration: 'none', transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.target.style.color = 'var(--cream)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(250,246,240,0.5)'}
-              >Privacy Policy</a>
-              <a href="#/terms" style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 11,
-                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.5)',
-                textDecoration: 'none', transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.target.style.color = 'var(--cream)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(250,246,240,0.5)'}
-              >Terms of Service</a>
-            </div>
-          </div>
-          <Stamp size={96} color="rgba(250,246,240,0.5)" />
         </div>
       </section>
       {isModalOpen && <OrderModal onClose={() => setIsModalOpen(false)} />}

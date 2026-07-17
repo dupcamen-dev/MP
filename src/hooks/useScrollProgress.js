@@ -54,10 +54,9 @@ export function useScrollTo() {
 
     // Map each horizontal-scroll section to a progress fraction
     const scrollMap = {
-      showcase: 0.15,   // carousel visible early
-      reviews: 0.60,    // reviews slide comes in around 60%
-      manifesto: 0.80,  // manifesto near the end
-      cta: 0.95,        // final CTA
+      showcase: 0.15,
+      reviews: 0.60,
+      manifesto: 0.80,
     };
 
     if (targetId in scrollMap) {

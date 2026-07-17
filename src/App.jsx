@@ -14,6 +14,7 @@ import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
 import CookieConsent from './components/CookieConsent';
 import PrivacyTerms from './components/PrivacyTerms';
+import Stamp from './components/Stamp';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -37,8 +38,8 @@ function Site({ showModal, setShowModal, onBook }) {
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
       {!mobile && <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />}
-      {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
       <PricingFAQ onBook={onBook} />
+      <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
       <footer style={{
         background: '#000000',
         paddingTop: 80, paddingBottom: 48,
@@ -89,10 +90,10 @@ function Site({ showModal, setShowModal, onBook }) {
                 textDecoration: 'none',
               }}>Terms of Service</a>
             </div>
+            <Stamp size={96} color="rgba(250,246,240,0.5)" />
           </div>
         </div>
       </footer>
-      <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
       <ScrollToTop />
     </>
   );
