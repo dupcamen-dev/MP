@@ -106,6 +106,7 @@ export default function Process({ progress, onBook }) {
       <div style={{
         maxWidth: 1240, margin: '48px auto 0',
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
+        textAlign: 'center', marginTop: 32,
       }}>
         <button onClick={onBook} style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
