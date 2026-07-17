@@ -3,11 +3,14 @@ import { useMobile, useTablet } from '../hooks/useMobile';
 import { useMagnetic } from '../hooks/useMagnetic';
 import OrderModal from './OrderModal';
 
-export default function CtaOverlay({ progress }) {
+export default function CtaOverlay({ progress, showModal: externalModal, setShowModal: externalSetShowModal }) {
   const overlayRef = useRef(null);
   const mobile = useMobile();
   const tablet = useTablet();
   const [showModal, setShowModal] = useState(false);
+  
+  const isModalOpen = externalModal !== undefined ? externalModal : showModal;
+  const setIsModalOpen = externalSetShowModal || setShowModal;
 
   useEffect(() => {
     const el = overlayRef.current;
@@ -86,7 +89,7 @@ export default function CtaOverlay({ progress }) {
           <button
             ref={magnetic.ref}
             className="cta-btn reveal"
-            onClick={() => setShowModal(true)}
+            onClick={() => setIsModalOpen(true)}
             onMouseMove={!mobile ? magnetic.onMouseMove : undefined}
             onMouseLeave={!mobile ? magnetic.onMouseLeave : undefined}
             style={{
@@ -113,7 +116,7 @@ export default function CtaOverlay({ progress }) {
           </div>
         </div>
       </section>
-      {showModal && <OrderModal onClose={() => setShowModal(false)} />}
+      {isModalOpen && <OrderModal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 }

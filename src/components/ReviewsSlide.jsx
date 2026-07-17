@@ -7,9 +7,9 @@ export default function ReviewsSlide({ cardPhase }) {
   const gridRef = useRef(null);
 
   const reviews = [
-    { text: '4 pages → 14. Stripe live. 312 signups in week one. The MVP we launched had paying users by day 3.', author: 'SaaS founder, B2B platform' },
-    { text: 'Smart contracts, landing page, and admin panel — all in 6 days. The audit passed on the first pass.', author: 'Studio lead, Web3 protocol' },
-    { text: 'Audit-ready MVP in 5 days. We saved 6 weeks of in-house engineering and shipped before our competitor.', author: 'CTO, DeFi protocol' },
+    { text: '4 pages → 14. Stripe live. 312 signups in week one. The MVP we launched had paying users by day 3.', author: 'Alex Chen', role: 'Founder, B2B SaaS' },
+    { text: 'Smart contracts, landing page, and admin panel — all in 6 days. The audit passed on the first pass.', author: 'Maria Garcia', role: 'Studio Lead, Web3 Protocol' },
+    { text: 'Audit-ready MVP in 5 days. We saved 6 weeks of in-house engineering and shipped before our competitor.', author: 'David Patel', role: 'CTO, DeFi Protocol' },
   ];
 
   useEffect(() => {
@@ -77,11 +77,18 @@ export default function ReviewsSlide({ cardPhase }) {
                 fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
                 lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400,
               }}>{r.text}</p>
-              <h4 style={{
-                fontFamily: "'Geist', sans-serif", fontSize: '0.95rem',
-                fontWeight: 500, letterSpacing: '0.02em',
-                color: 'var(--text-dim)', marginTop: 20,
-              }}>{r.author}</h4>
+               <div style={{ marginTop: 20 }}>
+                 <h4 style={{
+                   fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.95rem',
+                   fontWeight: 600, letterSpacing: '0.02em',
+                   color: 'var(--primary)', margin: 0,
+                 }}>{r.author}</h4>
+                 <p style={{
+                   fontFamily: "'Geist', sans-serif", fontSize: '0.85rem',
+                   fontWeight: 400, color: 'var(--text-dim)',
+                   margin: '4px 0 0 0',
+                 }}>{r.role}</p>
+               </div>
             </div>
           ))}
           <div className="review-card" style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle }}>
@@ -89,11 +96,18 @@ export default function ReviewsSlide({ cardPhase }) {
               fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
               lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400, maxWidth: 800,
             }}>{reviews[2].text}</p>
-            <h4 style={{
-              fontFamily: "'Geist', sans-serif", fontSize: '0.95rem',
-              fontWeight: 500, letterSpacing: '0.02em',
-              color: 'var(--text-dim)', marginTop: 20,
-            }}>{reviews[2].author}</h4>
+            <div style={{ marginTop: 20 }}>
+              <h4 style={{
+                 fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.95rem',
+                 fontWeight: 600, letterSpacing: '0.02em',
+                 color: 'var(--primary)', margin: 0,
+               }}>{reviews[2].author}</h4>
+               <p style={{
+                 fontFamily: "'Geist', sans-serif", fontSize: '0.85rem',
+                 fontWeight: 400, color: 'var(--text-dim)',
+                 margin: '4px 0 0 0',
+               }}>{reviews[2].role}</p>
+            </div>
           </div>
         </div>
       </div>

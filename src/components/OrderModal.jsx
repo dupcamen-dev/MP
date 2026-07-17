@@ -17,21 +17,20 @@ const labelStyle = {
 };
 
 export default function OrderModal({ onClose }) {
-  const [form, setForm] = useState({ idea: '', contact: '' });
+  const [form, setForm] = useState({ contact: '' });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
 
   const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async () => {
-    if (!form.idea.trim() || !form.contact.trim()) return;
+    if (!form.contact.trim()) return;
     setSending(true);
     const now = new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' });
     const msg = [
-      `📦 *NEW ORDER*`,
+      `📦 *NEW REQUEST*`,
       `🕒 ${now}`,
       `━━━━━━━━━━━━━━━`,
-      `*IDEA:* ${form.idea}`,
       `*CONTACT:* ${form.contact}`,
     ].join('\n');
 
@@ -88,44 +87,42 @@ export default function OrderModal({ onClose }) {
         background: 'var(--primary)', padding: '48px 40px', maxWidth: 480, width: '90%',
         border: '4px solid var(--surface-low)',
       }}>
-        <div style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32,
-        }}>
-          <h3 id="modal-title" style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--surface-low)',
-            textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
-          }}>REQUEST MVP</h3>
-          <button onClick={onClose} style={{
-            background: 'none', border: 'none', fontSize: '2rem', color: 'var(--surface-low)',
-            cursor: 'pointer', padding: '4px 12px', lineHeight: 1,
-          }}>✕</button>
-        </div>
+         <div style={{
+           display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24,
+         }}>
+           <div>
+             <h3 id="modal-title" style={{
+               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.875rem', color: 'var(--surface-low)',
+               textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
+             }}>START YOUR WEEK</h3>
+             <p style={{
+               fontFamily: "'Geist', sans-serif", fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)',
+               margin: '8px 0 0 0',
+             }}>We&apos;ll contact you within 1 hour</p>
+           </div>
+           <button onClick={onClose} style={{
+             background: 'none', border: 'none', fontSize: '2rem', color: 'var(--surface-low)',
+             cursor: 'pointer', padding: '4px 12px', lineHeight: 1,
+           }}>✕</button>
+         </div>
 
-        <div style={{ marginBottom: 24 }}>
-          <label style={labelStyle}>YOUR IDEA *</label>
-          <textarea
-            value={form.idea}
-            onChange={update('idea')}
-            rows={3}
-            placeholder="Describe your idea…"
-            style={{ ...inputStyle, resize: 'vertical' }}
-            onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
-          />
-        </div>
-
-        <div style={{ marginBottom: 32 }}>
-          <label style={labelStyle}>CONTACT *</label>
-          <input
-            type="text"
-            value={form.contact}
-            onChange={update('contact')}
-            placeholder="@username or email@example.com"
-            style={inputStyle}
-            onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
-          />
-        </div>
+         <div style={{ marginBottom: 32 }}>
+           <label style={labelStyle}>YOUR CONTACT *</label>
+           <input
+             type="text"
+             value={form.contact}
+             onChange={update('contact')}
+             placeholder="email@company.com or @telegram"
+             style={inputStyle}
+             onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
+             onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
+             autoFocus
+           />
+           <p style={{
+             fontFamily: "'Geist', sans-serif", fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)',
+             margin: '8px 0 0 0',
+           }}>Share your idea in the first call 📞</p>
+         </div>
 
         <button
           onClick={handleSubmit}

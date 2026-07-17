@@ -210,3 +210,24 @@ body::after {
 @supports (padding: max(0px)) {
   #cta .cta-footer { padding-bottom: max(48px, calc(48px + env(safe-area-inset-bottom))) !important; }
 }
+
+/* Trust Badges Mobile */
+@media (max-width: 900px) {
+  #trust-badges {
+    padding: 40px 24px !important;
+  }
+  #trust-badges > div {
+    gap: 24px !important;
+    gridTemplateColumns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Pricing Mobile */
+@media (max-width: 900px) {
+  #pricing {
+    padding: 80px 24px !important;
+  }
+  #pricing h2 {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+}
