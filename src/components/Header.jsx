@@ -23,8 +23,9 @@ export default function Header() {
       }}
     >
       <a
-        href="#"
+        href="#hero"
         className="header-logo"
+        onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.2rem,2.5vw,2rem)',
           color: 'var(--primary)', textDecoration: 'none',

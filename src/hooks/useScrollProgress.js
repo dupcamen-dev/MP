@@ -36,22 +36,37 @@ export function useScrollProgress(triggerId = 'process') {
 
 export function useScrollTo() {
   return (targetId) => {
-    if (targetId === 'cta') {
-      const isMobile = window.matchMedia('(max-width: 900px)').matches;
-      if (isMobile) {
-        const cta = document.getElementById('cta');
-        if (cta) cta.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-      const trigger = document.getElementById('process');
-      const tp = trigger ? trigger.offsetTop + trigger.offsetHeight : 0;
-      const spacer = document.querySelector('.h-scroll-spacer');
-      const sh = spacer ? spacer.offsetHeight : 0;
-      window.scrollTo({ top: tp + 0.95 * sh, behavior: 'smooth' });
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+    // On mobile, all sections exist in DOM — use scrollIntoView directly
+    if (isMobile) {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
       return;
     }
+
+    // On desktop, showcase/reviews/manifesto are inside the horizontal scroll (sticky)
+    // We need to compute scroll position within the h-scroll-spacer
+    const trigger = document.getElementById('process');
+    const tp = trigger ? trigger.offsetTop + trigger.offsetHeight : 0;
+    const spacer = document.querySelector('.h-scroll-spacer');
+    const sh = spacer ? spacer.offsetHeight : 0;
+
+    // Map each horizontal-scroll section to a progress fraction
+    const scrollMap = {
+      showcase: 0.15,   // carousel visible early
+      reviews: 0.60,    // reviews slide comes in around 60%
+      manifesto: 0.80,  // manifesto near the end
+      cta: 0.95,        // final CTA
+    };
+
+    if (targetId in scrollMap) {
+      window.scrollTo({ top: tp + scrollMap[targetId] * sh, behavior: 'smooth' });
+      return;
+    }
+
+    // For sections before/after the horizontal scroll (hero, process, pricing)
     const target = document.getElementById(targetId);
-    if (!target) return;
-    target.scrollIntoView({ behavior: 'smooth' });
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
   };
 }

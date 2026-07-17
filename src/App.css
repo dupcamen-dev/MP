@@ -146,7 +146,6 @@ body::after {
   .cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 var(--steel) !important; }
   .header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
   .menu-btn:hover span { width: 44px !important; }
-  .menu-btn.open:hover span:nth-child(2) { width: 0 !important; }
 }
 
 .carousel-cell { cursor: pointer; }
@@ -188,9 +187,6 @@ body::after {
 
   #hero { padding: 100px 24px 60px !important; }
   #hero h1 { font-size: clamp(2.5rem, 16vw, 5rem) !important; }
-
-  #menu-overlay { padding: 0 24px !important; }
-  #menu-overlay nav > a { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
 
   .section-inner { padding: 0 24px !important; }
 
