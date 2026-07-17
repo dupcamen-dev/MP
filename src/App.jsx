@@ -13,6 +13,7 @@ import FloatingCTA from './components/FloatingCTA';
 import ScrollToTop from './components/ScrollToTop';
 import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
+import CookieConsent from './components/CookieConsent';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -148,6 +149,7 @@ export default function App() {
         onSignOut={handleSignOut}
       />
       <Site showModal={showModal} setShowModal={setShowModal} />
+      <CookieConsent />
     </>
   );
 }

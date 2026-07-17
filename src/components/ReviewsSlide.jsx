@@ -6,12 +6,12 @@ const reviews = [
   {
     text: 'They took our rough idea and turned it into a working product in one week. No endless meetings, no delays — just results.',
     author: 'ZHYTO',
-    role: 'Restaurant ordering platform',
+    role: 'Artisian homemade varenyky',
   },
   {
     text: 'From zero to a fully functional e-commerce site with payments. Shipped faster than our previous agency took to send a proposal.',
     author: 'RAQT FUEL',
-    role: 'Supplements brand',
+    role: 'We Cook Anything You Crave',
   },
   {
     text: 'We needed an MVP fast to test the market. Got a production-ready app in 7 days. Saved us months of hiring.',
