@@ -29,16 +29,17 @@ export default function MenuOverlay() {
         id="menu-overlay"
         className={open ? 'open' : ''}
         style={{
-          position: 'fixed', inset: 0, background: 'var(--secondary)', zIndex: 60,
-          display: 'flex', flexDirection: 'column', justifyContent: 'center',
-          padding: '0 64px',
+          position: 'fixed', inset: 0, background: 'var(--secondary)', zIndex: 100,
+          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start',
+          paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 120px)',
           transition: 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
           opacity: open ? 1 : 0,
           transform: open ? 'translateX(0)' : 'translateX(100%)',
           pointerEvents: open ? 'auto' : 'none',
+          visibility: open ? 'visible' : 'hidden',
         }}
       >
-        <nav id="main-nav" style={{ display: 'flex', flexDirection: 'column', gap: 8, position: 'relative', zIndex: 1 }}>
+        <nav id="main-nav" style={{ display: 'flex', flexDirection: 'column', gap: 16, position: 'relative', zIndex: 1, width: '100%' }}>
           {links.map((l) => (
             <a
               key={l.id}
@@ -47,9 +48,9 @@ export default function MenuOverlay() {
               className={l.highlight ? 'menu-link highlight' : 'menu-link'}
               style={{
                 fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,8vw,7.5rem)',
-                lineHeight: 1, textTransform: 'uppercase', color: l.highlight ? 'var(--primary)' : 'var(--bg-alt)',
+                lineHeight: 0.9, textTransform: 'uppercase', color: l.highlight ? 'var(--primary)' : 'var(--bg-alt)',
                 textDecoration: 'none', transition: 'all 0.3s', position: 'relative',
-                display: 'inline-block', width: 'fit-content', cursor: 'pointer',
+                display: 'block', width: '100%', cursor: 'pointer',
               }}
             >
               {l.label}
