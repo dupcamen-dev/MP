@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 
 const STORAGE_KEY = 'mp_user';
 const GOOGLE_CLIENT_ID = '727188971518-ijvkthta20eqaoo8rcl4mvvu4jkab565.apps.googleusercontent.com';
+const ALLOWED_EMAILS = ['ringoosamsungj710@gmail.com'];
 
 function getStoredUser() {
   try {
@@ -34,6 +35,10 @@ export function useAuth() {
   const signIn = useCallback((credentialResponse) => {
     try {
       const payload = decodeCredential(credentialResponse.credential);
+      if (!ALLOWED_EMAILS.includes(payload.email)) {
+        alert('Access denied.');
+        return null;
+      }
       const u = {
         name: payload.name || '',
         email: payload.email || '',
