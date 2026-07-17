@@ -1,16 +1,36 @@
 import { useEffect, useRef } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
+import PixelSeam from './PixelSeam';
 
-export default function ReviewsSlide({ cardPhase }) {
+const projects = [
+  {
+    name: 'ZHYTO',
+    url: 'zhyto.london',
+    tagline: 'AI-powered business intelligence for Amazon sellers',
+    stack: 'Next.js · React · Node · Postgres',
+    metrics: [
+      { label: 'Build time', value: '7 days' },
+      { label: 'Pages shipped', value: '14' },
+      { label: 'AI features', value: '3 live' },
+    ],
+  },
+  {
+    name: 'RAQT FUEL',
+    url: 'raqtfuel.com',
+    tagline: 'Premium supplements, direct-to-consumer',
+    stack: 'Next.js · Stripe · Tailwind',
+    metrics: [
+      { label: 'Build time', value: '6 days' },
+      { label: 'Stripe integration', value: 'Live' },
+      { label: 'Product pages', value: '12' },
+    ],
+  },
+];
+
+export default function ReviewsSlide() {
   const mobile = useMobile();
   const tablet = useTablet();
   const gridRef = useRef(null);
-
-  const reviews = [
-    { text: '4 pages → 14. Stripe live. 312 signups in week one. The MVP we launched had paying users by day 3.', author: 'Alex Chen', role: 'Founder, B2B SaaS' },
-    { text: 'Smart contracts, landing page, and admin panel — all in 6 days. The audit passed on the first pass.', author: 'Maria Garcia', role: 'Studio Lead, Web3 Protocol' },
-    { text: 'Audit-ready MVP in 5 days. We saved 6 weeks of in-house engineering and shipped before our competitor.', author: 'David Patel', role: 'CTO, DeFi Protocol' },
-  ];
 
   useEffect(() => {
     const grid = gridRef.current;
@@ -29,87 +49,92 @@ export default function ReviewsSlide({ cardPhase }) {
     return () => observer.disconnect();
   }, []);
 
-  const cardStyle = {
-    padding: mobile ? (tablet ? 28 : 24) : 32,
-    background: 'transparent',
-  };
-
   return (
     <section className="slide reviews-slide" id="reviews" style={{
       width: '100vw', flex: '0 0 100vw',
       height: mobile ? 'auto' : '100vh',
       minHeight: mobile ? '100dvh' : undefined,
-      background: 'var(--surface-low)', overflow: mobile ? 'visible' : 'hidden',
+      background: 'var(--cream)', overflow: mobile ? 'visible' : 'hidden',
       position: 'relative',
       display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
       justifyContent: 'center',
       paddingTop: mobile ? '60px' : '60px', paddingBottom: mobile ? '60px' : '60px',
       paddingLeft: 'clamp(24px, 8%, 100px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: 'url(/reviews-bg.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        opacity: 0.08,
-        filter: 'sepia(0.5) saturate(0.6) contrast(1.1)',
-        pointerEvents: 'none',
-      }} />
-       <div style={{
-         position: 'relative', zIndex: 1, width: '100%', paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
-         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24,
-       }}>
-         <h2 style={{
-           fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.5rem, 10vw, 4rem)' : 'clamp(3rem, 6vw, 5rem)',
-           lineHeight: 0.95, color: 'var(--primary)', textTransform: 'uppercase',
-           letterSpacing: '0.01em', margin: 0, textAlign: 'left',
-         }}>
-          12 PROJECTS. 6.3 AVG DAYS.<br />ZERO HANDOVER DRAMA.
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1240, margin: '0 auto' }}>
+        <PixelSeam />
+        <p style={{
+          fontFamily: "'Geist Mono', monospace", fontSize: 12,
+          letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'var(--sienna)', margin: '0 0 20px 0',
+        }}>REAL SHIPS</p>
+        <h2 style={{
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.2rem, 9vw, 3.5rem)' : 'clamp(2.5rem, 5vw, 4rem)',
+          lineHeight: 0.95, color: 'var(--ink)', textTransform: 'uppercase',
+          letterSpacing: '-0.01em', margin: '0 0 48px 0',
+        }}>
+          Not decks. Not mocks.<br /><span style={{ color: 'var(--terracotta)' }}>Live products.</span>
         </h2>
 
-         <div ref={gridRef} className="reviews-grid" style={{
-           display: 'grid', gridTemplateColumns: (mobile && !tablet) ? '1fr' : 'repeat(2, 1fr)',
-           gap: mobile ? (tablet ? 32 : 24) : 48, width: '100%',
-           marginTop: mobile ? 32 : 24,
-         }}>
-          {reviews.slice(0, 2).map((r, i) => (
-            <div key={i} className="review-card" style={cardStyle}>
-              <p style={{
-                fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-                lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400,
-              }}>{r.text}</p>
-               <div style={{ marginTop: 20 }}>
-                 <h4 style={{
-                   fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.95rem',
-                   fontWeight: 600, letterSpacing: '0.02em',
-                   color: 'var(--primary)', margin: 0,
-                 }}>{r.author}</h4>
-                 <p style={{
-                   fontFamily: "'Geist', sans-serif", fontSize: '0.85rem',
-                   fontWeight: 400, color: 'var(--text-dim)',
-                   margin: '4px 0 0 0',
-                 }}>{r.role}</p>
-               </div>
+        <div ref={gridRef} className="reviews-grid" style={{
+          display: 'grid', gridTemplateColumns: (mobile && !tablet) ? '1fr' : 'repeat(2, 1fr)',
+          gap: mobile ? (tablet ? 32 : 24) : 40, width: '100%',
+        }}>
+          {projects.map((p, i) => (
+            <div key={i} className="review-card" style={{
+              border: '1px solid var(--sienna)', padding: 0,
+              background: 'transparent', overflow: 'hidden',
+            }}>
+              {/* Project header */}
+              <div style={{
+                padding: '28px 32px 24px',
+                borderBottom: '1px solid rgba(135, 70, 38, 0.2)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 12 }}>
+                  <h3 style={{
+                    fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                    color: 'var(--ink)', margin: 0, textTransform: 'uppercase', lineHeight: 1,
+                  }}>{p.name}</h3>
+                  <span style={{
+                    fontFamily: "'Geist Mono', monospace", fontSize: 12,
+                    color: 'var(--sienna)', letterSpacing: '0.05em',
+                  }}>{p.url}</span>
+                </div>
+                <p style={{
+                  fontFamily: "'Geist', sans-serif", fontWeight: 300,
+                  fontSize: 'clamp(1rem, 1.4vw, 1.15rem)', lineHeight: 1.4,
+                  color: 'var(--text-dim)', margin: '0 0 12px 0',
+                }}>{p.tagline}</p>
+                <p style={{
+                  fontFamily: "'Geist Mono', monospace", fontSize: 11,
+                  letterSpacing: '0.08em', color: 'var(--sienna)', margin: 0,
+                }}>{p.stack}</p>
+              </div>
+
+              {/* Metrics row */}
+              <div style={{
+                display: 'grid', gridTemplateColumns: `repeat(${p.metrics.length}, 1fr)`,
+              }}>
+                {p.metrics.map((m, j) => (
+                  <div key={j} style={{
+                    padding: '20px 24px',
+                    borderRight: j < p.metrics.length - 1 ? '1px solid rgba(135, 70, 38, 0.2)' : 'none',
+                  }}>
+                    <p style={{
+                      fontFamily: "'Anton', Impact, sans-serif",
+                      fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                      color: 'var(--terracotta)', margin: '0 0 4px 0', lineHeight: 1,
+                    }}>{m.value}</p>
+                    <p style={{
+                      fontFamily: "'Geist Mono', monospace", fontSize: 10,
+                      letterSpacing: '0.1em', textTransform: 'uppercase',
+                      color: 'var(--sienna)', margin: 0,
+                    }}>{m.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
-          <div className="review-card" style={{ gridColumn: mobile ? '1' : '1 / -1', ...cardStyle }}>
-            <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)',
-              lineHeight: 1.5, color: 'var(--text)', margin: 0, fontWeight: 400, maxWidth: 800,
-            }}>{reviews[2].text}</p>
-            <div style={{ marginTop: 20 }}>
-              <h4 style={{
-                 fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.95rem',
-                 fontWeight: 600, letterSpacing: '0.02em',
-                 color: 'var(--primary)', margin: 0,
-               }}>{reviews[2].author}</h4>
-               <p style={{
-                 fontFamily: "'Geist', sans-serif", fontSize: '0.85rem',
-                 fontWeight: 400, color: 'var(--text-dim)',
-                 margin: '4px 0 0 0',
-               }}>{reviews[2].role}</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

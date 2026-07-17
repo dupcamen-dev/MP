@@ -67,7 +67,7 @@ export default function HorizontalScroll({ progress }) {
           <ShowcaseSlide carouselRot={carouselRot} progress={progress} onCardEnd={handleCardEnd} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)`, willChange: 'transform' }}>
-          <ReviewsSlide cardPhase={cardPhase} />
+          <ReviewsSlide />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(2)}%)`, willChange: 'transform' }}>
           <ManifestoSlide progress={slideP} />

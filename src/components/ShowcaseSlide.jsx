@@ -2,65 +2,89 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 
 const projects = [
-  { tag: 'RESTAURANT / LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Authentic Ukrainian varenyky & syrnyky — from Kyiv to London. Flawless execution, heritage cuisine.', img: '/zhyto-hero.png', link: 'https://zhyto.london' },
-  { tag: 'CATERING / LONDON', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'London\'s premium catering service. Any cuisine, any culture, any dietary request — cooked flawlessly.', img: '/raqt-hero.png', link: 'https://www.raqtfuel.com' },
-  { tag: 'DEFI / WEB3', title: 'PROTOCOL', subtitle: 'ZERO', color: 'var(--primary)', desc: 'Zero-knowledge DeFi protocol with instant settlements.', img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop', link: '#' },
-  { tag: 'SAAS / AI', title: 'AGENT', subtitle: 'SMITH', color: 'var(--secondary)', desc: 'Autonomous AI agent orchestration platform.', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1974&auto=format&fit=crop', link: '#' },
+  { tag: 'RESTAURANT · LONDON', title: 'ZHYTO', subtitle: 'LONDON', color: 'var(--primary)', desc: 'Ukrainian dumplings, Kyiv to London. Ordering, delivery, live.', img: '/zhyto-hero.png', link: 'https://zhyto.london', caption: 'zhyto.london — shipped 2024' },
+  { tag: 'CATERING · LONDON', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'Any cuisine, any culture, cooked flawlessly. Booking + enquiry platform.', img: '/raqt-hero.png', link: 'https://www.raqtfuel.com', caption: 'raqtfuel.com — shipped 2024' },
 ];
 
 function ProjectCard({ p }) {
   return (
     <div className="carousel-card" style={{
       width: '100%', height: '100%',
-      background: 'var(--surface)',
-      border: '1px solid rgba(135, 70, 38, 0.15)',
-      boxShadow: '0 8px 32px rgba(135, 70, 38, 0.12)',
+      background: 'var(--cream)',
+      border: '1px solid var(--sienna)',
+      boxShadow: '0 12px 40px rgba(135, 70, 38, 0.2)',
       position: 'relative', overflow: 'hidden', display: 'flex',
-      flexDirection: 'column', transition: 'border-color 0.4s, box-shadow 0.4s',
+      flexDirection: 'column', padding: 14,
+      transition: 'border-color 0.4s, box-shadow 0.4s',
     }}>
+      {/* Registration marks */}
+      {[
+        { top: 6, left: 6 }, { top: 6, right: 6 },
+        { bottom: 6, left: 6 }, { bottom: 6, right: 6 },
+      ].map((pos, i) => (
+        <span key={i} aria-hidden="true" style={{
+          position: 'absolute', width: 10, height: 10, ...pos, zIndex: 3,
+          borderTop: pos.top !== undefined ? '1px solid var(--sienna)' : 'none',
+          borderBottom: pos.bottom !== undefined ? '1px solid var(--sienna)' : 'none',
+          borderLeft: pos.left !== undefined ? '1px solid var(--sienna)' : 'none',
+          borderRight: pos.right !== undefined ? '1px solid var(--sienna)' : 'none',
+          opacity: 0.5,
+        }} />
+      ))}
+
       <div className="card-img" style={{
-        height: '55%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
+        height: '52%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
+        background: 'var(--sienna)',
       }}>
-        <img src={p.img} alt={p.title} loading="lazy"
+        <img src={p.img} alt={p.title + ' — live product'} loading="lazy"
           onError={e => { e.target.style.display = 'none'; e.target.parentNode.style.background = p.color + '33'; }}
           style={{
           width: '100%', height: '100%', objectFit: 'cover',
-          filter: 'contrast(1.05) saturate(0.95)',
+          filter: 'sepia(0.35) saturate(0.9) contrast(1.05)',
           transition: 'transform 0.5s',
         }} />
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'rgba(135, 70, 38, 0.06)',
+          background: 'linear-gradient(135deg, rgba(201,123,92,0.28), rgba(135,70,38,0.18))',
           mixBlendMode: 'multiply', pointerEvents: 'none',
         }} />
+        <span style={{
+          position: 'absolute', top: 12, left: 12,
+          fontFamily: "'Geist Mono', monospace", fontSize: 10,
+          letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'var(--cream)', background: 'rgba(42,37,32,0.7)', padding: '5px 10px',
+        }}>{p.tag}</span>
       </div>
       <div className="card-body" style={{
-        flex: 1, padding: '24px 28px 28px',
+        flex: 1, padding: '24px 20px 12px',
         display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
         background: 'transparent',
       }}>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-          textTransform: 'uppercase', color: 'var(--text)', lineHeight: 1,
+          textTransform: 'uppercase', color: 'var(--ink)', lineHeight: 1,
           marginBottom: 12, letterSpacing: '0.01em',
         }}>
           {p.title} <span style={{ color: p.color }}>{p.subtitle}</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.95rem, 1.4vw, 1.1rem)',
-          lineHeight: 1.5, color: 'var(--text-dim)', marginBottom: 20,
+          lineHeight: 1.5, color: 'var(--text-dim)', marginBottom: 16,
           letterSpacing: '0.01em',
         }}>
           {p.desc}
         </p>
-        <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
-          width: '100%', padding: '14px 0', background: 'var(--secondary)',
-          color: '#fff',
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-          textTransform: 'uppercase', border: 'none', cursor: 'pointer',
-          letterSpacing: '0.08em', transition: 'background 0.3s',
-          textDecoration: 'none', display: 'block', textAlign: 'center',
-        }}>VISIT</a>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+          <span style={{
+            fontFamily: "'Geist Mono', monospace", fontSize: 11,
+            letterSpacing: '0.06em', color: 'var(--sienna)',
+          }}>{p.caption}</span>
+          <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
+            color: 'var(--terracotta)', textTransform: 'uppercase',
+            letterSpacing: '0.06em', textDecoration: 'none', whiteSpace: 'nowrap',
+          }}>Visit →</a>
+        </div>
       </div>
     </div>
   );
@@ -173,7 +197,11 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
       const w = Math.min(600, Math.max(320, vw * 0.38));
       const h = Math.min(840, Math.max(480, vh * 0.72));
       cardSizeRef.current = { w, h };
-      const radius = Math.round((w / 2) / Math.tan(Math.PI / CELL_COUNT)) + 100;
+      // Guard against degenerate rings (2 cells → tan(90°)=∞). Use a fixed
+      // depth for small counts so two cards sit front/back cleanly.
+      const radius = CELL_COUNT <= 2
+        ? Math.round(w * 0.85) + 100
+        : Math.round((w / 2) / Math.tan(Math.PI / CELL_COUNT)) + 100;
       radiusRef.current = radius;
       const theta = 360 / CELL_COUNT;
       const cells = carousel.querySelectorAll('.carousel-cell');

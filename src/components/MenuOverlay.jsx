@@ -2,21 +2,24 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useScrollTo } from '../hooks/useScrollProgress';
 
-export default function MenuOverlay() {
+export default function MenuOverlay({ onBook }) {
   const [open, setOpen] = useState(false);
   const scrollTo = useScrollTo();
 
   const links = [
-    { label: 'PROCESS', id: 'process' },
     { label: 'WORK', id: 'showcase' },
-    { label: 'REVIEWS', id: 'reviews' },
+    { label: 'PROCESS', id: 'process' },
     { label: 'PRICING', id: 'pricing' },
-    { label: 'REQUEST', id: 'cta', highlight: true },
+    { label: 'BOOK A WEEK', id: 'book', highlight: true },
   ];
 
   function handleClick(id) {
     setOpen(false);
     document.body.style.overflow = '';
+    if (id === 'book') {
+      setTimeout(() => onBook && onBook(), 300);
+      return;
+    }
     setTimeout(() => scrollTo(id), 400);
   }
 

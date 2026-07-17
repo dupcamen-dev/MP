@@ -1,19 +1,15 @@
 import { useEffect } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
-import { useMagnetic } from '../hooks/useMagnetic';
-import ScrambleText from './ScrambleText';
 
 const phases = [
-  { num: '01', title: 'IDEATION', desc: 'Day 1–2. We align on scope, stack, and success criteria.' },
-  { num: '02', title: 'BUILD', desc: 'Day 2–6. Daily builds. You see real progress every 24h.' },
-  { num: '03', title: 'LAUNCH', desc: 'Day 7. Live, documented, yours. Repo access from day 1.' },
+  { num: '01', title: 'SCOPE', days: 'Day 1', desc: 'We turn your idea into a build plan. Stack, scope, success — locked before we write a line.' },
+  { num: '02', title: 'BUILD', days: 'Days 2–6', desc: 'Daily builds you can click. You watch it become real, every 24 hours.' },
+  { num: '03', title: 'SHIP', days: 'Day 7', desc: 'Live, documented, yours. Full repo access from day one.' },
 ];
 
-export default function Process({ progress }) {
+export default function Process({ progress, onBook }) {
   const mobile = useMobile();
   const tablet = useTablet();
-  const magPrimary = useMagnetic();
-  const magOutline = useMagnetic();
 
   useEffect(() => {
     const cards = document.querySelectorAll('#process .phase-item');
@@ -28,99 +24,95 @@ export default function Process({ progress }) {
     <section id="process" style={{
       position: 'relative', zIndex: 3,
       marginBottom: mobile ? '0' : '-100vh',
-      background: 'var(--bg-alt)', paddingTop: mobile ? (tablet ? '80px' : '60px') : '120px', paddingBottom: mobile ? (tablet ? '60px' : '40px') : '100px',
-      paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
+      background: 'var(--cream)',
+      paddingTop: mobile ? (tablet ? '80px' : '60px') : '120px',
+      paddingBottom: mobile ? (tablet ? '60px' : '40px') : '100px',
+      overflow: 'hidden',
     }}>
-      <div className="section-inner" style={{
-        width: '100%', margin: '0 auto', paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
-        position: 'relative', zIndex: 2,
+      {/* Intro */}
+      <div style={{
+        maxWidth: 1240, margin: '0 auto',
+        paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
       }}>
-        <h1 style={{
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(4rem,10vw,8.75rem)',
-          lineHeight: 0.85, textTransform: 'uppercase',
-          color: 'var(--primary)',
-          marginBottom: 32,
-        }}>
-          FROM IDEA<br />
-          <span style={{
-            color: 'var(--secondary)', display: 'inline-block',
-            marginLeft: 'clamp(2rem,6vw,6rem)',
-          }}>
-            <ScrambleText text="TO LIVE" cascade={100} speed={110} />
-          </span>
-        </h1>
         <p style={{
-          fontFamily: "'Geist', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)',
-          lineHeight: 1.2, letterSpacing: '0.01em',
-          color: '#333', maxWidth: 900, fontWeight: 300, margin: 0,
+          fontFamily: "'Geist Mono', monospace", fontSize: 12,
+          letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'var(--sienna)', margin: '0 0 16px 0',
+        }}>THE SEVEN-DAY BUILD</p>
+        <h2 style={{
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
+          lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 20px 0',
+        }}>
+          From call to live<br /><span style={{ color: 'var(--terracotta)' }}>in 168 hours.</span>
+        </h2>
+        <p style={{
+          fontFamily: "'Geist', sans-serif", fontWeight: 300,
+          fontSize: 'clamp(1.15rem, 2vw, 1.5rem)', lineHeight: 1.4,
+          color: 'var(--text-dim)', maxWidth: 640, margin: '0 0 12px 0',
         }}>
           Three phases. Seven days. One live URL.
         </p>
-
-        <div className="process-actions" style={{ display: 'flex', gap: 16, marginTop: 64, flexWrap: 'wrap' }}>
-          <a ref={magPrimary.ref} href="#cta" className="process-btn primary"
-            onMouseMove={!mobile ? magPrimary.onMouseMove : undefined}
-            onMouseLeave={!mobile ? magPrimary.onMouseLeave : undefined}
-            style={{
-            padding: '18px 56px', background: 'var(--primary)',
-            color: '#111', fontFamily: "'Anton', Impact, sans-serif",
-            fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)', textTransform: 'uppercase',
-            textDecoration: 'none', border: 'none',
-            display: 'inline-block', fontWeight: 700, letterSpacing: '0.05em',
-            transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
-            willChange: 'transform',
-          }}>START YOUR MVP</a>
-          <a ref={magOutline.ref} href="#showcase" className="process-btn outline"
-            onMouseMove={!mobile ? magOutline.onMouseMove : undefined}
-            onMouseLeave={!mobile ? magOutline.onMouseLeave : undefined}
-            style={{
-            padding: '18px 56px', background: 'transparent',
-            color: '#111', fontFamily: "'Anton', Impact, sans-serif",
-            fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)', textTransform: 'uppercase',
-            textDecoration: 'none', border: '2px solid #111',
-            display: 'inline-block', letterSpacing: '0.05em',
-            transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
-            willChange: 'transform',
-          }}>SEE OUR WORK</a>
-        </div>
+        <p style={{
+          fontFamily: "'Geist Mono', monospace", fontSize: 12,
+          letterSpacing: '0.1em', color: 'var(--sienna)', margin: 0,
+        }}>NEXT.JS · REACT · NODE · POSTGRES · STRIPE · TS</p>
       </div>
 
-      <div className="section-inner" style={{ width: '100%', margin: '0 auto', paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)', marginTop: 120 }}>
+      {/* Beats */}
+      <div style={{ maxWidth: 1240, margin: '72px auto 0' }}>
         {phases.map((p, i) => (
           <div key={i} className="phase-item" style={{
             display: 'grid',
-            gridTemplateColumns: mobile ? 'auto 1fr' : 'auto 1fr auto',
-            alignItems: 'baseline', gap: mobile ? 16 : 32,
-            padding: mobile ? '32px 0' : '48px 0',
-            borderTop: i === 0 ? '1px solid #1a1a1a' : 'none',
-            borderBottom: '1px solid #1a1a1a',
+            gridTemplateColumns: mobile ? '1fr' : 'clamp(120px, 14vw, 220px) 1fr auto',
+            alignItems: 'center',
+            gap: mobile ? 12 : 40,
+            paddingTop: mobile ? 32 : 48, paddingBottom: mobile ? 32 : 48,
+            paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
+            borderTop: '1px solid var(--sienna)',
+            borderBottom: i === phases.length - 1 ? '1px solid var(--sienna)' : 'none',
           }}>
-            <span style={{
+            {/* Oversized numeral, bleeding left */}
+            <span aria-hidden="true" style={{
               fontFamily: "'Anton', Impact, sans-serif",
-              fontSize: mobile ? 'clamp(2.5rem, 8vw, 4rem)' : 'clamp(3rem, 6vw, 5rem)',
-              color: 'var(--primary)', lineHeight: 1, fontWeight: 700,
+              fontSize: mobile ? 'clamp(3rem, 14vw, 5rem)' : 'clamp(5rem, 10vw, 9rem)',
+              color: 'var(--terracotta)', lineHeight: 0.8, fontWeight: 400,
+              marginLeft: mobile ? '-4px' : 'clamp(-30px, -3vw, -12px)',
             }}>{p.num}</span>
-            <h3 style={{
-              fontFamily: "'Anton', Impact, sans-serif",
-              fontSize: mobile ? 'clamp(2rem, 7vw, 3.5rem)' : 'clamp(2.5rem, 5vw, 4rem)',
-              color: '#111', textTransform: 'uppercase', margin: 0, lineHeight: 1,
-              letterSpacing: '0.01em',
-            }}>{p.title}</h3>
-            {!mobile && (
+
+            <div>
               <p style={{
-                fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.1rem, 1.5vw, 1.25rem)',
-                lineHeight: 1.4, color: '#666', maxWidth: 360, margin: 0, textAlign: 'right',
-              }}>{p.desc}</p>
-            )}
-            {mobile && (
-              <p style={{
-                gridColumn: '1 / -1',
-                fontFamily: "'Geist', sans-serif", fontSize: '1.125rem',
-                lineHeight: 1.4, color: '#666', margin: 0,
-              }}>{p.desc}</p>
-            )}
+                fontFamily: "'Geist Mono', monospace", fontSize: 13,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+                color: 'var(--sienna)', margin: '0 0 8px 0',
+              }}>{p.days}</p>
+              <h3 style={{
+                fontFamily: "'Anton', Impact, sans-serif",
+                fontSize: mobile ? 'clamp(2rem, 9vw, 3rem)' : 'clamp(2.5rem, 5vw, 4rem)',
+                color: 'var(--ink)', textTransform: 'uppercase', margin: 0, lineHeight: 0.95,
+              }}>{p.title}</h3>
+            </div>
+
+            <p style={{
+              fontFamily: "'Geist', sans-serif", fontWeight: 300,
+              fontSize: mobile ? '1.05rem' : 'clamp(1rem, 1.4vw, 1.25rem)',
+              lineHeight: 1.5, color: 'var(--text-dim)',
+              maxWidth: mobile ? '100%' : 380, margin: mobile ? '12px 0 0 0' : 0,
+              textAlign: mobile ? 'left' : 'right',
+            }}>{p.desc}</p>
           </div>
         ))}
+      </div>
+
+      {/* CTA */}
+      <div style={{
+        maxWidth: 1240, margin: '48px auto 0',
+        paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
+      }}>
+        <button onClick={onBook} style={{
+          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+          color: 'var(--terracotta)', background: 'none', border: 'none', cursor: 'pointer',
+          textTransform: 'uppercase', letterSpacing: '0.02em', padding: 0,
+        }}>Start your week →</button>
       </div>
     </section>
   );

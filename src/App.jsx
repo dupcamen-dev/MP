@@ -3,7 +3,7 @@ import { useScrollProgress } from './hooks/useScrollProgress';
 import { useMobile } from './hooks/useMobile';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import TrustBadges from './components/TrustBadges';
+import ProofBar from './components/ProofBar';
 import Process from './components/Process';
 import HorizontalScroll from './components/HorizontalScroll';
 import ShowcaseSlide from './components/ShowcaseSlide';
@@ -16,23 +16,24 @@ export default function App() {
   const progress = useScrollProgress('process');
   const mobile = useMobile();
   const [showModal, setShowModal] = useState(false);
+  const openModal = () => setShowModal(true);
 
   return (
     <>
-      <Header />
+      <Header onBook={openModal} />
       <div style={{ position: 'relative', zIndex: 10 }}>
-        <Hero progress={progress} />
-        <TrustBadges />
+        <Hero onBook={openModal} />
+        <ProofBar />
         <div className="hero-spacer" style={{ height: '100vh', pointerEvents: 'none' }} />
       </div>
-      <Process progress={progress} />
+      <Process progress={progress} onBook={openModal} />
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
       {!mobile && <div className="h-scroll-spacer" style={{ height: '700vh', pointerEvents: 'none' }} />}
       {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
-      <PricingFAQ />
+      <PricingFAQ onBook={openModal} />
       <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} />
-      <FloatingCTA onOpen={() => setShowModal(true)} />
+      <FloatingCTA onOpen={openModal} />
       <ScrollToTop />
     </>
   );

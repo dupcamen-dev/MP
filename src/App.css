@@ -17,6 +17,14 @@
   --text: #2a2520;
   --text-dim: #8b7e72;
   --glass: rgba(250, 246, 240, 0.92);
+
+  /* Editorial Craft brand tokens */
+  --cream: #faf6f0;
+  --ink: #2a2520;
+  --terracotta: #c97b5c;
+  --sienna: #874626;
+  --deep: #5b301a;
+
   color-scheme: light;
 }
 
@@ -148,6 +156,11 @@ body::after {
   .menu-btn:hover span { width: 44px !important; }
 }
 
+/* Desktop: hide hamburger, show inline nav */
+@media (min-width: 901px) {
+  .menu-btn { display: none !important; }
+}
+
 .carousel-cell { cursor: pointer; }
 .carousel-cell .card-body button { transition: background 0.3s, color 0.3s; }
 .card-img img { transition: transform 0.5s, filter 0.5s; }
@@ -196,8 +209,12 @@ body::after {
   .h-scroll-wrap { height: auto !important; }
   .slide { min-height: 100dvh !important; height: auto !important; }
 
-  .menu-btn { width: 48px !important; height: 48px !important; }
+  .menu-btn { width: 52px !important; height: 52px !important; }
   body::after { display: none !important; }
+
+  /* Header: hide inline nav + CTA on mobile, show hamburger */
+  .header-nav { display: none !important; }
+  .header-cta { display: none !important; }
   
   /* Better mobile typography */
   h2 { font-size: clamp(1.75rem, 8vw, 3rem) !important; }
