@@ -11,7 +11,10 @@ export default function FloatingCTA({ onOpen }) {
     <button
       onClick={() => { onOpen(); setHidden(true); }}
       style={{
-        position: 'fixed', bottom: '32px', right: '24px', zIndex: 50,
+        position: 'fixed', 
+        bottom: 'max(32px, calc(32px + env(safe-area-inset-bottom)))', 
+        right: 'max(24px, calc(24px + env(safe-area-inset-right)))', 
+        zIndex: 50,
         width: '64px', height: '64px', borderRadius: '50%',
         background: 'var(--primary)', border: 'none',
         boxShadow: '0 8px 24px rgba(201, 123, 92, 0.3)',

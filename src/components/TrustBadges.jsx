@@ -2,12 +2,13 @@ export default function TrustBadges() {
   return (
     <section id="trust-badges" style={{
       background: 'var(--bg-alt)',
-      padding: '48px 64px',
+      paddingTop: '48px', paddingBottom: '48px',
+      paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
       borderBottom: '1px solid var(--surface-high)',
       position: 'relative', zIndex: 5,
     }}>
       <div style={{
-        maxWidth: 1200, margin: '0 auto',
+        margin: '0 auto',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
         gap: 32,

@@ -41,9 +41,10 @@ export default function ReviewsSlide({ cardPhase }) {
       minHeight: mobile ? '100dvh' : undefined,
       background: 'var(--surface-low)', overflow: mobile ? 'visible' : 'hidden',
       position: 'relative',
-      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
       justifyContent: 'center',
-      padding: mobile ? '60px 24px' : '0 80px',
+      paddingTop: mobile ? '60px' : '60px', paddingBottom: mobile ? '60px' : '60px',
+      paddingLeft: 'clamp(24px, 8%, 100px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
       <div style={{
         position: 'absolute', inset: 0,
@@ -54,23 +55,23 @@ export default function ReviewsSlide({ cardPhase }) {
         filter: 'sepia(0.5) saturate(0.6) contrast(1.1)',
         pointerEvents: 'none',
       }} />
-      <div style={{
-        position: 'relative', zIndex: 1, width: '100%', maxWidth: 1200,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24,
-      }}>
-        <h2 style={{
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.5rem, 10vw, 4rem)' : 'clamp(3rem, 6vw, 5rem)',
-          lineHeight: 0.95, color: 'var(--primary)', textTransform: 'uppercase',
-          letterSpacing: '0.01em', margin: 0, textAlign: 'center',
-        }}>
+       <div style={{
+         position: 'relative', zIndex: 1, width: '100%', paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
+         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24,
+       }}>
+         <h2 style={{
+           fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.5rem, 10vw, 4rem)' : 'clamp(3rem, 6vw, 5rem)',
+           lineHeight: 0.95, color: 'var(--primary)', textTransform: 'uppercase',
+           letterSpacing: '0.01em', margin: 0, textAlign: 'left',
+         }}>
           12 PROJECTS. 6.3 AVG DAYS.<br />ZERO HANDOVER DRAMA.
         </h2>
 
-        <div ref={gridRef} className="reviews-grid" style={{
-          display: 'grid', gridTemplateColumns: (mobile && !tablet) ? '1fr' : 'repeat(2, 1fr)',
-          gap: mobile ? (tablet ? 32 : 24) : 48, maxWidth: 1200, width: '100%',
-          marginTop: mobile ? 32 : 24,
-        }}>
+         <div ref={gridRef} className="reviews-grid" style={{
+           display: 'grid', gridTemplateColumns: (mobile && !tablet) ? '1fr' : 'repeat(2, 1fr)',
+           gap: mobile ? (tablet ? 32 : 24) : 48, width: '100%',
+           marginTop: mobile ? 32 : 24,
+         }}>
           {reviews.slice(0, 2).map((r, i) => (
             <div key={i} className="review-card" style={cardStyle}>
               <p style={{

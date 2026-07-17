@@ -38,14 +38,14 @@ export default function Hero({ progress }) {
   return (
     <section id="hero" style={{
       height: '100vh', display: 'flex', alignItems: 'center',
-      justifyContent: 'center', padding: '120px 64px 80px',
+      justifyContent: 'flex-start', paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 120px)', paddingTop: '120px', paddingBottom: '80px',
       position: 'sticky', top: 0, zIndex: 1, overflow: 'hidden',
       background: 'var(--primary)', color: 'var(--bg)',
     }}>
       <div style={{
-        position: 'relative', zIndex: 2, maxWidth: 1200, width: '100%',
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-        textAlign: 'center', gap: 40,
+        position: 'relative', zIndex: 2, maxWidth: 800,
+        display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+        textAlign: 'left', gap: 40,
       }}>
         <h1 className="hero-title" style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(4rem,15vw,12.5rem)',
@@ -63,19 +63,19 @@ export default function Hero({ progress }) {
           </span>
         </h1>
         <p className="hero-sub" style={{
-          maxWidth: 800, width: '100%',
+          width: '100%',
           fontFamily: "'Geist', sans-serif",
           fontSize: 'clamp(1.25rem, 2.4vw, 1.875rem)',
           lineHeight: 1.3, letterSpacing: '0.01em', fontWeight: 300,
-          color: 'var(--bg)', textAlign: 'center',
+          color: 'var(--bg)', textAlign: 'left',
           margin: 0,
         }}>
           From idea to live product in 7 days.{' '}
           <span style={{ color: 'var(--secondary)', fontWeight: 500 }}>Senior engineers + AI.</span>
         </p>
         <div style={{
-          display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
-          gap: mobile ? 12 : 20, maxWidth: 700,
+          display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start',
+          gap: mobile ? 12 : 20, maxWidth: 100%,
         }}>
           {['Next.js', 'React', 'Node', 'Postgres', 'Stripe', 'TypeScript'].map((s) => (
             <span key={s} style={{

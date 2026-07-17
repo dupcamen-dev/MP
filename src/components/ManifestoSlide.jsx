@@ -45,21 +45,23 @@ export default function ManifestoSlide({ progress }) {
 
   const renderGradientText = () => (
     <span style={{
-      background: `linear-gradient(90deg, var(--primary) ${hlPct}%, rgba(42, 37, 32, 0.25) ${hlPct}%)`,
+      background: `linear-gradient(90deg, var(--primary) ${hlPct}%, var(--primary-muted) ${hlPct}%)`,
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
+      color: 'var(--primary)',
       willChange: 'background',
+      fontWeight: 500,
     }}>
       Vibe coding turns thought into reality.
     </span>
   );
 
   const content = (
-    <div ref={ref} className="card-in" style={{ maxWidth: 1000, width: '100%', textAlign: 'center', position: 'relative', zIndex: 2 }}>
+    <div ref={ref} className="card-in" style={{ width: '100%', textAlign: 'left', position: 'relative', zIndex: 2, paddingLeft: 'clamp(24px, 8%, 120px)', paddingRight: 'clamp(24px, 5%, 100px)', maxWidth: 900 }}>
       <h2 style={{
         fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem, 8vw, 5.5rem)',
-        color: 'var(--text)', marginBottom: 40, lineHeight: 0.9, letterSpacing: '0.01em',
+        color: 'var(--text)', marginBottom: 40, lineHeight: 0.9, letterSpacing: '0.01em', textAlign: 'left',
       }}>
         WE SHIP IN DAYS.{' '}
         <span style={{ color: 'var(--secondary)' }}>
@@ -69,7 +71,7 @@ export default function ManifestoSlide({ progress }) {
       <p style={{
         fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1.35rem, 2.2vw, 1.75rem)',
         lineHeight: 1.5, color: 'var(--text)', fontWeight: 300,
-        maxWidth: 820, margin: '0 auto',
+        margin: 0, textAlign: 'left',
       }}>
         12 MVPs in 6 months. Average 6.3 days from first call to live.{' '}
         {renderGradientText()} It&apos;s not AI magic — it&apos;s senior engineers using AI to skip the boilerplate. Daily check-ins. Real product. No meetings about meetings.

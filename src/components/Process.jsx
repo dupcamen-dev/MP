@@ -28,10 +28,11 @@ export default function Process({ progress }) {
     <section id="process" style={{
       position: 'relative', zIndex: 3,
       marginBottom: mobile ? '0' : '-100vh',
-      background: 'var(--bg-alt)', padding: mobile ? (tablet ? '80px 0 60px' : '60px 0 40px') : '120px 0 100px',
+      background: 'var(--bg-alt)', paddingTop: mobile ? (tablet ? '80px' : '60px') : '120px', paddingBottom: mobile ? (tablet ? '60px' : '40px') : '100px',
+      paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
       <div className="section-inner" style={{
-        maxWidth: 1200, margin: '0 auto', padding: '0 64px',
+        width: '100%', margin: '0 auto', paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
         position: 'relative', zIndex: 2,
       }}>
         <h1 style={{
@@ -84,7 +85,7 @@ export default function Process({ progress }) {
         </div>
       </div>
 
-      <div className="section-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 64px', marginTop: 120 }}>
+      <div className="section-inner" style={{ width: '100%', margin: '0 auto', paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)', marginTop: 120 }}>
         {phases.map((p, i) => (
           <div key={i} className="phase-item" style={{
             display: 'grid',

@@ -27,7 +27,7 @@ export default function App() {
       <Process progress={progress} />
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
-      {!mobile && <div className="h-scroll-spacer" style={{ height: '1400vh', pointerEvents: 'none' }} />}
+      {!mobile && <div className="h-scroll-spacer" style={{ height: '700vh', pointerEvents: 'none' }} />}
       {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
       <PricingFAQ />
       <CtaOverlay progress={progress} showModal={showModal} setShowModal={setShowModal} />

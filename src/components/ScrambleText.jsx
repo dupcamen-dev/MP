@@ -1,13 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const CHARS = '!<>-_\\/[]{}—=+*^?#________';
 
 export default function ScrambleText({ text, delay = 0, cascade = 80, speed = 80, ...props }) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 900);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // On mobile, just show the text without animation
+    if (isMobile) {
+      el.textContent = text;
+      return;
+    }
+
     const len = text.length;
     const start = performance.now();
     let frame;
@@ -41,7 +56,7 @@ export default function ScrambleText({ text, delay = 0, cascade = 80, speed = 80
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [text, delay, cascade, speed]);
+  }, [text, delay, cascade, speed, isMobile]);
 
   return <span ref={ref} {...props} style={{ whiteSpace: 'pre', ...(props.style || {}) }} />;
 }

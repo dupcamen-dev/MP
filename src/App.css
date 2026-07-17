@@ -187,6 +187,7 @@ body::after {
   .header-logo { font-size: 1.2rem !important; }
 
   #hero { padding: 100px 24px 60px !important; }
+  #hero h1 { font-size: clamp(2.5rem, 16vw, 5rem) !important; }
 
   #menu-overlay { padding: 0 24px !important; }
   #menu-overlay nav > a { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
@@ -194,13 +195,20 @@ body::after {
   .section-inner { padding: 0 24px !important; }
 
   .process-actions { flex-direction: column !important; }
-  .process-actions a { text-align: center !important; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  .process-actions a { text-align: center !important; min-height: 48px; display: flex; align-items: center; justify-content: center; font-size: 1rem !important; }
 
   .h-scroll-wrap { height: auto !important; }
   .slide { min-height: 100dvh !important; height: auto !important; }
 
-  .menu-btn { width: 44px !important; height: 44px !important; }
+  .menu-btn { width: 48px !important; height: 48px !important; }
   body::after { display: none !important; }
+  
+  /* Better mobile typography */
+  h2 { font-size: clamp(1.75rem, 8vw, 3rem) !important; }
+  p { font-size: clamp(1rem, 4vw, 1.25rem) !important; line-height: 1.6 !important; }
+  
+  /* Process phase descriptions visible on mobile */
+  .phase-item p { font-size: clamp(1rem, 3.5vw, 1.15rem) !important; }
 }
 
 @media (max-width: 480px) {

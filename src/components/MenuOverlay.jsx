@@ -32,8 +32,10 @@ export default function MenuOverlay() {
           position: 'fixed', inset: 0, background: 'var(--secondary)', zIndex: 60,
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
           padding: '0 64px',
-          transition: 'clip-path 0.5s cubic-bezier(0.77,0,0.175,1)',
-          clipPath: open ? 'circle(150% at top right)' : 'circle(0% at top right)',
+          transition: 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+          opacity: open ? 1 : 0,
+          transform: open ? 'translateX(0)' : 'translateX(100%)',
+          pointerEvents: open ? 'auto' : 'none',
         }}
       >
         <nav id="main-nav" style={{ display: 'flex', flexDirection: 'column', gap: 8, position: 'relative', zIndex: 1 }}>

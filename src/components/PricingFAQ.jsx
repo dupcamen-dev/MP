@@ -28,11 +28,12 @@ export default function PricingFAQ() {
 
   return (
     <section id="pricing" style={{
-      background: 'var(--surface-low)', padding: '120px 64px',
+      background: 'var(--surface-low)', paddingTop: '120px', paddingBottom: '120px',
+      paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
       position: 'relative', zIndex: 3,
     }}>
       <div style={{
-        maxWidth: 1000, margin: '0 auto',
+        width: '100%', margin: '0 auto',
       }}>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem, 8vw, 5rem)',
