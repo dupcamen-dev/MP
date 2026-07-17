@@ -45,13 +45,8 @@ export default function ManifestoSlide({ progress }) {
 
   const renderGradientText = () => (
     <span style={{
-      background: `linear-gradient(90deg, var(--primary) ${hlPct}%, var(--primary-muted) ${hlPct}%)`,
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
       color: 'var(--primary)',
-      willChange: 'background',
-      fontWeight: 500,
+      fontWeight: 600,
     }}>
       Vibe coding turns thought into reality.
     </span>
