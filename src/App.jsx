@@ -35,11 +35,9 @@ function Site({ showModal, setShowModal, onBook }) {
       <Hero onBook={onBook} />
       <Process progress={progress} onBook={onBook} />
       {mobile && <ShowcaseSlide />}
-      <div style={{ position: 'relative' }}>
-        <HorizontalScroll progress={progress} />
-        {!mobile && <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />}
-        {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
-      </div>
+      <HorizontalScroll progress={progress} />
+      {!mobile && <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />}
+      {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
       <PricingFAQ onBook={onBook} />
       <footer style={{
         background: '#000000',
