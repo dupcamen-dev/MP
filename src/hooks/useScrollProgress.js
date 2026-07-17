@@ -15,7 +15,7 @@ export function useScrollProgress(triggerId = 'process') {
           const sc = Math.max(0, window.scrollY - tp);
           const spacer = document.querySelector('.h-scroll-spacer');
           const sh = spacer ? spacer.offsetHeight : 1;
-          const pr = Math.min(1, sc / sh);
+          const pr = Math.min(1, Math.max(0, sc / sh)); // Ensure 0-1 range
           if (Math.abs(pr - last.current) > 0.003) {
             last.current = pr;
             setProgress(pr);
