@@ -66,7 +66,11 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
 
         {/* Auth buttons */}
         {user ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }} className="header-auth">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="header-auth">
+            <span style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 11,
+              letterSpacing: '0.04em', color: 'var(--text-dim)',
+            }}>{user.email}</span>
             <a href="/#/admin" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
