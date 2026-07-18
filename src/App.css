@@ -211,7 +211,6 @@ body::after {
   .slide { min-height: 100dvh !important; height: auto !important; }
 
   .menu-btn { width: 52px !important; height: 52px !important; }
-  body::after { display: none !important; }
 
   /* Header: hide inline nav + CTA on mobile, show hamburger */
   .header-nav { display: none !important; }
