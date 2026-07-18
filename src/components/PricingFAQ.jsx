@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PixelSeam from './PixelSeam';
 import { PrimaryButton } from './Button';
 
 export default function PricingFAQ({ onBook }) {
@@ -17,7 +16,6 @@ export default function PricingFAQ({ onBook }) {
 
   return (
     <>
-      <PixelSeam top="var(--ink)" bottom="var(--cream)" height={40} />
       <section id="pricing" style={{
         background: 'var(--cream)', paddingTop: '120px', paddingBottom: '120px',
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',

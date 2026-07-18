@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
-import PixelSeam from './PixelSeam';
 
 const reviews = [
   {
@@ -60,7 +59,6 @@ export default function ReviewsSlide() {
       paddingLeft: 'clamp(24px, 8%, 100px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
       <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1240, margin: '0 auto' }}>
-        <PixelSeam />
         <p style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',

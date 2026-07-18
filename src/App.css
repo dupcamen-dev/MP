@@ -7,10 +7,10 @@
   --surface-high: #f0f0f0;
   --surface-highest: #e0e0e0;
   --on-surface: #2d2d2d;
-  --primary: #f5f0c0;
+  --primary: #f0e060;
   --on-primary: #2d2d2d;
-  --primary-muted: #d9d4a0;
-  --primary-container: #faf8e8;
+  --primary-muted: #d9ca4a;
+  --primary-container: #faf5d0;
   --secondary: #555555;
   --secondary-container: #1a1a1a;
   --steel: #999999;
@@ -21,7 +21,7 @@
   /* Brand tokens — White + Graphite + Lemon Yellow + Grey + Black */
   --cream: #ffffff;
   --ink: #2d2d2d;
-  --terracotta: #f5f0c0;
+  --terracotta: #f0e060;
   --sienna: #555555;
   --deep: #1a1a1a;
 

@@ -14,7 +14,6 @@ import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
 import CookieConsent from './components/CookieConsent';
 import PrivacyTerms from './components/PrivacyTerms';
-import Stamp from './components/Stamp';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -73,10 +72,6 @@ function Site({ showModal, setShowModal, onBook }) {
           <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
             <span style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.1em', color: 'var(--cream)',
-            }}>EST. 2024</span>
-            <span style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.08em',               color: 'rgba(255,255,255,0.4)',
             }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
             <div style={{ display: 'flex', gap: 20 }}>
@@ -91,7 +86,7 @@ function Site({ showModal, setShowModal, onBook }) {
                 textDecoration: 'none',
               }}>Terms of Service</a>
             </div>
-            <Stamp size={96} color="rgba(255,255,255,0.5)" />
+
           </div>
         </div>
       </footer>

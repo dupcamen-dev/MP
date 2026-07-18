@@ -43,7 +43,7 @@ export default function Hero({ onBook }) {
           ...reveal(0.08),
         }}>
           Idea to live<br />software.<br />
-          <span style={{ color: 'var(--deep)' }}>Seven days.</span>
+          <span style={{ color: 'var(--primary)' }}>Seven days.</span>
         </h1>
 
         <p style={{
