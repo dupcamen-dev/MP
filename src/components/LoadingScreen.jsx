@@ -38,13 +38,7 @@ export default function LoadingScreen({ onFinish }) {
       opacity: phase === 'done' ? 0 : 1,
       pointerEvents: phase === 'done' ? 'none' : 'auto',
     }}>
-      <h1 style={{
-        fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(3rem,10vw,6rem)',
-        color: 'var(--primary)', textTransform: 'uppercase', lineHeight: 0.85,
-        textAlign: 'center',
-      }}>
-        MILLION<span style={{ color: 'var(--secondary)' }}>PIXELS</span>
-      </h1>
+      <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(48px, 8vw, 80px)', width: 'auto', display: 'block' }} />
       <div style={{
         width: 160, height: 3, background: 'var(--surface-highest)',
         position: 'relative', overflow: 'hidden',
