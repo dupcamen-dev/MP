@@ -33,21 +33,23 @@ export default function LoadingScreen({ onFinish }) {
       position: 'fixed', inset: 0, zIndex: 9999,
       background: 'var(--surface-low)',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center', gap: 48,
+      justifyContent: 'center',
       transition: 'opacity 0.6s',
       opacity: phase === 'done' ? 0 : 1,
       pointerEvents: phase === 'done' ? 'none' : 'auto',
     }}>
-      <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(48px, 8vw, 80px)', width: 'auto', display: 'block' }} />
-      <div style={{
-        width: 160, height: 3, background: 'var(--surface-highest)',
-        position: 'relative', overflow: 'hidden',
-      }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
+        <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(48px, 8vw, 80px)', width: 'auto', display: 'block' }} />
         <div style={{
-          position: 'absolute', top: 0, left: 0, height: '100%', width: '40%',
-          background: 'var(--primary)',
-          animation: 'loading-bar 1.2s ease-in-out infinite',
-        }} />
+          width: '100%', height: 3, background: 'var(--surface-highest)',
+          position: 'relative', overflow: 'hidden',
+        }}>
+          <div style={{
+            position: 'absolute', top: 0, left: 0, height: '100%', width: '40%',
+            background: 'var(--primary)',
+            animation: 'loading-bar 1.2s ease-in-out infinite',
+          }} />
+        </div>
       </div>
     </div>
   );
