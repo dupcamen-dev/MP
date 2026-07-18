@@ -56,7 +56,7 @@ function Site({ showModal, setShowModal, onBook }) {
             <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               style={{
                 fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                color: 'var(--terracotta)', textDecoration: 'none', letterSpacing: '-0.01em',
+                color: 'var(--ink)', textDecoration: 'none', letterSpacing: '-0.01em',
                 display: 'block', marginBottom: 24,
               }}>MILLIONPIXELS</a>
             <nav style={{ display: 'flex', gap: 24 }}>
@@ -65,7 +65,7 @@ function Site({ showModal, setShowModal, onBook }) {
                   style={{
                     fontFamily: "'Geist Mono', monospace", fontSize: 12,
                     letterSpacing: '0.12em', textTransform: 'uppercase',
-                    color: 'rgba(250,246,240,0.6)', textDecoration: 'none',
+                    color: 'rgba(255,255,255,0.6)', textDecoration: 'none',
                   }}>{l.label}</a>
               ))}
             </nav>
@@ -73,25 +73,25 @@ function Site({ showModal, setShowModal, onBook }) {
           <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
             <span style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.1em', color: 'var(--terracotta)',
+              letterSpacing: '0.1em', color: 'var(--cream)',
             }}>EST. 2024</span>
             <span style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.08em', color: 'rgba(250,246,240,0.4)',
+              letterSpacing: '0.08em',               color: 'rgba(255,255,255,0.4)',
             }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
             <div style={{ display: 'flex', gap: 20 }}>
               <a href="#/privacy" style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 11,
-                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.4)',
+                letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
                 textDecoration: 'none',
               }}>Privacy Policy</a>
               <a href="#/terms" style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 11,
-                letterSpacing: '0.06em', color: 'rgba(250,246,240,0.4)',
+                letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
                 textDecoration: 'none',
               }}>Terms of Service</a>
             </div>
-            <Stamp size={96} color="rgba(250,246,240,0.5)" />
+            <Stamp size={96} color="rgba(255,255,255,0.5)" />
           </div>
         </div>
       </footer>
@@ -147,7 +147,7 @@ export default function App() {
               This account does not have admin access.
             </p>
             <button onClick={handleSignOut} style={{
-              padding: '12px 28px', background: 'var(--terracotta)', color: 'var(--cream)',
+              padding: '12px 28px', background: 'var(--ink)', color: 'var(--cream)',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
               textTransform: 'uppercase', border: 'none', cursor: 'pointer',
               letterSpacing: '0.04em',

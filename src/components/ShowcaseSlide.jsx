@@ -12,7 +12,7 @@ function ProjectCard({ p }) {
       width: '100%', height: '100%',
       background: 'var(--cream)',
       border: '1px solid var(--sienna)',
-      boxShadow: '0 12px 40px rgba(135, 70, 38, 0.2)',
+      boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
       position: 'relative', overflow: 'hidden', display: 'flex',
       flexDirection: 'column', padding: 14,
       transition: 'border-color 0.4s, box-shadow 0.4s',
@@ -40,19 +40,19 @@ function ProjectCard({ p }) {
           onError={e => { e.target.style.display = 'none'; e.target.parentNode.style.background = p.color + '33'; }}
           style={{
           width: '100%', height: '100%', objectFit: 'cover',
-          filter: 'sepia(0.35) saturate(0.9) contrast(1.05)',
+          filter: 'grayscale(0.2) contrast(1.05)',
           transition: 'transform 0.5s',
         }} />
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(135deg, rgba(201,123,92,0.28), rgba(135,70,38,0.18))',
+          background: 'linear-gradient(135deg, rgba(45,45,45,0.15), rgba(26,26,26,0.10))',
           mixBlendMode: 'multiply', pointerEvents: 'none',
         }} />
         <span style={{
           position: 'absolute', top: 12, left: 12,
           fontFamily: "'Geist Mono', monospace", fontSize: 10,
           letterSpacing: '0.14em', textTransform: 'uppercase',
-          color: 'var(--cream)', background: 'rgba(42,37,32,0.7)', padding: '5px 10px',
+          color: 'var(--cream)', background: 'rgba(26,26,26,0.8)', padding: '5px 10px',
         }}>{p.tag}</span>
       </div>
       <div className="card-body" style={{
@@ -81,7 +81,7 @@ function ProjectCard({ p }) {
           }}>{p.caption}</span>
           <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-            color: 'var(--terracotta)', textTransform: 'uppercase',
+            color: 'var(--ink)', textTransform: 'uppercase',
             letterSpacing: '0.06em', textDecoration: 'none', whiteSpace: 'nowrap',
           }}>Visit →</a>
         </div>
@@ -134,7 +134,7 @@ function MobileProjectList() {
               width: '100%', height: '100vh',
               minHeight: '100dvh',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'var(--terracotta)', overflow: 'hidden', position: 'relative',
+              background: 'var(--ink)', overflow: 'hidden', position: 'relative',
               padding: '24px',
               scrollSnapAlign: 'center',
             }}
@@ -249,7 +249,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
     <section className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'var(--terracotta)', overflow: 'hidden', position: 'relative',
+      background: 'var(--ink)', overflow: 'hidden', position: 'relative',
     }}>
       {/* Header */}
       <div style={{
@@ -304,7 +304,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
             <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
               width: activeIdx === j ? 24 : 8, height: 8, minWidth: 44, minHeight: 44,
               borderRadius: 4, border: 'none', padding: 0,
-              background: activeIdx === j ? 'var(--surface)' : 'rgba(42, 37, 32, 0.35)',
+                  background: activeIdx === j ? 'var(--surface)' : 'rgba(26, 26, 26, 0.35)',
               transition: 'all 0.3s ease', cursor: 'pointer',
             }} aria-label={`Go to project ${j + 1}`} />
           ))}

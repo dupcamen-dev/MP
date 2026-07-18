@@ -37,7 +37,7 @@ export default function ManifestoSlide({ progress }) {
     return (
       <section className="slide manifesto-slide" id="manifesto" style={{
         width: '100%', minHeight: '80vh',
-        background: 'radial-gradient(120% 120% at 50% 40%, #d98c6c 0%, var(--terracotta) 45%, var(--deep) 130%)', overflow: 'hidden',
+        background: 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%)', overflow: 'hidden',
         display: 'flex', alignItems: 'center',
         paddingTop: 'clamp(80px, 12vh, 140px)', paddingBottom: 'clamp(80px, 12vh, 140px)',
         paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
@@ -50,7 +50,7 @@ export default function ManifestoSlide({ progress }) {
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
-      background: 'radial-gradient(120% 120% at 50% 40%, #d98c6c 0%, var(--terracotta) 45%, var(--deep) 130%)', overflow: 'hidden', position: 'relative',
+      background: 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%)', overflow: 'hidden', position: 'relative',
       display: 'flex', alignItems: 'center',
       paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
     }}>

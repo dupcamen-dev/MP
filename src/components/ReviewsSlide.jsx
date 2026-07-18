@@ -71,7 +71,7 @@ export default function ReviewsSlide() {
           lineHeight: 0.95, color: 'var(--ink)', textTransform: 'uppercase',
           letterSpacing: '-0.01em', margin: '0 0 48px 0',
         }}>
-          Shipped. <span style={{ color: 'var(--terracotta)' }}>Loved.</span> Running.
+          Shipped. <span style={{ color: 'var(--ink)' }}>Loved.</span> Running.
         </h2>
 
         <div ref={gridRef} className="reviews-grid" style={{
@@ -87,11 +87,11 @@ export default function ReviewsSlide() {
                 fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',
                 lineHeight: 1.5, color: 'var(--ink)', margin: 0, fontWeight: 400,
               }}>&ldquo;{r.text}&rdquo;</p>
-              <div style={{ marginTop: 20, borderTop: '1px solid rgba(135, 70, 38, 0.2)', paddingTop: 16 }}>
+              <div style={{ marginTop: 20, borderTop: '1px solid rgba(0, 0, 0, 0.1)', paddingTop: 16 }}>
                 <h4 style={{
                   fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.9rem',
                   fontWeight: 600, letterSpacing: '0.02em',
-                  color: 'var(--terracotta)', margin: 0, textTransform: 'uppercase',
+                  color: 'var(--ink)', margin: 0, textTransform: 'uppercase',
                 }}>{r.author}</h4>
                 <p style={{
                   fontFamily: "'Geist Mono', monospace", fontSize: 10,

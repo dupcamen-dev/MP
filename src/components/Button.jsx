@@ -9,7 +9,7 @@ export function PrimaryButton({ children, onClick, href, as, style = {}, ...prop
     fontFamily: "'Anton', Impact, sans-serif",
     fontSize: 'clamp(0.95rem, 1.4vw, 1.15rem)',
     letterSpacing: '0.04em', textTransform: 'uppercase',
-    color: 'var(--cream)', background: 'var(--terracotta)',
+    color: 'var(--cream)', background: 'var(--ink)',
     border: 'none', borderRadius: 0, cursor: 'pointer',
     padding: '16px 32px', textDecoration: 'none',
     boxShadow: pressed ? '0 0 0 var(--deep)' : '5px 5px 0 var(--deep)',

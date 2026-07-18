@@ -39,7 +39,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.15rem, 2.2vw, 1.6rem)',
-          color: 'var(--terracotta)', textDecoration: 'none', letterSpacing: '-0.01em',
+          color: 'var(--ink)', textDecoration: 'none', letterSpacing: '-0.01em',
         }}
       >
         MILLIONPIXELS

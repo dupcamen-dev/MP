@@ -36,7 +36,7 @@ export default function MenuOverlay({ onBook }) {
       id="menu-overlay"
       className={open ? 'open' : ''}
       style={{
-        position: 'fixed', inset: 0, background: 'var(--secondary)', zIndex: 9000,
+        position: 'fixed', inset: 0, background: 'var(--ink)', zIndex: 9000,
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start',
         paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 120px)',
         transition: 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
@@ -108,11 +108,11 @@ export default function MenuOverlay({ onBook }) {
           width: 52, height: 52, justifyContent: 'center', alignItems: 'center',
           cursor: 'pointer', background: 'var(--primary)', border: 'none', outline: 'none',
           borderRadius: 12, padding: 14,
-          boxShadow: '0 4px 12px rgba(201, 123, 92, 0.25)',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
           transition: 'transform 0.3s, box-shadow 0.3s',
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(201, 123, 92, 0.35)'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(201, 123, 92, 0.25)'; }}
+        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.35)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.25)'; }}
       >
         <span style={{
           display: 'block', height: 2.5, background: 'var(--surface-low)',

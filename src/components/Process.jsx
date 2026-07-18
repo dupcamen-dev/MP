@@ -42,7 +42,7 @@ export default function Process({ progress, onBook }) {
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
           lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 20px 0',
         }}>
-          From idea to live<br /><span style={{ color: 'var(--terracotta)' }}>in 168 hours.</span>
+          From idea to live<br /><span style={{ color: 'var(--ink)' }}>in 168 hours.</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontWeight: 300,
@@ -74,7 +74,7 @@ export default function Process({ progress, onBook }) {
             <span aria-hidden="true" style={{
               fontFamily: "'Anton', Impact, sans-serif",
               fontSize: mobile ? 'clamp(3rem, 14vw, 5rem)' : 'clamp(5rem, 10vw, 9rem)',
-              color: 'var(--terracotta)', lineHeight: 0.8, fontWeight: 400,
+              color: 'var(--ink)', lineHeight: 0.8, fontWeight: 400,
               marginLeft: mobile ? '-4px' : 'clamp(-30px, -3vw, -12px)',
             }}>{p.num}</span>
 
@@ -110,7 +110,7 @@ export default function Process({ progress, onBook }) {
       }}>
         <button onClick={onBook} style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-          color: 'var(--terracotta)', background: 'none', border: 'none', cursor: 'pointer',
+          color: 'var(--ink)', background: 'none', border: 'none', cursor: 'pointer',
           textTransform: 'uppercase', letterSpacing: '0.02em', padding: 0,
         }}>Start your week →</button>
       </div>

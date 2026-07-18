@@ -26,17 +26,17 @@ export default function ScrollToTop() {
         right: 'max(24px, calc(24px + env(safe-area-inset-right)))',
         zIndex: 50,
         width: 52, height: 52, borderRadius: '50%',
-        background: 'var(--secondary)', border: 'none',
-        color: 'var(--surface-low)', cursor: 'pointer',
+        background: 'var(--ink)', border: 'none',
+        color: 'var(--cream)', cursor: 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        boxShadow: '0 6px 20px rgba(135, 70, 38, 0.3)',
+        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.25)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(16px)',
         pointerEvents: visible ? 'auto' : 'none',
         transition: 'opacity 0.3s, transform 0.3s, background 0.3s',
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--secondary)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--terracotta)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.transform = 'translateY(0)'; }}
     >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 19V5M5 12l7-7 7 7" />

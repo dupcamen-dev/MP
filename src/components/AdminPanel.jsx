@@ -57,7 +57,7 @@ const s = {
     color: 'var(--ink)', outline: 'none', boxSizing: 'border-box',
   },
   btn: {
-    padding: '12px 28px', background: 'var(--terracotta)', color: 'var(--cream)',
+    padding: '12px 28px', background: 'var(--ink)', color: 'var(--cream)',
     fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
     textTransform: 'uppercase', border: 'none', borderRadius: 0,
     cursor: 'pointer', letterSpacing: '0.04em',
@@ -76,7 +76,7 @@ const s = {
     display: 'inline-block', padding: '3px 10px',
     fontFamily: "'Geist Mono', monospace", fontSize: 10,
     letterSpacing: '0.1em', textTransform: 'uppercase',
-    background: 'var(--terracotta)', color: 'var(--cream)',
+    background: 'var(--ink)', color: 'var(--cream)',
   },
   statusRead: {
     display: 'inline-block', padding: '3px 10px',
@@ -90,7 +90,7 @@ const s = {
   },
   link: {
     fontFamily: "'Geist Mono', monospace", fontSize: 12,
-    color: 'var(--terracotta)', textDecoration: 'none',
+    color: 'var(--ink)', textDecoration: 'none',
     letterSpacing: '0.06em', display: 'inline-block', marginTop: 24,
   },
 };
@@ -193,14 +193,14 @@ export default function AdminPanel({ user, onSignOut }) {
             { id: 'google', label: 'Google Auth' },
           ].map(t => (
             <button key={t.id} onClick={() => setTab(t.id)} style={{
-              padding: '14px 24px', background: 'none', border: 'none', borderBottom: tab === t.id ? '2px solid var(--terracotta)' : '2px solid transparent',
+              padding: '14px 24px', background: 'none', border: 'none', borderBottom: tab === t.id ? '2px solid var(--ink)' : '2px solid transparent',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem', textTransform: 'uppercase',
-              color: tab === t.id ? 'var(--terracotta)' : 'var(--text-dim)',
+              color: tab === t.id ? 'var(--ink)' : 'var(--text-dim)',
               cursor: 'pointer', letterSpacing: '0.04em', position: 'relative',
             }}>
               {t.label}
               {t.badge && <span style={{
-                marginLeft: 8, padding: '2px 8px', background: 'var(--terracotta)',
+                marginLeft: 8, padding: '2px 8px', background: 'var(--ink)',
                 color: 'var(--cream)', fontSize: 11, fontFamily: "'Geist Mono', monospace",
               }}>{t.badge}</span>}
             </button>
@@ -250,7 +250,7 @@ export default function AdminPanel({ user, onSignOut }) {
                     <span style={{ ...s.label, marginBottom: 4 }}>CONTACT</span>
                     <p style={{
                       fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.1rem',
-                      color: 'var(--terracotta)', margin: 0, textTransform: 'uppercase',
+                      color: 'var(--ink)', margin: 0, textTransform: 'uppercase',
                     }}>{o.contact}</p>
                   </div>
                 </div>
@@ -272,9 +272,9 @@ export default function AdminPanel({ user, onSignOut }) {
               fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
-              For production (Vercel): set <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0e9df', padding: '2px 6px' }}>TELEGRAM_BOT_TOKEN</code> and{' '}
-              <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0e9df', padding: '2px 6px' }}>TELEGRAM_CHAT_ID</code> in{' '}
-              <a href="https://vercel.com/dupcamen-dev/mp/settings/environment-variables" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terracotta)' }}>
+              For production (Vercel): set <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_BOT_TOKEN</code> and{' '}
+              <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_CHAT_ID</code> in{' '}
+              <a href="https://vercel.com/dupcamen-dev/mp/settings/environment-variables" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink)' }}>
                 Vercel Environment Variables
               </a>.
               The local config below works for local development only.
@@ -304,8 +304,8 @@ export default function AdminPanel({ user, onSignOut }) {
                   {saved ? '✓ SAVED' : 'SAVE'}
                 </button>
                 <button onClick={handleTestBot} disabled={testing} style={{
-                  ...s.btn, background: 'transparent', color: 'var(--terracotta)',
-                  border: '1px solid var(--terracotta)',
+                  ...s.btn, background: 'transparent', color: 'var(--ink)',
+                  border: '1px solid var(--ink)',
                 }}>
                   {testing ? 'TESTING…' : 'TEST CONNECTION'}
                 </button>
@@ -322,7 +322,7 @@ export default function AdminPanel({ user, onSignOut }) {
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
               Configure Google Sign-In for admin access. Create an OAuth client ID at{' '}
-              <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terracotta)' }}>
+              <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink)' }}>
                 Google Cloud Console
               </a>{' '}
               (OAuth 2.0 Client ID, Web Application type).
@@ -354,12 +354,12 @@ export default function AdminPanel({ user, onSignOut }) {
                 fontFamily: "'Geist', sans-serif", fontSize: '0.95rem', color: 'var(--ink)',
                 margin: 0, paddingLeft: 20, lineHeight: 2,
               }}>
-                <li>Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terracotta)' }}>console.cloud.google.com</a></li>
+                <li>Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink)' }}>console.cloud.google.com</a></li>
                 <li>Create a project (or use existing)</li>
                 <li>Go to <strong>APIs & Services &gt; Credentials</strong></li>
                 <li>Click <strong>Create Credentials &gt; OAuth Client ID</strong></li>
                 <li>Type: <strong>Web Application</strong></li>
-                <li>Add Authorized redirect URI: <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0e9df', padding: '2px 6px' }}>{window.location.origin}</code></li>
+                <li>Add Authorized redirect URI: <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>{window.location.origin}</code></li>
                 <li>Copy the <strong>Client ID</strong> and paste above</li>
               </ol>
             </div>

@@ -53,7 +53,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             letterSpacing: '-0.01em', marginBottom: 24,
           }}>
             <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
-            <span className="line reveal" style={{ display: 'block', color: 'var(--terracotta)' }}>with one message.</span>
+            <span className="line reveal" style={{ display: 'block', color: 'var(--ink)' }}>with one message.</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 300,
@@ -70,7 +70,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             onMouseLeave={!mobile ? magnetic.onMouseLeave : undefined}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
-              padding: btnPadding, background: 'var(--terracotta)', color: 'var(--cream)',
+              padding: btnPadding, background: 'var(--ink)', color: 'var(--cream)',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.4vw, 1.85rem)',
               textTransform: 'uppercase', border: 'none', borderRadius: 0,
               cursor: 'pointer', letterSpacing: '0.03em',

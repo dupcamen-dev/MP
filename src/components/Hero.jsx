@@ -20,7 +20,8 @@ export default function Hero({ onBook }) {
       minHeight: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 'clamp(80px, 12vh, 140px) clamp(24px, 8%, 140px)',
-      background: 'radial-gradient(120% 120% at 50% 40%, #d98c6c 0%, var(--terracotta) 45%, var(--deep) 130%)',
+      backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.jpg)',
+      backgroundSize: 'cover', backgroundPosition: 'center',
       color: 'var(--cream)',
     }}>
       <div style={{

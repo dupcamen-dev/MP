@@ -13,19 +13,19 @@ export default function PrivacyTerms() {
     h2: {
       fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem',
       textTransform: 'uppercase', letterSpacing: '0.02em', marginTop: 48, marginBottom: 16,
-      color: 'var(--terracotta)',
+      color: 'var(--ink)',
     },
     p: {
       fontSize: '1rem', lineHeight: 1.7, color: 'var(--ink)',
       marginBottom: 16, opacity: 0.85,
     },
     link: {
-      color: 'var(--terracotta)', textDecoration: 'none',
+      color: 'var(--ink)', textDecoration: 'none',
     },
     back: {
       fontFamily: "'Geist Mono', monospace", fontSize: 12,
       letterSpacing: '0.1em', textTransform: 'uppercase',
-      color: 'var(--terracotta)', textDecoration: 'none',
+      color: 'var(--ink)', textDecoration: 'none',
       display: 'inline-block', marginBottom: 40,
     },
     hr: {
@@ -107,12 +107,12 @@ export default function PrivacyTerms() {
 
         <h2 style={s.h2}>Services</h2>
         <p style={s.p}>
-          MillionPixels.DEV provides a 7-day MVP (Minimum Viable Product) development service. For a fixed fee of $300, we build and deliver a production-grade web application within seven calendar days of engagement.
+          MillionPixels.DEV provides a 7-day MVP (Minimum Viable Product) development service. We build and deliver a production-grade web application within seven calendar days of engagement.
         </p>
 
         <h2 style={s.h2}>Booking and Payment</h2>
         <p style={s.p}>
-          Submitting a booking request does not guarantee availability. All engagements are subject to mutual agreement and payment confirmation. The $300 fee covers the full development cycle from idea to deployed product.
+          Submitting a booking request does not guarantee availability. All engagements are subject to mutual agreement and payment confirmation.
         </p>
 
         <h2 style={s.h2}>Deliverables</h2>

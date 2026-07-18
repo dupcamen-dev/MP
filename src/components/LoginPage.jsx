@@ -50,7 +50,7 @@ export default function LoginPage({ clientId, onSignIn, onBack }) {
           <a href="/#/" onClick={(e) => { e.preventDefault(); window.location.hash = '/'; }}
             style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              color: 'var(--terracotta)', textDecoration: 'none', letterSpacing: '-0.01em',
+              color: 'var(--ink)', textDecoration: 'none', letterSpacing: '-0.01em',
             }}>MILLIONPIXELS</a>
         </div>
 

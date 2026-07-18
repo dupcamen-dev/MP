@@ -69,7 +69,7 @@ export default function OrderModal({ onClose }) {
       const { token, chatId } = getBotConfig();
       if (token && chatId) {
         const msg = [
-          `📦 *NEW REQUEST — $300 MVP*`,
+          `📦 *NEW REQUEST — MVP BUILD*`,
           `🕒 ${display}`,
           `━━━━━━━━━━━━━━━━━`,
           `*PROJECT:*`,
@@ -97,11 +97,11 @@ export default function OrderModal({ onClose }) {
       }} onClick={onClose} role="dialog" aria-modal="true">
         <div onClick={e => e.stopPropagation()} style={{
           background: 'var(--surface-low)', padding: '60px 48px', maxWidth: 420, width: '90%',
-          textAlign: 'center', border: '2px solid var(--primary)',
+          textAlign: 'center',           border: '2px solid var(--ink)',
         }}>
           <div style={{ fontSize: '4rem', marginBottom: 16 }}>&#9889;</div>
           <h3 style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--primary)',
+            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--ink)',
             textTransform: 'uppercase', margin: '0 0 12px', letterSpacing: '0.05em',
           }}>REQUEST SENT</h3>
           <p style={{
@@ -111,9 +111,9 @@ export default function OrderModal({ onClose }) {
             We&apos;ll review your project and reply within 24 hours.
           </p>
           <button onClick={onClose} style={{
-            padding: '16px 48px', background: 'var(--primary)', color: 'var(--surface-low)',
+            padding: '16px 48px', background: 'var(--ink)', color: 'var(--cream)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
-            border: '2px solid var(--primary)', cursor: 'pointer', letterSpacing: '0.05em',
+            border: '2px solid var(--ink)', cursor: 'pointer', letterSpacing: '0.05em',
           }}>CLOSE</button>
         </div>
       </div>
@@ -126,7 +126,7 @@ export default function OrderModal({ onClose }) {
       justifyContent: 'center', background: 'rgba(15,15,18,0.85)', backdropFilter: 'blur(8px)',
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
-        background: 'var(--primary)', padding: '48px 40px', maxWidth: 520, width: '90%',
+        background: 'var(--ink)', padding: '48px 40px', maxWidth: 520, width: '90%',
         border: '4px solid var(--surface-low)',
       }}>
         <div style={{
@@ -140,7 +140,7 @@ export default function OrderModal({ onClose }) {
             <p style={{
               fontFamily: "'Geist', sans-serif", fontSize: '0.9rem', color: 'rgba(255,255,255,0.65)',
               margin: '6px 0 0 0',
-            }}>$300 · Live product in 7 days</p>
+            }}>Live product in 7 days</p>
           </div>
           <button onClick={onClose} style={{
             background: 'none', border: 'none', fontSize: '2rem', color: 'var(--surface-low)',
@@ -182,9 +182,9 @@ export default function OrderModal({ onClose }) {
           onClick={handleSubmit}
           disabled={sending}
           style={{
-            width: '100%', padding: '18px', background: 'var(--surface-low)', color: 'var(--primary)',
+            width: '100%', padding: '18px', background: 'var(--terracotta)', color: 'var(--ink)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.35rem', textTransform: 'uppercase',
-            border: '3px solid var(--surface-low)', cursor: sending ? 'wait' : 'pointer',
+            border: '3px solid var(--terracotta)', cursor: sending ? 'wait' : 'pointer',
             opacity: sending ? 0.6 : 1, letterSpacing: '0.05em', fontWeight: 700,
           }}
         >

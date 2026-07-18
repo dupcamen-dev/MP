@@ -1,29 +1,29 @@
 :root {
-  --bg: #faf6f0;
+  --bg: #ffffff;
   --bg-alt: #ffffff;
-  --bg-dim: #f0e9df;
+  --bg-dim: #f5f5f5;
   --surface: #ffffff;
-  --surface-low: #faf6f0;
-  --surface-high: #f0e9df;
-  --surface-highest: #e5dccf;
-  --on-surface: #2a2520;
-  --primary: #c97b5c;
-  --on-primary: #ffffff;
-  --primary-muted: #b86b4d;
-  --primary-container: #f3d9c9;
-  --secondary: #874626;
-  --secondary-container: #5b301a;
-  --steel: #8b7e72;
-  --text: #2a2520;
-  --text-dim: #8b7e72;
-  --glass: rgba(250, 246, 240, 0.92);
+  --surface-low: #ffffff;
+  --surface-high: #f0f0f0;
+  --surface-highest: #e0e0e0;
+  --on-surface: #2d2d2d;
+  --primary: #f5f0c0;
+  --on-primary: #2d2d2d;
+  --primary-muted: #d9d4a0;
+  --primary-container: #faf8e8;
+  --secondary: #555555;
+  --secondary-container: #1a1a1a;
+  --steel: #999999;
+  --text: #2d2d2d;
+  --text-dim: #999999;
+  --glass: rgba(255, 255, 255, 0.92);
 
-  /* Editorial Craft brand tokens */
-  --cream: #faf6f0;
-  --ink: #2a2520;
-  --terracotta: #c97b5c;
-  --sienna: #874626;
-  --deep: #5b301a;
+  /* Brand tokens — White + Graphite + Lemon Yellow + Grey + Black */
+  --cream: #ffffff;
+  --ink: #2d2d2d;
+  --terracotta: #f5f0c0;
+  --sienna: #555555;
+  --deep: #1a1a1a;
 
   color-scheme: light;
 }
@@ -128,7 +128,7 @@ body::after {
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), background 0.2s, color 0.2s, border-color 0.2s !important;
 }
 .process-btn.primary:hover { transform: translate(-2px, -2px); }
-.process-btn.outline:hover { background: #111; color: #fff; border-color: #111; }
+  .process-btn.outline:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
 @media (hover: hover) {
   .carousel-cell:hover .card-img img { transform: scale(1.05); }
