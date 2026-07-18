@@ -36,8 +36,8 @@ function Site({ showModal, setShowModal, onBook }) {
       <Process progress={progress} onBook={onBook} />
       {mobile && <ShowcaseSlide />}
       <HorizontalScroll progress={progress} />
-      {!mobile && <div className="h-scroll-spacer" style={{ height: '500vh', pointerEvents: 'none' }} />}
-      {!mobile && <div style={{ height: '100vh', pointerEvents: 'none' }} />}
+      {!mobile && <div className="h-scroll-spacer" style={{ height: '250vh', pointerEvents: 'none' }} />}
+      {!mobile && <div style={{ height: '50vh', pointerEvents: 'none' }} />}
       <PricingFAQ onBook={onBook} />
       <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
       <footer style={{
