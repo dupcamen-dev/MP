@@ -6,23 +6,7 @@ export default function ManifestoSlide({ progress }) {
   const cardRef = useRef(null);
   const sectionRef = useRef(null);
   const mobile = useMobile();
-  const [bgY, setBgY] = useState(50);
-
-  useEffect(() => {
-    if (!mobile) return;
-    const onScroll = () => {
-      const el = sectionRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      if (rect.bottom < 0 || rect.top > vh) return;
-      const pct = (rect.top + rect.height) / (vh + rect.height);
-      setBgY(50 + (pct - 0.5) * 30);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [mobile]);
+  const [bgVisible, setBgVisible] = useState(false);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -33,6 +17,17 @@ export default function ManifestoSlide({ progress }) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!mobile) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setBgVisible(entry.isIntersecting);
+    }, { threshold: 0.05 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [mobile]);
 
   const line = (
     <div ref={cardRef} className="card-in" style={{
@@ -53,18 +48,25 @@ export default function ManifestoSlide({ progress }) {
 
   if (mobile) {
     return (
-      <section className="slide manifesto-slide" id="manifesto" ref={sectionRef} style={{
-        width: '100%', minHeight: '80vh',
-        backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/manifesto-bg.webp)',
-        backgroundSize: 'cover',
-        backgroundPosition: `center ${bgY}%`,
-        overflow: 'hidden', position: 'relative', zIndex: 2,
-        display: 'flex', alignItems: 'center',
-        paddingTop: 'clamp(80px, 12vh, 140px)', paddingBottom: 'clamp(80px, 12vh, 140px)',
-        paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
-      }}>
-        {line}
-      </section>
+      <>
+        <div aria-hidden="true" style={{
+          position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/manifesto-bg.webp)',
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          zIndex: 0, opacity: bgVisible ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+          pointerEvents: 'none',
+        }} />
+        <section className="slide manifesto-slide" id="manifesto" ref={sectionRef} style={{
+          width: '100%', minHeight: '80vh',
+          overflow: 'hidden', position: 'relative', zIndex: 2,
+          display: 'flex', alignItems: 'center',
+          paddingTop: 'clamp(80px, 12vh, 140px)', paddingBottom: 'clamp(80px, 12vh, 140px)',
+          paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
+        }}>
+          {line}
+        </section>
+      </>
     );
   }
 

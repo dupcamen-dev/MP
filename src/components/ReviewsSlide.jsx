@@ -52,7 +52,7 @@ export default function ReviewsSlide() {
       height: mobile ? 'auto' : '100vh',
       minHeight: mobile ? '100dvh' : undefined,
       background: 'var(--cream)', overflow: mobile ? 'visible' : 'hidden',
-      position: 'relative', zIndex: 1,
+      position: 'relative', zIndex: 2,
       display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
       justifyContent: 'center',
       paddingTop: mobile ? '60px' : '60px', paddingBottom: mobile ? '60px' : '60px',
