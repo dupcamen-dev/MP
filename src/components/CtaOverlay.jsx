@@ -36,7 +36,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
         ref={overlayRef}
         id="cta"
         style={{
-          position: 'relative', width: '100%',
+          position: 'relative', width: '100%', zIndex: 3,
           minHeight: mobile ? '100dvh' : '100vh',
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           background: 'var(--cream)',
