@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useMobile } from '../hooks/useMobile';
 import { PrimaryButton, GhostButton } from './Button';
 
 export default function Hero({ onBook }) {
   const [visible, setVisible] = useState(false);
-  const mobile = useMobile();
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
@@ -18,23 +16,14 @@ export default function Hero({ onBook }) {
   });
 
   return (
-    <>
-      {mobile && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 0,
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.webp)',
-          backgroundSize: 'cover', backgroundPosition: 'center',
-        }} />
-      )}
-      <section id="hero" style={{
-        minHeight: '100vh',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: 'clamp(80px, 12vh, 140px) clamp(24px, 8%, 140px)',
-        backgroundImage: mobile ? 'none' : 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.webp)',
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        backgroundAttachment: mobile ? undefined : 'fixed',
-        color: 'var(--cream)', position: 'relative', zIndex: 1,
-      }}>
+    <section id="hero" style={{
+      minHeight: '100vh',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 'clamp(80px, 12vh, 140px) clamp(24px, 8%, 140px)',
+      backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.webp)',
+      backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
+      color: 'var(--cream)',
+    }}>
       <div style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center',
         textAlign: 'center', maxWidth: 900, width: '100%', margin: '0 auto',
@@ -77,6 +66,5 @@ export default function Hero({ onBook }) {
         </div>
       </div>
     </section>
-    </>
   );
 }

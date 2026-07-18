@@ -39,7 +39,7 @@ export default function ManifestoSlide({ progress }) {
         width: '100%', minHeight: '80vh',
         backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/manifesto-bg.webp)',
         backgroundSize: 'cover', backgroundPosition: 'center',
-        overflow: 'hidden',
+        overflow: 'hidden', position: 'relative',
         display: 'flex', alignItems: 'center',
         paddingTop: 'clamp(80px, 12vh, 140px)', paddingBottom: 'clamp(80px, 12vh, 140px)',
         paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
