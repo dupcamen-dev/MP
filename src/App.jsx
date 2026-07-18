@@ -98,10 +98,6 @@ export default function App() {
   const auth = useAuth();
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
-    if (!auth.isAuthenticated) {
-      window.location.hash = '/login';
-      return;
-    }
     setShowModal(true);
   };
 
