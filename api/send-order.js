@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   }
 
   const msg = [
-    `📦 *NEW REQUEST — $300 MVP*`,
+    `📦 *NEW REQUEST — MVP BUILD*`,
     `🕒 ${displayTime || new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' })}`,
     `━━━━━━━━━━━━━━━━━`,
     `*PROJECT:*`,
