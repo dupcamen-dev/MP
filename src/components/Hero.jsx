@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useMobile } from '../hooks/useMobile';
 import { PrimaryButton, GhostButton } from './Button';
 
 export default function Hero({ onBook }) {
   const [visible, setVisible] = useState(false);
+  const mobile = useMobile();
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
@@ -21,7 +23,8 @@ export default function Hero({ onBook }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 'clamp(80px, 12vh, 140px) clamp(24px, 8%, 140px)',
       backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.webp)',
-      backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
+      backgroundSize: 'cover', backgroundPosition: 'center',
+      backgroundAttachment: mobile ? 'scroll' : 'fixed',
       color: 'var(--cream)',
     }}>
       <div style={{
