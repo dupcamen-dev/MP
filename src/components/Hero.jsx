@@ -18,15 +18,19 @@ export default function Hero({ onBook }) {
   });
 
   const heroBg = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.webp)';
-  const heroBgBlur = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(/hero-bg.webp)';
+  const heroImg = 'url(/hero-bg.webp)';
 
   if (mobile) {
     return (
       <>
         <div aria-hidden="true" style={{
           position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
-          backgroundImage: heroBgBlur, backgroundSize: 'cover', backgroundPosition: 'center',
+          backgroundImage: heroImg, backgroundSize: 'cover', backgroundPosition: 'center',
           filter: 'blur(4px)', zIndex: 0,
+        }} />
+        <div aria-hidden="true" style={{
+          position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
+          background: 'rgba(0,0,0,0.35)', zIndex: 0,
         }} />
         <section id="hero" style={{
           minHeight: '100vh',
