@@ -104,14 +104,18 @@ export default function Process({ progress, onBook }) {
 
       {/* CTA */}
       <div style={{
-        maxWidth: 1240, margin: '48px auto 0',
+        maxWidth: 1240, margin: '0 auto',
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
-        textAlign: 'center', marginTop: 32,
+        textAlign: 'center', marginTop: 48,
       }}>
-        <button onClick={onBook} style={{
+        <button onClick={onBook}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--sienna)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+          style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
           color: 'var(--ink)', background: 'none', border: 'none', cursor: 'pointer',
-          textTransform: 'uppercase', letterSpacing: '0.02em', padding: 0,
+          textTransform: 'uppercase', letterSpacing: '0.02em', padding: '8px 0',
+          transition: 'color 0.2s',
         }}>Start your week →</button>
       </div>
     </section>

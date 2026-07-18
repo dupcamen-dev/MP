@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useMobile } from '../hooks/useMobile';
 import { PrimaryButton } from './Button';
 
 export default function PricingFAQ({ onBook }) {
   const [openIdx, setOpenIdx] = useState(0);
-  const mobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
+  const mobile = useMobile();
 
   const faqs = [
     { q: 'How does a week work?', a: 'One message to scope it. Five days to build it. Day seven it goes live — documented, tested, yours.' },

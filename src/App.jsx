@@ -41,7 +41,7 @@ function Site({ showModal, setShowModal, onBook }) {
       <PricingFAQ onBook={onBook} />
       <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
       <footer style={{
-        background: '#000000',
+        background: 'var(--deep)',
         paddingTop: 80, paddingBottom: 48,
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
         position: 'relative', zIndex: 3,
@@ -59,10 +59,13 @@ function Site({ showModal, setShowModal, onBook }) {
             <nav style={{ display: 'flex', gap: 24 }}>
               {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
                 <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
                   style={{
                     fontFamily: "'Geist Mono', monospace", fontSize: 12,
                     letterSpacing: '0.12em', textTransform: 'uppercase',
                     color: 'rgba(255,255,255,0.6)', textDecoration: 'none',
+                    transition: 'color 0.2s',
                   }}>{l.label}</a>
               ))}
             </nav>
@@ -73,15 +76,21 @@ function Site({ showModal, setShowModal, onBook }) {
               letterSpacing: '0.08em',               color: 'rgba(255,255,255,0.4)',
             }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
             <div style={{ display: 'flex', gap: 20 }}>
-              <a href="#/privacy" style={{
+              <a href="#/privacy"
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; }}
+                style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 11,
                 letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
-                textDecoration: 'none',
+                textDecoration: 'none', transition: 'color 0.2s',
               }}>Privacy Policy</a>
-              <a href="#/terms" style={{
+              <a href="#/terms"
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; }}
+                style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 11,
                 letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
-                textDecoration: 'none',
+                textDecoration: 'none', transition: 'color 0.2s',
               }}>Terms of Service</a>
             </div>
 

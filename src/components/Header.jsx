@@ -27,7 +27,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         zIndex: 70, height: 72,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         paddingLeft: 'clamp(24px, 5%, 64px)', paddingRight: 'clamp(24px, 5%, 64px)',
-        background: 'rgba(250, 246, 240, 0.9)',
+        background: 'rgba(255, 255, 255, 0.92)',
         backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
         borderBottom: scrolled ? '1px solid var(--sienna)' : '1px solid transparent',
         transition: 'top 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.3s',
@@ -78,14 +78,20 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
               color: 'var(--sienna)', textDecoration: 'none', padding: '6px 12px',
-              border: '1px solid var(--sienna)',
-            }}>Admin</a>
+              border: '1px solid var(--sienna)', transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--sienna)'; e.currentTarget.style.color = 'var(--cream)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--sienna)'; }}
+            >Admin</a>
             <button onClick={onSignOut} className="header-auth-signout" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
               color: 'var(--text-dim)', background: 'none', border: 'none',
-              cursor: 'pointer', padding: '6px 0',
-            }}>Sign out</button>
+              cursor: 'pointer', padding: '6px 0', transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-dim)'; }}
+            >Sign out</button>
           </div>
         ) : (
           <button onClick={onSignIn} className="header-auth" style={{
@@ -93,8 +99,11 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
             letterSpacing: '0.1em', textTransform: 'uppercase',
             color: 'var(--sienna)', background: 'none',
             border: '1px solid var(--sienna)', cursor: 'pointer',
-            padding: '6px 14px',
-          }}>Sign in</button>
+            padding: '6px 14px', transition: 'all 0.2s',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--sienna)'; e.currentTarget.style.color = 'var(--cream)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--sienna)'; }}
+          >Sign in</button>
         )}
 
         <div className="header-cta">

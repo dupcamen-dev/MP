@@ -55,7 +55,7 @@ export default function ReviewsSlide() {
       position: 'relative', zIndex: 2,
       display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
       justifyContent: 'center',
-      paddingTop: mobile ? '60px' : '60px', paddingBottom: mobile ? '60px' : '60px',
+      paddingTop: '60px', paddingBottom: '60px',
       paddingLeft: 'clamp(24px, 8%, 100px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
       <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1240, margin: '0 auto' }}>
@@ -88,7 +88,7 @@ export default function ReviewsSlide() {
               <div style={{ marginTop: 20, borderTop: '1px solid rgba(0, 0, 0, 0.1)', paddingTop: 16 }}>
                 <h4 style={{
                   fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.9rem',
-                  fontWeight: 600, letterSpacing: '0.02em',
+                  letterSpacing: '0.02em',
                   color: 'var(--ink)', margin: 0, textTransform: 'uppercase',
                 }}>{r.author}</h4>
                 <p style={{

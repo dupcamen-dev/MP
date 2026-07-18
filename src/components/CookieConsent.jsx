@@ -30,12 +30,15 @@ export default function CookieConsent() {
       }}>
         This site uses cookies for analytics and to improve your experience.
       </p>
-      <button onClick={accept} style={{
+      <button onClick={accept}
+        onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--primary)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--cream)'; }}
+        style={{
         fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.85rem',
         textTransform: 'uppercase', color: 'var(--ink)',
         background: 'var(--cream)', border: 'none', borderRadius: 0,
         padding: '10px 28px', cursor: 'pointer', letterSpacing: '0.04em',
-        whiteSpace: 'nowrap', flexShrink: 0,
+        whiteSpace: 'nowrap', flexShrink: 0, transition: 'background 0.2s',
       }}>Accept</button>
     </div>
   );

@@ -18,7 +18,7 @@ function saveOrder(order) {
 
 const inputStyle = {
   width: '100%', padding: '14px 16px', background: 'rgba(15,15,18,0.08)',
-  border: '2px solid rgba(15,15,18,0.2)', borderRadius: 0,
+  border: '2px solid rgba(20,19,21,0.2)', borderRadius: 0,
   fontFamily: "'Geist', sans-serif", fontSize: '1.05rem', color: 'var(--surface-low)',
   outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
   resize: 'vertical',
@@ -127,7 +127,7 @@ export default function OrderModal({ onClose }) {
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
         background: 'var(--ink)', padding: '48px 40px', maxWidth: 520, width: '90%',
-        border: '4px solid var(--surface-low)',
+        border: '2px solid var(--surface-low)',
       }}>
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28,
@@ -176,7 +176,7 @@ export default function OrderModal({ onClose }) {
           </div>
         </div>
 
-        {error && <p style={{ fontFamily: "'Geist', sans-serif", fontSize: '0.85rem', color: '#ffcccc', margin: '0 0 16px 0' }}>{error}</p>}
+        {error && <p style={{ fontFamily: "'Geist', sans-serif", fontSize: '0.85rem', color: '#ff6b6b', margin: '0 0 16px 0' }}>{error}</p>}
 
         <button
           onClick={handleSubmit}
@@ -184,8 +184,8 @@ export default function OrderModal({ onClose }) {
           style={{
             width: '100%', padding: '18px', background: 'var(--terracotta)', color: 'var(--ink)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.35rem', textTransform: 'uppercase',
-            border: '3px solid var(--terracotta)', cursor: sending ? 'wait' : 'pointer',
-            opacity: sending ? 0.6 : 1, letterSpacing: '0.05em', fontWeight: 700,
+            border: '2px solid var(--terracotta)', cursor: sending ? 'wait' : 'pointer',
+            opacity: sending ? 0.6 : 1, letterSpacing: '0.05em',
           }}
         >
           {sending ? 'SENDING…' : 'SEND REQUEST'}

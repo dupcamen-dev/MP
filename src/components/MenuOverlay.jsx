@@ -107,7 +107,7 @@ export default function MenuOverlay({ onBook }) {
           display: open ? 'none' : 'flex', flexDirection: 'column', gap: 5,
           width: 52, height: 52, justifyContent: 'center', alignItems: 'center',
           cursor: 'pointer', background: 'var(--primary)', border: 'none', outline: 'none',
-          borderRadius: 12, padding: 14,
+          borderRadius: 0, padding: 14,
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
           transition: 'transform 0.3s, box-shadow 0.3s',
         }}
@@ -116,15 +116,15 @@ export default function MenuOverlay({ onBook }) {
       >
         <span style={{
           display: 'block', height: 2.5, background: 'var(--surface-low)',
-          transition: 'all 0.3s', borderRadius: 2, width: '100%',
+          transition: 'all 0.3s', borderRadius: 0, width: '100%',
         }}></span>
         <span style={{
           display: 'block', height: 2.5, background: 'var(--surface-low)',
-          transition: 'all 0.3s', borderRadius: 2, width: '100%',
+          transition: 'all 0.3s', borderRadius: 0, width: '100%',
         }}></span>
         <span style={{
           display: 'block', height: 2.5, background: 'var(--surface-low)',
-          transition: 'all 0.3s', borderRadius: 2, width: '100%',
+          transition: 'all 0.3s', borderRadius: 0, width: '100%',
         }}></span>
       </button>
     </>

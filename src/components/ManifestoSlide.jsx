@@ -31,7 +31,7 @@ export default function ManifestoSlide({ progress }) {
 
   const line = (
     <div ref={cardRef} className="card-in" style={{
-      width: '100%', maxWidth: 1100, textAlign: 'left', position: 'relative', zIndex: 2,
+      width: '100%', maxWidth: 1240, textAlign: 'left', position: 'relative', zIndex: 2,
     }}>
       <h2 style={{
         fontFamily: "'Anton', Impact, sans-serif",

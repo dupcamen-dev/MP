@@ -21,7 +21,7 @@ export function PrimaryButton({ children, onClick, href, as, style = {}, ...prop
     onMouseEnter: () => setPressed(true),
     onMouseLeave: () => setPressed(false),
     onMouseDown: () => setPressed(true),
-    onMouseUp: () => setPressed(true),
+    onMouseUp: () => setPressed(false),
   };
   if (href) {
     return <a href={href} onClick={onClick} style={base} {...handlers} {...props}>{children}</a>;

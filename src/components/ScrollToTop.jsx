@@ -33,7 +33,7 @@ export default function ScrollToTop() {
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(16px)',
         pointerEvents: visible ? 'auto' : 'none',
-        transition: 'opacity 0.3s, transform 0.3s, background 0.3s',
+        transition: 'opacity 0.3s, transform 0.3s, background 0.3s, color 0.3s',
       }}
       onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--terracotta)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.transform = 'translateY(0)'; }}
