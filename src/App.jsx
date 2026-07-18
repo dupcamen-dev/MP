@@ -54,10 +54,8 @@ function Site({ showModal, setShowModal, onBook }) {
           <div>
             <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               style={{
-                fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                color: 'var(--ink)', textDecoration: 'none', letterSpacing: '-0.01em',
-                display: 'block', marginBottom: 24,
-              }}>MILLIONPIXELS</a>
+                display: 'block', marginBottom: 24, textDecoration: 'none',
+              }}><img src="/logo-light.webp" alt="MILLIONPIXELS" style={{ height: 28, width: 'auto', display: 'block' }} /></a>
             <nav style={{ display: 'flex', gap: 24 }}>
               {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
                 <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}

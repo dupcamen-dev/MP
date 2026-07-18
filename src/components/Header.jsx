@@ -38,11 +38,14 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         className="header-logo"
         onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         style={{
-          fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.15rem, 2.2vw, 1.6rem)',
-          color: 'var(--ink)', textDecoration: 'none', letterSpacing: '-0.01em',
+          display: 'flex', alignItems: 'center', textDecoration: 'none',
         }}
       >
-        MILLIONPIXELS
+        <img
+          src="/logo.webp"
+          alt="MILLIONPIXELS"
+          style={{ height: 32, width: 'auto', display: 'block' }}
+        />
       </a>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
