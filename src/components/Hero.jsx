@@ -26,7 +26,7 @@ export default function Hero({ onBook }) {
         <div aria-hidden="true" style={{
           position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
           backgroundImage: heroImg, backgroundSize: 'cover', backgroundPosition: 'center',
-          filter: 'blur(4px)', zIndex: 0,
+          zIndex: 0,
         }} />
         <div aria-hidden="true" style={{
           position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
