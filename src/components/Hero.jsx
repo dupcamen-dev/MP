@@ -5,7 +5,7 @@ import { PrimaryButton, GhostButton } from './Button';
 const PIXEL_COLS = 120;
 const PIXEL_ROWS = 70;
 const RADIUS = 8;
-const FADE_SPEED = 0.5;
+const FADE_SPEED = 0.06;
 
 function usePixelGrid(canvasRef) {
   const gridRef = useRef(null);
