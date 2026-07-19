@@ -39,10 +39,24 @@ function usePixelGrid(canvasRef) {
         y: e.clientY - rect.top,
       };
     };
-    canvas.addEventListener('mousemove', onMove);
-    canvas.addEventListener('mouseleave', () => {
+    const onTouch = (e) => {
+      const t = e.touches[0];
+      if (!t) return;
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: t.clientX - rect.left,
+        y: t.clientY - rect.top,
+      };
+    };
+    const onLeave = () => {
       mouseRef.current = { x: -999, y: -999 };
-    });
+    };
+    canvas.addEventListener('mousemove', onMove);
+    canvas.addEventListener('mouseleave', onLeave);
+    canvas.addEventListener('touchstart', onTouch, { passive: true });
+    canvas.addEventListener('touchmove', onTouch, { passive: true });
+    canvas.addEventListener('touchend', onLeave, { passive: true });
+    canvas.addEventListener('touchcancel', onLeave, { passive: true });
 
     const cellW = canvas.width / PIXEL_COLS;
     const cellH = canvas.height / PIXEL_ROWS;
@@ -91,7 +105,11 @@ function usePixelGrid(canvasRef) {
     return () => {
       window.removeEventListener('resize', resize);
       canvas.removeEventListener('mousemove', onMove);
-      canvas.removeEventListener('mouseleave', null);
+      canvas.removeEventListener('mouseleave', onLeave);
+      canvas.removeEventListener('touchstart', onTouch);
+      canvas.removeEventListener('touchmove', onTouch);
+      canvas.removeEventListener('touchend', onLeave);
+      canvas.removeEventListener('touchcancel', onLeave);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [canvasRef]);
@@ -125,7 +143,7 @@ export default function Hero({ onBook }) {
 
   const canvasStyle = {
     position: 'absolute', inset: 0, width: '100%', height: '100%',
-    pointerEvents: mobile ? 'none' : 'auto',
+    pointerEvents: 'auto',
     zIndex: 0,
   };
 
