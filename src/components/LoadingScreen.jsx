@@ -38,7 +38,7 @@ export default function LoadingScreen({ onFinish }) {
       opacity: phase === 'done' ? 0 : 1,
       pointerEvents: phase === 'done' ? 'none' : 'auto',
     }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
+      <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
         <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(48px, 8vw, 80px)', width: 'auto', display: 'block' }} />
         <div style={{
           width: '100%', height: 3, background: 'var(--surface-highest)',
