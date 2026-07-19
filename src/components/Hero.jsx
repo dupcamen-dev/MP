@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
 import { PrimaryButton, GhostButton } from './Button';
 
-const PIXEL_COLS = 50;
-const PIXEL_ROWS = 30;
-const RADIUS = 4;
-const FADE_SPEED = 0.04;
+const PIXEL_COLS = 120;
+const PIXEL_ROWS = 70;
+const RADIUS = 8;
+const FADE_SPEED = 0.5;
 
 function usePixelGrid(canvasRef) {
   const gridRef = useRef(null);
@@ -46,12 +46,14 @@ function usePixelGrid(canvasRef) {
 
     const cellW = canvas.width / PIXEL_COLS;
     const cellH = canvas.height / PIXEL_ROWS;
-    const gap = 1;
+    const gap = Math.max(0.3, Math.min(cellW, cellH) * 0.12);
 
     const draw = () => {
       const { x: mx, y: my } = mouseRef.current;
       const cw = canvas.width;
       const ch = canvas.height;
+
+      ctx.clearRect(0, 0, cw, ch);
 
       for (let r = 0; r < PIXEL_ROWS; r++) {
         for (let c = 0; c < PIXEL_COLS; c++) {
@@ -130,7 +132,7 @@ export default function Hero({ onBook }) {
   const contentStyle = {
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     textAlign: 'center', maxWidth: 900, width: '100%', margin: '0 auto',
-    position: 'relative', zIndex: 1,
+    position: 'relative', zIndex: 1, pointerEvents: 'none',
   };
 
   const inner = (
@@ -165,7 +167,7 @@ export default function Hero({ onBook }) {
           Real code. Real users. Your repo — by day seven.
         </p>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', ...reveal(0.24) }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', pointerEvents: 'auto', ...reveal(0.24) }}>
           <PrimaryButton onClick={onBook} style={{ background: 'var(--cream)', color: 'var(--deep)' }}>
             Book a week →
           </PrimaryButton>
