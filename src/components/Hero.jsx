@@ -2,12 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
 import { PrimaryButton, GhostButton } from './Button';
 
-const PIXEL_COLS = 120;
-const PIXEL_ROWS = 70;
-const RADIUS = 8;
-const FADE_SPEED = 0.06;
-
-function usePixelGrid(canvasRef) {
+function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
   const gridRef = useRef(null);
   const mouseRef = useRef({ x: -999, y: -999 });
   const rafRef = useRef(null);
@@ -26,8 +21,8 @@ function usePixelGrid(canvasRef) {
     window.addEventListener('resize', resize);
 
     if (!gridRef.current) {
-      gridRef.current = Array.from({ length: PIXEL_ROWS }, () =>
-        Array.from({ length: PIXEL_COLS }, () => 0)
+      gridRef.current = Array.from({ length: rows }, () =>
+        Array.from({ length: cols }, () => 0)
       );
     }
     const grid = gridRef.current;
@@ -58,8 +53,8 @@ function usePixelGrid(canvasRef) {
     canvas.addEventListener('touchend', onLeave, { passive: true });
     canvas.addEventListener('touchcancel', onLeave, { passive: true });
 
-    const cellW = canvas.width / PIXEL_COLS;
-    const cellH = canvas.height / PIXEL_ROWS;
+    const cellW = canvas.width / cols;
+    const cellH = canvas.height / rows;
     const gap = Math.max(0.3, Math.min(cellW, cellH) * 0.12);
 
     const draw = () => {
@@ -69,16 +64,16 @@ function usePixelGrid(canvasRef) {
 
       ctx.clearRect(0, 0, cw, ch);
 
-      for (let r = 0; r < PIXEL_ROWS; r++) {
-        for (let c = 0; c < PIXEL_COLS; c++) {
-          const cx = c * cw / PIXEL_COLS + cellW / 2;
-          const cy = r * ch / PIXEL_ROWS + cellH / 2;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const cx = c * cw / cols + cellW / 2;
+          const cy = r * ch / rows + cellH / 2;
           const dx = cx - mx;
           const dy = cy - my;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < RADIUS * cellW) {
-            const influence = 1 - dist / (RADIUS * cellW);
+          if (dist < radius * cellW) {
+            const influence = 1 - dist / (radius * cellW);
             grid[r][c] = Math.min(1, grid[r][c] + influence * 0.5);
           }
 
@@ -86,14 +81,14 @@ function usePixelGrid(canvasRef) {
           if (alpha > 0.01) {
             ctx.fillStyle = `rgba(240, 224, 96, ${alpha})`;
             ctx.fillRect(
-              c * cw / PIXEL_COLS + gap,
-              r * ch / PIXEL_ROWS + gap,
+              c * cw / cols + gap,
+              r * ch / rows + gap,
               cellW - gap * 2,
               cellH - gap * 2
             );
           }
 
-          grid[r][c] = Math.max(0, grid[r][c] - FADE_SPEED);
+          grid[r][c] = Math.max(0, grid[r][c] - fadeSpeed);
         }
       }
 
@@ -119,7 +114,7 @@ export default function Hero({ onBook }) {
   const [visible, setVisible] = useState(false);
   const mobile = useMobile();
   const canvasRef = useRef(null);
-  usePixelGrid(canvasRef);
+  usePixelGrid(canvasRef, mobile ? 40 : 120, mobile ? 24 : 70, mobile ? 5 : 8, mobile ? 0.03 : 0.06);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
