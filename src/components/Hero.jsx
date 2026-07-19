@@ -114,7 +114,7 @@ export default function Hero({ onBook }) {
   const [visible, setVisible] = useState(false);
   const mobile = useMobile();
   const canvasRef = useRef(null);
-  usePixelGrid(canvasRef, mobile ? 40 : 120, mobile ? 24 : 70, mobile ? 5 : 8, mobile ? 0.03 : 0.06);
+  usePixelGrid(canvasRef, mobile ? 40 : 120, mobile ? 40 : 70, mobile ? 5 : 8, mobile ? 0.03 : 0.06);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
