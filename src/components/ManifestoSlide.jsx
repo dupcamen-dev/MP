@@ -62,7 +62,7 @@ export default function ManifestoSlide({ progress }) {
           overflow: 'hidden', position: 'relative', zIndex: 2,
           display: 'flex', alignItems: 'center',
           paddingTop: 'clamp(80px, 12vh, 140px)', paddingBottom: 'clamp(80px, 12vh, 140px)',
-          paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
+          paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
         }}>
           {line}
         </section>
@@ -77,7 +77,7 @@ export default function ManifestoSlide({ progress }) {
       backgroundSize: 'cover', backgroundPosition: 'center',
       overflow: 'hidden', position: 'relative',
       display: 'flex', alignItems: 'center',
-      paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 100px)',
+      paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
       {line}
     </section>

@@ -59,8 +59,8 @@ function Site({ showModal, setShowModal, onBook }) {
             <nav style={{ display: 'flex', gap: 24 }}>
               {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
                 <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.textDecoration = 'underline'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; e.currentTarget.style.textDecoration = 'none'; }}
                   style={{
                     fontFamily: "'Geist Mono', monospace", fontSize: 12,
                     letterSpacing: '0.12em', textTransform: 'uppercase',
@@ -77,16 +77,16 @@ function Site({ showModal, setShowModal, onBook }) {
             }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
             <div style={{ display: 'flex', gap: 20 }}>
               <a href="#/privacy"
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.textDecoration = 'underline'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; e.currentTarget.style.textDecoration = 'none'; }}
                 style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 11,
                 letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
                 textDecoration: 'none', transition: 'color 0.2s',
               }}>Privacy Policy</a>
               <a href="#/terms"
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.textDecoration = 'underline'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; e.currentTarget.style.textDecoration = 'none'; }}
                 style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 11,
                 letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',

@@ -56,7 +56,7 @@ export default function ReviewsSlide() {
       display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
       justifyContent: 'center',
       paddingTop: '60px', paddingBottom: '60px',
-      paddingLeft: 'clamp(24px, 8%, 100px)', paddingRight: 'clamp(24px, 5%, 80px)',
+      paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
     }}>
       <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1240, margin: '0 auto' }}>
         <p style={{
@@ -80,6 +80,7 @@ export default function ReviewsSlide() {
             <div key={i} className="review-card" style={{
               border: '1px solid var(--sienna)', padding: '28px 28px 24px',
               background: 'transparent',
+              boxShadow: '5px 5px 0 rgba(0,0,0,0.08)',
             }}>
               <p style={{
                 fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',

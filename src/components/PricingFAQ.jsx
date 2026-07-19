@@ -43,7 +43,8 @@ export default function PricingFAQ({ onBook }) {
             </h2>
 
             {/* Price card */}
-            <div style={{ position: 'relative', background: 'var(--bg-alt)', border: '1px solid var(--sienna)' }}>
+            <div style={{ position: 'relative', background: 'var(--bg-alt)', border: '1px solid var(--sienna)',
+              boxShadow: '5px 5px 0 rgba(0,0,0,0.1)' }}>
               <div style={{ height: 6, background: 'var(--ink)' }} />
               <div style={{ padding: '40px 36px' }}>
                 <div style={{
@@ -88,8 +89,11 @@ export default function PricingFAQ({ onBook }) {
                   style={{
                     borderTop: '1px solid var(--sienna)',
                     borderBottom: i === faqs.length - 1 ? '1px solid var(--sienna)' : 'none',
-                    padding: '24px 4px', cursor: 'pointer',
+                    padding: '24px 8px', cursor: 'pointer',
+                    transition: 'background 0.2s',
                   }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--surface-high)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
                     <h3 style={{
