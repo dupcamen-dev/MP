@@ -49,6 +49,15 @@ a:focus-visible, button:focus-visible {
   outline-offset: 3px;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: rgba(25, 50, 180, 0.04);
+}
+
 body::after {
   content: '';
   position: fixed;
