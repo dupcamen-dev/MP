@@ -68,8 +68,6 @@ function usePixelGrid(canvasRef) {
             grid[r][c] = Math.min(1, grid[r][c] + influence * 0.5);
           }
 
-          grid[r][c] = Math.max(0, grid[r][c] - FADE_SPEED);
-
           const alpha = grid[r][c];
           if (alpha > 0.01) {
             ctx.fillStyle = `rgba(240, 224, 96, ${alpha})`;
@@ -80,6 +78,8 @@ function usePixelGrid(canvasRef) {
               cellH - gap * 2
             );
           }
+
+          grid[r][c] = Math.max(0, grid[r][c] - FADE_SPEED);
         }
       }
 
