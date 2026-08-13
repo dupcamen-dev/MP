@@ -25,6 +25,38 @@ function useHashRoute() {
   return route;
 }
 
+const routeMeta = {
+  '/': {
+    title: 'Millionpixels — 7-Day MVP Studio. Idea to Live Software in 7 Days',
+    description: 'Millionpixels builds production-grade MVPs — web apps, dashboards, marketplaces and booking platforms — shipped live in 7 days. Full repo access from day one, real users, real payments.',
+  },
+  '/privacy': {
+    title: 'Privacy Policy | Millionpixels',
+    description: 'How Millionpixels collects and handles your data when you submit a booking request or sign in to the admin panel.',
+  },
+  '/terms': {
+    title: 'Terms of Service | Millionpixels',
+    description: 'The terms that govern 7-day MVP builds delivered by Millionpixels.',
+  },
+  '/login': {
+    title: 'Sign In | Millionpixels',
+    description: 'Sign in to access the Millionpixels admin panel.',
+  },
+  '/admin': {
+    title: 'Admin Panel | Millionpixels',
+    description: 'Millionpixels admin panel — manage booking requests and bot settings.',
+  },
+};
+
+function useRouteMeta(route) {
+  useEffect(() => {
+    const meta = routeMeta[route] || routeMeta['/'];
+    document.title = meta.title;
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', meta.description);
+  }, [route]);
+}
+
 function Site({ showModal, setShowModal, onBook }) {
   const progress = useScrollProgress('process');
   const mobile = useMobile();
@@ -32,14 +64,16 @@ function Site({ showModal, setShowModal, onBook }) {
 
   return (
     <>
-      <Hero onBook={onBook} />
-      <Process progress={progress} onBook={onBook} />
-      {mobile && <ShowcaseSlide />}
-      <HorizontalScroll progress={progress} />
-      {!mobile && <div className="h-scroll-spacer" style={{ height: '300vh', pointerEvents: 'none' }} />}
-      {!mobile && <div style={{ height: '60vh', pointerEvents: 'none' }} />}
-      <PricingFAQ onBook={onBook} />
-      <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
+      <main>
+        <Hero onBook={onBook} />
+        <Process progress={progress} onBook={onBook} />
+        {mobile && <ShowcaseSlide />}
+        <HorizontalScroll progress={progress} />
+        {!mobile && <div className="h-scroll-spacer" style={{ height: '300vh', pointerEvents: 'none' }} />}
+        {!mobile && <div style={{ height: '60vh', pointerEvents: 'none' }} />}
+        <PricingFAQ onBook={onBook} />
+        <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
+      </main>
       <footer style={{
         background: 'var(--deep)',
         paddingTop: 80, paddingBottom: 48,
@@ -55,7 +89,7 @@ function Site({ showModal, setShowModal, onBook }) {
             <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               style={{
                 display: 'block', marginBottom: 24, textDecoration: 'none',
-              }}><img src="/logo-light.webp" alt="MILLIONPIXELS" style={{ height: 36, width: 'auto', display: 'block' }} /></a>
+              }}><img src="/logo-light.webp" alt="MILLIONPIXELS — 7-Day MVP Studio" width="1048" height="238" style={{ height: 36, width: 'auto', display: 'block' }} /></a>
             <nav style={{ display: 'flex', gap: 24 }}>
               {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
                 <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}
@@ -104,6 +138,7 @@ function Site({ showModal, setShowModal, onBook }) {
 
 export default function App() {
   const route = useHashRoute();
+  useRouteMeta(route);
   const auth = useAuth();
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {

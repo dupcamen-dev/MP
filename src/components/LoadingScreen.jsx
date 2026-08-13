@@ -10,15 +10,15 @@ export default function LoadingScreen({ onFinish }) {
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
     async function load() {
-      const timeout = new Promise((r) => setTimeout(r, 2000));
+      const timeout = new Promise((r) => setTimeout(r, 900));
       await Promise.all([
         document.fonts.ready,
-        wait(800),
+        wait(600),
         timeout,
       ]);
       if (cancelled) return;
       setPhase('done');
-      await wait(500);
+      await wait(400);
       if (cancelled) return;
       document.documentElement.style.overflow = '';
       onFinish();

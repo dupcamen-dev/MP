@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import MenuOverlay from './MenuOverlay';
 import { PrimaryButton } from './Button';
+import { useScrollTo } from '../hooks/useScrollProgress';
 
 export default function Header({ onBook, user, onSignIn, onSignOut }) {
   const [visible, setVisible] = useState(false);
@@ -19,6 +20,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
     { label: 'PROCESS', id: 'process' },
     { label: 'PRICING', id: 'pricing' },
   ];
+  const scrollTo = useScrollTo();
 
   return (
     <header
@@ -43,7 +45,9 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
       >
         <img
           src="/logo.webp"
-          alt="MILLIONPIXELS"
+          alt="MILLIONPIXELS — 7-Day MVP Studio"
+          width="1048"
+          height="238"
           style={{ height: 40, width: 'auto', display: 'block' }}
         />
       </a>
@@ -56,7 +60,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
               href={`#${l.id}`}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' });
+                scrollTo(l.id);
               }}
               style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 12,
