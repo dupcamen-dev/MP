@@ -75,7 +75,7 @@ function Site({ showModal, setShowModal, onBook }) {
         <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
       </main>
       <footer style={{
-        background: 'var(--deep)',
+        background: '#000',
         paddingTop: 80, paddingBottom: 48,
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
         position: 'relative', zIndex: 3,

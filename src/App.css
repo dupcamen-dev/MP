@@ -221,7 +221,7 @@ body::after {
   :root { --section-padding: 24px; }
   [style*="backdrop-filter"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
-  header { padding: 16px 24px !important; background: rgba(255,255,255,0.97) !important; }
+  header { padding: 16px 24px !important; background: rgba(0, 0, 0, 0.95) !important; }
   .header-logo { font-size: 1.2rem !important; }
 
   #hero { padding: 100px 24px 60px !important; }

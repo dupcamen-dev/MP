@@ -29,9 +29,9 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         zIndex: 70, height: 72,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         paddingLeft: 'clamp(24px, 5%, 64px)', paddingRight: 'clamp(24px, 5%, 64px)',
-        background: 'rgba(255, 255, 255, 0.92)',
+        background: 'rgba(0, 0, 0, 0.88)',
         backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-        borderBottom: scrolled ? '1px solid var(--sienna)' : '1px solid transparent',
+        borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid transparent',
         transition: 'top 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.3s',
       }}
     >
@@ -65,7 +65,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
               style={{
                 fontFamily: "'Geist Mono', monospace", fontSize: 12,
                 letterSpacing: '0.12em', textTransform: 'uppercase',
-                color: 'var(--ink)', textDecoration: 'none',
+                color: 'var(--cream)', textDecoration: 'none',
               }}
             >{l.label}</a>
           ))}
@@ -76,42 +76,42 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="header-auth">
             <span className="header-auth-email" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.04em', color: 'var(--text-dim)',
+              letterSpacing: '0.04em', color: 'rgba(255, 255, 255, 0.55)',
             }}>{user.email}</span>
             <a href="/#/admin" className="header-auth-admin" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
-              color: 'var(--sienna)', textDecoration: 'none', padding: '6px 12px',
-              border: '1px solid var(--sienna)', transition: 'all 0.2s',
+              color: 'var(--cream)', textDecoration: 'none', padding: '6px 12px',
+              border: '1px solid rgba(255, 255, 255, 0.6)', transition: 'all 0.2s',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--sienna)'; e.currentTarget.style.color = 'var(--cream)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--sienna)'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.borderColor = 'var(--primary)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)'; }}
             >Admin</a>
             <button onClick={onSignOut} className="header-auth-signout" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
-              color: 'var(--text-dim)', background: 'none', border: 'none',
+              color: 'rgba(255, 255, 255, 0.6)', background: 'none', border: 'none',
               cursor: 'pointer', padding: '6px 0', transition: 'color 0.2s',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-dim)'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'; }}
             >Sign out</button>
           </div>
         ) : (
           <button onClick={onSignIn} className="header-auth" style={{
             fontFamily: "'Geist Mono', monospace", fontSize: 11,
             letterSpacing: '0.1em', textTransform: 'uppercase',
-            color: 'var(--sienna)', background: 'none',
-            border: '1px solid var(--sienna)', cursor: 'pointer',
+            color: 'var(--cream)', background: 'none',
+            border: '1px solid rgba(255, 255, 255, 0.6)', cursor: 'pointer',
             padding: '6px 14px', transition: 'all 0.2s',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--sienna)'; e.currentTarget.style.color = 'var(--cream)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--sienna)'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.borderColor = 'var(--primary)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)'; }}
           >Sign in</button>
         )}
 
         <div className="header-cta">
-          <PrimaryButton onClick={onBook} style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
+          <PrimaryButton onClick={onBook} style={{ padding: '10px 20px', fontSize: '0.85rem', background: 'var(--primary)', color: 'var(--ink)', boxShadow: '4px 4px 0 rgba(0,0,0,0.4)' }}>
             Book a week →
           </PrimaryButton>
         </div>
