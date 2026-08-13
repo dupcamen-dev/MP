@@ -121,6 +121,11 @@ body::after {
   100% { text-shadow: 0 0 0 rgba(240, 224, 96, 0); filter: brightness(1); }
 }
 
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @keyframes scroll-wheel-alt {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
   50% { transform: translateX(-50%) translateY(8px); opacity: 0.3; }

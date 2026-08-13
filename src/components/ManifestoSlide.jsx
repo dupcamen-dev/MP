@@ -1,22 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
 
-// Manifesto Line — one confident statement. No paragraph, no buzzwords.
+const LINES = [
+  [{ t: "We don't do meetings about meetings.", c: 'var(--sienna)' }],
+  [
+    { t: 'We make your website ', c: 'var(--sienna)' },
+    { t: 'work', c: 'var(--cream)' },
+    { t: ',', c: 'var(--sienna)' },
+  ],
+  [
+    { t: 'found in Google, in ', c: 'var(--sienna)' },
+    { t: 'seven days', c: 'var(--cream)' },
+    { t: '.', c: 'var(--sienna)' },
+  ],
+];
+
+const WORDS = LINES.map((line) =>
+  line.flatMap((tok) => (tok.t.match(/\S+\s*/g) || []).map((p) => ({ text: p, color: tok.c })))
+);
+const TOTAL = WORDS.reduce((n, l) => n + l.length, 0);
+
+const TYPE_START = 0.66;
+const TYPE_LEN = 0.12;
+const HOLD_START = 0.78;
+
 export default function ManifestoSlide({ progress }) {
-  const cardRef = useRef(null);
   const sectionRef = useRef(null);
+  const startedRef = useRef(false);
   const mobile = useMobile();
   const [bgVisible, setBgVisible] = useState(false);
-
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { el.classList.add('active'); observer.unobserve(el); }
-    }, { threshold: 0.3 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [mWords, setMWords] = useState(0);
 
   useEffect(() => {
     if (!mobile) return;
@@ -24,13 +37,66 @@ export default function ManifestoSlide({ progress }) {
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
       setBgVisible(entry.isIntersecting);
+      if (entry.isIntersecting && !startedRef.current) {
+        startedRef.current = true;
+        let n = 0;
+        const id = setInterval(() => {
+          n += 1;
+          setMWords(n);
+          if (n >= TOTAL) clearInterval(id);
+        }, 45);
+      }
     }, { threshold: 0.05 });
     observer.observe(el);
     return () => observer.disconnect();
   }, [mobile]);
 
+  const typeP = mobile
+    ? TOTAL > 0 ? mWords / TOTAL : 1
+    : Math.min(1, Math.max(0, (progress - TYPE_START) / TYPE_LEN));
+  const visibleWords = mobile ? mWords : Math.round(typeP * TOTAL);
+  const holdP = mobile
+    ? 1
+    : Math.min(1, Math.max(0, (progress - HOLD_START) / (1 - HOLD_START)));
+  const done = visibleWords >= TOTAL;
+
+  const renderLine = (line, startIdx, isLastLine) => {
+    let i = startIdx;
+    const caretVisible = done ? isLastLine : startIdx + line.length > visibleWords;
+    return (
+      <span style={{ display: 'block' }}>
+        {line.map((w, k) => {
+          const idx = i++;
+          const on = idx < visibleWords;
+          return (
+            <span
+              key={k}
+              style={{
+                display: 'inline-block',
+                color: w.color,
+                opacity: on ? 1 : 0,
+                transform: on ? 'none' : 'translateY(14px)',
+                transition: 'opacity 0.22s ease, transform 0.22s ease',
+              }}
+            >{w.text}</span>
+          );
+        })}
+        {caretVisible && (
+          <span
+            className="manifesto-caret"
+            style={{
+              display: 'inline-block', width: '0.55ch', height: '0.95em',
+              background: 'var(--primary)', verticalAlign: 'text-bottom',
+              marginLeft: 2, animation: 'caret-blink 1s step-end infinite',
+            }}
+          />
+        )}
+      </span>
+    );
+  };
+
   const line = (
-    <div ref={cardRef} className="card-in" style={{
+    <div style={{
       width: '100%', maxWidth: 1240, textAlign: 'left', position: 'relative', zIndex: 2,
     }}>
       <h2 style={{
@@ -39,10 +105,33 @@ export default function ManifestoSlide({ progress }) {
         lineHeight: 0.95, textTransform: 'uppercase',
         color: 'var(--cream)', margin: 0, letterSpacing: '0.005em',
       }}>
-        <span style={{ color: 'var(--sienna)' }}>We don&apos;t do meetings about meetings.</span><br />
-        <span style={{ color: 'var(--sienna)' }}>We make your website </span><span style={{ color: 'var(--cream)' }}>work</span>,<br />
-        <span style={{ color: 'var(--sienna)' }}>found in Google, in </span><span style={{ color: 'var(--cream)' }}>seven days</span>.
+        {WORDS.map((l, i) => {
+          const startIdx = WORDS.slice(0, i).reduce((n, x) => n + x.length, 0);
+          return <span key={i}>{renderLine(l, startIdx, i === WORDS.length - 1)}</span>;
+        })}
       </h2>
+
+      {!mobile && (
+        <div style={{
+          position: 'absolute', left: 0, right: 0, bottom: -48,
+          display: 'flex', alignItems: 'center', gap: 14,
+          fontFamily: "'Geist Mono', monospace", fontSize: 11,
+          letterSpacing: '0.14em', textTransform: 'uppercase',
+          color: 'rgba(255, 255, 255, 0.5)',
+          opacity: holdP, transition: 'opacity 0.3s ease',
+          whiteSpace: 'nowrap',
+        }}>
+          <span style={{ color: done ? 'var(--primary)' : 'rgba(255,255,255,0.5)' }}>
+            {done ? '// MANIFESTO COMPILED ✓' : '// COMPILING'}
+          </span>
+          <span style={{ flex: 1, height: 1, background: 'rgba(255, 255, 255, 0.15)', position: 'relative', overflow: 'hidden' }}>
+            <span style={{ position: 'absolute', inset: 0, width: `${Math.round(holdP * 100)}%`, background: 'var(--primary)', transition: 'width 0.15s linear' }} />
+          </span>
+          <span style={{ color: done ? 'var(--primary)' : 'rgba(255,255,255,0.5)' }}>
+            {done ? 'SHIPPED' : `${Math.round(holdP * 100)}%`}
+          </span>
+        </div>
+      )}
     </div>
   );
 
