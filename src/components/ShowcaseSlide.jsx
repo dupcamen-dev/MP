@@ -226,7 +226,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
-    carousel.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    carousel.style.transition = 'none';
     carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${carouselRot}deg)`;
   }, [carouselRot]);
 
@@ -283,7 +283,7 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
               style={{
                 position: 'absolute',
                 backfaceVisibility: 'hidden', willChange: 'transform, opacity',
-                transition: 'opacity 0.5s ease',
+                transition: 'opacity 0.1s linear',
               }}
             >
               <ProjectCard
