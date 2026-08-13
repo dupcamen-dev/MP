@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from 'react';
+import { useRef, useCallback } from 'react';
 import { useMobile } from '../hooks/useMobile';
 import ShowcaseSlide from './ShowcaseSlide';
 import ReviewsSlide from './ReviewsSlide';
@@ -7,22 +7,18 @@ import ManifestoSlide from './ManifestoSlide';
 export default function HorizontalScroll({ progress }) {
   const wrapRef = useRef(null);
   const mobile = useMobile();
-  const [carouselDone, setCarouselDone] = useState(false);
-  const slideP = mobile ? (carouselDone ? Math.min(1, Math.max(0, (progress - 0.8) / 0.2)) : 0) : progress;
+  const slideP = mobile ? 0 : progress;
 
-  const handleCardEnd = useCallback(() => {
-    setCarouselDone(true);
+  const handleCardEnd = useCallback((j) => {
     const trigger = document.getElementById('process');
     const spacer = document.querySelector('.h-scroll-spacer');
     if (!trigger || !spacer) return;
     const tp = trigger.offsetTop + trigger.offsetHeight;
     const sh = spacer.offsetHeight;
-    window.scrollTo({ top: tp + 0.85 * sh, behavior: 'smooth' });
+    const p = j * (0.34 / 4);
+    window.scrollTo({ top: tp + p * sh, behavior: 'smooth' });
   }, []);
 
-  const carouselRot = mobile
-    ? -360 * Math.min(1, progress / 0.35)
-    : -360 * Math.min(1, progress / 0.34);
   const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.62) / 0.08));
 
   const getX = (i) => {
@@ -63,7 +59,7 @@ export default function HorizontalScroll({ progress }) {
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(0)}%)`, willChange: 'transform' }}>
-          <ShowcaseSlide carouselRot={carouselRot} progress={progress} onCardEnd={handleCardEnd} />
+          <ShowcaseSlide progress={progress} onCardEnd={handleCardEnd} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)`, willChange: 'transform' }}>
           <ReviewsSlide progress={slideP} />

@@ -169,7 +169,7 @@ function MobileProjectList() {
   );
 }
 
-export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
+export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
   const mobile = useMobile();
   const carouselRef = useRef(null);
   const radiusRef = useRef(0);
@@ -179,6 +179,15 @@ export default function ShowcaseSlide({ carouselRot, progress, onCardEnd }) {
   const CARD_W = 600;
   const CARD_H = 840;
   const CELL_COUNT = projects.length;
+
+  const carouselRot = (() => {
+    const n = Math.min(1, Math.max(0, progress / 0.34)) * CELL_COUNT;
+    const k = Math.round(n);
+    const frac = n - k;
+    const HOLD = 0.08;
+    const mag = Math.min(1, Math.max(0, (Math.abs(frac) - HOLD) / (0.5 - HOLD)));
+    return -90 * (k + (frac >= 0 ? mag : -mag));
+  })();
 
   const getActiveIndex = useCallback((rot) => {
     const norm = ((-rot % 360) + 360) % 360;
