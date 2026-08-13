@@ -22,15 +22,15 @@ export default function HorizontalScroll({ progress }) {
 
   const carouselRot = mobile
     ? -360 * Math.min(1, progress / 0.35)
-    : -360 * Math.min(1, progress / 0.45);
-  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.58) / 0.08));
+    : -360 * Math.min(1, progress / 0.34);
+  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.62) / 0.08));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return slideP < 0.45 ? 100
-        : slideP > 0.58 ? 0
-        : 100 - ((slideP - 0.45) / 0.13) * 100;
+      return slideP < 0.34 ? 100
+        : slideP > 0.40 ? 0
+        : 100 - ((slideP - 0.34) / 0.06) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0
@@ -66,7 +66,7 @@ export default function HorizontalScroll({ progress }) {
           <ShowcaseSlide carouselRot={carouselRot} progress={progress} onCardEnd={handleCardEnd} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(1)}%)`, willChange: 'transform' }}>
-          <ReviewsSlide />
+          <ReviewsSlide progress={slideP} />
         </div>
         <div style={{ position: 'absolute', inset: 0, transform: `translateX(${getX(2)}%)`, willChange: 'transform' }}>
           <ManifestoSlide progress={slideP} />

@@ -89,7 +89,7 @@ function Site({ showModal, setShowModal, onBook }) {
             <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               style={{
                 display: 'block', marginBottom: 24, textDecoration: 'none',
-              }}><img src="/logo-light.webp" alt="MILLIONPIXELS — Your Website, Found in Google" width="1048" height="238" style={{ height: 36, width: 'auto', display: 'block' }} /></a>
+              }}><img src="/logo-light.webp" alt="MILLIONPIXELS — Your Website, Found in Google" width="1000" height="333" style={{ height: 36, width: 'auto', display: 'block' }} /></a>
             <nav style={{ display: 'flex', gap: 24 }}>
               {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
                 <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}

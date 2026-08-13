@@ -24,12 +24,24 @@ const reviews = [
   },
 ];
 
-export default function ReviewsSlide() {
+const CARD_REVEALS = [
+  { at: 0.44, dur: 0.035 },
+  { at: 0.49, dur: 0.035 },
+  { at: 0.54, dur: 0.035 },
+  { at: 0.59, dur: 0.035 },
+];
+
+const HEAD_AT = 0.42;
+
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+export default function ReviewsSlide({ progress = 0 }) {
   const mobile = useMobile();
   const tablet = useTablet();
   const gridRef = useRef(null);
 
   useEffect(() => {
+    if (!mobile) return;
     const grid = gridRef.current;
     if (!grid) return;
     const cards = grid.querySelectorAll('.review-card');
@@ -44,7 +56,24 @@ export default function ReviewsSlide() {
     }, { threshold: 0.15 });
     cards.forEach((c) => observer.observe(c));
     return () => observer.disconnect();
-  }, []);
+  }, [mobile]);
+
+  const headP = mobile
+    ? 1
+    : easeOutCubic(Math.min(1, Math.max(0, (progress - HEAD_AT) / 0.06)));
+  const headWords = ['Shipped.', 'Loved.', 'Running.'];
+  const headVisible = Math.round(headP * headWords.length);
+
+  const reveal = (i) => {
+    if (mobile) return { opacity: 1, transform: 'none', transition: 'none' };
+    const r = CARD_REVEALS[i];
+    const p = easeOutCubic(Math.min(1, Math.max(0, (progress - r.at) / r.dur)));
+    return {
+      opacity: p,
+      transform: `translateY(${(1 - p) * 46}px)`,
+      transition: 'opacity 0.3s ease, transform 0.3s ease',
+    };
+  };
 
   return (
     <section className="slide reviews-slide" id="reviews" style={{
@@ -63,13 +92,26 @@ export default function ReviewsSlide() {
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--sienna)', margin: '0 0 20px 0',
+          opacity: headP, transform: `translateY(${(1 - headP) * 16}px)`,
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
         }}>WHAT FOUNDERS SAY</p>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.2rem, 9vw, 3.5rem)' : 'clamp(2.5rem, 5vw, 4rem)',
           lineHeight: 0.95, color: 'var(--ink)', textTransform: 'uppercase',
           letterSpacing: '-0.01em', margin: '0 0 48px 0',
         }}>
-          Shipped. <span style={{ color: 'var(--ink)' }}>Loved.</span> Running.
+          {headWords.map((w, i) => {
+            const on = i < headVisible;
+            return (
+              <span key={i} style={{
+                display: 'inline-block',
+                opacity: on ? 1 : 0,
+                transform: on ? 'scale(1)' : 'scale(0.9)',
+                transition: 'opacity 0.25s ease, transform 0.25s ease',
+                marginRight: '0.35em',
+              }}>{w}{i === 2 ? '' : ''}</span>
+            );
+          })}
         </h2>
 
         <div ref={gridRef} className="reviews-grid" style={{
@@ -81,6 +123,7 @@ export default function ReviewsSlide() {
               border: '1px solid var(--sienna)', padding: '28px 28px 24px',
               background: 'transparent',
               boxShadow: '5px 5px 0 rgba(0,0,0,0.08)',
+              ...reveal(i),
             }}>
               <p style={{
                 fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',

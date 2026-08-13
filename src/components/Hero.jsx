@@ -217,7 +217,6 @@ export default function Hero({ onBook }) {
   const mobile = useMobile();
   const canvasRef = useRef(null);
   const rainRef = useRef(null);
-  const timer = useTimer();
   usePixelGrid(canvasRef, mobile ? 40 : 120, mobile ? 40 : 70, mobile ? 5 : 8, mobile ? 0.03 : 0.06);
   useCodeRain(rainRef);
 
@@ -258,34 +257,6 @@ export default function Hero({ onBook }) {
     position: 'absolute', zIndex: 1, pointerEvents: 'none',
     userSelect: 'none',
   };
-
-  const buildWidget = !mobile && (
-    <div style={{
-      position: 'absolute', zIndex: 1, pointerEvents: 'none',
-      bottom: 44, right: 'clamp(24px, 4%, 48px)',
-      padding: '14px 18px',
-      border: '1px solid rgba(255, 255, 255, 0.16)',
-      background: 'rgba(255, 255, 255, 0.03)',
-      fontFamily: "'Geist Mono', monospace", fontSize: 11,
-      lineHeight: 1.6, letterSpacing: '0.04em',
-      color: 'rgba(255, 255, 255, 0.6)',
-      textAlign: 'left', whiteSpace: 'nowrap',
-      opacity: visible ? 1 : 0,
-      transition: 'opacity 0.6s ease 0.5s',
-    }}>
-      <div style={{ color: 'rgba(255, 255, 255, 0.4)', marginBottom: 4 }}>BUILD STATUS</div>
-      <div style={{ letterSpacing: '0.02em' }}>
-        <span style={{ color: 'var(--primary)' }}>████████████████</span> 100%
-      </div>
-      <div style={{ color: 'var(--primary)' }}>● PRODUCTION — LIVE</div>
-      <div style={{ color: 'rgba(255, 255, 255, 0.4)' }}>SHIP · DAY 07 · {timer}</div>
-      <div style={{ height: 1, background: 'rgba(255, 255, 255, 0.12)', margin: '8px 0' }} />
-      <div style={{ color: 'rgba(255, 255, 255, 0.4)' }}>LATEST SHIP</div>
-      <div style={{ color: 'rgba(240, 224, 96, 0.85)' }}>commit 8f31c2a → production</div>
-      <div style={{ color: 'rgba(255, 255, 255, 0.4)' }}>2m ago</div>
-    </div>
-  );
-
   const markers = !mobile && (
     <>
       <div style={{ ...cornerStyle, top: 88, left: 'clamp(24px, 4%, 48px)' }}>01</div>
@@ -305,7 +276,6 @@ export default function Hero({ onBook }) {
     <>
       <canvas ref={rainRef} style={canvasStyle} />
       <canvas ref={canvasRef} style={canvasStyle} />
-      {buildWidget}
       {markers}
       <div style={contentStyle}>
         <p style={{

@@ -20,9 +20,9 @@ const WORDS = LINES.map((line) =>
 );
 const TOTAL = WORDS.reduce((n, l) => n + l.length, 0);
 
-const TYPE_START = 0.66;
+const TYPE_START = 0.70;
 const TYPE_LEN = 0.12;
-const HOLD_START = 0.78;
+const HOLD_START = 0.82;
 
 export default function ManifestoSlide({ progress }) {
   const sectionRef = useRef(null);

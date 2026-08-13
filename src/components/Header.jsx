@@ -46,8 +46,8 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         <img
           src="/logo.webp"
           alt="MILLIONPIXELS — Your Website, Found in Google"
-          width="1048"
-          height="238"
+          width="1000"
+          height="333"
           style={{ height: 40, width: 'auto', display: 'block' }}
         />
       </a>

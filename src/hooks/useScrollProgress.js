@@ -56,7 +56,7 @@ export function useScrollTo() {
     const scrollMap = {
       showcase: 0.10,
       reviews: 0.50,
-      manifesto: 0.72,
+      manifesto: 0.76,
     };
 
     if (targetId in scrollMap) {
