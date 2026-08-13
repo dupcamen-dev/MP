@@ -79,7 +79,7 @@ function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
 
           const alpha = grid[r][c];
           if (alpha > 0.01) {
-            ctx.fillStyle = `rgba(240, 224, 96, ${alpha})`;
+            ctx.fillStyle = `rgba(240, 224, 96, ${alpha * 0.55})`;
             ctx.fillRect(
               c * cw / cols + gap,
               r * ch / rows + gap,
@@ -110,11 +110,116 @@ function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
   }, [canvasRef]);
 }
 
+const LOG_LINES = [
+  '$ npm run build',
+  '$ npm run deploy',
+  '✓ BUILD PASSED',
+  '✓ DEPLOYED → production',
+  'git commit -m "ship"',
+  'commit 8f31c2a → production',
+  'feature/seo → main',
+  'PR #12 merged',
+  'GET / 200 23ms',
+  'GET /pricing 200 41ms',
+  'POST /book 201 87ms',
+  '200 OK · millionpixels.dev',
+  'server listening on :3000',
+  '├── src/',
+  '│   ├── components/',
+  '│   ├── hooks/',
+  '│   └── seo.js',
+  '> 15 tests passed',
+  '> bundle 271 KB · gzip 79 KB',
+  'TLS handshake ok',
+  'curl -I https://millionpixels.dev',
+  'SEO: titles · meta · sitemap',
+  'schema.org: ProfessionalService',
+  'day 7: ship it',
+  'done. live in 7 days.',
+];
+
+function useCodeRain(canvasRef) {
+  const rafRef = useRef(null);
+  const linesRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const resize = () => {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const spawn = (initial) => ({
+      text: LOG_LINES[Math.floor(Math.random() * LOG_LINES.length)],
+      x: Math.random() * canvas.width,
+      y: initial ? Math.random() * canvas.height : canvas.height + 24,
+      speed: 0.12 + Math.random() * 0.35,
+      alpha: 0.05 + Math.random() * 0.07,
+      yellow: Math.random() < 0.1,
+    });
+
+    if (!linesRef.current) {
+      const count = canvas.width < 768 ? 16 : 40;
+      linesRef.current = Array.from({ length: count }, () => spawn(true));
+    }
+    const lines = linesRef.current;
+
+    let last = 0;
+    const draw = (t) => {
+      const dt = last ? (t - last) / 1000 : 0;
+      last = t;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "11px 'Geist Mono', monospace";
+      ctx.textBaseline = 'top';
+
+      for (const ln of lines) {
+        ln.y -= ln.speed * 60 * dt;
+        if (ln.y < -24) Object.assign(ln, spawn(false));
+        ctx.fillStyle = ln.yellow
+          ? `rgba(240, 224, 96, ${ln.alpha + 0.09})`
+          : `rgba(255, 255, 255, ${ln.alpha})`;
+        ctx.fillText(ln.text, ln.x, ln.y);
+      }
+
+      rafRef.current = requestAnimationFrame(draw);
+    };
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [canvasRef]);
+}
+
+function useTimer() {
+  const [sec, setSec] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setSec((s) => s + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const hh = String(Math.floor(sec / 3600)).padStart(2, '0');
+  const mm = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
+  const ss = String(sec % 60).padStart(2, '0');
+  return `${hh}:${mm}:${ss}`;
+}
+
 export default function Hero({ onBook }) {
   const [visible, setVisible] = useState(false);
   const mobile = useMobile();
   const canvasRef = useRef(null);
+  const rainRef = useRef(null);
+  const timer = useTimer();
   usePixelGrid(canvasRef, mobile ? 40 : 120, mobile ? 40 : 70, mobile ? 5 : 8, mobile ? 0.03 : 0.06);
+  useCodeRain(rainRef);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
@@ -138,7 +243,6 @@ export default function Hero({ onBook }) {
 
   const canvasStyle = {
     position: 'absolute', inset: 0, width: '100%', height: '100%',
-    pointerEvents: 'auto',
     zIndex: 0,
   };
 
@@ -148,16 +252,68 @@ export default function Hero({ onBook }) {
     position: 'relative', zIndex: 1, pointerEvents: 'none',
   };
 
+  const cornerStyle = {
+    fontFamily: "'Geist Mono', monospace", fontSize: 11,
+    letterSpacing: '0.14em', color: 'rgba(255, 255, 255, 0.35)',
+    position: 'absolute', zIndex: 1, pointerEvents: 'none',
+    userSelect: 'none',
+  };
+
+  const buildWidget = !mobile && (
+    <div style={{
+      position: 'absolute', zIndex: 1, pointerEvents: 'none',
+      bottom: 44, right: 'clamp(24px, 4%, 48px)',
+      padding: '14px 18px',
+      border: '1px solid rgba(255, 255, 255, 0.16)',
+      background: 'rgba(255, 255, 255, 0.03)',
+      fontFamily: "'Geist Mono', monospace", fontSize: 11,
+      lineHeight: 1.6, letterSpacing: '0.04em',
+      color: 'rgba(255, 255, 255, 0.6)',
+      textAlign: 'left', whiteSpace: 'nowrap',
+      opacity: visible ? 1 : 0,
+      transition: 'opacity 0.6s ease 0.5s',
+    }}>
+      <div style={{ color: 'rgba(255, 255, 255, 0.4)', marginBottom: 4 }}>BUILD STATUS</div>
+      <div style={{ letterSpacing: '0.02em' }}>
+        <span style={{ color: 'var(--primary)' }}>████████████████</span> 100%
+      </div>
+      <div style={{ color: 'var(--primary)' }}>● PRODUCTION — LIVE</div>
+      <div style={{ color: 'rgba(255, 255, 255, 0.4)' }}>SHIP · DAY 07 · {timer}</div>
+      <div style={{ height: 1, background: 'rgba(255, 255, 255, 0.12)', margin: '8px 0' }} />
+      <div style={{ color: 'rgba(255, 255, 255, 0.4)' }}>LATEST SHIP</div>
+      <div style={{ color: 'rgba(240, 224, 96, 0.85)' }}>commit 8f31c2a → production</div>
+      <div style={{ color: 'rgba(255, 255, 255, 0.4)' }}>2m ago</div>
+    </div>
+  );
+
+  const markers = !mobile && (
+    <>
+      <div style={{ ...cornerStyle, top: 88, left: 'clamp(24px, 4%, 48px)' }}>01</div>
+      <div style={{ ...cornerStyle, top: 'calc(100vh - 120px)', left: 'clamp(24px, 4%, 48px)' }}>07</div>
+      <div style={{
+        ...cornerStyle, bottom: 14, left: 'clamp(24px, 4%, 48px)', right: 'clamp(24px, 4%, 48px)',
+        display: 'flex', alignItems: 'center', gap: 12,
+      }}>
+        <span>00:00</span>
+        <span style={{ flex: 1, height: 1, background: 'rgba(255, 255, 255, 0.18)' }} />
+        <span>23:59</span>
+      </div>
+    </>
+  );
+
   const inner = (
     <>
+      <canvas ref={rainRef} style={canvasStyle} />
       <canvas ref={canvasRef} style={canvasStyle} />
+      {buildWidget}
+      {markers}
       <div style={contentStyle}>
         <p style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--cream)', opacity: 0.7, margin: '0 0 24px 0',
           ...reveal(0),
-        }}>SHIPPED IN 7</p>
+        }}>WEBSITE + SEO · LIVE IN 7 DAYS</p>
 
         <h1 style={{
           fontFamily: "'Anton', Impact, sans-serif",
@@ -166,8 +322,8 @@ export default function Hero({ onBook }) {
           letterSpacing: '-0.02em', margin: '0 0 32px 0',
           ...reveal(0.08),
         }}>
-          Idea to live<br />software.<br />
-          <span style={{ color: 'var(--primary)' }}>Seven days.</span>
+          Your website,<br />found in Google.<br />
+          <span className={visible ? 'ship-flash' : ''} style={{ color: 'var(--primary)' }}>Seven days.</span>
         </h1>
 
         <p style={{
@@ -176,8 +332,9 @@ export default function Hero({ onBook }) {
           color: 'var(--cream)', opacity: 0.9, maxWidth: 600, margin: '0 0 40px 0',
           ...reveal(0.16),
         }}>
-          Senior engineers who ship production-grade products in a week.
-          Real code. Real users. Your repo — by day seven.
+          We don&apos;t just make a pretty page. We build a working website
+          and set up its SEO — so clients can actually find you on Google.
+          Live in seven days.
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', pointerEvents: 'auto', ...reveal(0.24) }}>

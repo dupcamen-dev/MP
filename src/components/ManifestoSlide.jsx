@@ -40,8 +40,8 @@ export default function ManifestoSlide({ progress }) {
         color: 'var(--cream)', margin: 0, letterSpacing: '0.005em',
       }}>
         <span style={{ color: 'var(--sienna)' }}>We don&apos;t do meetings about meetings.</span><br />
-        <span style={{ color: 'var(--sienna)' }}>We do live </span><span style={{ color: 'var(--cream)' }}>software</span>,<br />
-        <span style={{ color: 'var(--sienna)' }}>in </span><span style={{ color: 'var(--cream)' }}>seven days</span>.
+        <span style={{ color: 'var(--sienna)' }}>We make your website </span><span style={{ color: 'var(--cream)' }}>work</span>,<br />
+        <span style={{ color: 'var(--sienna)' }}>found in Google, in </span><span style={{ color: 'var(--cream)' }}>seven days</span>.
       </h2>
     </div>
   );

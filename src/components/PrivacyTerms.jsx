@@ -107,7 +107,7 @@ export default function PrivacyTerms() {
 
         <h2 style={s.h2}>Services</h2>
         <p style={s.p}>
-          MillionPixels.DEV provides a 7-day MVP (Minimum Viable Product) development service. We build and deliver a production-grade web application within seven calendar days of engagement.
+          MillionPixels.DEV provides a 7-day website development and SEO service. We build and deliver a working website with SEO set up, live on the internet, within seven calendar days of engagement.
         </p>
 
         <h2 style={s.h2}>Booking and Payment</h2>
@@ -117,7 +117,7 @@ export default function PrivacyTerms() {
 
         <h2 style={s.h2}>Deliverables</h2>
         <p style={s.p}>
-          Upon completion, you receive a fully deployed, production-ready application and full ownership of the source code. The deliverables include the codebase, deployment, and any configured integrations as agreed during the booking process.
+          Upon completion, you receive a deployed, working website and full ownership of the source code. The deliverables include the codebase, deployment, and any configured integrations as agreed during the booking process.
         </p>
 
         <h2 style={s.h2}>Intellectual Property</h2>

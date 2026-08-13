@@ -7,13 +7,14 @@ export default function PricingFAQ({ onBook }) {
   const mobile = useMobile();
 
   const faqs = [
-    { q: 'How does a week work?', a: 'One message to scope it. Five days to build it. Day seven it goes live — documented, tested, yours.' },
-    { q: 'What if I need more after?', a: 'Keep us on retainer, or take the repo and run. Your code, your choice.' },
-    { q: 'Do I own everything?', a: 'Yes. Full repo access from day one. No licenses, no lock-in.' },
-    { q: 'What can you build in seven days?', a: 'Production MVPs: web apps, dashboards, marketplaces, booking platforms. Real users, real payments, live URL.' },
+    { q: 'What do I get in 7 days?', a: 'A working website, live on the internet, with its SEO set up — titles, descriptions, sitemap, Google-friendly structure. Not just a pretty page.' },
+    { q: 'Do you do SEO?', a: 'Yes. Every site ships with on-page SEO done — so it can actually be found on Google. We set the technical foundation; you watch the traffic come.' },
+    { q: 'What kind of sites do you build?', a: 'Websites that need to work and be found: business sites, online stores, booking pages, web apps, dashboards. Real users, real payments, live URL.' },
+    { q: 'What if I need more after?', a: 'Keep us on retainer, or take the site and run. Your code, your choice.' },
+    { q: 'Do I own everything?', a: 'Yes. Full access to your site from day one. No licenses, no lock-in.' },
   ];
 
-  const includes = ['Full build', 'Your repo, day one', '30 days support', 'Live URL'];
+  const includes = ['Your website, live', 'SEO set up (found on Google)', 'Your code, day one', '30 days support'];
 
   return (
     <>

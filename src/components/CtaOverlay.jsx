@@ -81,7 +81,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
               fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
               color: 'var(--cream)', opacity: 0.8, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
             }}>
-              One message. Seven days. A live product with your name on it.
+              One message. Seven days. A working website with SEO — live and found on Google.
             </p>
             <button
               ref={magnetic.ref}
@@ -135,7 +135,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
             color: 'var(--cream)', opacity: 0.8, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
           }}>
-            One message. Seven days. A live product with your name on it.
+            One message. Seven days. A working website with SEO — live and found on Google.
           </p>
           <button
             ref={magnetic.ref}

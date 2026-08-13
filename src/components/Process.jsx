@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 
 const phases = [
-  { num: '01', title: 'SCOPE', days: 'Day 1', desc: 'We turn your idea into a build plan. Stack, scope, success — locked before we write a line.' },
-  { num: '02', title: 'BUILD', days: 'Days 2–6', desc: 'Daily builds you can click. You watch it become real, every 24 hours.' },
-  { num: '03', title: 'SHIP', days: 'Day 7', desc: 'Live, documented, yours. Full repo access from day one.' },
+  { num: '01', title: 'SCOPE', days: 'Day 1', desc: 'We agree on what you get: your goal, your pages, your keywords. Confirmed before we start.' },
+  { num: '02', title: 'BUILD', days: 'Days 2–6', desc: 'We build your website and set up its SEO. You watch it come together, every 24 hours.' },
+  { num: '03', title: 'SHIP', days: 'Day 7', desc: 'Your site goes live — with SEO in place, so it can be found on Google. Yours, done.' },
 ];
 
 export default function Process({ progress, onBook }) {
@@ -37,19 +37,19 @@ export default function Process({ progress, onBook }) {
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--sienna)', margin: '0 0 16px 0',
-        }}>THE SEVEN-DAY BUILD</p>
+        }}>HOW IT WORKS</p>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
           lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 20px 0',
         }}>
-          From idea to live<br /><span style={{ color: 'var(--ink)' }}>in 168 hours.</span>
+          From idea to live<br /><span style={{ color: 'var(--ink)' }}>website. In 7 days.</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontWeight: 300,
           fontSize: 'clamp(1.15rem, 2vw, 1.5rem)', lineHeight: 1.4,
           color: 'var(--text-dim)', maxWidth: 640, margin: '0 0 12px 0',
         }}>
-          Three phases. Seven days. One live URL.
+          Three steps. Seven days. One live website with SEO.
         </p>
         <p style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
