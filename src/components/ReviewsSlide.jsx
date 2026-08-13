@@ -25,13 +25,13 @@ const reviews = [
 ];
 
 const CARD_REVEALS = [
-  { at: 0.44, dur: 0.035 },
-  { at: 0.49, dur: 0.035 },
-  { at: 0.54, dur: 0.035 },
-  { at: 0.59, dur: 0.035 },
+  { at: 0.62, dur: 0.035 },
+  { at: 0.66, dur: 0.035 },
+  { at: 0.70, dur: 0.035 },
+  { at: 0.74, dur: 0.035 },
 ];
 
-const HEAD_AT = 0.42;
+const HEAD_AT = 0.60;
 
 function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 

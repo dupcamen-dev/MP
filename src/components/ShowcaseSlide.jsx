@@ -181,7 +181,7 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
   const CELL_COUNT = projects.length;
 
   const carouselRot = (() => {
-    const n = Math.min(1, Math.max(0, progress / 0.34)) * CELL_COUNT;
+    const n = Math.min(1, Math.max(0, progress / 0.52)) * CELL_COUNT;
     const k = Math.round(n);
     const frac = n - k;
     const HOLD = 0.08;
