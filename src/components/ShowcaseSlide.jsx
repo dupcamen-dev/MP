@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 
 const projects = [
@@ -171,86 +171,14 @@ function MobileProjectList() {
 
 export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
   const mobile = useMobile();
-  const carouselRef = useRef(null);
-  const radiusRef = useRef(0);
-  const cardSizeRef = useRef({ w: 600, h: 840 });
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  const CARD_W = 600;
-  const CARD_H = 840;
   const CELL_COUNT = projects.length;
 
-  const carouselRot = (() => {
-    const n = Math.min(1, Math.max(0, progress / 0.52)) * CELL_COUNT;
-    const k = Math.round(n);
-    const frac = n - k;
-    const HOLD = 0.08;
-    const mag = Math.min(1, Math.max(0, (Math.abs(frac) - HOLD) / (0.5 - HOLD)));
-    return -90 * (k + (frac >= 0 ? mag : -mag));
-  })();
-
-  const getActiveIndex = useCallback((rot) => {
-    const norm = ((-rot % 360) + 360) % 360;
-    return Math.round(norm / (360 / CELL_COUNT)) % CELL_COUNT;
-  }, [CELL_COUNT]);
-
-  useEffect(() => {
-    setActiveIdx(getActiveIndex(carouselRot));
-  }, [carouselRot, getActiveIndex]);
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    function computeSize() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const w = Math.min(600, Math.max(320, vw * 0.38));
-      const h = Math.min(840, Math.max(480, vh * 0.72));
-      cardSizeRef.current = { w, h };
-      // Guard against degenerate rings (2 cells → tan(90°)=∞). Use a fixed
-      // depth for small counts so two cards sit front/back cleanly.
-      const radius = CELL_COUNT <= 2
-        ? Math.round(w * 0.85) + 100
-        : Math.round((w / 2) / Math.tan(Math.PI / CELL_COUNT)) + 100;
-      radiusRef.current = radius;
-      const theta = 360 / CELL_COUNT;
-      const cells = carousel.querySelectorAll('.carousel-cell');
-      cells.forEach((cell, i) => {
-        const angle = theta * i;
-        cell.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
-        cell.style.width = `${w}px`;
-        cell.style.height = `${h}px`;
-        cell.style.left = `calc(50% - ${w / 2}px)`;
-        cell.style.top = `calc(50% - ${h / 2}px)`;
-      });
-      carousel.style.transform = `translateZ(${-radius}px) rotateY(0deg)`;
-    }
-
-    computeSize();
-    window.addEventListener('resize', computeSize);
-    return () => window.removeEventListener('resize', computeSize);
-  }, [CELL_COUNT]);
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-    carousel.style.transition = 'none';
-    carousel.style.transform = `translateZ(${-radiusRef.current}px) rotateY(${carouselRot}deg)`;
-  }, [carouselRot]);
-
-  useEffect(() => {
-    const cells = carouselRef.current?.querySelectorAll('.carousel-cell');
-    if (!cells) return;
-    const theta = 360 / CELL_COUNT;
-    cells.forEach((cell, i) => {
-      const normRot = ((-carouselRot % 360) + 360) % 360;
-      let angleDiff = (theta * i - normRot + 540) % 360 - 180;
-      const absAngle = Math.abs(angleDiff);
-      const opacity = absAngle < 60 ? 1 : absAngle < 120 ? 0.55 : 0.15;
-      cell.style.opacity = opacity;
-    });
-  }, [carouselRot, CELL_COUNT]);
+  const activeIdx = mobile
+    ? 0
+    : (() => {
+        const n = Math.min(1, Math.max(0, progress / 0.26)) * CELL_COUNT;
+        return Math.round(n) % CELL_COUNT;
+      })();
 
   if (mobile) {
     return <MobileProjectList />;
@@ -279,27 +207,30 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
       </div>
       <div className="carousel-scene" style={{
         position: 'relative', width: '100%', height: '100%',
-        perspective: 1300, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <div ref={carouselRef} className="carousel-3d" style={{
-          width: '100%', height: '100%', position: 'absolute',
-          transformStyle: 'preserve-3d', willChange: 'transform',
+        <div style={{
+          position: 'relative', width: 'min(680px, 48vw)', height: 'min(900px, 78vh)',
         }}>
-          {projects.map((p, i) => (
-            <div
-              key={i}
-              className="carousel-cell"
-              style={{
-                position: 'absolute',
-                backfaceVisibility: 'hidden', willChange: 'transform, opacity',
-                transition: 'opacity 0.1s linear',
-              }}
-            >
-              <ProjectCard
-                p={p}
-              />
-            </div>
-          ))}
+          {projects.map((p, i) => {
+            const active = i === activeIdx;
+            return (
+              <div
+                key={i}
+                className="carousel-cell"
+                style={{
+                  position: 'absolute', inset: 0,
+                  opacity: active ? 1 : 0,
+                  transform: active ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.96)',
+                  transition: 'opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1)',
+                  pointerEvents: active ? 'auto' : 'none',
+                  zIndex: active ? 2 : 1,
+                }}
+              >
+                <ProjectCard p={p} />
+              </div>
+            );
+          })}
         </div>
       </div>
 

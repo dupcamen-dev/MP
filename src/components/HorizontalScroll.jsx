@@ -15,18 +15,18 @@ export default function HorizontalScroll({ progress }) {
     if (!trigger || !spacer) return;
     const tp = trigger.offsetTop + trigger.offsetHeight;
     const sh = spacer.offsetHeight;
-    const p = j * (0.52 / 4);
+    const p = j * (0.26 / 4);
     window.scrollTo({ top: tp + p * sh, behavior: 'smooth' });
   }, []);
 
-  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.76) / 0.08));
+  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.52) / 0.08));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return slideP < 0.52 ? 100
-        : slideP > 0.58 ? 0
-        : 100 - ((slideP - 0.52) / 0.06) * 100;
+      return slideP < 0.26 ? 100
+        : slideP > 0.32 ? 0
+        : 100 - ((slideP - 0.26) / 0.06) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0
