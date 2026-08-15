@@ -6,6 +6,7 @@ const projects = [
   { tag: 'CATERING · UK', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'We Cook Anything You Crave. Any cuisine, cooked flawlessly.', img: '/raqt-hero.png', link: 'https://www.raqtfuel.com', caption: 'raqtfuel.com — shipped 2024' },
   { tag: 'CUSTOM FURNITURE · CHORTKIV', title: 'MEBLI', subtitle: 'CHORTKIV', color: '#8B6914', desc: 'Bespoke furniture workshop. Kitchens, bedrooms, living rooms — built to order.', img: '/mebli-hero.webp', link: 'https://mebli-chortkiv.vercel.app/', caption: 'mebli-chortkiv.vercel.app — shipped 2026' },
   { tag: 'MONITORING SAAS · STATUS PAGE', title: 'TOPSTATUS', subtitle: '', color: '#1A56C4', desc: 'Uptime monitoring and public status pages in one product. Instant alerts, incident history, crypto payments.', img: '/topstatus-hero.webp', link: 'https://topstatus.space/', caption: 'topstatus.space — shipped 2026' },
+  { tag: 'PERFUME · CONCEPT', title: 'AVVADON', subtitle: '', color: '#C9A227', desc: 'Luxury fragrance concept store with dark ritual-style UX. Design + frontend only — no backend.', img: '/avvadon-hero.webp', link: 'https://dupcamen-dev.github.io/AVVADON/', caption: 'dupcamen-dev.github.io/AVVADON — design + frontend only' },
 ];
 
 function ProjectCard({ p }) {
@@ -176,7 +177,7 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
   const activeIdx = mobile
     ? 0
     : (() => {
-        const n = Math.min(1, Math.max(0, progress / 0.26)) * CELL_COUNT;
+        const n = Math.min(1, Math.max(0, progress / 0.325)) * CELL_COUNT;
         return Math.round(n) % CELL_COUNT;
       })();
 
