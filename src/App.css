@@ -7,9 +7,9 @@
   --surface-high: #f0f0f0;
   --surface-highest: #e0e0e0;
   --on-surface: #2d2d2d;
-  --primary: #f0e060;
+  --primary: #f97316;
   --on-primary: #2d2d2d;
-  --primary-muted: #d9ca4a;
+  --primary-muted: #ea580c;
   --primary-container: #faf5d0;
   --secondary: #555555;
   --secondary-container: #1a1a1a;
@@ -21,7 +21,7 @@
   /* Brand tokens — White + Graphite + Lemon Yellow + Grey + Black */
   --cream: #ffffff;
   --ink: #2d2d2d;
-  --terracotta: #f0e060;
+  --terracotta: #f97316;
   --sienna: #555555;
   --deep: #1a1a1a;
 
@@ -122,9 +122,9 @@ body::after {
 }
 
 @keyframes ship-flash {
-  0% { text-shadow: 0 0 0 rgba(240, 224, 96, 0); }
-  30% { text-shadow: 0 0 34px rgba(240, 224, 96, 0.9); filter: brightness(1.45); }
-  100% { text-shadow: 0 0 0 rgba(240, 224, 96, 0); filter: brightness(1); }
+  0% { text-shadow: 0 0 0 rgba(249, 115, 22, 0); }
+  30% { text-shadow: 0 0 34px rgba(249, 115, 22, 0.9); filter: brightness(1.45); }
+  100% { text-shadow: 0 0 0 rgba(249, 115, 22, 0); filter: brightness(1); }
 }
 
 @keyframes caret-blink {

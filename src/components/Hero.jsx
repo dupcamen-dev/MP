@@ -79,7 +79,7 @@ function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
 
           const alpha = grid[r][c];
           if (alpha > 0.01) {
-            ctx.fillStyle = `rgba(240, 224, 96, ${alpha * 0.55})`;
+            ctx.fillStyle = `rgba(249, 115, 22, ${alpha * 0.55})`;
             ctx.fillRect(
               c * cw / cols + gap,
               r * ch / rows + gap,
@@ -183,7 +183,7 @@ function useCodeRain(canvasRef) {
         ln.y -= ln.speed * 60 * dt;
         if (ln.y < -24) Object.assign(ln, spawn(false));
         ctx.fillStyle = ln.yellow
-          ? `rgba(240, 224, 96, ${ln.alpha + 0.09})`
+          ? `rgba(249, 115, 22, ${ln.alpha + 0.09})`
           : `rgba(255, 255, 255, ${ln.alpha})`;
         ctx.fillText(ln.text, ln.x, ln.y);
       }

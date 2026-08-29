@@ -23,6 +23,7 @@ function ProjectCard({ p }) {
     }}>
       <div className="card-img" style={{
         height: '52%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
+        borderRadius: 'var(--radius)',
         background: 'var(--sienna)',
       }}>
         <img src={p.img} alt={p.title + ' — live product'} loading="lazy"

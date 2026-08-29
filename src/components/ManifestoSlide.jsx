@@ -62,7 +62,6 @@ export default function ManifestoSlide({ progress }) {
 
   const renderLine = (line, startIdx, isLastLine) => {
     let i = startIdx;
-    const caretVisible = done ? isLastLine : startIdx + line.length > visibleWords;
     return (
       <span style={{ display: 'block' }}>
         {line.map((w, k) => {
@@ -81,16 +80,6 @@ export default function ManifestoSlide({ progress }) {
             >{w.text}</span>
           );
         })}
-        {caretVisible && (
-          <span
-            className="manifesto-caret"
-            style={{
-              display: 'inline-block', width: '0.55ch', height: '0.95em',
-              background: 'var(--primary)', verticalAlign: 'text-bottom',
-              marginLeft: 2, animation: 'caret-blink 1s step-end infinite',
-            }}
-          />
-        )}
       </span>
     );
   };
@@ -114,7 +103,8 @@ export default function ManifestoSlide({ progress }) {
       {!mobile && (
         <div style={{
           position: 'absolute', left: 0, right: 0, bottom: -48,
-          display: 'flex', alignItems: 'center', gap: 14,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 14,
           fontFamily: "'Geist Mono', monospace", fontSize: 11,
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'rgba(255, 255, 255, 0.5)',
@@ -123,9 +113,6 @@ export default function ManifestoSlide({ progress }) {
         }}>
           <span style={{ color: done ? 'var(--primary)' : 'rgba(255,255,255,0.5)' }}>
             {done ? '// MANIFESTO COMPILED ✓' : '// COMPILING'}
-          </span>
-          <span style={{ flex: 1, height: 1, background: 'rgba(255, 255, 255, 0.15)', position: 'relative', overflow: 'hidden' }}>
-            <span style={{ position: 'absolute', inset: 0, width: `${Math.round(holdP * 100)}%`, background: 'var(--primary)', transition: 'width 0.15s linear' }} />
           </span>
           <span style={{ color: done ? 'var(--primary)' : 'rgba(255,255,255,0.5)' }}>
             {done ? 'SHIPPED' : `${Math.round(holdP * 100)}%`}
