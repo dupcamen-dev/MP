@@ -120,7 +120,8 @@ export default function ReviewsSlide({ progress = 0 }) {
         }}>
           {reviews.map((r, i) => (
             <div key={i} className="review-card" style={{
-              border: '1px solid var(--sienna)', padding: '28px 28px 24px',
+              border: '1px solid var(--sienna)', borderRadius: 'var(--radius)',
+              padding: '28px 28px 24px',
               background: 'transparent',
               boxShadow: '5px 5px 0 rgba(0,0,0,0.08)',
               ...reveal(i),

@@ -17,10 +17,13 @@ export default function CookieConsent() {
 
   return (
     <div style={{
-      position: 'fixed', bottom: 0, left: 0, right: 0,
+      position: 'fixed', bottom: 'clamp(12px, 2vh, 20px)',
+      left: 'clamp(12px, 2vw, 24px)', right: 'clamp(12px, 2vw, 24px)',
       zIndex: 9999,
       background: 'var(--ink)',
-      padding: '16px clamp(24px, 5%, 64px)',
+      borderRadius: 'var(--radius)',
+      boxShadow: '0 16px 40px rgba(0, 0, 0, 0.35)',
+      padding: '16px clamp(20px, 4vw, 32px)',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       gap: 16, flexWrap: 'wrap',
     }}>
@@ -36,7 +39,7 @@ export default function CookieConsent() {
         style={{
         fontFamily: "'Anton', Impact, sans-serif", fontSize: '0.85rem',
         textTransform: 'uppercase', color: 'var(--ink)',
-        background: 'var(--cream)', border: 'none', borderRadius: 0,
+        background: 'var(--cream)', border: 'none', borderRadius: 'var(--radius-pill)',
         padding: '10px 28px', cursor: 'pointer', letterSpacing: '0.04em',
         whiteSpace: 'nowrap', flexShrink: 0, transition: 'background 0.2s',
       }}>Accept</button>

@@ -55,7 +55,7 @@ export default function LoginPage({ clientId, onSignIn, onBack }) {
         </div>
 
         <div style={{
-          background: '#fff', border: '1px solid var(--sienna)',
+          background: '#fff', border: '1px solid var(--sienna)', borderRadius: 'var(--radius-lg)',
           padding: '48px 40px',
         }}>
           <h1 style={{

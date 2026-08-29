@@ -179,10 +179,10 @@ export default function App() {
             <p style={{ color: 'var(--text-dim)', marginBottom: 32 }}>
               This account does not have admin access.
             </p>
-            <button onClick={handleSignOut} style={{
+<button onClick={handleSignOut} style={{
               padding: '12px 28px', background: 'var(--ink)', color: 'var(--cream)',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-              textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+              textTransform: 'uppercase', border: 'none', borderRadius: 'var(--radius-pill)', cursor: 'pointer',
               letterSpacing: '0.04em',
             }}>Sign out</button>
           </div>

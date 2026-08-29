@@ -18,7 +18,7 @@ function saveOrder(order) {
 
 const inputStyle = {
   width: '100%', padding: '14px 16px', background: 'rgba(15,15,18,0.08)',
-  border: '2px solid rgba(20,19,21,0.2)', borderRadius: 0,
+  border: '2px solid rgba(20,19,21,0.2)', borderRadius: 'var(--radius-sm)',
   fontFamily: "'Geist', sans-serif", fontSize: '1.05rem', color: 'var(--surface-low)',
   outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
   resize: 'vertical',
@@ -97,7 +97,7 @@ export default function OrderModal({ onClose }) {
       }} onClick={onClose} role="dialog" aria-modal="true">
         <div onClick={e => e.stopPropagation()} style={{
           background: 'var(--surface-low)', padding: '60px 48px', maxWidth: 420, width: '90%',
-          textAlign: 'center',           border: '2px solid var(--ink)',
+          textAlign: 'center',           border: '2px solid var(--ink)', borderRadius: 'var(--radius-lg)',
         }}>
           <div style={{ fontSize: '4rem', marginBottom: 16 }}>&#9889;</div>
           <h3 style={{
@@ -113,7 +113,7 @@ export default function OrderModal({ onClose }) {
           <button onClick={onClose} style={{
             padding: '16px 48px', background: 'var(--ink)', color: 'var(--cream)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
-            border: '2px solid var(--ink)', cursor: 'pointer', letterSpacing: '0.05em',
+            border: '2px solid var(--ink)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', letterSpacing: '0.05em',
           }}>CLOSE</button>
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function OrderModal({ onClose }) {
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
         background: 'var(--ink)', padding: '48px 40px', maxWidth: 520, width: '90%',
-        border: '2px solid var(--surface-low)',
+        border: '2px solid var(--surface-low)', borderRadius: 'var(--radius-lg)',
       }}>
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28,
@@ -184,7 +184,7 @@ export default function OrderModal({ onClose }) {
           style={{
             width: '100%', padding: '18px', background: 'var(--terracotta)', color: 'var(--ink)',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.35rem', textTransform: 'uppercase',
-            border: '2px solid var(--terracotta)', cursor: sending ? 'wait' : 'pointer',
+            border: '2px solid var(--terracotta)', borderRadius: 'var(--radius-pill)', cursor: sending ? 'wait' : 'pointer',
             opacity: sending ? 0.6 : 1, letterSpacing: '0.05em',
           }}
         >

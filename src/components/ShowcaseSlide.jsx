@@ -15,26 +15,12 @@ function ProjectCard({ p }) {
       width: '100%', height: '100%',
       background: 'var(--cream)',
       border: '1px solid var(--sienna)',
+      borderRadius: 'var(--radius)',
       boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
       position: 'relative', overflow: 'hidden', display: 'flex',
       flexDirection: 'column', padding: 14,
       transition: 'border-color 0.4s, box-shadow 0.4s',
     }}>
-      {/* Registration marks */}
-      {[
-        { top: 6, left: 6 }, { top: 6, right: 6 },
-        { bottom: 6, left: 6 }, { bottom: 6, right: 6 },
-      ].map((pos, i) => (
-        <span key={i} aria-hidden="true" style={{
-          position: 'absolute', width: 10, height: 10, ...pos, zIndex: 3,
-          borderTop: pos.top !== undefined ? '1px solid var(--sienna)' : 'none',
-          borderBottom: pos.bottom !== undefined ? '1px solid var(--sienna)' : 'none',
-          borderLeft: pos.left !== undefined ? '1px solid var(--sienna)' : 'none',
-          borderRight: pos.right !== undefined ? '1px solid var(--sienna)' : 'none',
-          opacity: 0.5,
-        }} />
-      ))}
-
       <div className="card-img" style={{
         height: '52%', width: '100%', overflow: 'hidden', position: 'relative', flexShrink: 0,
         background: 'var(--sienna)',
@@ -55,8 +41,9 @@ function ProjectCard({ p }) {
           position: 'absolute', top: 12, left: 12,
           fontFamily: "'Geist Mono', monospace", fontSize: 10,
           letterSpacing: '0.14em', textTransform: 'uppercase',
-          color: 'var(--cream)', background: 'rgba(26,26,26,0.8)', padding: '5px 10px',
-        }}>{p.tag}</span>
+color: 'var(--cream)', background: 'rgba(26,26,26,0.8)', padding: '5px 10px',
+                  borderRadius: 999,
+                }}>{p.tag}</span>
       </div>
       <div className="card-body" style={{
         flex: 1, padding: '24px 20px 12px',
@@ -157,7 +144,7 @@ function MobileProjectList() {
               {projects.map((_, j) => (
                 <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
                   width: activeIdx === j ? 20 : 8, height: 8, minWidth: 44, minHeight: 44,
-                  borderRadius: 4, border: 'none', padding: 0,
+                  borderRadius: '50%', border: 'none', padding: 0,
                   background: activeIdx === j ? 'var(--surface)' : 'rgba(42, 37, 32, 0.25)',
                   transition: 'all 0.3s ease', cursor: 'pointer',
                 }} aria-label={`Go to project ${j + 1}`} />
@@ -246,7 +233,7 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
           {projects.map((_, j) => (
             <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
               width: activeIdx === j ? 24 : 8, height: 8, minWidth: 44, minHeight: 44,
-              borderRadius: 4, border: 'none', padding: 0,
+              borderRadius: '50%', border: 'none', padding: 0,
                   background: activeIdx === j ? 'var(--surface)' : 'rgba(26, 26, 26, 0.35)',
               transition: 'all 0.3s ease', cursor: 'pointer',
             }} aria-label={`Go to project ${j + 1}`} />

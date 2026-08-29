@@ -45,6 +45,7 @@ export default function PricingFAQ({ onBook }) {
 
             {/* Price card */}
             <div style={{ position: 'relative', background: 'var(--bg-alt)', border: '1px solid var(--sienna)',
+              borderRadius: 'var(--radius)', overflow: 'hidden',
               boxShadow: '5px 5px 0 rgba(0,0,0,0.1)' }}>
               <div style={{ height: 6, background: 'var(--ink)' }} />
               <div style={{ padding: '40px 36px' }}>

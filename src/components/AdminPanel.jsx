@@ -52,37 +52,38 @@ const s = {
   },
   input: {
     width: '100%', padding: '12px 16px', background: '#fff',
-    border: '1px solid var(--sienna)', borderRadius: 0,
+    border: '1px solid var(--sienna)', borderRadius: 'var(--radius-sm)',
     fontFamily: "'Geist Mono', monospace", fontSize: '0.95rem',
     color: 'var(--ink)', outline: 'none', boxSizing: 'border-box',
   },
   btn: {
     padding: '12px 28px', background: 'var(--ink)', color: 'var(--cream)',
     fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-    textTransform: 'uppercase', border: 'none', borderRadius: 0,
+    textTransform: 'uppercase', border: 'none', borderRadius: 'var(--radius-pill)',
     cursor: 'pointer', letterSpacing: '0.04em',
   },
   btnSmall: {
     padding: '6px 14px', fontSize: '0.75rem',
     fontFamily: "'Geist Mono', monospace", letterSpacing: '0.06em',
     border: '1px solid var(--sienna)', background: 'transparent',
-    color: 'var(--ink)', borderRadius: 0, cursor: 'pointer', textTransform: 'uppercase',
+    color: 'var(--ink)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', textTransform: 'uppercase',
   },
   card: {
     background: '#fff', border: '1px solid var(--sienna)',
+    borderRadius: 'var(--radius)',
     padding: 20, marginBottom: 12,
   },
   statusNew: {
     display: 'inline-block', padding: '3px 10px',
     fontFamily: "'Geist Mono', monospace", fontSize: 10,
     letterSpacing: '0.1em', textTransform: 'uppercase',
-    background: 'var(--ink)', color: 'var(--cream)',
+    background: 'var(--ink)', color: 'var(--cream)', borderRadius: 999,
   },
   statusRead: {
     display: 'inline-block', padding: '3px 10px',
     fontFamily: "'Geist Mono', monospace", fontSize: 10,
     letterSpacing: '0.1em', textTransform: 'uppercase',
-    background: 'var(--sienna)', color: 'var(--cream)',
+    background: 'var(--sienna)', color: 'var(--cream)', borderRadius: 999,
   },
   empty: {
     fontFamily: "'Geist', sans-serif", fontSize: '1.1rem',
@@ -202,6 +203,7 @@ export default function AdminPanel({ user, onSignOut }) {
               {t.badge && <span style={{
                 marginLeft: 8, padding: '2px 8px', background: 'var(--ink)',
                 color: 'var(--cream)', fontSize: 11, fontFamily: "'Geist Mono', monospace",
+                borderRadius: 999,
               }}>{t.badge}</span>}
             </button>
           ))}
@@ -347,7 +349,7 @@ export default function AdminPanel({ user, onSignOut }) {
 
             <div style={{
               marginTop: 40, padding: 20, background: '#fff',
-              border: '1px solid var(--sienna)',
+              border: '1px solid var(--sienna)', borderRadius: 'var(--radius)',
             }}>
               <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--sienna)', margin: '0 0 12px 0' }}>HOW TO GET A CLIENT ID</p>
               <ol style={{

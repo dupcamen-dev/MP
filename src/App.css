@@ -25,6 +25,12 @@
   --sienna: #555555;
   --deep: #1a1a1a;
 
+  /* Radius tokens */
+  --radius-sm: 10px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
   color-scheme: light;
 }
 
@@ -177,7 +183,7 @@ body::after {
   .menu-link:hover::after { width: 100%; }
   .cta-slide-title .line-white:hover { transform: skewX(6deg) !important; }
   .cta-slide-title .line-yellow:hover { transform: translateY(-6px) skewX(-6deg) !important; color: var(--secondary) !important; }
-  .cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 8px 8px 0 var(--steel) !important; }
+  .cta-btn:hover { transform: translate(-4px, -4px) !important; box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28) !important; }
   .header-logo:hover { text-shadow: 4px 4px 0 var(--secondary) !important; }
   .menu-btn:hover span { width: 44px !important; }
 }

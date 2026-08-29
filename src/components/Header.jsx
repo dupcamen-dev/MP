@@ -82,7 +82,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
               color: 'var(--cream)', textDecoration: 'none', padding: '6px 12px',
-              border: '1px solid rgba(255, 255, 255, 0.6)', transition: 'all 0.2s',
+              border: '1px solid rgba(255, 255, 255, 0.6)', borderRadius: 999, transition: 'all 0.2s',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.borderColor = 'var(--primary)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)'; }}
@@ -102,7 +102,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
             fontFamily: "'Geist Mono', monospace", fontSize: 11,
             letterSpacing: '0.1em', textTransform: 'uppercase',
             color: 'var(--cream)', background: 'none',
-            border: '1px solid rgba(255, 255, 255, 0.6)', cursor: 'pointer',
+            border: '1px solid rgba(255, 255, 255, 0.6)', borderRadius: 999, cursor: 'pointer',
             padding: '6px 14px', transition: 'all 0.2s',
           }}
           onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.borderColor = 'var(--primary)'; }}
