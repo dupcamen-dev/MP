@@ -79,7 +79,7 @@ function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
 
           const alpha = grid[r][c];
           if (alpha > 0.01) {
-            ctx.fillStyle = `rgba(249, 115, 22, ${alpha * 0.55})`;
+            ctx.fillStyle = `rgba(249, 115, 22, ${alpha * 0.95})`;
             ctx.fillRect(
               c * cw / cols + gap,
               r * ch / rows + gap,
@@ -160,7 +160,7 @@ function useCodeRain(canvasRef) {
       x: Math.random() * canvas.width,
       y: initial ? Math.random() * canvas.height : canvas.height + 24,
       speed: 0.12 + Math.random() * 0.35,
-      alpha: 0.05 + Math.random() * 0.07,
+      alpha: 0.35 + Math.random() * 0.3,
       yellow: Math.random() < 0.1,
     });
 
@@ -183,7 +183,7 @@ function useCodeRain(canvasRef) {
         ln.y -= ln.speed * 60 * dt;
         if (ln.y < -24) Object.assign(ln, spawn(false));
         ctx.fillStyle = ln.yellow
-          ? `rgba(249, 115, 22, ${ln.alpha + 0.09})`
+          ? `rgba(249, 115, 22, ${Math.min(1, ln.alpha + 0.35)})`
           : `rgba(255, 255, 255, ${ln.alpha})`;
         ctx.fillText(ln.text, ln.x, ln.y);
       }
