@@ -182,7 +182,7 @@ export default function OrderModal({ onClose }) {
           onClick={handleSubmit}
           disabled={sending}
           style={{
-            width: '100%', padding: '18px', background: 'var(--terracotta)', color: 'var(--ink)',
+            width: '100%', padding: '18px', background: 'var(--terracotta)', color: '#ffffff',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.35rem', textTransform: 'uppercase',
             border: '2px solid var(--terracotta)', borderRadius: 'var(--radius-pill)', cursor: sending ? 'wait' : 'pointer',
             opacity: sending ? 0.6 : 1, letterSpacing: '0.05em',

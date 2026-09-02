@@ -3,7 +3,7 @@ import { useMobile, useTablet } from '../hooks/useMobile';
 import { useMagnetic } from '../hooks/useMagnetic';
 import OrderModal from './OrderModal';
 
-const ctaBg = 'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(/cta-bg.webp)';
+const ctaBg = 'linear-gradient(rgba(253,253,253,0.72), rgba(253,253,253,0.72)), url(/cta-bg.webp)';
 
 export default function CtaOverlay({ showModal: externalModal, setShowModal: externalSetShowModal, onBook }) {
   const overlayRef = useRef(null);
@@ -70,7 +70,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
           }}>
             <h2 className="cta-slide-title" style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-              lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--cream)',
+              lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)',
               letterSpacing: '-0.01em', marginBottom: 24,
             }}>
               <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
@@ -79,7 +79,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             <p className="cta-slide-sub reveal" style={{
               fontFamily: "'Geist', sans-serif", fontWeight: 300,
               fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
-              color: 'var(--cream)', opacity: 0.8, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
+              color: 'var(--ink)', opacity: 0.7, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
             }}>
               One message. Seven days. A working website with SEO — live and found on Google.
             </p>
@@ -89,7 +89,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
               onClick={() => onBook ? onBook() : setIsModalOpen(true)}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: btnPadding, background: 'var(--cream)', color: 'var(--ink)',
+                padding: btnPadding, background: 'var(--ink)', color: '#fff',
                 fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.4vw, 1.85rem)',
                 textTransform: 'uppercase', border: 'none', borderRadius: 'var(--radius-pill)',
                 cursor: 'pointer', letterSpacing: '0.03em',
@@ -124,7 +124,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
         }}>
           <h2 className="cta-slide-title" style={{
             fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-            lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--cream)',
+            lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)',
             letterSpacing: '-0.01em', marginBottom: 24,
           }}>
             <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
@@ -133,7 +133,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 300,
             fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
-            color: 'var(--cream)', opacity: 0.8, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
+            color: 'var(--ink)', opacity: 0.7, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
           }}>
             One message. Seven days. A working website with SEO — live and found on Google.
           </p>
@@ -145,7 +145,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             onMouseLeave={!mobile ? magnetic.onMouseLeave : undefined}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
-              padding: btnPadding, background: 'var(--cream)', color: 'var(--ink)',
+              padding: btnPadding, background: 'var(--ink)', color: '#fff',
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.25rem, 2.4vw, 1.85rem)',
               textTransform: 'uppercase', border: 'none', borderRadius: 'var(--radius-pill)',
               cursor: 'pointer', letterSpacing: '0.03em',

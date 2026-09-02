@@ -79,7 +79,7 @@ function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
 
           const alpha = grid[r][c];
           if (alpha > 0.01) {
-            ctx.fillStyle = `rgba(249, 115, 22, ${alpha * 0.95})`;
+            ctx.fillStyle = `rgba(249, 115, 22, ${alpha * 0.5})`;
             ctx.fillRect(
               c * cw / cols + gap,
               r * ch / rows + gap,
@@ -160,7 +160,7 @@ function useCodeRain(canvasRef) {
       x: Math.random() * canvas.width,
       y: initial ? Math.random() * canvas.height : canvas.height + 24,
       speed: 0.12 + Math.random() * 0.35,
-      alpha: 0.35 + Math.random() * 0.3,
+      alpha: 0.45 + Math.random() * 0.35,
       yellow: Math.random() < 0.1,
     });
 
@@ -176,15 +176,15 @@ function useCodeRain(canvasRef) {
       last = t;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = "11px 'Geist Mono', monospace";
+      ctx.font = "11px 'Inter', monospace";
       ctx.textBaseline = 'top';
 
       for (const ln of lines) {
         ln.y -= ln.speed * 60 * dt;
         if (ln.y < -24) Object.assign(ln, spawn(false));
         ctx.fillStyle = ln.yellow
-          ? `rgba(249, 115, 22, ${Math.min(1, ln.alpha + 0.35)})`
-          : `rgba(255, 255, 255, ${ln.alpha})`;
+          ? `rgba(249, 115, 22, ${Math.min(1, ln.alpha + 0.2)})`
+          : `rgba(26, 26, 26, ${ln.alpha * 0.5})`;
         ctx.fillText(ln.text, ln.x, ln.y);
       }
 
@@ -235,8 +235,8 @@ export default function Hero({ onBook }) {
     minHeight: '100vh',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     padding: 'clamp(80px, 12vh, 140px) clamp(24px, 8%, 140px)',
-    background: '#000',
-    color: 'var(--cream)',
+    background: '#fdfdfd',
+    color: 'var(--ink)',
     position: 'relative', overflow: 'hidden',
   };
 
@@ -253,7 +253,7 @@ export default function Hero({ onBook }) {
 
   const cornerStyle = {
     fontFamily: "'Geist Mono', monospace", fontSize: 11,
-    letterSpacing: '0.14em', color: 'rgba(255, 255, 255, 0.35)',
+    letterSpacing: '0.14em', color: 'rgba(26, 26, 26, 0.2)',
     position: 'absolute', zIndex: 1, pointerEvents: 'none',
     userSelect: 'none',
   };
@@ -266,7 +266,7 @@ export default function Hero({ onBook }) {
         display: 'flex', alignItems: 'center', gap: 12,
       }}>
         <span>00:00</span>
-        <span style={{ flex: 1, height: 1, background: 'rgba(255, 255, 255, 0.18)' }} />
+        <span style={{ flex: 1, height: 1, background: 'rgba(26, 26, 26, 0.12)' }} />
         <span>23:59</span>
       </div>
     </>
@@ -281,25 +281,25 @@ export default function Hero({ onBook }) {
         <p style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
-          color: 'var(--cream)', opacity: 0.7, margin: '0 0 24px 0',
+          color: 'var(--ink)', opacity: 0.7, margin: '0 0 24px 0',
           ...reveal(0),
         }}>WEBSITE + SEO · LIVE IN 7 DAYS</p>
 
         <h1 style={{
           fontFamily: "'Anton', Impact, sans-serif",
           fontSize: 'clamp(3.5rem, 9vw, 8rem)', lineHeight: 0.88,
-          textTransform: 'uppercase', color: 'var(--cream)',
+          textTransform: 'uppercase', color: 'var(--ink)',
           letterSpacing: '-0.02em', margin: '0 0 32px 0',
           ...reveal(0.08),
         }}>
           Your website,<br />found in Google.<br />
-          <span className={visible ? 'ship-flash' : ''} style={{ color: 'var(--primary)' }}>Seven days.</span>
+          <span className={visible ? 'ship-flash' : ''} style={{ color: '#f97316' }}>Seven days.</span>
         </h1>
 
         <p style={{
           fontFamily: "'Geist', sans-serif", fontWeight: 300,
           fontSize: 'clamp(1.15rem, 2vw, 1.5rem)', lineHeight: 1.4,
-          color: 'var(--cream)', opacity: 0.9, maxWidth: 600, margin: '0 0 40px 0',
+          color: 'var(--ink)', opacity: 0.9, maxWidth: 600, margin: '0 0 40px 0',
           ...reveal(0.16),
         }}>
           We don&apos;t just make a pretty page. We build a working website
@@ -308,10 +308,10 @@ export default function Hero({ onBook }) {
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', pointerEvents: 'auto', ...reveal(0.24) }}>
-          <PrimaryButton onClick={onBook} style={{ background: 'var(--cream)', color: 'var(--deep)' }}>
+          <PrimaryButton onClick={onBook} style={{ background: 'var(--ink)', color: '#fff' }}>
             Book a week →
           </PrimaryButton>
-          <GhostButton href="#showcase" style={{ color: 'var(--cream)', borderColor: 'var(--cream)' }}>
+          <GhostButton href="#showcase" style={{ color: 'var(--ink)', borderColor: 'var(--ink)' }}>
             See the work
           </GhostButton>
         </div>

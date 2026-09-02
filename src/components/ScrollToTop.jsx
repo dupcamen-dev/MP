@@ -35,7 +35,7 @@ export default function ScrollToTop() {
         pointerEvents: visible ? 'auto' : 'none',
         transition: 'opacity 0.3s, transform 0.3s, background 0.3s, color 0.3s',
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--terracotta)'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = '#f97316'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.transform = 'translateY(0)'; }}
     >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

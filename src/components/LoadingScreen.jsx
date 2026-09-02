@@ -46,7 +46,7 @@ export default function LoadingScreen({ onFinish }) {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
-      background: '#000',
+      background: '#fdfdfd',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center',
       transition: 'opacity 0.5s',
@@ -62,7 +62,7 @@ export default function LoadingScreen({ onFinish }) {
           lineHeight: 1,
           textTransform: 'uppercase',
           letterSpacing: '-0.01em',
-          color: shipped ? 'var(--primary)' : 'var(--cream)',
+          color: shipped ? '#f97316' : 'var(--ink)',
           animation: shipped ? 'ship-flash 0.6s ease-out' : 'day-pop 0.4s ease-out',
         }}>
           {shipped ? 'Shipped.' : `Day ${String(day).padStart(2, '0')}`}
@@ -71,7 +71,7 @@ export default function LoadingScreen({ onFinish }) {
         <div style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 11,
           letterSpacing: '0.18em', textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.55)',
+          color: '#8a8a8a',
         }}>
           {shipped ? 'Your website is live. Found on Google.' : 'Building your website · 7 days'}
         </div>
@@ -80,7 +80,7 @@ export default function LoadingScreen({ onFinish }) {
           {[1, 2, 3, 4, 5, 6, 7].map((i) => (
             <div key={i} style={{
               width: 10, height: 10,
-              background: shipped ? 'var(--primary)' : (i <= day ? 'var(--primary)' : 'rgba(255, 255, 255, 0.18)'),
+              background: shipped ? 'var(--ink)' : (i <= day ? 'var(--ink)' : '#e8e8e8'),
               transition: 'background 0.15s',
             }} />
           ))}

@@ -55,8 +55,8 @@ export function useScrollTo() {
     // Map each horizontal-scroll section to a progress fraction
     const scrollMap = {
       showcase: 0.03,
-      reviews: 0.45,
-      manifesto: 0.75,
+      reviews: 0.42,
+      manifesto: 0.86,
     };
 
     if (targetId in scrollMap) {

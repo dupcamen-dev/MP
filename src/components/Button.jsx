@@ -36,11 +36,11 @@ export function GhostButton({ children, onClick, href, style = {}, ...props }) {
     fontFamily: "'Anton', Impact, sans-serif",
     fontSize: 'clamp(0.95rem, 1.4vw, 1.15rem)',
     letterSpacing: '0.04em', textTransform: 'uppercase',
-    color: hover ? 'var(--cream)' : 'var(--ink)',
-    background: hover ? 'var(--ink)' : 'transparent',
-    border: '2px solid var(--ink)', borderRadius: 'var(--radius-pill)', cursor: 'pointer',
+    color: hover ? '#fff' : 'var(--ink)',
+    background: hover ? '#f97316' : 'transparent',
+    border: hover ? '2px solid #f97316' : '2px solid var(--ink)', borderRadius: 'var(--radius-pill)', cursor: 'pointer',
     padding: '14px 30px', textDecoration: 'none',
-    transition: 'background 0.2s, color 0.2s',
+    transition: 'background 0.2s, color 0.2s, border-color 0.2s',
     ...style,
   };
   const handlers = {

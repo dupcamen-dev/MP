@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useScrollProgress } from './hooks/useScrollProgress';
 import { useMobile } from './hooks/useMobile';
 import { useAuth } from './hooks/useAuth';
@@ -7,7 +9,7 @@ import Hero from './components/Hero';
 import Process from './components/Process';
 import HorizontalScroll from './components/HorizontalScroll';
 import ShowcaseSlide from './components/ShowcaseSlide';
-import PricingFAQ from './components/PricingFAQ';
+import PriceList from './components/PriceList';
 import CtaOverlay from './components/CtaOverlay';
 import ScrollToTop from './components/ScrollToTop';
 import AdminPanel from './components/AdminPanel';
@@ -69,13 +71,13 @@ function Site({ showModal, setShowModal, onBook }) {
         <Process progress={progress} onBook={onBook} />
         {mobile && <ShowcaseSlide />}
         <HorizontalScroll progress={progress} />
-        {!mobile && <div className="h-scroll-spacer" style={{ height: '170vh', pointerEvents: 'none' }} />}
+        {!mobile && <div className="h-scroll-spacer" style={{ height: '200vh', pointerEvents: 'none' }} />}
         {!mobile && <div style={{ height: '40vh', pointerEvents: 'none' }} />}
-        <PricingFAQ onBook={onBook} />
+        <PriceList onBook={onBook} />
         <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
       </main>
       <footer style={{
-        background: '#000',
+        background: '#fdfdfd',
         paddingTop: 80, paddingBottom: 48,
         paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
         position: 'relative', zIndex: 3,
@@ -93,12 +95,12 @@ function Site({ showModal, setShowModal, onBook }) {
             <nav style={{ display: 'flex', gap: 24 }}>
               {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
                 <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.textDecoration = 'underline'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; e.currentTarget.style.textDecoration = 'none'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
                   style={{
-                    fontFamily: "'Geist Mono', monospace", fontSize: 12,
+                    fontFamily: "'Inter', system-ui, sans-serif", fontSize: 12,
                     letterSpacing: '0.12em', textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.6)', textDecoration: 'none',
+                    color: '#8a8a8a', textDecoration: 'none',
                     transition: 'color 0.2s',
                   }}>{l.label}</a>
               ))}
@@ -106,24 +108,24 @@ function Site({ showModal, setShowModal, onBook }) {
           </div>
           <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
             <span style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 11,
-              letterSpacing: '0.08em',               color: 'rgba(255,255,255,0.4)',
+              fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
+              letterSpacing: '0.08em',               color: '#8a8a8a',
             }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
             <div style={{ display: 'flex', gap: 20 }}>
               <a href="#/privacy"
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.textDecoration = 'underline'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; e.currentTarget.style.textDecoration = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
                 style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 11,
-                letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
+                fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
+                letterSpacing: '0.06em', color: '#8a8a8a',
                 textDecoration: 'none', transition: 'color 0.2s',
               }}>Privacy Policy</a>
               <a href="#/terms"
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--cream)'; e.currentTarget.style.textDecoration = 'underline'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; e.currentTarget.style.textDecoration = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
                 style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 11,
-                letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)',
+                fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
+                letterSpacing: '0.06em', color: '#8a8a8a',
                 textDecoration: 'none', transition: 'color 0.2s',
               }}>Terms of Service</a>
             </div>
@@ -202,6 +204,8 @@ export default function App() {
       />
       <Site showModal={showModal} setShowModal={setShowModal} onBook={openModal} />
       <CookieConsent />
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 }

@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
 
 const LINES = [
-  [{ t: "We don't do meetings about meetings.", c: 'var(--sienna)' }],
+  [{ t: "We don't do meetings about meetings.", c: 'var(--ink)' }],
   [
-    { t: 'We make your website ', c: 'var(--sienna)' },
-    { t: 'work', c: 'var(--cream)' },
-    { t: ',', c: 'var(--sienna)' },
+    { t: 'We make your website ', c: 'var(--ink)' },
+    { t: 'work', c: '#3d4a5c' },
+    { t: ',', c: 'var(--ink)' },
   ],
   [
-    { t: 'found in Google, in ', c: 'var(--sienna)' },
-    { t: 'seven days', c: 'var(--cream)' },
-    { t: '.', c: 'var(--sienna)' },
+    { t: 'found in Google, in ', c: 'var(--ink)' },
+    { t: 'seven days', c: '#3d4a5c' },
+    { t: '.', c: 'var(--ink)' },
   ],
 ];
 
@@ -92,7 +92,7 @@ export default function ManifestoSlide({ progress }) {
         fontFamily: "'Anton', Impact, sans-serif",
         fontSize: 'clamp(2.5rem, 6vw, 5rem)',
         lineHeight: 0.95, textTransform: 'uppercase',
-        color: 'var(--cream)', margin: 0, letterSpacing: '0.005em',
+        color: 'var(--ink)', margin: 0, letterSpacing: '0.005em',
       }}>
         {WORDS.map((l, i) => {
           const startIdx = WORDS.slice(0, i).reduce((n, x) => n + x.length, 0);
@@ -105,16 +105,16 @@ export default function ManifestoSlide({ progress }) {
           position: 'absolute', left: 0, right: 0, bottom: -48,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: 14,
-          fontFamily: "'Geist Mono', monospace", fontSize: 11,
+          fontFamily: "'Inter', monospace", fontSize: 11,
           letterSpacing: '0.14em', textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.5)',
+          color: 'rgba(26, 26, 26, 0.5)',
           opacity: holdP, transition: 'opacity 0.3s ease',
           whiteSpace: 'nowrap',
         }}>
-          <span style={{ color: done ? 'var(--primary)' : 'rgba(255,255,255,0.5)' }}>
-            {done ? '// MANIFESTO COMPILED ✓' : '// COMPILING'}
+          <span style={{ color: done ? 'var(--ink)' : 'rgba(26,26,26,0.5)' }}>
+            {done ? '// MANIFESTO COMPILED вњ“' : '// COMPILING'}
           </span>
-          <span style={{ color: done ? 'var(--primary)' : 'rgba(255,255,255,0.5)' }}>
+          <span style={{ color: done ? 'var(--ink)' : 'rgba(26,26,26,0.5)' }}>
             {done ? 'SHIPPED' : `${Math.round(holdP * 100)}%`}
           </span>
         </div>
@@ -127,7 +127,7 @@ export default function ManifestoSlide({ progress }) {
       <>
         <div aria-hidden="true" style={{
           position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/manifesto-bg.webp)',
+          backgroundImage: 'linear-gradient(rgba(253,253,253,0.72), rgba(253,253,253,0.72)), url(/manifesto-bg.webp)',
           backgroundSize: 'cover', backgroundPosition: 'center',
           zIndex: 0, opacity: bgVisible ? 1 : 0,
           transition: 'opacity 0.3s ease',
@@ -149,7 +149,7 @@ export default function ManifestoSlide({ progress }) {
   return (
     <section className="slide manifesto-slide" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
-      backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/manifesto-bg.webp)',
+      backgroundImage: 'linear-gradient(rgba(253,253,253,0.72), rgba(253,253,253,0.72)), url(/manifesto-bg.webp)',
       backgroundSize: 'cover', backgroundPosition: 'center',
       overflow: 'hidden', position: 'relative',
       display: 'flex', alignItems: 'center',

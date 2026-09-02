@@ -14,9 +14,9 @@ function ProjectCard({ p }) {
     <div className="carousel-card" style={{
       width: '100%', height: '100%',
       background: 'var(--cream)',
-      border: '1px solid var(--sienna)',
+      border: '1px solid #e8e8e8',
       borderRadius: 'var(--radius)',
-      boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
       position: 'relative', overflow: 'hidden', display: 'flex',
       flexDirection: 'column', padding: 14,
       transition: 'border-color 0.4s, box-shadow 0.4s',
@@ -35,14 +35,14 @@ function ProjectCard({ p }) {
         }} />
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(135deg, rgba(45,45,45,0.15), rgba(26,26,26,0.10))',
+          background: 'linear-gradient(135deg, rgba(253,253,253,0.15), rgba(253,253,253,0.10))',
           mixBlendMode: 'multiply', pointerEvents: 'none',
         }} />
         <span style={{
           position: 'absolute', top: 12, left: 12,
           fontFamily: "'Geist Mono', monospace", fontSize: 10,
           letterSpacing: '0.14em', textTransform: 'uppercase',
-color: 'var(--cream)', background: 'rgba(26,26,26,0.8)', padding: '5px 10px',
+color: 'var(--ink)', background: 'rgba(253,253,253,0.85)', padding: '5px 10px',
                   borderRadius: 999,
                 }}>{p.tag}</span>
       </div>
@@ -125,7 +125,7 @@ function MobileProjectList() {
               width: '100%', height: '100vh',
               minHeight: '100dvh',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'var(--ink)', overflow: 'hidden', position: 'relative',
+      background: '#fdfdfd', overflow: 'hidden', position: 'relative',
               padding: '24px',
               scrollSnapAlign: 'center',
             }}
@@ -146,7 +146,7 @@ function MobileProjectList() {
                 <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
                   width: activeIdx === j ? 20 : 8, height: 8, minWidth: 44, minHeight: 44,
                   borderRadius: '50%', border: 'none', padding: 0,
-                  background: activeIdx === j ? 'var(--surface)' : 'rgba(42, 37, 32, 0.25)',
+                  background: activeIdx === j ? 'var(--ink)' : '#e8e8e8',
                   transition: 'all 0.3s ease', cursor: 'pointer',
                 }} aria-label={`Go to project ${j + 1}`} />
               ))}
@@ -177,7 +177,7 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
     <section className="slide showcase-slide" id="showcase" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'var(--ink)', overflow: 'hidden', position: 'relative',
+              background: '#fdfdfd', overflow: 'hidden', position: 'relative',
     }}>
       {/* Header */}
       <div style={{
@@ -187,11 +187,11 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
         <p style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
-          color: 'var(--cream)', opacity: 0.7, margin: '0 0 8px 0',
+          color: '#8a8a8a', opacity: 0.7, margin: '0 0 8px 0',
         }}>SELECTED WORK</p>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-          lineHeight: 1, color: 'var(--cream)', margin: 0, letterSpacing: '-0.01em',
+          lineHeight: 1, color: 'var(--ink)', margin: 0, letterSpacing: '-0.01em',
         }}>Real products. Real users.<br />Shipped in seven.</h2>
       </div>
       <div className="carousel-scene" style={{
@@ -235,7 +235,7 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
             <button key={j} onClick={() => onCardEnd && onCardEnd(j)} style={{
               width: activeIdx === j ? 24 : 8, height: 8, minWidth: 44, minHeight: 44,
               borderRadius: '50%', border: 'none', padding: 0,
-                  background: activeIdx === j ? 'var(--surface)' : 'rgba(26, 26, 26, 0.35)',
+                  background: activeIdx === j ? 'var(--ink)' : '#e8e8e8',
               transition: 'all 0.3s ease', cursor: 'pointer',
             }} aria-label={`Go to project ${j + 1}`} />
           ))}

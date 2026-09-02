@@ -7,22 +7,27 @@
   --surface-high: #f0f0f0;
   --surface-highest: #e0e0e0;
   --on-surface: #2d2d2d;
-  --primary: #f97316;
+  --primary: #1a1a1a;
   --on-primary: #2d2d2d;
-  --primary-muted: #ea580c;
+  --primary-muted: #3d4a5c;
   --primary-container: #faf5d0;
-  --secondary: #555555;
+  --secondary: #3d4a5c;
   --secondary-container: #1a1a1a;
   --steel: #999999;
   --text: #2d2d2d;
-  --text-dim: #999999;
+  --text-dim: #8a8a8a;
   --glass: rgba(255, 255, 255, 0.92);
+  --line: #e8e8e8;
+  --line-soft: #f0f0f0;
+  --accent: #3d4a5c;
+  --accent-soft: #7a8798;
+  --gold: #9a6c22;
 
   /* Brand tokens — White + Graphite + Lemon Yellow + Grey + Black */
   --cream: #ffffff;
-  --ink: #2d2d2d;
-  --terracotta: #f97316;
-  --sienna: #555555;
+  --ink: #1a1a1a;
+  --terracotta: #1a1a1a;
+  --sienna: #7a8798;
   --deep: #1a1a1a;
 
   /* Radius tokens */
@@ -39,7 +44,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Geist', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   position: relative;
@@ -191,7 +196,7 @@ a:focus-visible, button:focus-visible {
   :root { --section-padding: 24px; }
   [style*="backdrop-filter"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
-  header { padding: 16px 24px !important; background: rgba(0, 0, 0, 0.95) !important; }
+  header { padding: 16px 24px !important; background: rgba(253, 253, 253, 0.98) !important; border-bottom: 1px solid #e8e8e8 !important; }
   .header-logo { font-size: 1.2rem !important; }
 
   #hero { padding: 100px 24px 60px !important; }

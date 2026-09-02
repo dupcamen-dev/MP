@@ -19,14 +19,14 @@ export default function HorizontalScroll({ progress }) {
     window.scrollTo({ top: tp + p * sh, behavior: 'smooth' });
   }, []);
 
-  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.60) / 0.08));
+  const manifestoPhase = Math.min(1, Math.max(0, (slideP - 0.78) / 0.12));
 
   const getX = (i) => {
     if (i === 0) return 0;
     if (i === 1)
-      return slideP < 0.33 ? 100
+      return slideP < 0.25 ? 100
         : slideP > 0.39 ? 0
-        : 100 - ((slideP - 0.33) / 0.06) * 100;
+        : 100 - ((slideP - 0.25) / 0.14) * 100;
     if (i === 2)
       return manifestoPhase < 0 ? 100
         : manifestoPhase > 1 ? 0
