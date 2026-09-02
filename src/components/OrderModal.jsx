@@ -17,16 +17,16 @@ function saveOrder(order) {
 }
 
 const inputStyle = {
-  width: '100%', padding: '14px 16px', background: 'rgba(15,15,18,0.08)',
-  border: '2px solid rgba(20,19,21,0.2)', borderRadius: 'var(--radius-sm)',
-  fontFamily: "'Geist', sans-serif", fontSize: '1.05rem', color: 'var(--surface-low)',
+  width: '100%', padding: '14px 16px', background: '#ffffff',
+  border: '2px solid #e0e0e0', borderRadius: 'var(--radius-sm)',
+  fontFamily: "'Geist', sans-serif", fontSize: '1.05rem', color: '#1a1a1a',
   outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
   resize: 'vertical',
 };
 
 const labelStyle = {
   fontFamily: "'Geist Mono', monospace", fontSize: 11, letterSpacing: '0.12em',
-  textTransform: 'uppercase', color: 'var(--surface-low)', display: 'block', marginBottom: 8,
+  textTransform: 'uppercase', color: '#555555', display: 'block', marginBottom: 8,
 };
 
 export default function OrderModal({ onClose }) {
@@ -93,7 +93,7 @@ export default function OrderModal({ onClose }) {
     return (
       <div style={{
         position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', background: 'rgba(15,15,18,0.85)', backdropFilter: 'blur(8px)',
+        justifyContent: 'center', background: 'rgba(15,15,18,0.55)', backdropFilter: 'blur(8px)',
       }} onClick={onClose} role="dialog" aria-modal="true">
         <div onClick={e => e.stopPropagation()} style={{
           background: 'var(--surface-low)', padding: '60px 48px', maxWidth: 420, width: '90%',
@@ -111,9 +111,9 @@ export default function OrderModal({ onClose }) {
             We&apos;ll review your project and reply within 24 hours.
           </p>
           <button onClick={onClose} style={{
-            padding: '16px 48px', background: 'var(--ink)', color: 'var(--cream)',
+            padding: '16px 48px', background: '#f97316', color: '#ffffff',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
-            border: '2px solid var(--ink)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', letterSpacing: '0.05em',
+            border: '2px solid #f97316', borderRadius: 'var(--radius-pill)', cursor: 'pointer', letterSpacing: '0.05em',
           }}>CLOSE</button>
         </div>
       </div>
@@ -123,28 +123,29 @@ export default function OrderModal({ onClose }) {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center',
-      justifyContent: 'center', background: 'rgba(15,15,18,0.85)', backdropFilter: 'blur(8px)',
+      justifyContent: 'center', background: 'rgba(15,15,18,0.55)', backdropFilter: 'blur(8px)',
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
-        background: 'var(--ink)', padding: '48px 40px', maxWidth: 520, width: '90%',
-        border: '2px solid var(--surface-low)', borderRadius: 'var(--radius-lg)',
+        background: '#fdfdfd', padding: '48px 40px', maxWidth: 520, width: '90%',
+        border: '1px solid #e8e8e8', borderRadius: 'var(--radius-lg)',
+        boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
       }}>
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28,
         }}>
           <div>
             <h3 style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.75rem', color: 'var(--surface-low)',
+              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.75rem', color: 'var(--ink)',
               textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
-            }}>BOOK A WEEK</h3>
+            }}>BOOK A <span style={{ color: '#f97316' }}>WEEK</span></h3>
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: '0.9rem', color: 'rgba(255,255,255,0.65)',
+              fontFamily: "'Geist', sans-serif", fontSize: '0.9rem', color: '#8a8a8a',
               margin: '6px 0 0 0',
             }}>Live product in 7 days</p>
           </div>
           <button onClick={onClose} style={{
-            background: 'none', border: 'none', fontSize: '2rem', color: 'var(--surface-low)',
-            cursor: 'pointer', padding: '4px 12px', lineHeight: 1,
+            background: 'none', border: 'none', fontSize: '2rem', color: 'var(--ink)',
+            cursor: 'pointer', padding: '4px 12px', lineHeight: 1, opacity: 0.75,
           }}>&#10005;</button>
         </div>
 
@@ -157,8 +158,8 @@ export default function OrderModal({ onClose }) {
               onChange={update('project')}
               placeholder="Web app, marketplace, booking platform, AI tool..."
               style={inputStyle}
-              onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
+              onFocus={e => e.target.style.borderColor = '#f97316'}
+              onBlur={e => e.target.style.borderColor = '#e0e0e0'}
               autoFocus
             />
           </div>
@@ -170,8 +171,8 @@ export default function OrderModal({ onClose }) {
               onChange={update('contact')}
               placeholder="email@company.com or @telegram"
               style={inputStyle}
-              onFocus={e => e.target.style.borderColor = 'var(--surface-low)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(20,19,21,0.2)'}
+              onFocus={e => e.target.style.borderColor = '#f97316'}
+              onBlur={e => e.target.style.borderColor = '#e0e0e0'}
             />
           </div>
         </div>
@@ -182,11 +183,14 @@ export default function OrderModal({ onClose }) {
           onClick={handleSubmit}
           disabled={sending}
           style={{
-            width: '100%', padding: '18px', background: 'var(--terracotta)', color: '#ffffff',
+            width: '100%', padding: '18px', background: '#f97316', color: '#ffffff',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.35rem', textTransform: 'uppercase',
-            border: '2px solid var(--terracotta)', borderRadius: 'var(--radius-pill)', cursor: sending ? 'wait' : 'pointer',
+            border: '2px solid #f97316', borderRadius: 'var(--radius-pill)', cursor: sending ? 'wait' : 'pointer',
             opacity: sending ? 0.6 : 1, letterSpacing: '0.05em',
+            boxShadow: '0 8px 20px rgba(249,115,22,0.35)',
           }}
+          onMouseEnter={!sending ? (e) => { e.currentTarget.style.background = '#ef5d08'; e.currentTarget.style.borderColor = '#ef5d08'; } : undefined}
+          onMouseLeave={!sending ? (e) => { e.currentTarget.style.background = '#f97316'; e.currentTarget.style.borderColor = '#f97316'; } : undefined}
         >
           {sending ? 'SENDING…' : 'SEND REQUEST'}
         </button>
