@@ -1,4 +1,5 @@
 import { useMobile } from '../hooks/useMobile';
+import Reveal from './Reveal';
 
 const t = {
   font: "'Inter', sans-serif",
@@ -29,7 +30,7 @@ export default function PriceList({ onBook }) {
 
   const sectionTitle = {
     fontFamily: t.font,
-    fontSize: mobile ? 26 : 30,
+    fontSize: mobile ? 30 : 34,
     fontWeight: 400,
     letterSpacing: '-0.5px',
     color: t.ink,
@@ -50,7 +51,7 @@ export default function PriceList({ onBook }) {
 
   const th = {
     fontFamily: t.font,
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: 600,
     letterSpacing: '2px',
     textTransform: 'uppercase',
@@ -65,7 +66,7 @@ export default function PriceList({ onBook }) {
 
   const td = {
     fontFamily: t.font,
-    fontSize: 13,
+    fontSize: 14,
     padding: '15px 4px',
     borderBottom: '1px solid #f0f0f0',
     color: t.inkSoft,
@@ -84,7 +85,7 @@ export default function PriceList({ onBook }) {
     borderRadius: 4,
     background: t.bg,
     fontFamily: t.font,
-    fontSize: 13,
+    fontSize: 14,
     color: t.inkSoft,
     lineHeight: 1.6,
   };
@@ -106,16 +107,16 @@ export default function PriceList({ onBook }) {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
                 <span style={{
-                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
+                  fontFamily: t.font, fontSize: 14, fontWeight: 600, color: t.ink,
                   whiteSpace: 'normal',
                 }}>{r.name}</span>
                 <span style={{
-                  fontFamily: t.font, fontSize: 12, fontWeight: 600, color: t.ink,
+                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
                   textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0,
                 }}>{r.price}</span>
               </div>
               <div style={{
-                fontFamily: t.font, fontSize: 13, color: t.inkSoft, lineHeight: 1.5,
+                fontFamily: t.font, fontSize: 14, color: t.inkSoft, lineHeight: 1.5,
                 marginTop: 6,
               }}>{r.desc}</div>
             </div>
@@ -159,16 +160,16 @@ export default function PriceList({ onBook }) {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
                 <span style={{
-                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
+                  fontFamily: t.font, fontSize: 14, fontWeight: 600, color: t.ink,
                   whiteSpace: 'normal',
                 }}>{r.name}</span>
                 <span style={{
-                  fontFamily: t.font, fontSize: 12, fontWeight: 600, color: t.ink,
+                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
                   textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0,
                 }}>{r.price}</span>
               </div>
               <div style={{
-                fontFamily: t.font, fontSize: 13, color: t.inkSoft, lineHeight: 1.5,
+                fontFamily: t.font, fontSize: 14, color: t.inkSoft, lineHeight: 1.5,
                 marginTop: 6,
               }}>{r.desc}</div>
             </div>
@@ -234,7 +235,7 @@ export default function PriceList({ onBook }) {
 
   const cardLi = {
     fontFamily: t.font,
-    fontSize: 13,
+    fontSize: 14,
     color: t.inkSoft,
     lineHeight: 1.5,
     display: 'flex',
@@ -254,6 +255,7 @@ export default function PriceList({ onBook }) {
   return (
     <section id="pricing" style={{ position: 'relative', zIndex: 3, background: t.bg, paddingTop: 120, paddingBottom: 120, fontFamily: t.font }}>
       {/* COVER */}
+      <Reveal>
       <div style={{ ...section, marginBottom: 90 }}>
         <p style={badge}>PRICE LIST</p>
         <h2 style={{
@@ -329,7 +331,7 @@ export default function PriceList({ onBook }) {
 
         <p style={{
           fontFamily: t.font,
-          fontSize: 13,
+          fontSize: 14,
           color: t.inkSoft,
           lineHeight: 1.6,
           marginTop: 40,
@@ -342,8 +344,10 @@ export default function PriceList({ onBook }) {
           SEO, security and performance baked in from day one.
         </p>
       </div>
+      </Reveal>
 
       {/* 01 — Core Products / Website Development */}
+      <Reveal>
       <Products
         title="01 — Core Products / Website Development"
         col1="Product"
@@ -357,8 +361,10 @@ export default function PriceList({ onBook }) {
         ]}
         info="From pricing reflects standard scope. Final quotes are confirmed after a short discovery call and full feature decomposition — so you never pay for what you don't need."
       />
+      </Reveal>
 
       {/* 02 — Add-Ons / Additional Features */}
+      <Reveal>
       <Features
         title="02 — Add-Ons / Additional Features"
         col1="Feature"
@@ -379,8 +385,10 @@ export default function PriceList({ onBook }) {
         ]}
         info="Every add-on is available on its own or bundled into a larger build. Send your request and I'll map the exact scope to the right range."
       />
+      </Reveal>
 
       {/* 03 — Visibility / SEO & Analytics */}
+      <Reveal>
       <Features
         title="03 — Visibility / SEO & Analytics"
         col1="Service"
@@ -395,8 +403,10 @@ export default function PriceList({ onBook }) {
         ]}
         info="Technical SEO preparation is part of every build at no extra cost. These services add deeper optimisation when your site is ready to rank and convert."
       />
+      </Reveal>
 
       {/* 04 — Visual / Design & UX */}
+      <Reveal>
       <Features
         title="04 — Visual / Design & UX"
         col1="Service"
@@ -412,8 +422,10 @@ export default function PriceList({ onBook }) {
         ]}
         info="Good design isn't decoration — it's conversion. Every visual layer here is built mobile-first and performance-conscious."
       />
+      </Reveal>
 
       {/* 05 — Infrastructure / Backend, API & Production */}
+      <Reveal>
       <Features
         title="05 — Infrastructure / Backend, API & Production"
         col1="Service"
@@ -430,8 +442,10 @@ export default function PriceList({ onBook }) {
         ]}
         info="You own 100% of the code, infrastructure and access from day one. Nothing is locked behind proprietary tooling or ongoing license fees."
       />
+      </Reveal>
 
       {/* 06 — E-commerce Depth */}
+      <Reveal>
       <div style={{ marginBottom: 96, ...section, marginTop: 0 }}>
         <h3 style={sectionTitle}>06 — E-commerce Depth / What Determines Your E-commerce Budget</h3>
         <div style={{
@@ -495,8 +509,10 @@ export default function PriceList({ onBook }) {
           E-commerce budgets are shaped by catalogue size, payment needs, integrations and automation — the tier above shows how scope maps to investment step by step.
         </div>
       </div>
+      </Reveal>
 
       {/* 07 — After Launch / Support */}
+      <Reveal>
       <div style={{ marginBottom: 90, ...section }}>
         <h3 style={sectionTitle}>07 — After Launch / Support & Ongoing Development</h3>
         <div style={{
@@ -560,8 +576,10 @@ export default function PriceList({ onBook }) {
           Major new features fall outside the support scope and are scoped independently — so your monthly plan stays predictable and you only pay for genuinely new work.
         </div>
       </div>
+      </Reveal>
 
       {/* 08 — Reference / Sample Commercial Proposal */}
+      <Reveal>
       <div style={{ marginBottom: 90, ...section }}>
         <h3 style={sectionTitle}>08 — Reference / Sample Commercial Proposal</h3>
         {mobile ? (
@@ -581,10 +599,10 @@ export default function PriceList({ onBook }) {
                 display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12,
               }}>
                 <span style={{
-                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink, whiteSpace: 'normal',
+                  fontFamily: t.font, fontSize: 14, fontWeight: 600, color: t.ink, whiteSpace: 'normal',
                 }}>{r.name}</span>
                 <span style={{
-                  fontFamily: t.font, fontSize: 12, fontWeight: 600, color: t.ink,
+                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
                   textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0,
                 }}>{r.price}</span>
               </div>
@@ -647,8 +665,10 @@ export default function PriceList({ onBook }) {
           This example illustrates the logic behind fixed-price assembly — every requirement is decomposed, priced and summed with no surprise invoices along the way.
         </div>
       </div>
+      </Reveal>
 
       {/* 09 — Working Terms / How We Work */}
+      <Reveal>
       <div style={{ marginBottom: 90, ...section }}>
         <h3 style={sectionTitle}>09 — Working Terms / How We Work</h3>
         <div style={{
@@ -690,13 +710,15 @@ export default function PriceList({ onBook }) {
           ))}
         </div>
       </div>
+      </Reveal>
 
       {/* Philosophy */}
+      <Reveal>
       <div style={{ ...section, maxWidth: 760 }}>
         <p style={badge}>Pricing Philosophy</p>
         <p style={{
           fontFamily: t.font,
-          fontSize: 15,
+          fontSize: 16,
           lineHeight: 1.7,
           color: t.inkSoft,
           margin: 0,
@@ -706,6 +728,7 @@ export default function PriceList({ onBook }) {
           agency pricing — delivering enterprise-quality output at accessible investment levels.
         </p>
       </div>
+      </Reveal>
     </section>
   );
 }

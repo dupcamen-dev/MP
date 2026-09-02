@@ -70,6 +70,7 @@ export default function ManifestoSlide({ progress }) {
           return (
             <span
               key={k}
+              className="mf-word"
               style={{
                 display: 'inline-block',
                 color: w.color,
@@ -85,7 +86,7 @@ export default function ManifestoSlide({ progress }) {
   };
 
   const line = (
-    <div style={{
+    <div className={`mf-wrap${done ? ' mf-done' : ''}`} style={{
       width: '100%', maxWidth: 1240, textAlign: 'left', position: 'relative', zIndex: 2,
     }}>
       <h2 style={{
@@ -125,7 +126,7 @@ export default function ManifestoSlide({ progress }) {
   if (mobile) {
     return (
       <>
-        <div aria-hidden="true" style={{
+        <div aria-hidden="true" className="mf-bg" style={{
           position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh',
           backgroundImage: 'linear-gradient(rgba(253,253,253,0.72), rgba(253,253,253,0.72)), url(/manifesto-bg.webp)',
           backgroundSize: 'cover', backgroundPosition: 'center',
@@ -147,7 +148,7 @@ export default function ManifestoSlide({ progress }) {
   }
 
   return (
-    <section className="slide manifesto-slide" id="manifesto" style={{
+    <section className="slide manifesto-slide mf-bg" id="manifesto" style={{
       width: '100vw', flex: '0 0 100vw', height: '100vh',
       backgroundImage: 'linear-gradient(rgba(253,253,253,0.72), rgba(253,253,253,0.72)), url(/manifesto-bg.webp)',
       backgroundSize: 'cover', backgroundPosition: 'center',

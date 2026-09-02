@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 
 const projects = [
-  { tag: 'RESTAURANT · LONDON', title: 'ZHYTO', subtitle: '', color: 'var(--primary)', desc: 'Artisian homemade varenyky. Tradition on a plate, delivered.', img: '/zhyto-hero.png', link: 'https://zhyto.london', caption: 'zhyto.london — shipped 2024' },
-  { tag: 'CATERING · UK', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'We Cook Anything You Crave. Any cuisine, cooked flawlessly.', img: '/raqt-hero.png', link: 'https://www.raqtfuel.com', caption: 'raqtfuel.com — shipped 2024' },
+  { tag: 'RESTAURANT · LONDON', title: 'ZHYTO', subtitle: '', color: 'var(--primary)', desc: 'Artisian homemade varenyky. Tradition on a plate, delivered.', img: '/zhyto-hero.png', link: 'https://zhyto.london', caption: 'zhyto.london — shipped 2026' },
+  { tag: 'CATERING · UK', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'We Cook Anything You Crave. Any cuisine, cooked flawlessly.', img: '/raqt-hero.png', link: 'https://www.raqtfuel.com', caption: 'raqtfuel.com — shipped 2026' },
   { tag: 'CUSTOM FURNITURE · CHORTKIV', title: 'MEBLI', subtitle: 'CHORTKIV', color: '#8B6914', desc: 'Bespoke furniture workshop. Kitchens, bedrooms, living rooms — built to order.', img: '/mebli-hero.webp', link: 'https://mebli-chortkiv.vercel.app/', caption: 'mebli-chortkiv.vercel.app — shipped 2026' },
   { tag: 'MONITORING SAAS · STATUS PAGE', title: 'TOPSTATUS', subtitle: '', color: '#1A56C4', desc: 'Uptime monitoring and public status pages in one product. Instant alerts, incident history, crypto payments.', img: '/topstatus-hero.webp', link: 'https://topstatus.space/', caption: 'topstatus.space — shipped 2026' },
-  { tag: 'PERFUME · CONCEPT', title: 'AVVADON', subtitle: '', color: '#C9A227', desc: 'Luxury fragrance concept store with dark ritual-style UX. Design + frontend only — no backend.', img: '/avvadon-hero.webp', link: 'https://dupcamen-dev.github.io/AVVADON/', caption: 'dupcamen-dev.github.io/AVVADON — design + frontend only' },
+  { tag: 'PERFUME · CONCEPT', title: 'AVVADON', subtitle: '', color: '#C9A227', desc: 'Luxury fragrance concept store with dark ritual-style UX. Design + frontend only — no backend.', img: '/avvadon-hero.webp', link: 'https://dupcamen-dev.github.io/AVVADON/', caption: 'dupcamen-dev.github.io/AVVADON — design + frontend · 2026' },
 ];
 
 function ProjectCard({ p }) {

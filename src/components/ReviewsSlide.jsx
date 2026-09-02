@@ -3,24 +3,24 @@ import { useMobile, useTablet } from '../hooks/useMobile';
 
 const reviews = [
   {
-    text: 'They took our rough idea and turned it into a working product in one week. No endless meetings, no delays — just results.',
+    text: 'They took our idea and turned it into a working restaurant site in one week. No endless meetings, no delays — just results. Our varenyky finally found their way to Londoners online.',
     author: 'ZHYTO',
-    role: 'Artisian homemade varenyky',
+    role: 'zhyto.london · Restaurant',
   },
   {
-    text: 'From zero to a fully functional e-commerce site with payments. Shipped faster than our previous agency took to send a proposal.',
+    text: 'From zero to a fully functional catering site with ordering. Shipped faster than our previous agency took to send a proposal. We cook anything — now people can actually find us.',
     author: 'RAQT FUEL',
-    role: 'We Cook Anything You Crave',
+    role: 'raqtfuel.com · Catering',
   },
   {
-    text: 'We needed an MVP fast to test the market. Got a production-ready app in 7 days. Saved us months of hiring.',
-    author: 'NORD STUDIO',
-    role: 'Architecture portfolio',
+    text: 'We needed a proper online presence for the workshop fast. Got a clean furniture catalogue site and it shows our craft the way it deserves. Clients book us straight from the site.',
+    author: 'MEBLI CHORTKIV',
+    role: 'mebli-chortkiv.vercel.app · Custom furniture',
   },
   {
-    text: 'Clean code, real deployment, everything documented. The kind of handoff that makes you want to come back for the next project.',
-    author: 'KRAKOW BAKERY',
-    role: 'Online ordering system',
+    text: 'We wanted to launch our status-page product quickly. Got a production-ready SaaS site with crypto payments. Clean code, real deployment, everything documented.',
+    author: 'TOPSTATUS',
+    role: 'topstatus.space · Uptime monitoring SaaS',
   },
 ];
 

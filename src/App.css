@@ -115,6 +115,37 @@ a:focus-visible, button:focus-visible {
 .card-in { opacity: 0; }
 .card-in.active { animation: fade-up 0.4s cubic-bezier(0.5,0,0,1) forwards; }
 
+/* Scroll-reveal for price list sections */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.5,0,0,1), transform 0.7s cubic-bezier(0.5,0,0,1);
+  will-change: opacity, transform;
+}
+.reveal.active { opacity: 1; transform: none; }
+
+/* Manifesto extra animations */
+@keyframes manifesto-bg-zoom {
+  0% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.06) translateY(-1.5%); }
+  100% { transform: scale(1) translateY(0); }
+}
+.mf-bg {
+  animation: manifesto-bg-zoom 18s ease-in-out infinite;
+}
+@keyframes text-shine {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.mf-done .mf-word {
+  background: linear-gradient(90deg, #3d4a5c 30%, #9a6c22 50%, #3d4a5c 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shine 2.4s linear infinite;
+}
+
 .phase-item {
   opacity: 0;
   transform: translateY(40px);
