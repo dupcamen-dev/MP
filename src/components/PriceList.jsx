@@ -97,26 +97,52 @@ export default function PriceList({ onBook }) {
   const Products = (props) => (
     <div style={{ marginBottom: 96, ...section }}>
       <h3 style={sectionTitle}>{props.title}</h3>
-      <div style={tableWrap}>
-        <table style={table}>
-          <thead>
-            <tr>
-              <th style={{ ...th, minWidth: 140, textAlign: 'left' }}>{props.col1}</th>
-              <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>{props.col2}</th>
-              <th style={{ ...thRight, minWidth: 170 }}>{props.col3}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.rows.map((r, i) => (
-              <tr key={i}>
-                <td style={tdFirst}>{r.name}</td>
-                <td style={td}>{r.desc}</td>
-                <td style={tdRight}>{r.price}</td>
+      {mobile ? (
+        <div style={{ borderTop: `1px solid #1a1a1a` }}>
+          {props.rows.map((r, i) => (
+            <div key={i} style={{
+              padding: '18px 4px',
+              borderBottom: `1px solid ${t.lineSoft}`,
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
+                <span style={{
+                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
+                  whiteSpace: 'normal',
+                }}>{r.name}</span>
+                <span style={{
+                  fontFamily: t.font, fontSize: 12, fontWeight: 600, color: t.ink,
+                  textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0,
+                }}>{r.price}</span>
+              </div>
+              <div style={{
+                fontFamily: t.font, fontSize: 13, color: t.inkSoft, lineHeight: 1.5,
+                marginTop: 6,
+              }}>{r.desc}</div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={tableWrap}>
+          <table style={table}>
+            <thead>
+              <tr>
+                <th style={{ ...th, minWidth: 140, textAlign: 'left' }}>{props.col1}</th>
+                <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>{props.col2}</th>
+                <th style={{ ...thRight, minWidth: 170 }}>{props.col3}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {props.rows.map((r, i) => (
+                <tr key={i}>
+                  <td style={tdFirst}>{r.name}</td>
+                  <td style={td}>{r.desc}</td>
+                  <td style={tdRight}>{r.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       <div style={infoBox}>{props.info}</div>
     </div>
   );
@@ -124,26 +150,52 @@ export default function PriceList({ onBook }) {
   const Features = (props) => (
     <div style={{ marginBottom: 96, ...section }}>
       <h3 style={sectionTitle}>{props.title}</h3>
-      <div style={tableWrap}>
-        <table style={table}>
-          <thead>
-            <tr>
-              <th style={{ ...th, minWidth: 220, textAlign: 'left' }}>{props.col1}</th>
-              <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>{props.col2}</th>
-              <th style={{ ...thRight, minWidth: 170 }}>{props.col3}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.rows.map((r, i) => (
-              <tr key={i}>
-                <td style={tdFirst}>{r.name}</td>
-                <td style={td}>{r.desc}</td>
-                <td style={tdRight}>{r.price}</td>
+      {mobile ? (
+        <div style={{ borderTop: `1px solid #1a1a1a` }}>
+          {props.rows.map((r, i) => (
+            <div key={i} style={{
+              padding: '18px 4px',
+              borderBottom: `1px solid ${t.lineSoft}`,
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
+                <span style={{
+                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
+                  whiteSpace: 'normal',
+                }}>{r.name}</span>
+                <span style={{
+                  fontFamily: t.font, fontSize: 12, fontWeight: 600, color: t.ink,
+                  textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0,
+                }}>{r.price}</span>
+              </div>
+              <div style={{
+                fontFamily: t.font, fontSize: 13, color: t.inkSoft, lineHeight: 1.5,
+                marginTop: 6,
+              }}>{r.desc}</div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={tableWrap}>
+          <table style={table}>
+            <thead>
+              <tr>
+                <th style={{ ...th, minWidth: 220, textAlign: 'left' }}>{props.col1}</th>
+                <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>{props.col2}</th>
+                <th style={{ ...thRight, minWidth: 170 }}>{props.col3}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {props.rows.map((r, i) => (
+                <tr key={i}>
+                  <td style={tdFirst}>{r.name}</td>
+                  <td style={td}>{r.desc}</td>
+                  <td style={tdRight}>{r.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       <div style={infoBox}>{props.info}</div>
     </div>
   );
@@ -512,44 +564,85 @@ export default function PriceList({ onBook }) {
       {/* 08 — Reference / Sample Commercial Proposal */}
       <div style={{ marginBottom: 90, ...section }}>
         <h3 style={sectionTitle}>08 — Reference / Sample Commercial Proposal</h3>
-        <div style={tableWrap}>
-          <table style={table}>
-            <thead>
-              <tr>
-                <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>Component</th>
-                <th style={{ ...thRight, minWidth: 220 }}>Cost</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { name: 'Custom UI / Design', price: '$500 / £400 · 2,000 PLN' },
-                { name: 'Frontend Development', price: '$700 / £555 · 2,775 PLN' },
-                { name: 'Backend / API', price: '$600 / £475 · 2,375 PLN' },
-                { name: 'Admin Panel', price: '$700 / £555 · 2,775 PLN' },
-                { name: 'Authentication + Roles', price: '$400 / £320 · 1,600 PLN' },
-                { name: 'Technical SEO + Analytics', price: '$300 / £240 · 1,200 PLN' },
-                { name: 'Deployment / Production', price: '$200 / £160 · 800 PLN' },
-              ].map((r, i) => (
-                <tr key={i}>
-                  <td style={tdFirst}>{r.name}</td>
-                  <td style={tdRight}>{r.price}</td>
+        {mobile ? (
+          <div style={{ borderTop: `1px solid #1a1a1a` }}>
+            {[
+              { name: 'Custom UI / Design', price: '$500 / £400 · 2,000 PLN' },
+              { name: 'Frontend Development', price: '$700 / £555 · 2,775 PLN' },
+              { name: 'Backend / API', price: '$600 / £475 · 2,375 PLN' },
+              { name: 'Admin Panel', price: '$700 / £555 · 2,775 PLN' },
+              { name: 'Authentication + Roles', price: '$400 / £320 · 1,600 PLN' },
+              { name: 'Technical SEO + Analytics', price: '$300 / £240 · 1,200 PLN' },
+              { name: 'Deployment / Production', price: '$200 / £160 · 800 PLN' },
+            ].map((r, i) => (
+              <div key={i} style={{
+                padding: '14px 4px',
+                borderBottom: `1px solid ${t.lineSoft}`,
+                display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12,
+              }}>
+                <span style={{
+                  fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink, whiteSpace: 'normal',
+                }}>{r.name}</span>
+                <span style={{
+                  fontFamily: t.font, fontSize: 12, fontWeight: 600, color: t.ink,
+                  textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0,
+                }}>{r.price}</span>
+              </div>
+            ))}
+            <div style={{
+              padding: '14px 4px',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12,
+              borderBottom: '1px solid #1a1a1a',
+            }}>
+              <span style={{
+                fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
+              }}>Total</span>
+              <span style={{
+                fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.gold,
+                textAlign: 'right', whiteSpace: 'nowrap',
+              }}>$3,400 · £2,700 · 13,450 PLN</span>
+            </div>
+          </div>
+        ) : (
+          <div style={tableWrap}>
+            <table style={table}>
+              <thead>
+                <tr>
+                  <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>Component</th>
+                  <th style={{ ...thRight, minWidth: 220 }}>Cost</th>
                 </tr>
-              ))}
-              <tr>
-                <td style={{ ...td, color: t.ink, fontWeight: 600, fontSize: 14, borderBottom: '1px solid #1a1a1a' }}>Total</td>
-                <td style={{
-                  ...td,
-                  textAlign: 'right',
-                  borderBottom: '1px solid #1a1a1a',
-                  color: t.gold,
-                  fontWeight: 600,
-                  fontSize: 14,
-                  whiteSpace: 'nowrap',
-                }}>$3,400 · £2,700 · 13,450 PLN</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {[
+                  { name: 'Custom UI / Design', price: '$500 / £400 · 2,000 PLN' },
+                  { name: 'Frontend Development', price: '$700 / £555 · 2,775 PLN' },
+                  { name: 'Backend / API', price: '$600 / £475 · 2,375 PLN' },
+                  { name: 'Admin Panel', price: '$700 / £555 · 2,775 PLN' },
+                  { name: 'Authentication + Roles', price: '$400 / £320 · 1,600 PLN' },
+                  { name: 'Technical SEO + Analytics', price: '$300 / £240 · 1,200 PLN' },
+                  { name: 'Deployment / Production', price: '$200 / £160 · 800 PLN' },
+                ].map((r, i) => (
+                  <tr key={i}>
+                    <td style={tdFirst}>{r.name}</td>
+                    <td style={tdRight}>{r.price}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td style={{ ...td, color: t.ink, fontWeight: 600, fontSize: 14, borderBottom: '1px solid #1a1a1a' }}>Total</td>
+                  <td style={{
+                    ...td,
+                    textAlign: 'right',
+                    borderBottom: '1px solid #1a1a1a',
+                    color: t.gold,
+                    fontWeight: 600,
+                    fontSize: 14,
+                    whiteSpace: 'nowrap',
+                  }}>$3,400 · £2,700 · 13,450 PLN</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
         <div style={infoBox}>
           This example illustrates the logic behind fixed-price assembly — every requirement is decomposed, priced and summed with no surprise invoices along the way.
         </div>
