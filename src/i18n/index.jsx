@@ -304,6 +304,10 @@ const detectLocale = () => {
   if (p.startsWith('/uk')) return 'uk';
   if (p.startsWith('/pl')) return 'pl';
   try {
+    const saved = localStorage.getItem('mp_locale');
+    if (saved === 'en' || saved === 'uk' || saved === 'pl') return saved;
+  } catch {}
+  try {
     const lang = (navigator.language || navigator.languages?.[0] || 'en').toLowerCase();
     if (lang.startsWith('uk') || lang.startsWith('ru')) return 'uk';
     if (lang.startsWith('pl')) return 'pl';

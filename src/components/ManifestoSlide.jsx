@@ -21,7 +21,7 @@ function buildWords(t) {
     ],
   ];
   const WORDS = LINES.map((line) =>
-    line.flatMap((tok) => (tok.t.match(/\S+\s*/g) || []).map((p) => ({ text: p, color: tok.c })))
+    line.flatMap((tok) => (tok.t.match(/\S+/g) || []).map((p) => ({ text: p, color: tok.c })))
   );
   const TOTAL = WORDS.reduce((n, l) => n + l.length, 0);
   return { WORDS, TOTAL };
@@ -79,6 +79,7 @@ export default function ManifestoSlide({ progress }) {
               style={{
                 display: 'inline-block',
                 color: w.color,
+                marginRight: '0.32em',
                 opacity: on ? 1 : 0,
                 transform: on ? 'none' : 'translateY(14px)',
                 transition: 'opacity 0.22s ease, transform 0.22s ease',
