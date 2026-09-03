@@ -1,35 +1,40 @@
-﻿import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
-
-const LINES = [
-  [{ t: "We don't do meetings about meetings.", c: 'var(--ink)' }],
-  [
-    { t: 'We make your website ', c: 'var(--ink)' },
-    { t: 'work', c: '#3d4a5c' },
-    { t: ',', c: 'var(--ink)' },
-  ],
-  [
-    { t: 'found in Google, in ', c: 'var(--ink)' },
-    { t: 'seven days', c: '#3d4a5c' },
-    { t: '.', c: 'var(--ink)' },
-  ],
-];
-
-const WORDS = LINES.map((line) =>
-  line.flatMap((tok) => (tok.t.match(/\S+\s*/g) || []).map((p) => ({ text: p, color: tok.c })))
-);
-const TOTAL = WORDS.reduce((n, l) => n + l.length, 0);
+import { useI18n } from '../i18n';
 
 const TYPE_START = 0.68;
 const TYPE_LEN = 0.12;
 const HOLD_START = 0.80;
 
+function buildWords(t) {
+  const LINES = [
+    [{ t: t('mfL1'), c: 'var(--ink)' }],
+    [
+      { t: t('mfL2a'), c: 'var(--ink)' },
+      { t: t('mfL2b'), c: '#3d4a5c' },
+      { t: ',', c: 'var(--ink)' },
+    ],
+    [
+      { t: t('mfL3a'), c: 'var(--ink)' },
+      { t: t('mfL3b'), c: '#3d4a5c' },
+      { t: '.', c: 'var(--ink)' },
+    ],
+  ];
+  const WORDS = LINES.map((line) =>
+    line.flatMap((tok) => (tok.t.match(/\S+\s*/g) || []).map((p) => ({ text: p, color: tok.c })))
+  );
+  const TOTAL = WORDS.reduce((n, l) => n + l.length, 0);
+  return { WORDS, TOTAL };
+}
+
 export default function ManifestoSlide({ progress }) {
   const sectionRef = useRef(null);
   const startedRef = useRef(false);
   const mobile = useMobile();
+  const { t } = useI18n();
   const [bgVisible, setBgVisible] = useState(false);
   const [mWords, setMWords] = useState(0);
+  const { WORDS, TOTAL } = useMemo(() => buildWords(t), [t]);
 
   useEffect(() => {
     if (!mobile) return;
@@ -113,10 +118,10 @@ export default function ManifestoSlide({ progress }) {
           whiteSpace: 'nowrap',
         }}>
           <span style={{ color: done ? 'var(--ink)' : 'rgba(26,26,26,0.5)' }}>
-            {done ? '// MANIFESTO COMPILED вњ“' : '// COMPILING'}
+            {done ? t('manifestoCompiled') : t('manifestoCompiling')}
           </span>
           <span style={{ color: done ? 'var(--ink)' : 'rgba(26,26,26,0.5)' }}>
-            {done ? 'SHIPPED' : `${Math.round(holdP * 100)}%`}
+            {done ? t('manifestoShipped') : `${Math.round(holdP * 100)}%`}
           </span>
         </div>
       )}
