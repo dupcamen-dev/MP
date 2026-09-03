@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import MenuOverlay from './MenuOverlay';
 import { PrimaryButton } from './Button';
 import { useScrollTo } from '../hooks/useScrollProgress';
+import { useI18n, LOCALES } from '../i18n';
 
 export default function Header({ onBook, user, onSignIn, onSignOut }) {
   const [visible, setVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t, locale, setLanguage } = useI18n();
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
@@ -16,9 +18,9 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
   }, []);
 
   const navLinks = [
-    { label: 'WORK', id: 'showcase' },
-    { label: 'PROCESS', id: 'process' },
-    { label: 'PRICING', id: 'pricing' },
+    { label: t('navWork'), id: 'showcase' },
+    { label: t('navProcess'), id: 'process' },
+    { label: t('navPricing'), id: 'pricing' },
   ];
   const scrollTo = useScrollTo();
 
@@ -86,7 +88,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'var(--ink)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.borderColor = '#e8e8e8'; }}
-            >Admin</a>
+            >{t('admin')}</a>
             <button onClick={onSignOut} className="header-auth-signout" style={{
               fontFamily: "'Geist Mono', monospace", fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase',
@@ -95,7 +97,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; }}
-            >Sign out</button>
+            >{t('signOut')}</button>
           </div>
         ) : (
           <button onClick={onSignIn} className="header-auth" style={{
@@ -107,12 +109,30 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
           }}
           onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'var(--ink)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.borderColor = '#e8e8e8'; }}
-          >Sign in</button>
+          >{t('signIn')}</button>
         )}
+
+        <div className="header-lang" style={{ display: 'flex', gap: 4, color: '#8a8a8a' }}>
+          {LOCALES.map((l) => (
+            <button
+              key={l}
+              onClick={() => setLanguage(l)}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = l === locale ? 'var(--ink)' : '#8a8a8a'; }}
+              style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 11,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+                background: 'none', border: 'none', cursor: 'pointer', padding: '4px 6px',
+                color: l === locale ? 'var(--ink)' : '#8a8a8a',
+                fontWeight: l === locale ? 600 : 400,
+              }}
+            >{l === 'en' ? 'EN' : l === 'uk' ? 'UK' : 'PL'}</button>
+          ))}
+        </div>
 
         <div className="header-cta">
           <PrimaryButton onClick={onBook} style={{ padding: '10px 20px', fontSize: '0.85rem', background: 'var(--ink)', color: '#fff', boxShadow: '4px 4px 0 rgba(0,0,0,0.15)' }}>
-            Book a week →
+            {t('bookWeek')}
           </PrimaryButton>
         </div>
         <MenuOverlay onBook={onBook} />

@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
+import { useI18n } from '../i18n';
 
 const phases = [
-  { num: '01', title: 'SCOPE', days: 'Day 1', desc: 'We agree on what you get: your goal, your pages, your keywords. Confirmed before we start.' },
-  { num: '02', title: 'BUILD', days: 'Days 2–6', desc: 'We build your website and set up its SEO. You watch it come together, every 24 hours.' },
-  { num: '03', title: 'SHIP', days: 'Day 7', desc: 'Your site goes live — with SEO in place, so it can be found on Google. Yours, done.' },
+  { num: '01' },
+  { num: '02' },
+  { num: '03' },
 ];
 
 export default function Process({ progress, onBook }) {
   const mobile = useMobile();
   const tablet = useTablet();
+  const { t } = useI18n();
 
   useEffect(() => {
     const cards = document.querySelectorAll('#process .phase-item');
@@ -37,24 +39,24 @@ export default function Process({ progress, onBook }) {
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--sienna)', margin: '0 0 16px 0',
-        }}>HOW IT WORKS</p>
+        }}>{t('processLabel')}</p>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
           lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 20px 0',
         }}>
-          From idea to live<br /><span style={{ color: 'var(--ink)' }}>website. In 7 days.</span>
+          {t('processH1a')}<br /><span style={{ color: 'var(--ink)' }}>{t('processH1b')}</span>
         </h2>
         <p style={{
           fontFamily: "'Geist', sans-serif", fontWeight: 300,
           fontSize: 'clamp(1.15rem, 2vw, 1.5rem)', lineHeight: 1.4,
           color: 'var(--text-dim)', maxWidth: 640, margin: '0 0 12px 0',
         }}>
-          Three steps. Seven days. One live website with SEO.
+          {t('processSub')}
         </p>
         <p style={{
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.1em', color: 'var(--sienna)', margin: 0,
-        }}>NEXT.JS · REACT · NODE · POSTGRES · STRIPE · TS</p>
+        }}>{t('stackLine')}</p>
       </div>
 
       {/* Beats */}
@@ -83,12 +85,12 @@ export default function Process({ progress, onBook }) {
                 fontFamily: "'Geist Mono', monospace", fontSize: 13,
                 letterSpacing: '0.1em', textTransform: 'uppercase',
                 color: 'var(--sienna)', margin: '0 0 8px 0',
-              }}>{p.days}</p>
+              }}>{t('phaseDays')[i]}</p>
               <h3 style={{
                 fontFamily: "'Anton', Impact, sans-serif",
                 fontSize: mobile ? 'clamp(2rem, 9vw, 3rem)' : 'clamp(2.5rem, 5vw, 4rem)',
                 color: 'var(--ink)', textTransform: 'uppercase', margin: 0, lineHeight: 0.95,
-              }}>{p.title}</h3>
+              }}>{t('phaseTitle')[i]}</h3>
             </div>
 
             <p style={{
@@ -97,7 +99,7 @@ export default function Process({ progress, onBook }) {
               lineHeight: 1.5, color: 'var(--text-dim)',
               maxWidth: mobile ? '100%' : 380, margin: mobile ? '12px 0 0 0' : 0,
               textAlign: mobile ? 'left' : 'right',
-            }}>{p.desc}</p>
+            }}>{t('phaseDesc')[i]}</p>
           </div>
         ))}
       </div>
@@ -116,7 +118,7 @@ export default function Process({ progress, onBook }) {
           color: 'var(--ink)', background: 'none', border: 'none', cursor: 'pointer',
           textTransform: 'uppercase', letterSpacing: '0.02em', padding: '8px 0',
           transition: 'color 0.2s',
-        }}>Start your week →</button>
+        }}>{t('startWeek')}</button>
       </div>
     </section>
   );

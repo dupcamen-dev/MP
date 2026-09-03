@@ -1,5 +1,6 @@
 import { useMobile } from '../hooks/useMobile';
 import Reveal from './Reveal';
+import { useI18n } from '../i18n';
 
 const t = {
   font: "'Inter', sans-serif",
@@ -16,6 +17,7 @@ const t = {
 
 export default function PriceList({ onBook }) {
   const mobile = useMobile();
+  const { tp } = useI18n();
 
   const sectionPad = 'clamp(24px, 6vw, 96px)';
   const maxW = 1240;
@@ -257,7 +259,7 @@ export default function PriceList({ onBook }) {
       {/* COVER */}
       <Reveal>
       <div style={{ ...section, marginBottom: 90 }}>
-        <p style={badge}>PRICE LIST</p>
+        <p style={badge}>{tp('PRICE LIST')}</p>
         <h2 style={{
           fontFamily: t.font,
           fontSize: mobile ? 36 : 52,
@@ -266,7 +268,7 @@ export default function PriceList({ onBook }) {
           color: t.ink,
           margin: '0 0 16px 0',
           lineHeight: 1.05,
-        }}>Web Development</h2>
+        }}>{tp('Web Development')}</h2>
         <p style={{
           fontFamily: t.font,
           fontSize: 15,
@@ -274,14 +276,14 @@ export default function PriceList({ onBook }) {
           textTransform: 'uppercase',
           color: t.muted,
           margin: '0 0 40px 0',
-        }}>Full-Stack · Custom · Production-Ready</p>
+        }}>{tp('Full-Stack В· Custom В· Production-Ready')}</p>
 
         {/* Tags */}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginBottom: 60 }}>
           {['Design', 'Frontend', 'Backend', 'Admin', 'E-commerce', 'SEO', 'Integrations', 'Production'].map((tag, i, arr) => (
             <span key={tag} style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              {i > 0 && <span style={{ fontSize: 11, color: t.muted }}>·</span>}
-              <span style={{ fontFamily: t.font, fontSize: 12, letterSpacing: '1px', textTransform: 'uppercase', color: t.inkSoft }}>{tag}</span>
+              {i > 0 && <span style={{ fontSize: 11, color: t.muted }}>В·</span>}
+              <span style={{ fontFamily: t.font, fontSize: 12, letterSpacing: '1px', textTransform: 'uppercase', color: t.inkSoft }}>{tp(tag)}</span>
             </span>
           ))}
         </div>
@@ -293,10 +295,10 @@ export default function PriceList({ onBook }) {
           gap: 0,
         }}>
           {[
-            { name: 'Landing', price: '$500', alt: '£400 · 2,000 PLN' },
-            { name: 'Business', price: '$1,200', alt: '£950 · 4,750 PLN' },
-            { name: 'E-commerce', price: '$2,500', alt: '£2,000 · 10,000 PLN' },
-            { name: 'Web App', price: '$3,000+', alt: '£2,400+ · 12,000+ PLN' },
+            { name: 'Landing', price: '$500', alt: 'ВЈ400 В· 2,000 PLN' },
+            { name: 'Business', price: '$1,200', alt: 'ВЈ950 В· 4,750 PLN' },
+            { name: 'E-commerce', price: '$2,500', alt: 'ВЈ2,000 В· 10,000 PLN' },
+            { name: 'Web App', price: '$3,000+', alt: 'ВЈ2,400+ В· 12,000+ PLN' },
           ].map((c, i, arr) => (
             <div key={c.name} style={{
               padding: '24px 24px',
@@ -311,7 +313,7 @@ export default function PriceList({ onBook }) {
                 textTransform: 'uppercase',
                 color: t.muted,
                 marginBottom: 10,
-              }}>{c.name}</div>
+              }}>{tp(c.name)}</div>
               <div style={{
                 fontFamily: t.font,
                 fontSize: 28,
@@ -337,133 +339,134 @@ export default function PriceList({ onBook }) {
           marginTop: 40,
           maxWidth: 720,
         }}>
-          Bespoke development tailored to your business — quoted in{' '}
+          {tp('Bespoke development tailored to your business вЂ” quoted in')}{' '}
           <span style={{ fontWeight: 600, color: t.ink }}>USD</span>,{' '}
-          <span style={{ fontWeight: 600, color: t.ink }}>GBP</span> and{' '}
-          <span style={{ fontWeight: 600, color: t.ink }}>PLN</span>. Every build ships production-ready with
-          SEO, security and performance baked in from day one.
+          <span style={{ fontWeight: 600, color: t.ink }}>GBP</span> {tp('and')}{' '}
+          <span style={{ fontWeight: 600, color: t.ink }}>PLN</span>.{' '}
+          {tp('Every build ships production-ready with')}{' '}
+          {tp('SEO, security and performance baked in from day one.')}
         </p>
       </div>
       </Reveal>
 
-      {/* 01 — Core Products / Website Development */}
+      {/* 01 вЂ” Core Products / Website Development */}
       <Reveal>
       <Products
-        title="01 — Core Products / Website Development"
-        col1="Product"
-        col2="What's Included"
-        col3="From"
+        title={tp('01 вЂ” Core Products / Website Development')}
+        col1={tp('Product')}
+        col2={tp("What's Included")}
+        col3={tp('From')}
         rows={[
-          { name: 'Landing Page', desc: '1 page, custom UI, responsive, contact form, basic SEO, analytics setup, production launch', price: '$500 / £400 · 2,000 PLN' },
-          { name: 'Business Website', desc: '5–10 pages, custom UI, responsive, CMS/content management, forms, basic SEO, analytics, launch', price: '$1,200 / £950 · 4,750 PLN' },
-          { name: 'E-commerce', desc: 'Catalog, categories, search/filters, cart, checkout, payment processing, order management, admin panel', price: '$2,500 / £2,000 · 10,000 PLN' },
-          { name: 'Custom Web App', desc: 'Backend, database, authentication, user roles, API, admin/dashboard, and business logic', price: '$3,000+ / £2,400+ · 12,000+ PLN' },
+          { name: tp('Landing Page'), desc: tp('1 page, custom UI, responsive, contact form, basic SEO, analytics setup, production launch'), price: '$500 / ВЈ400 В· 2,000 PLN' },
+          { name: tp('Business Website'), desc: tp('5вЂ“10 pages, custom UI, responsive, CMS/content management, forms, basic SEO, analytics, launch'), price: '$1,200 / ВЈ950 В· 4,750 PLN' },
+          { name: tp('E-commerce'), desc: tp('Catalog, categories, search/filters, cart, checkout, payment processing, order management, admin panel'), price: '$2,500 / ВЈ2,000 В· 10,000 PLN' },
+          { name: tp('Custom Web App'), desc: tp('Backend, database, authentication, user roles, API, admin/dashboard, and business logic'), price: '$3,000+ / ВЈ2,400+ В· 12,000+ PLN' },
         ]}
-        info="From pricing reflects standard scope. Final quotes are confirmed after a short discovery call and full feature decomposition — so you never pay for what you don't need."
+        info={tp("From pricing reflects standard scope. Final quotes are confirmed after a short discovery call and full feature decomposition вЂ” so you never pay for what you don't need.")}
       />
       </Reveal>
 
-      {/* 02 — Add-Ons / Additional Features */}
+      {/* 02 вЂ” Add-Ons / Additional Features */}
       <Reveal>
       <Features
-        title="02 — Add-Ons / Additional Features"
-        col1="Feature"
-        col2="Typical Scope"
-        col3="Range"
+        title={tp('02 вЂ” Add-Ons / Additional Features')}
+        col1={tp('Feature')}
+        col2={tp('Typical Scope')}
+        col3={tp('Range')}
         rows={[
-          { name: 'Additional Page', desc: 'Complex content or service page with custom layout', price: '$70–150' },
-          { name: 'Authentication', desc: 'Login, registration, password reset, email verification', price: '$200–400' },
-          { name: 'Roles & Permissions', desc: 'Admin / editor / manager roles with granular access control', price: '$200–450' },
-          { name: 'Advanced Admin Panel', desc: 'Users, products, orders, filters, analytics, activity logs', price: '$600–1,200' },
-          { name: 'Business Management', desc: 'CRM / ERP-lite, inventory, customer records, automated workflows', price: '$1,500–4,000+' },
-          { name: 'Payment Integration', desc: 'Payment gateway, checkout flow, webhooks, status management', price: '$250–600+' },
-          { name: 'External API Integration', desc: 'CRM, delivery, mapping, AI services, third-party APIs', price: '$200–600+' },
-          { name: 'Multilingual', desc: 'i18n architecture + full additional language implementation', price: '$200–600+' },
-          { name: 'Advanced Search / Filters', desc: 'Full-text search, sorting, faceted filters, indexed queries', price: '$200–500' },
-          { name: 'Notifications', desc: 'Email, in-app, or push notifications depending on scope', price: '$150–400' },
-          { name: 'File Storage', desc: 'Upload handling, cloud storage, access control', price: '$100–300' },
+          { name: tp('Additional Page'), desc: tp('Complex content or service page with custom layout'), price: '$70вЂ“150' },
+          { name: tp('Authentication'), desc: tp('Login, registration, password reset, email verification'), price: '$200вЂ“400' },
+          { name: tp('Roles & Permissions'), desc: tp('Admin / editor / manager roles with granular access control'), price: '$200вЂ“450' },
+          { name: tp('Advanced Admin Panel'), desc: tp('Users, products, orders, filters, analytics, activity logs'), price: '$600вЂ“1,200' },
+          { name: tp('Business Management'), desc: tp('CRM / ERP-lite, inventory, customer records, automated workflows'), price: '$1,500вЂ“4,000+' },
+          { name: tp('Payment Integration'), desc: tp('Payment gateway, checkout flow, webhooks, status management'), price: '$250вЂ“600+' },
+          { name: tp('External API Integration'), desc: tp('CRM, delivery, mapping, AI services, third-party APIs'), price: '$200вЂ“600+' },
+          { name: tp('Multilingual'), desc: tp('i18n architecture + full additional language implementation'), price: '$200вЂ“600+' },
+          { name: tp('Advanced Search / Filters'), desc: tp('Full-text search, sorting, faceted filters, indexed queries'), price: '$200вЂ“500' },
+          { name: tp('Notifications'), desc: tp('Email, in-app, or push notifications depending on scope'), price: '$150вЂ“400' },
+          { name: tp('File Storage'), desc: tp('Upload handling, cloud storage, access control'), price: '$100вЂ“300' },
         ]}
-        info="Every add-on is available on its own or bundled into a larger build. Send your request and I'll map the exact scope to the right range."
+        info={tp("Every add-on is available on its own or bundled into a larger build. Send your request and I'll map the exact scope to the right range.")}
       />
       </Reveal>
 
-      {/* 03 — Visibility / SEO & Analytics */}
+      {/* 03 вЂ” Visibility / SEO & Analytics */}
       <Reveal>
       <Features
-        title="03 — Visibility / SEO & Analytics"
-        col1="Service"
-        col2="What's Included"
-        col3="Range"
+        title={tp('03 вЂ” Visibility / SEO & Analytics')}
+        col1={tp('Service')}
+        col2={tp("What's Included")}
+        col3={tp('Range')}
         rows={[
-          { name: 'Technical SEO', desc: 'Meta tags, heading structure, canonical URLs, sitemap, robots.txt, schema markup, indexing setup', price: '$250–500' },
-          { name: 'On-page SEO', desc: 'Keyword research, page structure, internal linking, content hierarchy', price: '$350–800' },
-          { name: 'SEO Campaign', desc: 'Ongoing optimisation, content strategy, monitoring, reports, Search Console management', price: '$300–1,500+ /mo' },
-          { name: 'GA4 / Tag Manager', desc: 'Setup, event tracking, basic conversion tracking', price: '$100–250' },
-          { name: 'Search Console', desc: 'Verification, sitemap submission, basic monitoring', price: '$50–150' },
+          { name: tp('Technical SEO'), desc: tp('Meta tags, heading structure, canonical URLs, sitemap, robots.txt, schema markup, indexing setup'), price: '$250вЂ“500' },
+          { name: tp('On-page SEO'), desc: tp('Keyword research, page structure, internal linking, content hierarchy'), price: '$350вЂ“800' },
+          { name: tp('SEO Campaign'), desc: tp('Ongoing optimisation, content strategy, monitoring, reports, Search Console management'), price: '$300вЂ“1,500+ /mo' },
+          { name: tp('GA4 / Tag Manager'), desc: tp('Setup, event tracking, basic conversion tracking'), price: '$100вЂ“250' },
+          { name: tp('Search Console'), desc: tp('Verification, sitemap submission, basic monitoring'), price: '$50вЂ“150' },
         ]}
-        info="Technical SEO preparation is part of every build at no extra cost. These services add deeper optimisation when your site is ready to rank and convert."
+        info={tp('Technical SEO preparation is part of every build at no extra cost. These services add deeper optimisation when your site is ready to rank and convert.')}
       />
       </Reveal>
 
-      {/* 04 — Visual / Design & UX */}
+      {/* 04 вЂ” Visual / Design & UX */}
       <Reveal>
       <Features
-        title="04 — Visual / Design & UX"
-        col1="Service"
-        col2="What's Included"
-        col3="Range"
+        title={tp('04 вЂ” Visual / Design & UX')}
+        col1={tp('Service')}
+        col2={tp("What's Included")}
+        col3={tp('Range')}
         rows={[
-          { name: 'Wireframe', desc: 'Page structure, content blocks, user flow mapping', price: '$100–300' },
-          { name: 'Landing UI', desc: 'Custom visual design for a single landing page', price: '$250–600' },
-          { name: 'Corporate UI', desc: '5–10 pages with responsive states', price: '$500–1,200' },
-          { name: 'E-commerce UI', desc: 'Catalog, product pages, cart, checkout, account area', price: '$800–1,800' },
-          { name: 'Design System', desc: 'Component library, typography scale, spacing tokens, states', price: '$300–900' },
-          { name: 'UX / Prototype', desc: 'User flows + interactive clickable prototype', price: '$200–600' },
+          { name: tp('Wireframe'), desc: tp('Page structure, content blocks, user flow mapping'), price: '$100вЂ“300' },
+          { name: tp('Landing UI'), desc: tp('Custom visual design for a single landing page'), price: '$250вЂ“600' },
+          { name: tp('Corporate UI'), desc: tp('5вЂ“10 pages with responsive states'), price: '$500вЂ“1,200' },
+          { name: tp('E-commerce UI'), desc: tp('Catalog, product pages, cart, checkout, account area'), price: '$800вЂ“1,800' },
+          { name: tp('Design System'), desc: tp('Component library, typography scale, spacing tokens, states'), price: '$300вЂ“900' },
+          { name: tp('UX / Prototype'), desc: tp('User flows + interactive clickable prototype'), price: '$200вЂ“600' },
         ]}
-        info="Good design isn't decoration — it's conversion. Every visual layer here is built mobile-first and performance-conscious."
+        info={tp("Good design isn't decoration вЂ” it's conversion. Every visual layer here is built mobile-first and performance-conscious.")}
       />
       </Reveal>
 
-      {/* 05 — Infrastructure / Backend, API & Production */}
+      {/* 05 вЂ” Infrastructure / Backend, API & Production */}
       <Reveal>
       <Features
-        title="05 — Infrastructure / Backend, API & Production"
-        col1="Service"
-        col2="What's Included"
-        col3="Range"
+        title={tp('05 вЂ” Infrastructure / Backend, API & Production')}
+        col1={tp('Service')}
+        col2={tp("What's Included")}
+        col3={tp('Range')}
         rows={[
-          { name: 'CRUD / Data Model', desc: 'Entity design, validation rules, basic API endpoints', price: '$150–300' },
-          { name: 'REST / GraphQL API', desc: 'Endpoints, authentication, validation, error handling, basic documentation', price: '$350–900' },
-          { name: 'Business Logic', desc: 'Rules, calculations, automated workflows, conditional processing', price: '$350–1,200+' },
-          { name: 'Performance Optimisation', desc: 'Image optimisation, caching, API/DB tuning, Core Web Vitals', price: '$200–600' },
-          { name: 'Basic Deployment', desc: 'Hosting/VPS setup, domain, SSL, environment config, production build', price: '$120–250' },
-          { name: 'Production Setup', desc: 'Docker, CI/CD pipeline, backups, monitoring, logging', price: '$300–700' },
-          { name: 'Migration / Redeploy', desc: 'Moving or reconfiguring an existing project to a new environment', price: '$150–500+' },
+          { name: tp('CRUD / Data Model'), desc: tp('Entity design, validation rules, basic API endpoints'), price: '$150вЂ“300' },
+          { name: tp('REST / GraphQL API'), desc: tp('Endpoints, authentication, validation, error handling, basic documentation'), price: '$350вЂ“900' },
+          { name: tp('Business Logic'), desc: tp('Rules, calculations, automated workflows, conditional processing'), price: '$350вЂ“1,200+' },
+          { name: tp('Performance Optimisation'), desc: tp('Image optimisation, caching, API/DB tuning, Core Web Vitals'), price: '$200вЂ“600' },
+          { name: tp('Basic Deployment'), desc: tp('Hosting/VPS setup, domain, SSL, environment config, production build'), price: '$120вЂ“250' },
+          { name: tp('Production Setup'), desc: tp('Docker, CI/CD pipeline, backups, monitoring, logging'), price: '$300вЂ“700' },
+          { name: tp('Migration / Redeploy'), desc: tp('Moving or reconfiguring an existing project to a new environment'), price: '$150вЂ“500+' },
         ]}
-        info="You own 100% of the code, infrastructure and access from day one. Nothing is locked behind proprietary tooling or ongoing license fees."
+        info={tp('You own 100% of the code, infrastructure and access from day one. Nothing is locked behind proprietary tooling or ongoing license fees.')}
       />
       </Reveal>
 
-      {/* 06 — E-commerce Depth */}
+      {/* 06 вЂ” E-commerce Depth */}
       <Reveal>
       <div style={{ marginBottom: 96, ...section, marginTop: 0 }}>
-        <h3 style={sectionTitle}>06 — E-commerce Depth / What Determines Your E-commerce Budget</h3>
+        <h3 style={sectionTitle}>{tp('06 вЂ” E-commerce Depth / What Determines Your E-commerce Budget')}</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: mobile ? '1fr' : 'repeat(3, 1fr)',
         }}>
           {[
             {
-              tier: 'Tier 1', name: 'Starter', range: '$2,500–3,500', alt: '£2,000–2,800 · 10,000–14,000 PLN',
-              items: ['Product catalog', 'Shopping cart & checkout', 'Payment processing', 'Order management', 'Admin panel'],
+              tier: tp('Tier 1'), name: tp('Starter'), range: '$2,500вЂ“3,500', alt: 'ВЈ2,000вЂ“2,800 В· 10,000вЂ“14,000 PLN',
+              items: [tp('Product catalog'), tp('Shopping cart & checkout'), tp('Payment processing'), tp('Order management'), tp('Admin panel')],
             },
             {
-              tier: 'Tier 2', name: 'Standard', range: '$3,500–6,000', alt: '£2,800–4,750 · 14,000–24,000 PLN',
-              items: ['Advanced filters & search', 'Wishlist & user accounts', 'Delivery options', 'Promotions & discounts', 'Analytics & reporting'],
+              tier: tp('Tier 2'), name: tp('Standard'), range: '$3,500вЂ“6,000', alt: 'ВЈ2,800вЂ“4,750 В· 14,000вЂ“24,000 PLN',
+              items: [tp('Advanced filters & search'), tp('Wishlist & user accounts'), tp('Delivery options'), tp('Promotions & discounts'), tp('Analytics & reporting')],
             },
             {
-              tier: 'Tier 3', name: 'Advanced', range: '$6,000–10,000+', alt: '£4,750–8,000+ · 24,000–40,000+ PLN',
-              items: ['ERP / CRM integration', 'Inventory synchronisation', 'Multiple payment gateways', 'Complex business rules', 'Multi-vendor capabilities'],
+              tier: tp('Tier 3'), name: tp('Advanced'), range: '$6,000вЂ“10,000+', alt: 'ВЈ4,750вЂ“8,000+ В· 24,000вЂ“40,000+ PLN',
+              items: [tp('ERP / CRM integration'), tp('Inventory synchronisation'), tp('Multiple payment gateways'), tp('Complex business rules'), tp('Multi-vendor capabilities')],
             },
           ].map((c, i, arr) => (
             <div key={c.name} style={{
@@ -479,7 +482,7 @@ export default function PriceList({ onBook }) {
                 textTransform: 'uppercase',
                 color: t.accentSoft,
                 marginBottom: 8,
-              }}>{c.tier} — {c.name}</div>
+              }}>{c.tier} вЂ” {c.name}</div>
               <div style={{
                 fontFamily: t.font,
                 fontSize: 24,
@@ -497,7 +500,7 @@ export default function PriceList({ onBook }) {
               <ul style={{ ...cardList }}>
                 {c.items.map((item) => (
                   <li key={item} style={cardLi}>
-                    <span style={listMarker}>—</span>
+                    <span style={listMarker}>вЂ”</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -506,31 +509,31 @@ export default function PriceList({ onBook }) {
           ))}
         </div>
         <div style={infoBox}>
-          E-commerce budgets are shaped by catalogue size, payment needs, integrations and automation — the tier above shows how scope maps to investment step by step.
+          {tp('E-commerce budgets are shaped by catalogue size, payment needs, integrations and automation вЂ” the tier above shows how scope maps to investment step by step.')}
         </div>
       </div>
       </Reveal>
 
-      {/* 07 — After Launch / Support */}
+      {/* 07 вЂ” After Launch / Support */}
       <Reveal>
       <div style={{ marginBottom: 90, ...section }}>
-        <h3 style={sectionTitle}>07 — After Launch / Support & Ongoing Development</h3>
+        <h3 style={sectionTitle}>{tp('07 вЂ” After Launch / Support & Ongoing Development')}</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: mobile ? '1fr' : 'repeat(3, 1fr)',
         }}>
           {[
             {
-              name: 'Basic', range: '$100/mo', alt: '£80 · 400 PLN',
-              items: ['Bug fixes', 'Backup monitoring', 'Basic health checks', 'Minor content updates'],
+              name: tp('Basic'), range: '$100/mo', alt: 'ВЈ80 В· 400 PLN',
+              items: [tp('Bug fixes'), tp('Backup monitoring'), tp('Basic health checks'), tp('Minor content updates')],
             },
             {
-              name: 'Standard', range: '$200–300/mo', alt: '£160–240 · 800–1,200 PLN',
-              items: ['Regular updates & patches', 'Performance monitoring', 'Minor feature additions', 'Security maintenance'],
+              name: tp('Standard'), range: '$200вЂ“300/mo', alt: 'ВЈ160вЂ“240 В· 800вЂ“1,200 PLN',
+              items: [tp('Regular updates & patches'), tp('Performance monitoring'), tp('Minor feature additions'), tp('Security maintenance')],
             },
             {
-              name: 'Premium', range: '$500–1,000+/mo', alt: '£400–800+ · 2,000–4,000+ PLN',
-              items: ['Priority support', 'Continuous development', 'Security & compliance', 'Analytics & reporting'],
+              name: tp('Premium'), range: '$500вЂ“1,000+/mo', alt: 'ВЈ400вЂ“800+ В· 2,000вЂ“4,000+ PLN',
+              items: [tp('Priority support'), tp('Continuous development'), tp('Security & compliance'), tp('Analytics & reporting')],
             },
           ].map((c, i, arr) => (
             <div key={c.name} style={{
@@ -546,7 +549,7 @@ export default function PriceList({ onBook }) {
                 textTransform: 'uppercase',
                 color: t.accentSoft,
                 marginBottom: 8,
-              }}>Support</div>
+              }}>{tp('Support')}</div>
               <div style={{
                 fontFamily: t.font,
                 fontSize: 24,
@@ -554,7 +557,7 @@ export default function PriceList({ onBook }) {
                 color: t.accent,
                 letterSpacing: '-0.5px',
                 margin: '0 0 4px 0',
-              }}>{c.name} — {c.range}</div>
+              }}>{c.name} вЂ” {c.range}</div>
               <div style={{
                 fontFamily: t.font,
                 fontSize: 12,
@@ -564,7 +567,7 @@ export default function PriceList({ onBook }) {
               <ul style={{ ...cardList }}>
                 {c.items.map((item) => (
                   <li key={item} style={cardLi}>
-                    <span style={listMarker}>—</span>
+                    <span style={listMarker}>вЂ”</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -573,25 +576,25 @@ export default function PriceList({ onBook }) {
           ))}
         </div>
         <div style={infoBox}>
-          Major new features fall outside the support scope and are scoped independently — so your monthly plan stays predictable and you only pay for genuinely new work.
+          {tp('Major new features fall outside the support scope and are scoped independently вЂ” so your monthly plan stays predictable and you only pay for genuinely new work.')}
         </div>
       </div>
       </Reveal>
 
-      {/* 08 — Reference / Sample Commercial Proposal */}
+      {/* 08 вЂ” Reference / Sample Commercial Proposal */}
       <Reveal>
       <div style={{ marginBottom: 90, ...section }}>
-        <h3 style={sectionTitle}>08 — Reference / Sample Commercial Proposal</h3>
+        <h3 style={sectionTitle}>{tp('08 вЂ” Reference / Sample Commercial Proposal')}</h3>
         {mobile ? (
           <div style={{ borderTop: `1px solid #1a1a1a` }}>
             {[
-              { name: 'Custom UI / Design', price: '$500 / £400 · 2,000 PLN' },
-              { name: 'Frontend Development', price: '$700 / £555 · 2,775 PLN' },
-              { name: 'Backend / API', price: '$600 / £475 · 2,375 PLN' },
-              { name: 'Admin Panel', price: '$700 / £555 · 2,775 PLN' },
-              { name: 'Authentication + Roles', price: '$400 / £320 · 1,600 PLN' },
-              { name: 'Technical SEO + Analytics', price: '$300 / £240 · 1,200 PLN' },
-              { name: 'Deployment / Production', price: '$200 / £160 · 800 PLN' },
+              { name: tp('Custom UI / Design'), price: '$500 / ВЈ400 В· 2,000 PLN' },
+              { name: tp('Frontend Development'), price: '$700 / ВЈ555 В· 2,775 PLN' },
+              { name: tp('Backend / API'), price: '$600 / ВЈ475 В· 2,375 PLN' },
+              { name: tp('Admin Panel'), price: '$700 / ВЈ555 В· 2,775 PLN' },
+              { name: tp('Authentication + Roles'), price: '$400 / ВЈ320 В· 1,600 PLN' },
+              { name: tp('Technical SEO + Analytics'), price: '$300 / ВЈ240 В· 1,200 PLN' },
+              { name: tp('Deployment / Production'), price: '$200 / ВЈ160 В· 800 PLN' },
             ].map((r, i) => (
               <div key={i} style={{
                 padding: '14px 4px',
@@ -614,11 +617,11 @@ export default function PriceList({ onBook }) {
             }}>
               <span style={{
                 fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.ink,
-              }}>Total</span>
+              }}>{tp('Total')}</span>
               <span style={{
                 fontFamily: t.font, fontSize: 13, fontWeight: 600, color: t.gold,
                 textAlign: 'right', whiteSpace: 'nowrap',
-              }}>$3,400 · £2,700 · 13,450 PLN</span>
+              }}>$3,400 В· ВЈ2,700 В· 13,450 PLN</span>
             </div>
           </div>
         ) : (
@@ -626,19 +629,19 @@ export default function PriceList({ onBook }) {
             <table style={table}>
               <thead>
                 <tr>
-                  <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>Component</th>
-                  <th style={{ ...thRight, minWidth: 220 }}>Cost</th>
+                  <th style={{ ...th, textAlign: 'left', minWidth: 300 }}>{tp('Component')}</th>
+                  <th style={{ ...thRight, minWidth: 220 }}>{tp('Cost')}</th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { name: 'Custom UI / Design', price: '$500 / £400 · 2,000 PLN' },
-                  { name: 'Frontend Development', price: '$700 / £555 · 2,775 PLN' },
-                  { name: 'Backend / API', price: '$600 / £475 · 2,375 PLN' },
-                  { name: 'Admin Panel', price: '$700 / £555 · 2,775 PLN' },
-                  { name: 'Authentication + Roles', price: '$400 / £320 · 1,600 PLN' },
-                  { name: 'Technical SEO + Analytics', price: '$300 / £240 · 1,200 PLN' },
-                  { name: 'Deployment / Production', price: '$200 / £160 · 800 PLN' },
+                  { name: tp('Custom UI / Design'), price: '$500 / ВЈ400 В· 2,000 PLN' },
+                  { name: tp('Frontend Development'), price: '$700 / ВЈ555 В· 2,775 PLN' },
+                  { name: tp('Backend / API'), price: '$600 / ВЈ475 В· 2,375 PLN' },
+                  { name: tp('Admin Panel'), price: '$700 / ВЈ555 В· 2,775 PLN' },
+                  { name: tp('Authentication + Roles'), price: '$400 / ВЈ320 В· 1,600 PLN' },
+                  { name: tp('Technical SEO + Analytics'), price: '$300 / ВЈ240 В· 1,200 PLN' },
+                  { name: tp('Deployment / Production'), price: '$200 / ВЈ160 В· 800 PLN' },
                 ].map((r, i) => (
                   <tr key={i}>
                     <td style={tdFirst}>{r.name}</td>
@@ -646,7 +649,7 @@ export default function PriceList({ onBook }) {
                   </tr>
                 ))}
                 <tr>
-                  <td style={{ ...td, color: t.ink, fontWeight: 600, fontSize: 14, borderBottom: '1px solid #1a1a1a' }}>Total</td>
+                  <td style={{ ...td, color: t.ink, fontWeight: 600, fontSize: 14, borderBottom: '1px solid #1a1a1a' }}>{tp('Total')}</td>
                   <td style={{
                     ...td,
                     textAlign: 'right',
@@ -655,36 +658,36 @@ export default function PriceList({ onBook }) {
                     fontWeight: 600,
                     fontSize: 14,
                     whiteSpace: 'nowrap',
-                  }}>$3,400 · £2,700 · 13,450 PLN</td>
+                  }}>$3,400 В· ВЈ2,700 В· 13,450 PLN</td>
                 </tr>
               </tbody>
             </table>
           </div>
         )}
         <div style={infoBox}>
-          This example illustrates the logic behind fixed-price assembly — every requirement is decomposed, priced and summed with no surprise invoices along the way.
+          {tp('This example illustrates the logic behind fixed-price assembly вЂ” every requirement is decomposed, priced and summed with no surprise invoices along the way.')}
         </div>
       </div>
       </Reveal>
 
-      {/* 09 — Working Terms / How We Work */}
+      {/* 09 вЂ” Working Terms / How We Work */}
       <Reveal>
       <div style={{ marginBottom: 90, ...section }}>
-        <h3 style={sectionTitle}>09 — Working Terms / How We Work</h3>
+        <h3 style={sectionTitle}>{tp('09 вЂ” Working Terms / How We Work')}</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: mobile ? '1fr' : '1fr 1fr',
           borderTop: `1px solid ${t.ink}`,
         }}>
           {[
-            { label: 'Estimation', value: 'Free preliminary scope assessment. Final pricing confirmed after full decomposition.' },
-            { label: 'Deposit', value: '30–50% upfront before work begins. Remaining balance paid against agreed milestones.' },
-            { label: 'Process', value: 'Discovery → Design → Development → QA → Launch' },
-            { label: 'Revisions', value: '1–2 revision rounds within the agreed scope. New requirements are estimated separately.' },
-            { label: 'Bug Warranty', value: '7–30 days post-launch bug-fix warranty, depending on project scope.' },
-            { label: 'Third-party Costs', value: 'Hosting, domain, paid APIs, plugins, and SaaS tools are not included unless explicitly stated.' },
-            { label: 'Urgent Work', value: '+20–50% surcharge depending on deadline severity and project complexity.' },
-            { label: 'Final Agreement', value: 'Pricing, timelines, and deliverables are fixed in a formal proposal / contract after scope sign-off.' },
+            { label: tp('Estimation'), value: tp('Free preliminary scope assessment. Final pricing confirmed after full decomposition.') },
+            { label: 'Deposit', value: '30вЂ“50% upfront before work begins. Remaining balance paid against agreed milestones.' },
+            { label: 'Process', value: 'Discovery в†’ Design в†’ Development в†’ QA в†’ Launch' },
+            { label: 'Revisions', value: '1вЂ“2 revision rounds within the agreed scope. New requirements are estimated separately.' },
+            { label: 'Bug Warranty', value: '7вЂ“30 days post-launch bug-fix warranty, depending on project scope.' },
+            { label: tp('Third-party Costs'), value: tp('Hosting, domain, paid APIs, plugins, and SaaS tools are not included unless explicitly stated.') },
+            { label: 'Urgent Work', value: '+20вЂ“50% surcharge depending on deadline severity and project complexity.' },
+            { label: tp('Final Agreement'), value: tp('Pricing, timelines, and deliverables are fixed in a formal proposal / contract after scope sign-off.') },
           ].map((term, i) => (
             <div key={term.label} style={{
               padding: '24px 24px',
@@ -715,7 +718,7 @@ export default function PriceList({ onBook }) {
       {/* Philosophy */}
       <Reveal>
       <div style={{ ...section, maxWidth: 760 }}>
-        <p style={badge}>Pricing Philosophy</p>
+        <p style={badge}>{tp('Pricing Philosophy')}</p>
         <p style={{
           fontFamily: t.font,
           fontSize: 16,
@@ -723,9 +726,9 @@ export default function PriceList({ onBook }) {
           color: t.inkSoft,
           margin: 0,
         }}>
-          These prices are positioned as competitive benchmarks for custom web development in 2026. Solo
-          full-stack development sits above budget freelance rates, while remaining below typical premium
-          agency pricing — delivering enterprise-quality output at accessible investment levels.
+          {tp('These prices are positioned as competitive benchmarks for custom web development in 2026. Solo')}{' '}
+          {tp('full-stack development sits above budget freelance rates, while remaining below typical premium')}{' '}
+          {tp('agency pricing — delivering enterprise-quality output at accessible investment levels.')}
         </p>
       </div>
       </Reveal>

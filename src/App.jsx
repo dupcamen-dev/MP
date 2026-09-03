@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useScrollProgress } from './hooks/useScrollProgress';
 import { useMobile } from './hooks/useMobile';
 import { useAuth } from './hooks/useAuth';
+import { I18nProvider, useI18n } from './i18n';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Process from './components/Process';
@@ -50,9 +51,30 @@ const routeMeta = {
   },
 };
 
+const localeMeta = {
+  en: {
+    homeTitle: 'Millionpixels — Your Website, Found in Google. Live in 7 Days',
+    homeDesc: 'We build a working website and set up its SEO — not just a pretty page. In 7 days you get a live site with SEO in place, so clients can find you on Google.',
+  },
+  uk: {
+    homeTitle: 'Millionpixels — ваш сайт під ключ, знайдений у Google. За 7 днів',
+    homeDesc: 'Ми створюємо робочий сайт під ключ і налаштовуємо SEO — не просто гарну сторінку. За 7 днів ви отримуєте живий сайт із SEO, щоб клієнти знаходили вас у Google.',
+  },
+  pl: {
+    homeTitle: 'Millionpixels — Twoja strona, znaleziona w Google. Za 7 dni',
+    homeDesc: 'Budujemy działającą stronę i konfigurujemy SEO — nie tylko ładną stronę. W 7 dni otrzymujesz żywą witrynę z SEO, aby klienci znaleźli Cię w Google.',
+  },
+};
+
 function useRouteMeta(route) {
   useEffect(() => {
-    const meta = routeMeta[route] || routeMeta['/'];
+    const p = window.location.pathname;
+    const loc = p.startsWith('/uk') ? 'uk' : p.startsWith('/pl') ? 'pl' : 'en';
+    const lm = localeMeta[loc];
+    const meta = routeMeta[route] || {
+      title: loc === 'en' ? routeMeta['/'].title : lm.homeTitle,
+      description: loc === 'en' ? routeMeta['/'].description : lm.homeDesc,
+    };
     document.title = meta.title;
     const desc = document.querySelector('meta[name="description"]');
     if (desc) desc.setAttribute('content', meta.description);
@@ -63,6 +85,7 @@ function Site({ showModal, setShowModal, onBook }) {
   const progress = useScrollProgress('process');
   const mobile = useMobile();
   const openModal = () => setShowModal(true);
+  const { t } = useI18n();
 
   return (
     <>
@@ -110,7 +133,7 @@ function Site({ showModal, setShowModal, onBook }) {
             <span style={{
               fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
               letterSpacing: '0.08em',               color: '#8a8a8a',
-            }}>&copy; 2026 MILLIONPIXELS.DEV. ALL RIGHTS RESERVED.</span>
+            }}>{t('footerRights')}</span>
             <div style={{ display: 'flex', gap: 20 }}>
               <a href="#/privacy"
                 onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
@@ -119,7 +142,7 @@ function Site({ showModal, setShowModal, onBook }) {
                 fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
                 letterSpacing: '0.06em', color: '#8a8a8a',
                 textDecoration: 'none', transition: 'color 0.2s',
-              }}>Privacy Policy</a>
+              }}>{t('privacyLink')}</a>
               <a href="#/terms"
                 onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
@@ -127,7 +150,7 @@ function Site({ showModal, setShowModal, onBook }) {
                 fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
                 letterSpacing: '0.06em', color: '#8a8a8a',
                 textDecoration: 'none', transition: 'color 0.2s',
-              }}>Terms of Service</a>
+              }}>{t('termsLink')}</a>
             </div>
 
           </div>
@@ -138,7 +161,7 @@ function Site({ showModal, setShowModal, onBook }) {
   );
 }
 
-export default function App() {
+function AppRoot() {
   const route = useHashRoute();
   useRouteMeta(route);
   const auth = useAuth();
@@ -207,5 +230,13 @@ export default function App() {
       <Analytics />
       <SpeedInsights />
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <I18nProvider>
+      <AppRoot />
+    </I18nProvider>
   );
 }

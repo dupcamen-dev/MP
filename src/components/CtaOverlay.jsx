@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
 import { useMagnetic } from '../hooks/useMagnetic';
+import { useI18n } from '../i18n';
 import OrderModal from './OrderModal';
 
 const ctaBg = 'linear-gradient(rgba(253,253,253,0.72), rgba(253,253,253,0.72)), url(/cta-bg.webp)';
@@ -12,6 +13,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
   const tablet = useTablet();
   const [showModal, setShowModal] = useState(false);
   const [bgVisible, setBgVisible] = useState(false);
+  const { t } = useI18n();
 
   const isModalOpen = externalModal !== undefined ? externalModal : showModal;
   const setIsModalOpen = externalSetShowModal || setShowModal;
@@ -73,15 +75,15 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
               lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)',
               letterSpacing: '-0.01em', marginBottom: 24,
             }}>
-              <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
-              <span className="line reveal" style={{ display: 'block' }}>with one message.</span>
+              <span className="line reveal" style={{ display: 'block' }}>{t('ctaH1a')}</span>
+              <span className="line reveal" style={{ display: 'block' }}>{t('ctaH1b')}</span>
             </h2>
             <p className="cta-slide-sub reveal" style={{
               fontFamily: "'Geist', sans-serif", fontWeight: 300,
               fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
               color: 'var(--ink)', opacity: 0.7, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
             }}>
-              One message. Seven days. A working website with SEO — live and found on Google.
+              {t('ctaSub')}
             </p>
             <button
               ref={magnetic.ref}
@@ -96,7 +98,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
                 transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
                 willChange: 'transform',
               }}>
-              Book a week →
+              {t('bookWeek')}
             </button>
           </div>
         </section>
@@ -127,15 +129,15 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)',
             letterSpacing: '-0.01em', marginBottom: 24,
           }}>
-            <span className="line reveal" style={{ display: 'block' }}>Your week starts</span>
-            <span className="line reveal" style={{ display: 'block' }}>with one message.</span>
+            <span className="line reveal" style={{ display: 'block' }}>{t('ctaH1a')}</span>
+            <span className="line reveal" style={{ display: 'block' }}>{t('ctaH1b')}</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
             fontFamily: "'Geist', sans-serif", fontWeight: 300,
             fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
             color: 'var(--ink)', opacity: 0.7, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
           }}>
-            One message. Seven days. A working website with SEO — live and found on Google.
+            {t('ctaSub')}
           </p>
           <button
             ref={magnetic.ref}

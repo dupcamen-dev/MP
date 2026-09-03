@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useScrollTo } from '../hooks/useScrollProgress';
+import { useI18n, LOCALES } from '../i18n';
 
 export default function MenuOverlay({ onBook }) {
   const [open, setOpen] = useState(false);
   const scrollTo = useScrollTo();
+  const { t, locale, setLanguage } = useI18n();
 
   const links = [
-    { label: 'WORK', id: 'showcase' },
-    { label: 'PROCESS', id: 'process' },
-    { label: 'PRICING', id: 'pricing' },
-    { label: 'BOOK A WEEK', id: 'book', highlight: true },
+    { label: t('navWork'), id: 'showcase' },
+    { label: t('navProcess'), id: 'process' },
+    { label: t('navPricing'), id: 'pricing' },
+    { label: t('navBook'), id: 'book', highlight: true },
   ];
 
   function handleClick(id) {
@@ -87,6 +89,25 @@ export default function MenuOverlay({ onBook }) {
           </a>
         ))}
       </nav>
+
+      <div style={{
+        position: 'relative', zIndex: 1, marginTop: 'clamp(24px, 4vh, 48px)',
+        display: 'flex', gap: 12, color: 'var(--bg-alt)',
+      }}>
+        {LOCALES.map((l) => (
+          <button
+            key={l}
+            onClick={() => setLanguage(l)}
+            style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 13,
+              letterSpacing: '0.12em', textTransform: 'uppercase',
+              background: 'none', border: 'none', cursor: 'pointer', padding: '6px 10px',
+              color: l === locale ? 'var(--primary)' : 'var(--bg-alt)',
+              fontWeight: l === locale ? 600 : 400,
+            }}
+          >{l === 'en' ? 'EN' : l === 'uk' ? 'UK' : 'PL'}</button>
+        ))}
+      </div>
     </div>,
     document.body
   );

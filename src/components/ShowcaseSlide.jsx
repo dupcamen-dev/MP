@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
+import { useI18n } from '../i18n';
 
 const projects = [
   { tag: 'RESTAURANT · LONDON', title: 'ZHYTO', subtitle: '', color: 'var(--primary)', desc: 'Artisian homemade varenyky. Tradition on a plate, delivered.', img: '/zhyto-hero.png', link: 'https://zhyto.london', caption: 'zhyto.london — shipped 2026' },
@@ -10,6 +11,7 @@ const projects = [
 ];
 
 function ProjectCard({ p }) {
+  const { t } = useI18n();
   return (
     <div className="carousel-card" style={{
       width: '100%', height: '100%',
@@ -74,7 +76,7 @@ color: 'var(--ink)', background: 'rgba(253,253,253,0.85)', padding: '5px 10px',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
             color: 'var(--ink)', textTransform: 'uppercase',
             letterSpacing: '0.06em', textDecoration: 'none', whiteSpace: 'nowrap',
-          }}>Visit →</a>
+          }}>{t('visit')} →</a>
         </div>
       </div>
     </div>
@@ -160,6 +162,7 @@ function MobileProjectList() {
 
 export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
   const mobile = useMobile();
+  const { t } = useI18n();
   const CELL_COUNT = projects.length;
 
   const activeIdx = mobile
@@ -188,11 +191,11 @@ export default function ShowcaseSlide({ progress = 0, onCardEnd }) {
           fontFamily: "'Geist Mono', monospace", fontSize: 12,
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: '#8a8a8a', opacity: 0.7, margin: '0 0 8px 0',
-        }}>SELECTED WORK</p>
+        }}>{t('showcaseLabel')}</p>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
           lineHeight: 1, color: 'var(--ink)', margin: 0, letterSpacing: '-0.01em',
-        }}>Real products. Real users.<br />Shipped in seven.</h2>
+        }}>{t('showcaseH1')}<br />{t('showcaseH2')}</h2>
       </div>
       <div className="carousel-scene" style={{
         position: 'relative', width: '100%', height: '100%',

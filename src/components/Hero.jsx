@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
+import { useI18n } from '../i18n';
 import { PrimaryButton, GhostButton } from './Button';
 
 function usePixelGrid(canvasRef, cols, rows, radius, fadeSpeed) {
@@ -215,6 +216,7 @@ function useTimer() {
 export default function Hero({ onBook }) {
   const [visible, setVisible] = useState(false);
   const mobile = useMobile();
+  const { t } = useI18n();
   const canvasRef = useRef(null);
   const rainRef = useRef(null);
   usePixelGrid(canvasRef, mobile ? 40 : 120, mobile ? 40 : 70, mobile ? 5 : 8, mobile ? 0.03 : 0.06);
@@ -283,7 +285,7 @@ export default function Hero({ onBook }) {
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--ink)', opacity: 0.7, margin: '0 0 24px 0',
           ...reveal(0),
-        }}>WEBSITE + SEO · LIVE IN 7 DAYS</p>
+        }}>{t('heroBadge')}</p>
 
         <h1 style={{
           fontFamily: "'Anton', Impact, sans-serif",
@@ -292,8 +294,8 @@ export default function Hero({ onBook }) {
           letterSpacing: '-0.02em', margin: '0 0 32px 0',
           ...reveal(0.08),
         }}>
-          Your website,<br />found in Google.<br />
-          <span className={visible ? 'ship-flash' : ''} style={{ color: '#f97316' }}>Seven days.</span>
+          {t('heroH1a')}<br />{t('heroH1b')}<br />
+          <span className={visible ? 'ship-flash' : ''} style={{ color: '#f97316' }}>{t('heroH1c')}</span>
         </h1>
 
         <p style={{
@@ -302,17 +304,15 @@ export default function Hero({ onBook }) {
           color: 'var(--ink)', opacity: 0.9, maxWidth: 600, margin: '0 0 40px 0',
           ...reveal(0.16),
         }}>
-          We don&apos;t just make a pretty page. We build a working website
-          and set up its SEO — so clients can actually find you on Google.
-          Live in seven days.
+          {t('heroSub')}
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', pointerEvents: 'auto', ...reveal(0.24) }}>
           <PrimaryButton onClick={onBook} style={{ background: 'var(--ink)', color: '#fff' }}>
-            Book a week →
+            {t('bookWeek')}
           </PrimaryButton>
           <GhostButton href="#showcase" style={{ color: 'var(--ink)', borderColor: 'var(--ink)' }}>
-            See the work
+            {t('seeWork')}
           </GhostButton>
         </div>
       </div>
