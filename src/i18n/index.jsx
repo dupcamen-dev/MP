@@ -687,8 +687,9 @@ export function I18nProvider({ children }) {
 
   const setLanguage = useCallback((lang) => {
     if (!LOCALES.includes(lang)) return;
+    try { localStorage.setItem('mp_locale', lang); } catch {}
     setLocale(lang);
-    window.location.href = lang === 'en' ? '/' : `/${lang}`;
+    window.history.pushState(null, '', lang === 'en' ? '/' : `/${lang}`);
   }, []);
 
   const value = useMemo(() => ({ locale, t, tp, setLanguage }), [locale, t, tp, setLanguage]);
