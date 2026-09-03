@@ -126,7 +126,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
                 color: l === locale ? 'var(--ink)' : '#8a8a8a',
                 fontWeight: l === locale ? 600 : 400,
               }}
-            >{l === 'en' ? 'EN' : l === 'uk' ? 'UK' : 'PL'}</button>
+            >{l === 'en' ? 'EN' : l === 'uk' ? 'UA' : 'PL'}</button>
           ))}
         </div>
 

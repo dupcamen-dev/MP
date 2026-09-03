@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { useMobile } from '../hooks/useMobile';
 import { PrimaryButton } from './Button';
+import { useI18n } from '../i18n';
 
 export default function PricingFAQ({ onBook }) {
   const [openIdx, setOpenIdx] = useState(0);
   const mobile = useMobile();
+  const { t } = useI18n();
 
   const faqs = [
-    { q: 'What do I get in 7 days?', a: 'A working website, live on the internet, with its SEO set up — titles, descriptions, sitemap, Google-friendly structure. Not just a pretty page.' },
-    { q: 'Do you do SEO?', a: 'Yes. Every site ships with on-page SEO done — so it can actually be found on Google. We set the technical foundation; you watch the traffic come.' },
-    { q: 'What kind of sites do you build?', a: 'Websites that need to work and be found: business sites, online stores, booking pages, web apps, dashboards. Real users, real payments, live URL.' },
-    { q: 'What if I need more after?', a: 'Keep us on retainer, or take the site and run. Your code, your choice.' },
-    { q: 'Do I own everything?', a: 'Yes. Full access to your site from day one. No licenses, no lock-in.' },
+    { q: t('faqQ0'), a: t('faqA0') },
+    { q: t('faqQ1'), a: t('faqA1') },
+    { q: t('faqQ2'), a: t('faqA2') },
+    { q: t('faqQ3'), a: t('faqA3') },
+    { q: t('faqQ4'), a: t('faqA4') },
   ];
 
-  const includes = ['Your website, live', 'SEO set up (found on Google)', 'Your code, day one', '30 days support'];
+  const includes = t('faqIncludes');
 
   return (
     <>
@@ -35,12 +37,12 @@ export default function PricingFAQ({ onBook }) {
               fontFamily: "'Geist Mono', monospace", fontSize: 12,
               letterSpacing: '0.14em', textTransform: 'uppercase',
               color: 'var(--sienna)', margin: '0 0 16px 0',
-            }}>PRICING</p>
+            }}>{t('faqLabel')}</p>
             <h2 style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)',
               lineHeight: 0.9, textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 24px 0',
             }}>
-              Fixed timeline.<br />Flexible price.
+              {t('faqH1')}<br />{t('faqH2')}
             </h2>
 
             {/* Price card */}
@@ -52,11 +54,11 @@ export default function PricingFAQ({ onBook }) {
                 <div style={{
                   fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)',
                   color: 'var(--ink)', lineHeight: 0.9, marginBottom: 8,
-                }}>Custom Quote</div>
+                }}>{t('faqQuote')}</div>
                 <p style={{
                   fontFamily: "'Geist Mono', monospace", fontSize: 13, letterSpacing: '0.08em',
                   color: 'var(--sienna)', margin: '0 0 28px 0',
-                }}>EVERY PROJECT IS DIFFERENT</p>
+                }}>{t('faqQuoteSub')}</p>
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {includes.map((item) => (
@@ -70,7 +72,7 @@ export default function PricingFAQ({ onBook }) {
                 </ul>
 
                 <PrimaryButton onClick={onBook} style={{ width: '100%', justifyContent: 'center' }}>
-                  Get a quote →
+                  {t('faqQuoteBtn')}
                 </PrimaryButton>
               </div>
             </div>
@@ -82,7 +84,7 @@ export default function PricingFAQ({ onBook }) {
               fontFamily: "'Geist Mono', monospace", fontSize: 12,
               letterSpacing: '0.14em', textTransform: 'uppercase',
               color: 'var(--sienna)', margin: '0 0 24px 0',
-            }}>QUESTIONS</p>
+            }}>{t('faqQuestionsLabel')}</p>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {faqs.map((faq, i) => (
                 <div

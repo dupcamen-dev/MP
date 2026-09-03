@@ -1,28 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useMobile, useTablet } from '../hooks/useMobile';
-
-const reviews = [
-  {
-    text: 'They took our idea and turned it into a working restaurant site in one week. No endless meetings, no delays — just results. Our varenyky finally found their way to Londoners online.',
-    author: 'ZHYTO',
-    role: 'zhyto.london · Restaurant',
-  },
-  {
-    text: 'From zero to a fully functional catering site with ordering. Shipped faster than our previous agency took to send a proposal. We cook anything — now people can actually find us.',
-    author: 'RAQT FUEL',
-    role: 'raqtfuel.com · Catering',
-  },
-  {
-    text: 'We needed a proper online presence for the workshop fast. Got a clean furniture catalogue site and it shows our craft the way it deserves. Clients book us straight from the site.',
-    author: 'MEBLI CHORTKIV',
-    role: 'mebli-chortkiv.vercel.app · Custom furniture',
-  },
-  {
-    text: 'We wanted to launch our status-page product quickly. Got a production-ready SaaS site with crypto payments. Clean code, real deployment, everything documented.',
-    author: 'TOPSTATUS',
-    role: 'topstatus.space · Uptime monitoring SaaS',
-  },
-];
+import { useI18n } from '../i18n';
 
 const CARD_REVEALS = [
   { at: 0.46, dur: 0.04 },
@@ -39,6 +17,14 @@ export default function ReviewsSlide({ progress = 0 }) {
   const mobile = useMobile();
   const tablet = useTablet();
   const gridRef = useRef(null);
+  const { t } = useI18n();
+
+  const reviews = [
+    { text: t('reviewText0'), author: 'ZHYTO', role: t('reviewRole0') },
+    { text: t('reviewText1'), author: 'RAQT FUEL', role: t('reviewRole1') },
+    { text: t('reviewText2'), author: 'MEBLI CHORTKIV', role: t('reviewRole2') },
+    { text: t('reviewText3'), author: 'TOPSTATUS', role: t('reviewRole3') },
+  ];
 
   useEffect(() => {
     if (!mobile) return;
@@ -61,7 +47,7 @@ export default function ReviewsSlide({ progress = 0 }) {
   const headP = mobile
     ? 1
     : easeOutCubic(Math.min(1, Math.max(0, (progress - HEAD_AT) / 0.06)));
-  const headWords = ['Shipped.', 'Loved.', 'Running.'];
+  const headWords = t('headWords');
   const headVisible = Math.round(headP * headWords.length);
 
   const reveal = (i) => {
@@ -94,7 +80,7 @@ export default function ReviewsSlide({ progress = 0 }) {
           color: 'var(--sienna)', margin: '0 0 20px 0',
           opacity: headP, transform: `translateY(${(1 - headP) * 16}px)`,
           transition: 'opacity 0.3s ease, transform 0.3s ease',
-        }}>WHAT FOUNDERS SAY</p>
+        }}>{t('foundersSay')}</p>
         <h2 style={{
           fontFamily: "'Anton', Impact, sans-serif", fontSize: mobile ? 'clamp(2.2rem, 9vw, 3.5rem)' : 'clamp(2.5rem, 5vw, 4rem)',
           lineHeight: 0.95, color: 'var(--ink)', textTransform: 'uppercase',

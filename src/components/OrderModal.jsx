@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useI18n } from '../i18n';
 
 function getBotConfig() {
   try {
@@ -34,11 +35,12 @@ export default function OrderModal({ onClose }) {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useI18n();
 
   const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async () => {
-    if (!form.contact.trim()) { setError('Please enter your contact.'); return; }
+    if (!form.contact.trim()) { setError(t('orderContactError')); return; }
     setError('');
     setSending(true);
     const now = new Date().toISOString();
@@ -103,18 +105,18 @@ export default function OrderModal({ onClose }) {
           <h3 style={{
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--ink)',
             textTransform: 'uppercase', margin: '0 0 12px', letterSpacing: '0.05em',
-          }}>REQUEST SENT</h3>
+          }}>{t('orderDoneTitle')}</h3>
           <p style={{
             fontFamily: "'Geist', sans-serif", fontSize: '1.1rem', color: 'var(--on-surface)',
             marginBottom: 32, lineHeight: 1.5,
           }}>
-            We&apos;ll review your project and reply within 24 hours.
+            {t('orderDoneBody')}
           </p>
           <button onClick={onClose} style={{
             padding: '16px 48px', background: '#f97316', color: '#ffffff',
             fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
             border: '2px solid #f97316', borderRadius: 'var(--radius-pill)', cursor: 'pointer', letterSpacing: '0.05em',
-          }}>CLOSE</button>
+          }}>{t('orderClose')}</button>
         </div>
       </div>
     );
@@ -137,11 +139,11 @@ export default function OrderModal({ onClose }) {
             <h3 style={{
               fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.75rem', color: 'var(--ink)',
               textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
-            }}>BOOK A <span style={{ color: '#f97316' }}>WEEK</span></h3>
+            }}>{t('orderBookTitle')} <span style={{ color: '#f97316' }}>{t('orderBookWeek')}</span></h3>
             <p style={{
               fontFamily: "'Geist', sans-serif", fontSize: '0.9rem', color: '#8a8a8a',
               margin: '6px 0 0 0',
-            }}>Live product in 7 days</p>
+            }}>{t('orderBookSub')}</p>
           </div>
           <button onClick={onClose} style={{
             background: 'none', border: 'none', fontSize: '2rem', color: 'var(--ink)',
@@ -151,12 +153,12 @@ export default function OrderModal({ onClose }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 32 }}>
           <div>
-            <label style={labelStyle}>WHAT DO YOU WANT TO BUILD? *</label>
+            <label style={labelStyle}>{t('orderBuildLabel')}</label>
             <textarea
               rows={3}
               value={form.project}
               onChange={update('project')}
-              placeholder="Web app, marketplace, booking platform, AI tool..."
+              placeholder={t('orderBuildPlaceholder')}
               style={inputStyle}
               onFocus={e => e.target.style.borderColor = '#f97316'}
               onBlur={e => e.target.style.borderColor = '#e0e0e0'}
@@ -164,12 +166,12 @@ export default function OrderModal({ onClose }) {
             />
           </div>
           <div>
-            <label style={labelStyle}>CONTACT (EMAIL OR TELEGRAM) *</label>
+            <label style={labelStyle}>{t('orderContactLabel')}</label>
             <input
               type="text"
               value={form.contact}
               onChange={update('contact')}
-              placeholder="email@company.com or @telegram"
+              placeholder={t('orderContactPlaceholder')}
               style={inputStyle}
               onFocus={e => e.target.style.borderColor = '#f97316'}
               onBlur={e => e.target.style.borderColor = '#e0e0e0'}
@@ -192,7 +194,7 @@ export default function OrderModal({ onClose }) {
           onMouseEnter={!sending ? (e) => { e.currentTarget.style.background = '#ef5d08'; e.currentTarget.style.borderColor = '#ef5d08'; } : undefined}
           onMouseLeave={!sending ? (e) => { e.currentTarget.style.background = '#f97316'; e.currentTarget.style.borderColor = '#f97316'; } : undefined}
         >
-          {sending ? 'SENDING…' : 'SEND REQUEST'}
+          {sending ? t('orderSending') : t('orderSend')}
         </button>
       </div>
     </div>

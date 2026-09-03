@@ -105,7 +105,7 @@ export default function MenuOverlay({ onBook }) {
               color: l === locale ? 'var(--primary)' : 'var(--bg-alt)',
               fontWeight: l === locale ? 600 : 400,
             }}
-          >{l === 'en' ? 'EN' : l === 'uk' ? 'UK' : 'PL'}</button>
+          >{l === 'en' ? 'EN' : l === 'uk' ? 'UA' : 'PL'}</button>
         ))}
       </div>
     </div>,
