@@ -3,6 +3,7 @@ import { useMobile, useTablet } from '../hooks/useMobile';
 import { useI18n } from '../i18n';
 
 const projects = [
+  { tag: 'MEAL PLANNING · WEB APP', title: 'NOURI', subtitle: '', color: '#2E7D4F', desc: 'Simple meal planning — tell us what is in your fridge and your daily calories, and get a week menu in seconds.', img: '/nouri-hero.png', link: 'https://nouri-normal.vercel.app/', caption: 'nouri-normal.vercel.app — shipped 2026' },
   { tag: 'RESTAURANT · LONDON', title: 'ZHYTO', subtitle: '', color: 'var(--primary)', desc: 'Artisian homemade varenyky. Tradition on a plate, delivered.', img: '/zhyto-hero.png', link: 'https://zhyto.london', caption: 'zhyto.london — shipped 2026' },
   { tag: 'CATERING · UK', title: 'RAQT', subtitle: 'FUEL', color: 'var(--secondary)', desc: 'We Cook Anything You Crave. Any cuisine, cooked flawlessly.', img: '/raqt-hero.png', link: 'https://www.raqtfuel.com', caption: 'raqtfuel.com — shipped 2026' },
   { tag: 'CUSTOM FURNITURE · CHORTKIV', title: 'MEBLI', subtitle: 'CHORTKIV', color: '#8B6914', desc: 'Bespoke furniture workshop. Kitchens, bedrooms, living rooms — built to order.', img: '/mebli-hero.webp', link: 'https://mebli-chortkiv.vercel.app/', caption: 'mebli-chortkiv.vercel.app — shipped 2026' },
