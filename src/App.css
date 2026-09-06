@@ -176,6 +176,14 @@ a:focus-visible, button:focus-visible {
 .process-btn.primary:hover { transform: translate(-2px, -2px); }
   .process-btn.outline:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
+/* Consistent vertical rhythm for stacked marketing sections */
+@media (min-width: 901px) {
+  #process, #pricing {
+    padding-top: clamp(80px, 10vh, 120px) !important;
+    padding-bottom: clamp(80px, 10vh, 120px) !important;
+  }
+}
+
 @media (hover: hover) {
   .carousel-cell:hover .card-img img { transform: scale(1.05); }
   .carousel-cell .card-body a:hover { background: var(--primary) !important; color: var(--surface-low) !important; }
@@ -227,11 +235,12 @@ a:focus-visible, button:focus-visible {
   :root { --section-padding: 24px; }
   [style*="backdrop-filter"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
-  header { padding: 16px 24px !important; background: rgba(253, 253, 253, 0.98) !important; border-bottom: 1px solid #e8e8e8 !important; }
+  header { height: auto !important; min-height: 88px !important; padding: 18px 24px !important; background: rgba(253, 253, 253, 0.98) !important; border-bottom: 1px solid #e8e8e8 !important; gap: 16px !important; }
   .header-logo { font-size: 1.2rem !important; }
+  .header-logo img { height: 36px !important; }
 
   #hero { padding: 100px 24px 60px !important; }
-  #hero h1 { font-size: clamp(2.5rem, 16vw, 5rem) !important; }
+  #hero h1 { font-size: clamp(2.5rem, 14vw, 5rem) !important; line-height: 1.0 !important; }
 
   .section-inner { padding: 0 24px !important; }
 
@@ -251,6 +260,9 @@ a:focus-visible, button:focus-visible {
   .header-auth-email { display: none !important; }
   .header-auth-admin { display: none !important; }
   .header-auth { gap: 0 !important; }
+  .header-right { gap: 10px !important; }
+  .header-lang { gap: 2px !important; }
+  .header-lang button { padding: 4px 5px !important; }
   
   /* Better mobile typography */
   h2 { font-size: clamp(1.75rem, 8vw, 3rem) !important; }
@@ -258,10 +270,13 @@ a:focus-visible, button:focus-visible {
   
   /* Process phase descriptions visible on mobile */
   .phase-item p { font-size: clamp(1rem, 3.5vw, 1.15rem) !important; }
+
+  /* Consistent mobile vertical rhythm between stacked blocks */
+  #process { padding-top: 64px !important; padding-bottom: 64px !important; }
 }
 
 @media (max-width: 480px) {
-  #hero h1 { font-size: clamp(3rem,20vw,4rem) !important; text-shadow: 4px 4px 0 var(--secondary) !important; }
+  #hero h1 { font-size: clamp(2.75rem,17vw,3.25rem) !important; line-height: 1.0 !important; text-shadow: 2px 2px 0 var(--secondary) !important; }
 }
 
 @supports (padding: max(0px)) {

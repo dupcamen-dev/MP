@@ -194,7 +194,7 @@ function AppRoot() {
         <div style={{
           minHeight: '100vh', background: 'var(--cream)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: "'Geist', sans-serif",
+          fontFamily: "'Inter', system-ui, sans-serif",
         }}>
           <div style={{ textAlign: 'center', padding: 40 }}>
             <h2 style={{

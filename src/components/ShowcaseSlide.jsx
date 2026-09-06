@@ -62,7 +62,7 @@ color: 'var(--ink)', background: 'rgba(253,253,253,0.85)', padding: '5px 10px',
           {p.title} <span style={{ color: p.color }}>{p.subtitle}</span>
         </h2>
         <p style={{
-          fontFamily: "'Geist', sans-serif", fontSize: 'clamp(0.95rem, 1.4vw, 1.1rem)',
+          fontFamily: "'Inter', system-ui, sans-serif", fontSize: 'clamp(0.95rem, 1.4vw, 1.1rem)',
           lineHeight: 1.5, color: 'var(--text-dim)', marginBottom: 16,
           letterSpacing: '0.01em',
         }}>

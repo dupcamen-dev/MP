@@ -37,7 +37,7 @@ function setUser(user) {
 const s = {
   page: {
     minHeight: '100vh', background: 'var(--cream)',
-    fontFamily: "'Geist', sans-serif",
+    fontFamily: "'Inter', system-ui, sans-serif",
     padding: 'clamp(24px, 5%, 80px)',
   },
   inner: { maxWidth: 960, margin: '0 auto' },
@@ -86,7 +86,7 @@ const s = {
     background: 'var(--sienna)', color: 'var(--cream)', borderRadius: 999,
   },
   empty: {
-    fontFamily: "'Geist', sans-serif", fontSize: '1.1rem',
+    fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1.1rem',
     color: 'var(--text-dim)', padding: '60px 0', textAlign: 'center',
   },
   link: {
@@ -170,7 +170,7 @@ export default function AdminPanel({ user, onSignOut }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h1 style={s.h1}>Admin Panel</h1>
-            <p style={{ fontFamily: "'Geist', sans-serif", color: 'var(--text-dim)', margin: 0 }}>
+            <p style={{ fontFamily: "'Inter', system-ui, sans-serif", color: 'var(--text-dim)', margin: 0 }}>
               Manage your Telegram bot and orders.
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function AdminPanel({ user, onSignOut }) {
             {user && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 {user.picture && <img src={user.picture} alt="" style={{ width: 32, height: 32, borderRadius: '50%' }} />}
-                <span style={{ fontFamily: "'Geist', sans-serif", fontSize: '0.85rem', color: 'var(--ink)' }}>{user.name}</span>
+                <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.85rem', color: 'var(--ink)' }}>{user.name}</span>
               </div>
             )}
             <button onClick={onSignOut} style={{ ...s.btnSmall, color: '#994444', borderColor: '#994444' }}>Sign out</button>
@@ -244,7 +244,7 @@ export default function AdminPanel({ user, onSignOut }) {
                   <div style={{ marginBottom: 8 }}>
                     <span style={{ ...s.label, marginBottom: 4 }}>PROJECT</span>
                     <p style={{
-                      fontFamily: "'Geist', sans-serif", fontSize: '1rem',
+                      fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1rem',
                       color: 'var(--ink)', margin: 0, lineHeight: 1.5,
                     }}>{o.project}</p>
                   </div>
@@ -271,7 +271,7 @@ export default function AdminPanel({ user, onSignOut }) {
         {tab === 'bot' && (
           <div>
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
+              fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
               For production (Vercel): set <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_BOT_TOKEN</code> and{' '}
@@ -320,7 +320,7 @@ export default function AdminPanel({ user, onSignOut }) {
         {tab === 'google' && (
           <div>
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
+              fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
               Configure Google Sign-In for admin access. Create an OAuth client ID at{' '}
@@ -353,7 +353,7 @@ export default function AdminPanel({ user, onSignOut }) {
             }}>
               <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--sienna)', margin: '0 0 12px 0' }}>HOW TO GET A CLIENT ID</p>
               <ol style={{
-                fontFamily: "'Geist', sans-serif", fontSize: '0.95rem', color: 'var(--ink)',
+                fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.95rem', color: 'var(--ink)',
                 margin: 0, paddingLeft: 20, lineHeight: 2,
               }}>
                 <li>Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink)' }}>console.cloud.google.com</a></li>

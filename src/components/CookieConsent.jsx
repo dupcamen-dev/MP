@@ -29,7 +29,7 @@ export default function CookieConsent() {
       gap: 16, flexWrap: 'wrap',
     }}>
       <p style={{
-        fontFamily: "'Geist', sans-serif", fontSize: '0.85rem',
+        fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.85rem',
         color: 'var(--ink)', margin: 0, lineHeight: 1.4,
       }}>
         This site uses cookies for analytics and to improve your experience.

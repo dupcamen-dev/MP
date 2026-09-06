@@ -54,7 +54,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
         />
       </a>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+      <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
         <nav className="header-nav" style={{ display: 'flex', gap: 28 }}>
           {navLinks.map((l) => (
             <a

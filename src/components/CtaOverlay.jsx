@@ -79,7 +79,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
               <span className="line reveal" style={{ display: 'block' }}>{t('ctaH1b')}</span>
             </h2>
             <p className="cta-slide-sub reveal" style={{
-              fontFamily: "'Geist', sans-serif", fontWeight: 300,
+              fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300,
               fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
               color: 'var(--ink)', opacity: 0.7, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
             }}>
@@ -133,7 +133,7 @@ export default function CtaOverlay({ showModal: externalModal, setShowModal: ext
             <span className="line reveal" style={{ display: 'block' }}>{t('ctaH1b')}</span>
           </h2>
           <p className="cta-slide-sub reveal" style={{
-            fontFamily: "'Geist', sans-serif", fontWeight: 300,
+            fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300,
             fontSize: 'clamp(1rem, 1.6vw, 1.25rem)', letterSpacing: '0.01em',
             color: 'var(--ink)', opacity: 0.7, marginBottom: 40, maxWidth: 520, lineHeight: 1.4,
           }}>

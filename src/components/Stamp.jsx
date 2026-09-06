@@ -10,7 +10,7 @@ export default function Stamp({ size = 120, color = 'var(--primary)' }) {
         </defs>
         <circle cx="60" cy="60" r="56" fill="none" stroke={color} strokeWidth="1.5" opacity="0.9" />
         <circle cx="60" cy="60" r="30" fill="none" stroke={color} strokeWidth="1.5" opacity="0.5" />
-        <text fill={color} style={{ fontFamily: "'Geist Mono', 'Geist', monospace", fontSize: 9, letterSpacing: '2.5px', fontWeight: 600 }}>
+        <text fill={color} style={{ fontFamily: "'Geist Mono', monospace", fontSize: 9, letterSpacing: '2.5px', fontWeight: 600 }}>
           <textPath href={`#${id}`} startOffset="0%">
             SHIPPED IN 7 · MILLIONPIXELS.DEV ·
           </textPath>

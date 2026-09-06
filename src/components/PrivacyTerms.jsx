@@ -2,7 +2,7 @@ export default function PrivacyTerms() {
   const s = {
     page: {
       minHeight: '100vh', background: 'var(--cream)',
-      fontFamily: "'Geist', sans-serif", color: 'var(--ink)',
+      fontFamily: "'Inter', system-ui, sans-serif", color: 'var(--ink)',
       padding: 'clamp(24px, 5%, 80px)',
     },
     inner: { maxWidth: 720, margin: '0 auto', paddingTop: 100, paddingBottom: 80 },

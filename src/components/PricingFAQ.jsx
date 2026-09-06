@@ -63,7 +63,7 @@ export default function PricingFAQ({ onBook }) {
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {includes.map((item) => (
                     <li key={item} style={{
-                      fontFamily: "'Geist', sans-serif", fontWeight: 300, fontSize: '1.05rem',
+                      fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300, fontSize: '1.05rem',
                       color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: 12,
                     }}>
                       <span style={{ color: 'var(--ink)', fontWeight: 600 }}>—</span>{item}
@@ -112,7 +112,7 @@ export default function PricingFAQ({ onBook }) {
                   </div>
                   {openIdx === i && (
                     <p style={{
-                      fontFamily: "'Geist', sans-serif", fontWeight: 300, fontSize: '1.1rem',
+                      fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300, fontSize: '1.1rem',
                       color: 'var(--text-dim)', margin: '16px 0 0 0', lineHeight: 1.6, maxWidth: 560,
                     }}>{faq.a}</p>
                   )}

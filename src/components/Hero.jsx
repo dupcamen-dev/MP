@@ -289,9 +289,9 @@ export default function Hero({ onBook }) {
 
         <h1 style={{
           fontFamily: "'Anton', Impact, sans-serif",
-          fontSize: 'clamp(3.5rem, 9vw, 8rem)', lineHeight: 0.88,
+          fontSize: 'clamp(3rem, 8vw, 7rem)', lineHeight: 0.95,
           textTransform: 'uppercase', color: 'var(--ink)',
-          letterSpacing: '-0.02em', margin: '0 0 32px 0',
+          letterSpacing: '-0.01em', margin: '0 0 32px 0',
           ...reveal(0.08),
         }}>
           {t('heroH1a')}<br />{t('heroH1b')}<br />
@@ -299,7 +299,7 @@ export default function Hero({ onBook }) {
         </h1>
 
         <p style={{
-          fontFamily: "'Geist', sans-serif", fontWeight: 300,
+          fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300,
           fontSize: 'clamp(1.15rem, 2vw, 1.5rem)', lineHeight: 1.4,
           color: 'var(--ink)', opacity: 0.9, maxWidth: 600, margin: '0 0 40px 0',
           ...reveal(0.16),

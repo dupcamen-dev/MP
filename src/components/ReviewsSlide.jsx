@@ -113,7 +113,7 @@ export default function ReviewsSlide({ progress = 0 }) {
               ...reveal(i),
             }}>
               <p style={{
-                fontFamily: "'Geist', sans-serif", fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',
+                fontFamily: "'Inter', system-ui, sans-serif", fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',
                 lineHeight: 1.5, color: 'var(--ink)', margin: 0, fontWeight: 400,
               }}>&ldquo;{r.text}&rdquo;</p>
               <div style={{ marginTop: 20, borderTop: '1px solid rgba(0, 0, 0, 0.1)', paddingTop: 16 }}>

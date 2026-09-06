@@ -20,7 +20,7 @@ function saveOrder(order) {
 const inputStyle = {
   width: '100%', padding: '14px 16px', background: '#ffffff',
   border: '2px solid #e0e0e0', borderRadius: 'var(--radius-sm)',
-  fontFamily: "'Geist', sans-serif", fontSize: '1.05rem', color: '#1a1a1a',
+  fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1.05rem', color: '#1a1a1a',
   outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
   resize: 'vertical',
 };
@@ -107,7 +107,7 @@ export default function OrderModal({ onClose }) {
             textTransform: 'uppercase', margin: '0 0 12px', letterSpacing: '0.05em',
           }}>{t('orderDoneTitle')}</h3>
           <p style={{
-            fontFamily: "'Geist', sans-serif", fontSize: '1.1rem', color: 'var(--on-surface)',
+            fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1.1rem', color: 'var(--on-surface)',
             marginBottom: 32, lineHeight: 1.5,
           }}>
             {t('orderDoneBody')}
@@ -141,7 +141,7 @@ export default function OrderModal({ onClose }) {
               textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
             }}>{t('orderBookTitle')} <span style={{ color: '#f97316' }}>{t('orderBookWeek')}</span></h3>
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontSize: '0.9rem', color: '#8a8a8a',
+              fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.9rem', color: '#8a8a8a',
               margin: '6px 0 0 0',
             }}>{t('orderBookSub')}</p>
           </div>
@@ -179,7 +179,7 @@ export default function OrderModal({ onClose }) {
           </div>
         </div>
 
-        {error && <p style={{ fontFamily: "'Geist', sans-serif", fontSize: '0.85rem', color: '#ff6b6b', margin: '0 0 16px 0' }}>{error}</p>}
+        {error && <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.85rem', color: '#ff6b6b', margin: '0 0 16px 0' }}>{error}</p>}
 
         <button
           onClick={handleSubmit}

@@ -46,7 +46,7 @@ export default function ContactSheet({ src, alt, caption, tag, tilt = 0, onError
         {tag && (
           <span style={{
             position: 'absolute', top: 12, left: 12,
-            fontFamily: "'Geist Mono', 'Geist', monospace", fontSize: 10,
+            fontFamily: "'Geist Mono', monospace", fontSize: 10,
             letterSpacing: '0.14em', textTransform: 'uppercase',
             color: 'var(--cream, #ffffff)', background: 'rgba(26,26,26,0.8)',
             padding: '5px 10px',
@@ -56,7 +56,7 @@ export default function ContactSheet({ src, alt, caption, tag, tilt = 0, onError
 
       {caption && (
         <figcaption style={{
-          fontFamily: "'Geist Mono', 'Geist', monospace", fontSize: 11,
+          fontFamily: "'Geist Mono', monospace", fontSize: 11,
           letterSpacing: '0.08em', color: 'var(--sienna, #555555)',
           marginTop: 8, paddingLeft: 2,
         }}>{caption}</figcaption>

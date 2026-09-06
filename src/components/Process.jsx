@@ -47,7 +47,7 @@ export default function Process({ progress, onBook }) {
           {t('processH1a')}<br /><span style={{ color: 'var(--ink)' }}>{t('processH1b')}</span>
         </h2>
         <p style={{
-          fontFamily: "'Geist', sans-serif", fontWeight: 300,
+          fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300,
           fontSize: 'clamp(1.15rem, 2vw, 1.5rem)', lineHeight: 1.4,
           color: 'var(--text-dim)', maxWidth: 640, margin: '0 0 12px 0',
         }}>
@@ -94,7 +94,7 @@ export default function Process({ progress, onBook }) {
             </div>
 
             <p style={{
-              fontFamily: "'Geist', sans-serif", fontWeight: 300,
+              fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 300,
               fontSize: mobile ? '1.05rem' : 'clamp(1rem, 1.4vw, 1.25rem)',
               lineHeight: 1.5, color: 'var(--text-dim)',
               maxWidth: mobile ? '100%' : 380, margin: mobile ? '12px 0 0 0' : 0,

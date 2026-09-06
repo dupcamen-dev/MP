@@ -41,7 +41,7 @@ export default function LoginPage({ clientId, onSignIn, onBack }) {
     <div style={{
       minHeight: '100vh', background: 'var(--cream)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontFamily: "'Geist', sans-serif",
+      fontFamily: "'Inter', system-ui, sans-serif",
     }}>
       <div style={{
         maxWidth: 440, width: '100%', padding: '0 24px',
@@ -64,7 +64,7 @@ export default function LoginPage({ clientId, onSignIn, onBack }) {
             letterSpacing: '-0.01em', margin: '0 0 8px 0', textAlign: 'center',
           }}>Sign In</h1>
           <p style={{
-            fontFamily: "'Geist', sans-serif", fontSize: '0.95rem',
+            fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.95rem',
             color: 'var(--text-dim)', margin: '0 0 40px 0',
             textAlign: 'center', lineHeight: 1.5,
           }}>Access the admin panel to manage orders and bot settings.</p>
