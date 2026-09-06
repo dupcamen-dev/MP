@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export default function LoadingScreen({ onFinish }) {
-  const [day, setDay] = useState(0);
-  const [shipped, setShipped] = useState(false);
-  const [phase, setPhase] = useState('loading');
+  const [p, setP] = useState(0);
 
   useEffect(() => {
     document.documentElement.style.overflow = 'hidden';
@@ -20,19 +18,20 @@ export default function LoadingScreen({ onFinish }) {
       ]);
       if (cancelled) return;
 
-      for (let d = 1; d <= 7; d++) {
-        if (cancelled) return;
-        setDay(d);
-        await wait(d === 7 ? 300 : 90);
-      }
+      const DUR = 1400;
+      const start = performance.now();
+      await new Promise((resolve) => {
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / DUR);
+          setP(t);
+          if (t < 1) requestAnimationFrame(tick);
+          else resolve();
+        };
+        requestAnimationFrame(tick);
+      });
       if (cancelled) return;
 
-      setShipped(true);
-      await wait(500);
-      if (cancelled) return;
-
-      setPhase('done');
-      await wait(500);
+      await wait(250);
       if (cancelled) return;
 
       document.documentElement.style.overflow = '';
@@ -50,40 +49,20 @@ export default function LoadingScreen({ onFinish }) {
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center',
       transition: 'opacity 0.5s',
-      opacity: phase === 'done' ? 0 : 1,
-      pointerEvents: phase === 'done' ? 'none' : 'auto',
+      opacity: p >= 1 ? 0 : 1,
+      pointerEvents: p >= 1 ? 'none' : 'auto',
     }}>
-      <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
-        <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(40px, 7vw, 64px)', width: 'auto', display: 'block' }} />
-
-        <div key={shipped ? 'shipped' : day} style={{
-          fontFamily: "'Anton', Impact, sans-serif",
-          fontSize: 'clamp(2.6rem, 8vw, 5rem)',
-          lineHeight: 1,
-          textTransform: 'uppercase',
-          letterSpacing: '-0.01em',
-          color: shipped ? '#f97316' : 'var(--ink)',
-          animation: shipped ? 'ship-flash 0.6s ease-out' : 'day-pop 0.4s ease-out',
-        }}>
-          {shipped ? 'Shipped.' : `Day ${String(day).padStart(2, '0')}`}
-        </div>
-
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
+        <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(40px, 6vw, 56px)', width: 'auto', display: 'block' }} />
         <div style={{
-          fontFamily: "'Geist Mono', monospace", fontSize: 11,
-          letterSpacing: '0.18em', textTransform: 'uppercase',
-          color: '#8a8a8a',
+          width: 'clamp(120px, 24vw, 220px)', height: 2,
+          background: '#ececec', borderRadius: 2, overflow: 'hidden',
         }}>
-          {shipped ? 'Your website is live. Found on Google.' : 'Building your website · 7 days'}
-        </div>
-
-        <div style={{ display: 'flex', gap: 6 }}>
-          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-            <div key={i} style={{
-              width: 10, height: 10,
-              background: shipped ? 'var(--ink)' : (i <= day ? 'var(--ink)' : '#e8e8e8'),
-              transition: 'background 0.15s',
-            }} />
-          ))}
+          <div style={{
+            height: '100%', width: `${Math.round(p * 100)}%`,
+            background: 'var(--ink)', borderRadius: 2,
+            transition: 'width 0.1s linear',
+          }} />
         </div>
       </div>
     </div>
