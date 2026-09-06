@@ -256,13 +256,12 @@ a:focus-visible, button:focus-visible {
   .header-nav { display: none !important; }
   .header-cta { display: none !important; }
 
-  /* Mobile auth: hide email + admin, show sign-out/sign-in only */
+  /* Mobile auth + language moved to burger menu */
   .header-auth-email { display: none !important; }
   .header-auth-admin { display: none !important; }
-  .header-auth { gap: 0 !important; }
+  .header-auth { display: none !important; }
+  .header-lang { display: none !important; }
   .header-right { gap: 10px !important; }
-  .header-lang { gap: 2px !important; }
-  .header-lang button { padding: 4px 5px !important; }
   
   /* Better mobile typography */
   h2 { font-size: clamp(1.75rem, 8vw, 3rem) !important; }

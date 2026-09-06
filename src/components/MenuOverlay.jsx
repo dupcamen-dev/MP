@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useScrollTo } from '../hooks/useScrollProgress';
 import { useI18n, LOCALES } from '../i18n';
 
-export default function MenuOverlay({ onBook }) {
+export default function MenuOverlay({ onBook, user, onSignIn, onSignOut }) {
   const [open, setOpen] = useState(false);
   const scrollTo = useScrollTo();
   const { t, locale, setLanguage } = useI18n();
@@ -29,6 +29,12 @@ export default function MenuOverlay({ onBook }) {
     const next = !open;
     setOpen(next);
     document.body.style.overflow = next ? 'hidden' : '';
+  }
+
+  function closeMenu(fn) {
+    setOpen(false);
+    document.body.style.overflow = '';
+    setTimeout(() => fn && fn(), 300);
   }
 
   // Overlay rendered via portal directly on document.body
@@ -92,21 +98,51 @@ export default function MenuOverlay({ onBook }) {
 
       <div style={{
         position: 'relative', zIndex: 1, marginTop: 'clamp(24px, 4vh, 48px)',
-        display: 'flex', gap: 12, color: 'var(--bg-alt)',
+        display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--bg-alt)',
       }}>
-        {LOCALES.map((l) => (
-          <button
-            key={l}
-            onClick={() => setLanguage(l)}
-            style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 13,
+        {/* Auth */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {user ? (
+            <>
+              <span style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 12,
+                letterSpacing: '0.04em', color: 'var(--bg-alt)', opacity: 0.7,
+                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 180,
+              }}>{user.email}</span>
+              <button onClick={() => closeMenu(onSignOut)} style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 12,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+                background: 'none', border: 'none', cursor: 'pointer', padding: '6px 0',
+                color: 'var(--primary)', fontWeight: 600,
+              }}>{t('signOut')}</button>
+            </>
+          ) : (
+            <button onClick={() => closeMenu(onSignIn)} style={{
+              fontFamily: "'Geist Mono', monospace", fontSize: 12,
               letterSpacing: '0.12em', textTransform: 'uppercase',
-              background: 'none', border: 'none', cursor: 'pointer', padding: '6px 10px',
-              color: l === locale ? 'var(--primary)' : 'var(--bg-alt)',
-              fontWeight: l === locale ? 600 : 400,
-            }}
-          >{l === 'en' ? 'EN' : l === 'uk' ? 'UA' : 'PL'}</button>
-        ))}
+              background: 'none', border: '1px solid var(--bg-alt)',
+              borderRadius: 999, cursor: 'pointer', padding: '10px 20px',
+              color: 'var(--bg-alt)',
+            }}>{t('signIn')}</button>
+          )}
+        </div>
+
+        {/* Language */}
+        <div style={{ display: 'flex', gap: 12 }}>
+          {LOCALES.map((l) => (
+            <button
+              key={l}
+              onClick={() => setLanguage(l)}
+              style={{
+                fontFamily: "'Geist Mono', monospace", fontSize: 13,
+                letterSpacing: '0.12em', textTransform: 'uppercase',
+                background: 'none', border: 'none', cursor: 'pointer', padding: '6px 10px',
+                color: l === locale ? 'var(--primary)' : 'var(--bg-alt)',
+                fontWeight: l === locale ? 600 : 400,
+              }}
+            >{l === 'en' ? 'EN' : l === 'uk' ? 'UA' : 'PL'}</button>
+          ))}
+        </div>
       </div>
     </div>,
     document.body

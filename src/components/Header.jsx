@@ -135,7 +135,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
             {t('bookWeek')}
           </PrimaryButton>
         </div>
-        <MenuOverlay onBook={onBook} />
+        <MenuOverlay onBook={onBook} user={user} onSignIn={onSignIn} onSignOut={onSignOut} />
       </div>
     </header>
   );
