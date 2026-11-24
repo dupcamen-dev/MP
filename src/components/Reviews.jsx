@@ -2,6 +2,7 @@ import Reveal from './Reveal';
 import { Quote } from './Icons';
 import { useI18n } from '../i18n';
 import { cap } from '../utils';
+import { SplitWords } from './Motion';
 
 export default function Reviews() {
   const { t } = useI18n();
@@ -20,16 +21,14 @@ export default function Reviews() {
           <div>
             <p className="eyebrow">{cap(t('foundersSay'))}</p>
             <h2 className="h-section">
-              {words.map((w, i) => (
-                <span key={i} className={i === words.length - 1 ? 'accent' : undefined}>{w}{' '}</span>
-              ))}
+              <SplitWords parts={words.map((w, i) => ({ text: w, className: i === words.length - 1 ? 'accent serif' : undefined }))} />
             </h2>
           </div>
         </Reveal>
 
         <div className="reviews-grid">
           {reviews.map((r, i) => (
-            <Reveal as="figure" key={r.author} delay={(i % 2) * 100} className="review">
+            <Reveal as="figure" key={r.author} delay={(i % 2) * 100} className="review spot">
               <Quote />
               <blockquote>{r.text}</blockquote>
               <figcaption>

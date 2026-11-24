@@ -3,6 +3,7 @@ import { ArrowRight } from './Icons';
 import { useI18n } from '../i18n';
 import { cap, noArrow } from '../utils';
 import { useInView } from '../hooks/useInView';
+import { Roll, SplitWords } from './Motion';
 
 const DAY_KIND = ['is-scope', 'is-build', 'is-build', 'is-build', 'is-build', 'is-build', 'is-ship'];
 const PHASE_CLASS = ['phase--scope', 'phase--build', 'phase--ship'];
@@ -23,8 +24,7 @@ export default function Process({ onBook }) {
           <div>
             <p className="eyebrow">{cap(t('processLabel'))}</p>
             <h2 className="h-section">
-              {t('processH1a')}{' '}
-              <span className="muted">{t('processH1b')}</span>
+              <SplitWords parts={[{ text: t('processH1a') }, { text: t('processH1b'), className: 'muted serif' }]} />
             </h2>
           </div>
           <p className="lead">{t('processSub')}</p>
@@ -45,7 +45,7 @@ export default function Process({ onBook }) {
         <div className="phase-grid">
           {titles.map((title, i) => (
             <Reveal key={i} delay={i * 110}>
-              <article className={`phase ${PHASE_CLASS[i]}`}>
+              <article className={`phase spot ${PHASE_CLASS[i]}`}>
                 <div className="phase-top">
                   <span className="phase-num">0{i + 1}</span>
                   <span className="phase-days">{days[i]}</span>
@@ -62,7 +62,7 @@ export default function Process({ onBook }) {
             {stack.map((s) => <span key={s}>{s}</span>)}
           </div>
           <button className="btn btn--light" onClick={onBook}>
-            {noArrow(t('startWeek'))}
+            <Roll>{noArrow(t('startWeek'))}</Roll>
             <ArrowRight />
           </button>
         </Reveal>

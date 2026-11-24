@@ -44,6 +44,7 @@ export default function LoadingScreen({ onFinish }) {
       if (cancelled) return;
       root.dataset.ready = '';
       root.style.overflow = '';
+      window.dispatchEvent(new Event('mp:ready'));
       setLeaving(true);
       try { sessionStorage.setItem(SESSION_KEY, '1'); } catch {}
       await wait(reduced ? 0 : EXIT_MS);

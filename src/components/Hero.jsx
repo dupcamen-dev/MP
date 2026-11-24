@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useI18n } from '../i18n';
 import { ArrowRight, Check, Search } from './Icons';
 import { cap, noArrow, prefersReducedMotion, scrollToId } from '../utils';
+import { CountUp, Roll, SplitWords } from './Motion';
 
 const CELL = 24; // px — matches the dot pattern of the canvas background
 
@@ -171,22 +172,28 @@ export default function Hero({ onBook }) {
               <span className="pulse-dot" />
               {t('heroBadge')}
             </div>
-            <h1 className="h-display" data-hero="" style={{ '--d': '80ms' }}>
-              <span className="line">{t('heroH1a')}</span>
-              <span className="line">{t('heroH1b')}</span>
-              <span className="line accent">{t('heroH1c')}</span>
+            <h1 className="h-display">
+              <SplitWords
+                start={120}
+                step={70}
+                parts={[
+                  { text: t('heroH1a'), className: 'line' },
+                  { text: t('heroH1b'), className: 'line' },
+                  { text: t('heroH1c'), className: 'line accent serif' },
+                ]}
+              />
             </h1>
             <p className="lead" data-hero="" style={{ '--d': '180ms' }}>{t('heroSub')}</p>
             <div className="hero-actions" data-hero="" style={{ '--d': '260ms' }}>
               <button className="btn btn--primary btn--lg" onClick={onBook}>
-                {noArrow(t('bookWeek'))}
+                <Roll>{noArrow(t('bookWeek'))}</Roll>
                 <ArrowRight />
               </button>
               <a
                 href="#showcase"
                 className="btn btn--ghost btn--lg"
                 onClick={(e) => { e.preventDefault(); scrollToId('showcase'); }}
-              >{t('seeWork')}</a>
+              ><Roll>{t('seeWork')}</Roll></a>
             </div>
           </div>
 
@@ -198,7 +205,7 @@ export default function Hero({ onBook }) {
         <dl className="stats">
           {stats.map(([value, label], i) => (
             <div className="stat" key={i} data-hero="" style={{ '--d': `${480 + i * 70}ms` }}>
-              <dt className="stat-value">{value}</dt>
+              <dt className="stat-value"><CountUp value={value} delay={600 + i * 120} /></dt>
               <dd className="stat-label">{label}</dd>
             </div>
           ))}

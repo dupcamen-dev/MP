@@ -2,6 +2,7 @@ import { useId, useState } from 'react';
 import Reveal from './Reveal';
 import { useI18n } from '../i18n';
 import { cap } from '../utils';
+import { SplitWords } from './Motion';
 
 export default function Faq() {
   const { t } = useI18n();
@@ -14,7 +15,7 @@ export default function Faq() {
       <div className="container faq-grid">
         <Reveal>
           <p className="eyebrow">{cap(t('faqQuestionsLabel'))}</p>
-          <h2 className="h-section">{t('faqH')}</h2>
+          <h2 className="h-section"><SplitWords parts={[{ text: t('faqH') }]} /></h2>
         </Reveal>
 
         <Reveal className="faq-list" delay={100}>

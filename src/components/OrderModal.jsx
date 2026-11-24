@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n';
 import { Check, Close } from './Icons';
 import { cap } from '../utils';
+import { lockScroll } from '../smoothScroll';
 
 export default function OrderModal({ onClose }) {
   const [form, setForm] = useState({ project: '', contact: '', website: '' });
@@ -16,8 +17,7 @@ export default function OrderModal({ onClose }) {
   // Escape to close, lock page scroll, keep focus inside the dialog.
   useEffect(() => {
     const prevFocus = document.activeElement;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const unlock = lockScroll();
     const onKey = (e) => {
       if (e.key === 'Escape') { onClose(); return; }
       if (e.key !== 'Tab' || !dialogRef.current) return;
@@ -30,7 +30,7 @@ export default function OrderModal({ onClose }) {
     };
     window.addEventListener('keydown', onKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      unlock();
       window.removeEventListener('keydown', onKey);
       prevFocus?.focus?.();
     };

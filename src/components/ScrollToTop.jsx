@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowUp } from './Icons';
+import { smoothScrollTo } from '../smoothScroll';
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
@@ -14,7 +15,7 @@ export default function ScrollToTop() {
   return (
     <button
       className={`to-top${visible ? ' is-visible' : ''}`}
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      onClick={() => smoothScrollTo(0)}
       aria-label="Scroll to top"
       tabIndex={visible ? 0 : -1}
     >

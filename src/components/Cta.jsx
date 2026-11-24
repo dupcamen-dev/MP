@@ -2,6 +2,7 @@ import Reveal from './Reveal';
 import { ArrowRight } from './Icons';
 import { useI18n } from '../i18n';
 import { noArrow } from '../utils';
+import { Roll, SplitWords } from './Motion';
 
 export default function Cta({ onBook }) {
   const { t } = useI18n();
@@ -10,8 +11,7 @@ export default function Cta({ onBook }) {
       <div className="container">
         <Reveal>
           <h2 className="h-display">
-            {t('ctaH1a')}<br />
-            <span className="accent">{t('ctaH1b')}</span>
+            <SplitWords parts={[{ text: t('ctaH1a'), br: true }, { text: t('ctaH1b'), className: 'accent serif' }]} />
           </h2>
         </Reveal>
         <Reveal delay={120}>
@@ -19,7 +19,7 @@ export default function Cta({ onBook }) {
         </Reveal>
         <Reveal delay={220}>
           <button className="btn btn--light btn--lg" onClick={onBook}>
-            {noArrow(t('bookWeek'))}
+            <Roll>{noArrow(t('bookWeek'))}</Roll>
             <ArrowRight />
           </button>
         </Reveal>

@@ -2,6 +2,7 @@ import Reveal from './Reveal';
 import { ArrowUpRight } from './Icons';
 import { useI18n } from '../i18n';
 import { cap } from '../utils';
+import { SplitWords } from './Motion';
 
 const projects = [
   { tag: 'Film studio · London', title: 'Cine Riccio', color: '#1d1d1f', desc: 'Independent film studio in London. Short films, brand films and portraits shot with natural light and finished by hand.', img: '/cinericcio-hero.webp', link: 'https://www.cinericcio.com/', caption: 'cinericcio.com' },
@@ -25,8 +26,7 @@ export default function Work() {
           <div>
             <p className="eyebrow">{cap(t('showcaseLabel'))}</p>
             <h2 className="h-section">
-              {t('showcaseH1')}{' '}
-              <span className="muted">{t('showcaseH2')}</span>
+              <SplitWords parts={[{ text: t('showcaseH1') }, { text: t('showcaseH2'), className: 'muted serif' }]} />
             </h2>
           </div>
         </Reveal>
@@ -34,7 +34,7 @@ export default function Work() {
         <div className="work-grid">
           {projects.map((p, i) => (
             <Reveal key={p.title} delay={(i % 3) * 90}>
-              <a className="work-card" href={p.link} target="_blank" rel="noopener noreferrer">
+              <a className="work-card spot" href={p.link} target="_blank" rel="noopener noreferrer">
                 <div className="work-media">
                   <img src={p.img} alt={`${p.title} — website`} loading="lazy" decoding="async" width="1200" height="750" />
                   <span className="work-tag">{p.tag}</span>

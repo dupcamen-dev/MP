@@ -19,6 +19,8 @@ import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
 import CookieConsent from './components/CookieConsent';
 import PrivacyTerms from './components/PrivacyTerms';
+import { initSmoothScroll } from './smoothScroll';
+import { Marquee, useSpotlight } from './components/Motion';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -84,10 +86,14 @@ function useRouteMeta(route) {
 }
 
 function Site({ onBook }) {
+  useEffect(() => initSmoothScroll(), []);
+  useSpotlight();
   return (
     <>
       <main>
         <Hero onBook={onBook} />
+        <Marquee />
+        <div className="scroll-progress" aria-hidden="true" />
         <Work />
         <Process onBook={onBook} />
         <Reviews />
