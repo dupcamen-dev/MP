@@ -1,7 +1,7 @@
 import Reveal from './Reveal';
 import { ArrowRight } from './Icons';
 import { useI18n } from '../i18n';
-import { noArrow } from '../utils';
+import { CONTACT, noArrow } from '../utils';
 import { Roll, SplitWords } from './Motion';
 
 export default function Cta({ onBook }) {
@@ -17,11 +17,14 @@ export default function Cta({ onBook }) {
         <Reveal delay={120}>
           <p className="lead">{t('ctaSub')}</p>
         </Reveal>
-        <Reveal delay={220}>
+        <Reveal delay={220} className="cta-actions">
           <button className="btn btn--light btn--lg" onClick={onBook}>
             <Roll>{noArrow(t('bookWeek'))}</Roll>
             <ArrowRight />
           </button>
+          <a className="btn btn--ghost-dark btn--lg" href={CONTACT.telegram} target="_blank" rel="noopener noreferrer">
+            <Roll>{t('ctaTelegram')}</Roll>
+          </a>
         </Reveal>
       </div>
     </section>
