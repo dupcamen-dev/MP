@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n';
+import { Check, Close } from './Icons';
+import { cap } from '../utils';
+
+// NOTE: submission logic is unchanged from the previous version on purpose —
+// its known bugs are tracked in REVIEW.md (#1, #3) and will be fixed separately.
 
 function getBotConfig() {
   try {
@@ -17,29 +23,42 @@ function saveOrder(order) {
   } catch {}
 }
 
-const inputStyle = {
-  width: '100%', padding: '14px 16px', background: '#ffffff',
-  border: '2px solid #e0e0e0', borderRadius: 'var(--radius-sm)',
-  fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1.05rem', color: '#1a1a1a',
-  outline: 'none', transition: 'border-color 0.3s', boxSizing: 'border-box',
-  resize: 'vertical',
-};
-
-const labelStyle = {
-  fontFamily: "'Geist Mono', monospace", fontSize: 11, letterSpacing: '0.12em',
-  textTransform: 'uppercase', color: '#555555', display: 'block', marginBottom: 8,
-};
-
 export default function OrderModal({ onClose }) {
   const [form, setForm] = useState({ project: '', contact: '' });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
   const { t } = useI18n();
+  const uid = useId();
+  const dialogRef = useRef(null);
+
+  // Escape to close, lock page scroll, keep focus inside the dialog.
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow;
+    const prevFocus = document.activeElement;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => {
+      if (e.key === 'Escape') { onClose(); return; }
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+      const focusables = dialogRef.current.querySelectorAll('button, input, textarea, a[href]');
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+      prevFocus?.focus?.();
+    };
+  }, [onClose]);
 
   const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value }));
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
     if (!form.contact.trim()) { setError(t('orderContactError')); return; }
     setError('');
     setSending(true);
@@ -91,112 +110,67 @@ export default function OrderModal({ onClose }) {
     setSending(false);
   };
 
-  if (done) {
-    return (
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', background: 'rgba(15,15,18,0.55)', backdropFilter: 'blur(8px)',
-      }} onClick={onClose} role="dialog" aria-modal="true">
-        <div onClick={e => e.stopPropagation()} style={{
-          background: 'var(--surface-low)', padding: '60px 48px', maxWidth: 420, width: '90%',
-          textAlign: 'center',           border: '2px solid var(--ink)', borderRadius: 'var(--radius-lg)',
-        }}>
-          <div style={{ fontSize: '4rem', marginBottom: 16 }}>&#9889;</div>
-          <h3 style={{
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '2.25rem', color: 'var(--ink)',
-            textTransform: 'uppercase', margin: '0 0 12px', letterSpacing: '0.05em',
-          }}>{t('orderDoneTitle')}</h3>
-          <p style={{
-            fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1.1rem', color: 'var(--on-surface)',
-            marginBottom: 32, lineHeight: 1.5,
-          }}>
-            {t('orderDoneBody')}
-          </p>
-          <button onClick={onClose} style={{
-            padding: '16px 48px', background: '#f97316', color: '#ffffff',
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem', textTransform: 'uppercase',
-            border: '2px solid #f97316', borderRadius: 'var(--radius-pill)', cursor: 'pointer', letterSpacing: '0.05em',
-          }}>{t('orderClose')}</button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{
-      position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center',
-      justifyContent: 'center', background: 'rgba(15,15,18,0.55)', backdropFilter: 'blur(8px)',
-    }} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()} style={{
-        background: '#fdfdfd', padding: '48px 40px', maxWidth: 520, width: '90%',
-        border: '1px solid #e8e8e8', borderRadius: 'var(--radius-lg)',
-        boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
-      }}>
-        <div style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28,
-        }}>
-          <div>
-            <h3 style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.75rem', color: 'var(--ink)',
-              textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0,
-            }}>{t('orderBookTitle')} <span style={{ color: '#f97316' }}>{t('orderBookWeek')}</span></h3>
-            <p style={{
-              fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.9rem', color: '#8a8a8a',
-              margin: '6px 0 0 0',
-            }}>{t('orderBookSub')}</p>
-          </div>
-          <button onClick={onClose} style={{
-            background: 'none', border: 'none', fontSize: '2rem', color: 'var(--ink)',
-            cursor: 'pointer', padding: '4px 12px', lineHeight: 1, opacity: 0.75,
-          }}>&#10005;</button>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 32 }}>
-          <div>
-            <label style={labelStyle}>{t('orderBuildLabel')}</label>
-            <textarea
-              rows={3}
-              value={form.project}
-              onChange={update('project')}
-              placeholder={t('orderBuildPlaceholder')}
-              style={inputStyle}
-              onFocus={e => e.target.style.borderColor = '#f97316'}
-              onBlur={e => e.target.style.borderColor = '#e0e0e0'}
-              autoFocus
-            />
-          </div>
-          <div>
-            <label style={labelStyle}>{t('orderContactLabel')}</label>
-            <input
-              type="text"
-              value={form.contact}
-              onChange={update('contact')}
-              placeholder={t('orderContactPlaceholder')}
-              style={inputStyle}
-              onFocus={e => e.target.style.borderColor = '#f97316'}
-              onBlur={e => e.target.style.borderColor = '#e0e0e0'}
-            />
-          </div>
-        </div>
-
-        {error && <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.85rem', color: '#ff6b6b', margin: '0 0 16px 0' }}>{error}</p>}
-
-        <button
-          onClick={handleSubmit}
-          disabled={sending}
-          style={{
-            width: '100%', padding: '18px', background: '#f97316', color: '#ffffff',
-            fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.35rem', textTransform: 'uppercase',
-            border: '2px solid #f97316', borderRadius: 'var(--radius-pill)', cursor: sending ? 'wait' : 'pointer',
-            opacity: sending ? 0.6 : 1, letterSpacing: '0.05em',
-            boxShadow: '0 8px 20px rgba(249,115,22,0.35)',
-          }}
-          onMouseEnter={!sending ? (e) => { e.currentTarget.style.background = '#ef5d08'; e.currentTarget.style.borderColor = '#ef5d08'; } : undefined}
-          onMouseLeave={!sending ? (e) => { e.currentTarget.style.background = '#f97316'; e.currentTarget.style.borderColor = '#f97316'; } : undefined}
-        >
-          {sending ? t('orderSending') : t('orderSend')}
+  return createPortal(
+    <div className="modal-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div
+        ref={dialogRef}
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`${uid}-title`}
+      >
+        <button className="icon-btn modal-close" onClick={onClose} aria-label={cap(t('orderClose'))}>
+          <Close />
         </button>
+
+        {done ? (
+          <div className="modal-done">
+            <div className="done-icon"><Check size={28} className="" /></div>
+            <h2 id={`${uid}-title`}>{cap(t('orderDoneTitle'))}</h2>
+            <p>{t('orderDoneBody')}</p>
+            <button className="btn btn--primary btn--block" onClick={onClose} autoFocus>{cap(t('orderClose'))}</button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} noValidate>
+            <h2 id={`${uid}-title`}>
+              {cap(t('orderBookTitle'))} <span className="accent">{t('orderBookWeek').toLocaleLowerCase()}</span>
+            </h2>
+            <p className="modal-sub">{t('orderBookSub')}</p>
+
+            <div className="field">
+              <label htmlFor={`${uid}-project`}>{cap(t('orderBuildLabel'))}</label>
+              <textarea
+                id={`${uid}-project`}
+                rows={3}
+                value={form.project}
+                onChange={update('project')}
+                placeholder={t('orderBuildPlaceholder')}
+                autoFocus
+              />
+            </div>
+            <div className="field">
+              <label htmlFor={`${uid}-contact`}>{cap(t('orderContactLabel'))}</label>
+              <input
+                id={`${uid}-contact`}
+                type="text"
+                autoComplete="email"
+                value={form.contact}
+                onChange={update('contact')}
+                placeholder={t('orderContactPlaceholder')}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${uid}-err` : undefined}
+              />
+            </div>
+
+            {error && <p className="field-error" id={`${uid}-err`} role="alert">{error}</p>}
+
+            <button type="submit" className="btn btn--accent btn--lg btn--block" disabled={sending}>
+              {sending ? cap(t('orderSending')) : cap(t('orderSend'))}
+            </button>
+          </form>
+        )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

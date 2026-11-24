@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { useScrollProgress } from './hooks/useScrollProgress';
-import { useMobile } from './hooks/useMobile';
 import { useAuth } from './hooks/useAuth';
-import { I18nProvider, useI18n } from './i18n';
+import { I18nProvider } from './i18n';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Work from './components/Work';
 import Process from './components/Process';
-import HorizontalScroll from './components/HorizontalScroll';
-import ShowcaseSlide from './components/ShowcaseSlide';
-import PriceList from './components/PriceList';
-import CtaOverlay from './components/CtaOverlay';
+import Reviews from './components/Reviews';
+import Manifesto from './components/Manifesto';
+import Pricing from './components/Pricing';
+import Faq from './components/Faq';
+import Cta from './components/Cta';
+import Footer from './components/Footer';
+import OrderModal from './components/OrderModal';
 import ScrollToTop from './components/ScrollToTop';
 import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
@@ -81,81 +83,20 @@ function useRouteMeta(route) {
   }, [route]);
 }
 
-function Site({ showModal, setShowModal, onBook }) {
-  const progress = useScrollProgress('process');
-  const mobile = useMobile();
-  const openModal = () => setShowModal(true);
-  const { t } = useI18n();
-
+function Site({ onBook }) {
   return (
     <>
       <main>
         <Hero onBook={onBook} />
-        <Process progress={progress} onBook={onBook} />
-        {mobile && <ShowcaseSlide />}
-        <HorizontalScroll progress={progress} />
-        {!mobile && <div className="h-scroll-spacer" style={{ height: '200vh', pointerEvents: 'none' }} />}
-        {!mobile && <div style={{ height: '40vh', pointerEvents: 'none' }} />}
-        <PriceList onBook={onBook} />
-        <CtaOverlay showModal={showModal} setShowModal={setShowModal} onBook={onBook} />
+        <Work />
+        <Process onBook={onBook} />
+        <Reviews />
+        <Manifesto />
+        <Pricing onBook={onBook} />
+        <Faq />
+        <Cta onBook={onBook} />
       </main>
-      <footer style={{
-        background: '#fdfdfd',
-        paddingTop: 80, paddingBottom: 48,
-        paddingLeft: 'clamp(24px, 5%, 80px)', paddingRight: 'clamp(24px, 5%, 80px)',
-        position: 'relative', zIndex: 3,
-      }}>
-        <div style={{
-          maxWidth: 1240, margin: '0 auto',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-          flexWrap: 'wrap', gap: 48,
-        }}>
-          <div>
-            <a href="#hero" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              style={{
-                display: 'block', marginBottom: 24, textDecoration: 'none',
-              }}><img src="/logo-light.webp" alt="MILLIONPIXELS — Your Website, Found in Google" width="1000" height="333" style={{ height: 36, width: 'auto', display: 'block' }} /></a>
-            <nav style={{ display: 'flex', gap: 24 }}>
-              {[{ label: 'WORK', id: 'showcase' }, { label: 'PROCESS', id: 'process' }, { label: 'PRICING', id: 'pricing' }].map(l => (
-                <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' }); }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
-                  style={{
-                    fontFamily: "'Inter', system-ui, sans-serif", fontSize: 12,
-                    letterSpacing: '0.12em', textTransform: 'uppercase',
-                    color: '#8a8a8a', textDecoration: 'none',
-                    transition: 'color 0.2s',
-                  }}>{l.label}</a>
-              ))}
-            </nav>
-          </div>
-          <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
-            <span style={{
-              fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
-              letterSpacing: '0.08em',               color: '#8a8a8a',
-            }}>{t('footerRights')}</span>
-            <div style={{ display: 'flex', gap: 20 }}>
-              <a href="#/privacy"
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
-                style={{
-                fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
-                letterSpacing: '0.06em', color: '#8a8a8a',
-                textDecoration: 'none', transition: 'color 0.2s',
-              }}>{t('privacyLink')}</a>
-              <a href="#/terms"
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.textDecoration = 'underline'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = '#8a8a8a'; e.currentTarget.style.textDecoration = 'none'; }}
-                style={{
-                fontFamily: "'Inter', system-ui, sans-serif", fontSize: 11,
-                letterSpacing: '0.06em', color: '#8a8a8a',
-                textDecoration: 'none', transition: 'color 0.2s',
-              }}>{t('termsLink')}</a>
-            </div>
-
-          </div>
-        </div>
-      </footer>
+      <Footer />
       <ScrollToTop />
     </>
   );
@@ -166,9 +107,8 @@ function AppRoot() {
   useRouteMeta(route);
   const auth = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const openModal = () => {
-    setShowModal(true);
-  };
+  const openModal = useCallback(() => setShowModal(true), []);
+  const closeModal = useCallback(() => setShowModal(false), []);
 
   const handleLogin = (response) => {
     const u = auth.signIn(response);
@@ -189,27 +129,14 @@ function AppRoot() {
   }
 
   if (route === '/admin' && auth.isAuthenticated) {
+    // NOTE: client-side check only — see REVIEW.md #2 and #4.
     if (auth.user?.email !== 'ringoosamsungj710@gmail.com') {
       return (
-        <div style={{
-          minHeight: '100vh', background: 'var(--cream)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: "'Inter', system-ui, sans-serif",
-        }}>
-          <div style={{ textAlign: 'center', padding: 40 }}>
-            <h2 style={{
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '2rem',
-              color: 'var(--ink)', textTransform: 'uppercase', margin: '0 0 12px 0',
-            }}>Access Denied</h2>
-            <p style={{ color: 'var(--text-dim)', marginBottom: 32 }}>
-              This account does not have admin access.
-            </p>
-<button onClick={handleSignOut} style={{
-              padding: '12px 28px', background: 'var(--ink)', color: 'var(--cream)',
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
-              textTransform: 'uppercase', border: 'none', borderRadius: 'var(--radius-pill)', cursor: 'pointer',
-              letterSpacing: '0.04em',
-            }}>Sign out</button>
+        <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: 24 }}>
+          <div style={{ textAlign: 'center', maxWidth: 420 }}>
+            <h1 className="h-section" style={{ marginBottom: 12 }}>Access denied</h1>
+            <p className="muted" style={{ marginBottom: 32 }}>This account does not have admin access.</p>
+            <button className="btn btn--primary" onClick={handleSignOut}>Sign out</button>
           </div>
         </div>
       );
@@ -225,7 +152,8 @@ function AppRoot() {
         onSignIn={() => { window.location.hash = '/login'; }}
         onSignOut={handleSignOut}
       />
-      <Site showModal={showModal} setShowModal={setShowModal} onBook={openModal} />
+      <Site onBook={openModal} />
+      {showModal && <OrderModal onClose={closeModal} />}
       <CookieConsent />
       <Analytics />
       <SpeedInsights />
