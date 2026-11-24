@@ -1,7 +1,7 @@
 import Logo from './Logo';
 import LangSwitch from './LangSwitch';
 import { useI18n } from '../i18n';
-import { NAV, cap, scrollToId } from '../utils';
+import { CONTACT, NAV, cap, scrollToId } from '../utils';
 
 export default function Footer() {
   const { t } = useI18n();
@@ -30,7 +30,8 @@ export default function Footer() {
           <div className="footer-col">
             <h3>{t('footerContact')}</h3>
             <ul>
-              <li><a href="mailto:hello@millionpixels.dev">hello@millionpixels.dev</a></li>
+              <li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+              <li><a href={CONTACT.telegram} target="_blank" rel="noopener noreferrer">Telegram {CONTACT.telegramHandle}</a></li>
             </ul>
           </div>
 

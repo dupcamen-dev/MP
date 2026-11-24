@@ -66,24 +66,41 @@ export function CountUp({ value, duration = 1400, delay = 0 }) {
   return <>{match[1]}{n}{match[3]}</>;
 }
 
-// Endless strip of services, alternating solid and outlined words.
+const CLIENTS = [
+  ['Cine Riccio', 'https://www.cinericcio.com/'],
+  ['Angry Spanish', 'https://angry-spanish.vercel.app/'],
+  ['Kadub', 'https://webdeploy-rouge.vercel.app/'],
+  ['Nouri', 'https://nouri-normal.vercel.app/'],
+  ['Zhyto', 'https://zhyto.london'],
+  ['Raqt Fuel', 'https://www.raqtfuel.com'],
+  ['Mebli Chortkiv', 'https://mebli-chortkiv.vercel.app/'],
+  ['TopStatus', 'https://topstatus.space/'],
+  ['Avvadon', 'https://dupcamen-dev.github.io/AVVADON/'],
+];
+
+// Quiet, slow strip of shipped clients — a "trusted by" line rather than a shouty banner.
 export function Marquee() {
-  const { tp } = useI18n();
-  const items = ['Design', 'Frontend', 'Backend', 'E-commerce', 'SEO', 'Integrations', 'Admin', 'Production'].map((k) => tp(k));
-  const row = (
-    <div className="marquee-row">
-      {items.map((it, i) => (
-        <span key={i} className={i % 2 ? 'mq-item mq-outline' : 'mq-item'}>
-          {it}<span className="mq-star" aria-hidden="true">✦</span>
-        </span>
+  const { t } = useI18n();
+  const row = (hidden) => (
+    <ul className="clients-row" aria-hidden={hidden || undefined}>
+      {CLIENTS.map(([name, href]) => (
+        <li key={name}>
+          <a href={href} target="_blank" rel="noopener noreferrer" tabIndex={hidden ? -1 : undefined}>{name}</a>
+          <i aria-hidden="true" />
+        </li>
       ))}
-    </div>
+    </ul>
   );
   return (
-    <section className="marquee" aria-label="Services">
-      <div className="marquee-track">
-        {row}
-        <div aria-hidden="true">{row}</div>
+    <section className="clients" aria-label={t('clientsLabel')}>
+      <div className="container clients-inner">
+        <span className="clients-label">{t('clientsLabel')}</span>
+        <div className="clients-viewport">
+          <div className="clients-track">
+            {row(false)}
+            {row(true)}
+          </div>
+        </div>
       </div>
     </section>
   );

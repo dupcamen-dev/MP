@@ -4,7 +4,7 @@ import Logo from './Logo';
 import LangSwitch from './LangSwitch';
 import { ArrowRight, Close } from './Icons';
 import { useI18n } from '../i18n';
-import { NAV, cap, noArrow, scrollToId } from '../utils';
+import { CONTACT, NAV, cap, noArrow, scrollToId } from '../utils';
 import { lockScroll } from '../smoothScroll';
 import { Roll } from './Motion';
 
@@ -77,7 +77,10 @@ export default function MenuOverlay({ open, onClose, onBook, user, onSignOut }) 
               <button className="text-btn" tabIndex={open ? 0 : -1} onClick={() => { onClose(); onSignOut?.(); }}>{t('signOut')}</button>
             </span>
           ) : (
-            <a href="mailto:hello@millionpixels.dev" tabIndex={open ? 0 : -1}>hello@millionpixels.dev</a>
+            <span style={{ display: 'flex', gap: 16 }}>
+              <a href={CONTACT.telegram} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>Telegram</a>
+              <a href={`mailto:${CONTACT.email}`} tabIndex={open ? 0 : -1}>Email</a>
+            </span>
           )}
         </div>
       </div>

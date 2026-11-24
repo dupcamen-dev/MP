@@ -93,7 +93,7 @@ export default function PrivacyTerms() {
         <h2 style={s.h2}>Contact</h2>
         <p style={s.p}>
           If you have questions about this Privacy Policy, please contact us at{' '}
-          <a href="mailto:hello@millionpixels.dev" style={s.link}>hello@millionpixels.dev</a>.
+          <a href="mailto:dupcamen@gmail.com" style={s.link}>dupcamen@gmail.com</a>.
         </p>
 
         <hr style={s.hr} />
@@ -140,7 +140,7 @@ export default function PrivacyTerms() {
         <h2 style={s.h2}>Contact</h2>
         <p style={s.p}>
           For questions about these Terms, contact us at{' '}
-          <a href="mailto:hello@millionpixels.dev" style={s.link}>hello@millionpixels.dev</a>.
+          <a href="mailto:dupcamen@gmail.com" style={s.link}>dupcamen@gmail.com</a>.
         </p>
       </div>
     </div>
