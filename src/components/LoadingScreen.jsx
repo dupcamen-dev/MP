@@ -1,69 +1,77 @@
 import { useEffect, useState } from 'react';
+import { prefersReducedMotion } from '../utils';
+
+// 5×5 pixel pattern echoing the logo mark. 1 = ink, 2 = accent, 3 = faint, 0 = empty.
+const PATTERN = [
+  [0, 0, 0, 0, 2],
+  [0, 0, 0, 3, 0],
+  [1, 3, 0, 0, 0],
+  [1, 1, 2, 0, 0],
+  [1, 1, 1, 1, 0],
+];
+
+const SESSION_KEY = 'mp_splash_seen';
+const MIN_MS = 950;
+const MAX_MS = 1800;
+const EXIT_MS = 750;
+
+export function splashAlreadySeen() {
+  try { return sessionStorage.getItem(SESSION_KEY) === '1'; } catch { return false; }
+}
 
 export default function LoadingScreen({ onFinish }) {
-  const [p, setP] = useState(0);
+  const [progress, setProgress] = useState(0.15);
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    document.documentElement.style.overflow = 'hidden';
     let cancelled = false;
+    const reduced = prefersReducedMotion();
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const root = document.documentElement;
+    root.style.overflow = 'hidden';
 
-    const wait = (ms) => new Promise(r => setTimeout(r, ms));
+    requestAnimationFrame(() => !cancelled && setProgress(0.7));
 
-    async function load() {
-      const timeout = new Promise((r) => setTimeout(r, 900));
+    (async () => {
+      const fonts = document.fonts?.ready ?? Promise.resolve();
       await Promise.all([
-        document.fonts.ready,
-        wait(450),
-        timeout,
+        Promise.race([fonts, wait(MAX_MS)]),
+        wait(reduced ? 200 : MIN_MS),
       ]);
       if (cancelled) return;
-
-      const DUR = 1400;
-      const start = performance.now();
-      await new Promise((resolve) => {
-        const tick = (now) => {
-          const t = Math.min(1, (now - start) / DUR);
-          setP(t);
-          if (t < 1) requestAnimationFrame(tick);
-          else resolve();
-        };
-        requestAnimationFrame(tick);
-      });
+      setProgress(1);
+      await wait(reduced ? 0 : 220);
       if (cancelled) return;
+      root.dataset.ready = '';
+      root.style.overflow = '';
+      setLeaving(true);
+      try { sessionStorage.setItem(SESSION_KEY, '1'); } catch {}
+      await wait(reduced ? 0 : EXIT_MS);
+      if (!cancelled) onFinish();
+    })();
 
-      await wait(250);
-      if (cancelled) return;
-
-      document.documentElement.style.overflow = '';
-      onFinish();
-    }
-
-    load();
-    return () => { cancelled = true; document.documentElement.style.overflow = ''; };
+    return () => { cancelled = true; root.style.overflow = ''; };
   }, []);
 
   return (
-    <div style={{
-      position: 'fixed', inset: 0, zIndex: 9999,
-      background: '#fdfdfd',
-      display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center',
-      transition: 'opacity 0.5s',
-      opacity: p >= 1 ? 0 : 1,
-      pointerEvents: p >= 1 ? 'none' : 'auto',
-    }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
-        <img src="/logo.webp" alt="MILLIONPIXELS" style={{ height: 'clamp(40px, 6vw, 56px)', width: 'auto', display: 'block' }} />
-        <div style={{
-          width: 'clamp(120px, 24vw, 220px)', height: 2,
-          background: '#ececec', borderRadius: 2, overflow: 'hidden',
-        }}>
-          <div style={{
-            height: '100%', width: `${Math.round(p * 100)}%`,
-            background: 'var(--ink)', borderRadius: 2,
-            transition: 'width 0.1s linear',
-          }} />
+    <div className={`splash${leaving ? ' is-leaving' : ''}`} role="status" aria-label="Loading">
+      <div className="splash-inner">
+        <div className="splash-grid" aria-hidden="true">
+          {PATTERN.flatMap((row, r) =>
+            row.map((v, c) => (
+              <i
+                key={`${r}-${c}`}
+                className={v === 2 ? 'is-accent' : v === 0 ? 'is-off' : undefined}
+                style={{
+                  '--d': `${(4 - r + c) * 55 + (v === 2 ? 120 : 0)}ms`,
+                  ...(v === 3 ? { opacity: undefined, background: 'var(--line-strong)' } : null),
+                }}
+              />
+            ))
+          )}
         </div>
+        <div className="splash-word">million<span>pixels</span></div>
+        <div className="splash-bar"><span style={{ '--p': progress }} /></div>
       </div>
     </div>
   );

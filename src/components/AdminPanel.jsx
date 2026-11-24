@@ -37,34 +37,34 @@ function setUser(user) {
 const s = {
   page: {
     minHeight: '100vh', background: 'var(--cream)',
-    fontFamily: "'Inter', system-ui, sans-serif",
+    fontFamily: "var(--font-body)",
     padding: 'clamp(24px, 5%, 80px)',
   },
   inner: { maxWidth: 960, margin: '0 auto' },
   h1: {
-    fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2rem, 5vw, 3rem)',
+    fontFamily: "var(--font-display)", fontSize: 'clamp(2rem, 5vw, 3rem)',
     color: 'var(--ink)', textTransform: 'uppercase', margin: '0 0 8px 0', letterSpacing: '-0.01em',
   },
   label: {
-    fontFamily: "'Geist Mono', monospace", fontSize: 11,
+    fontFamily: "var(--font-mono)", fontSize: 11,
     letterSpacing: '0.12em', textTransform: 'uppercase',
     color: 'var(--sienna)', display: 'block', marginBottom: 6,
   },
   input: {
     width: '100%', padding: '12px 16px', background: '#fff',
     border: '1px solid var(--sienna)', borderRadius: 'var(--radius-sm)',
-    fontFamily: "'Geist Mono', monospace", fontSize: '0.95rem',
+    fontFamily: "var(--font-mono)", fontSize: '0.95rem',
     color: 'var(--ink)', outline: 'none', boxSizing: 'border-box',
   },
   btn: {
     padding: '12px 28px', background: 'var(--ink)', color: 'var(--cream)',
-    fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem',
+    fontFamily: "var(--font-display)", fontSize: '1rem',
     textTransform: 'uppercase', border: 'none', borderRadius: 'var(--radius-pill)',
     cursor: 'pointer', letterSpacing: '0.04em',
   },
   btnSmall: {
     padding: '6px 14px', fontSize: '0.75rem',
-    fontFamily: "'Geist Mono', monospace", letterSpacing: '0.06em',
+    fontFamily: "var(--font-mono)", letterSpacing: '0.06em',
     border: '1px solid var(--sienna)', background: 'transparent',
     color: 'var(--ink)', borderRadius: 'var(--radius-pill)', cursor: 'pointer', textTransform: 'uppercase',
   },
@@ -75,22 +75,22 @@ const s = {
   },
   statusNew: {
     display: 'inline-block', padding: '3px 10px',
-    fontFamily: "'Geist Mono', monospace", fontSize: 10,
+    fontFamily: "var(--font-mono)", fontSize: 10,
     letterSpacing: '0.1em', textTransform: 'uppercase',
     background: 'var(--ink)', color: 'var(--cream)', borderRadius: 999,
   },
   statusRead: {
     display: 'inline-block', padding: '3px 10px',
-    fontFamily: "'Geist Mono', monospace", fontSize: 10,
+    fontFamily: "var(--font-mono)", fontSize: 10,
     letterSpacing: '0.1em', textTransform: 'uppercase',
     background: 'var(--sienna)', color: 'var(--cream)', borderRadius: 999,
   },
   empty: {
-    fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1.1rem',
+    fontFamily: "var(--font-body)", fontSize: '1.1rem',
     color: 'var(--text-dim)', padding: '60px 0', textAlign: 'center',
   },
   link: {
-    fontFamily: "'Geist Mono', monospace", fontSize: 12,
+    fontFamily: "var(--font-mono)", fontSize: 12,
     color: 'var(--ink)', textDecoration: 'none',
     letterSpacing: '0.06em', display: 'inline-block', marginTop: 24,
   },
@@ -170,7 +170,7 @@ export default function AdminPanel({ user, onSignOut }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h1 style={s.h1}>Admin Panel</h1>
-            <p style={{ fontFamily: "'Inter', system-ui, sans-serif", color: 'var(--text-dim)', margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-body)", color: 'var(--text-dim)', margin: 0 }}>
               Manage your Telegram bot and orders.
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function AdminPanel({ user, onSignOut }) {
             {user && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 {user.picture && <img src={user.picture} alt="" style={{ width: 32, height: 32, borderRadius: '50%' }} />}
-                <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.85rem', color: 'var(--ink)' }}>{user.name}</span>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: '0.85rem', color: 'var(--ink)' }}>{user.name}</span>
               </div>
             )}
             <button onClick={onSignOut} style={{ ...s.btnSmall, color: '#994444', borderColor: '#994444' }}>Sign out</button>
@@ -195,14 +195,14 @@ export default function AdminPanel({ user, onSignOut }) {
           ].map(t => (
             <button key={t.id} onClick={() => setTab(t.id)} style={{
               padding: '14px 24px', background: 'none', border: 'none', borderBottom: tab === t.id ? '2px solid var(--ink)' : '2px solid transparent',
-              fontFamily: "'Anton', Impact, sans-serif", fontSize: '1rem', textTransform: 'uppercase',
+              fontFamily: "var(--font-display)", fontSize: '1rem', textTransform: 'uppercase',
               color: tab === t.id ? 'var(--ink)' : 'var(--text-dim)',
               cursor: 'pointer', letterSpacing: '0.04em', position: 'relative',
             }}>
               {t.label}
               {t.badge && <span style={{
                 marginLeft: 8, padding: '2px 8px', background: 'var(--ink)',
-                color: 'var(--cream)', fontSize: 11, fontFamily: "'Geist Mono', monospace",
+                color: 'var(--cream)', fontSize: 11, fontFamily: "var(--font-mono)",
                 borderRadius: 999,
               }}>{t.badge}</span>}
             </button>
@@ -213,7 +213,7 @@ export default function AdminPanel({ user, onSignOut }) {
         {tab === 'orders' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-              <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, letterSpacing: '0.1em', color: 'var(--sienna)', margin: 0 }}>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: '0.1em', color: 'var(--sienna)', margin: 0 }}>
                 {orders.length} TOTAL · {newCount} NEW
               </p>
               {orders.length > 0 && (
@@ -238,20 +238,20 @@ export default function AdminPanel({ user, onSignOut }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
                     <span style={o.status === 'new' ? s.statusNew : s.statusRead}>{o.status}</span>
                     <span style={{
-                      fontFamily: "'Geist Mono', monospace", fontSize: 11, color: 'var(--text-dim)',
+                      fontFamily: "var(--font-mono)", fontSize: 11, color: 'var(--text-dim)',
                     }}>{new Date(o.timestamp).toLocaleString()}</span>
                   </div>
                   <div style={{ marginBottom: 8 }}>
                     <span style={{ ...s.label, marginBottom: 4 }}>PROJECT</span>
                     <p style={{
-                      fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1rem',
+                      fontFamily: "var(--font-body)", fontSize: '1rem',
                       color: 'var(--ink)', margin: 0, lineHeight: 1.5,
                     }}>{o.project}</p>
                   </div>
                   <div>
                     <span style={{ ...s.label, marginBottom: 4 }}>CONTACT</span>
                     <p style={{
-                      fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.1rem',
+                      fontFamily: "var(--font-display)", fontSize: '1.1rem',
                       color: 'var(--ink)', margin: 0, textTransform: 'uppercase',
                     }}>{o.contact}</p>
                   </div>
@@ -271,11 +271,11 @@ export default function AdminPanel({ user, onSignOut }) {
         {tab === 'bot' && (
           <div>
             <p style={{
-              fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
+              fontFamily: "var(--font-body)", fontSize: '1rem', color: 'var(--text-dim)',
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
-              For production (Vercel): set <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_BOT_TOKEN</code> and{' '}
-              <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_CHAT_ID</code> in{' '}
+              For production (Vercel): set <code style={{ fontFamily: "var(--font-mono)", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_BOT_TOKEN</code> and{' '}
+              <code style={{ fontFamily: "var(--font-mono)", background: '#f0f0f0', padding: '2px 6px' }}>TELEGRAM_CHAT_ID</code> in{' '}
               <a href="https://vercel.com/dupcamen-dev/mp/settings/environment-variables" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink)' }}>
                 Vercel Environment Variables
               </a>.
@@ -320,7 +320,7 @@ export default function AdminPanel({ user, onSignOut }) {
         {tab === 'google' && (
           <div>
             <p style={{
-              fontFamily: "'Inter', system-ui, sans-serif", fontSize: '1rem', color: 'var(--text-dim)',
+              fontFamily: "var(--font-body)", fontSize: '1rem', color: 'var(--text-dim)',
               marginBottom: 32, maxWidth: 600, lineHeight: 1.6,
             }}>
               Configure Google Sign-In for admin access. Create an OAuth client ID at{' '}
@@ -351,9 +351,9 @@ export default function AdminPanel({ user, onSignOut }) {
               marginTop: 40, padding: 20, background: '#fff',
               border: '1px solid var(--sienna)', borderRadius: 'var(--radius)',
             }}>
-              <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--sienna)', margin: '0 0 12px 0' }}>HOW TO GET A CLIENT ID</p>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--sienna)', margin: '0 0 12px 0' }}>HOW TO GET A CLIENT ID</p>
               <ol style={{
-                fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.95rem', color: 'var(--ink)',
+                fontFamily: "var(--font-body)", fontSize: '0.95rem', color: 'var(--ink)',
                 margin: 0, paddingLeft: 20, lineHeight: 2,
               }}>
                 <li>Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink)' }}>console.cloud.google.com</a></li>
@@ -361,7 +361,7 @@ export default function AdminPanel({ user, onSignOut }) {
                 <li>Go to <strong>APIs & Services &gt; Credentials</strong></li>
                 <li>Click <strong>Create Credentials &gt; OAuth Client ID</strong></li>
                 <li>Type: <strong>Web Application</strong></li>
-                <li>Add Authorized redirect URI: <code style={{ fontFamily: "'Geist Mono', monospace", background: '#f0f0f0', padding: '2px 6px' }}>{window.location.origin}</code></li>
+                <li>Add Authorized redirect URI: <code style={{ fontFamily: "var(--font-mono)", background: '#f0f0f0', padding: '2px 6px' }}>{window.location.origin}</code></li>
                 <li>Copy the <strong>Client ID</strong> and paste above</li>
               </ol>
             </div>

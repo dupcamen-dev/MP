@@ -1,189 +1,86 @@
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useScrollTo } from '../hooks/useScrollProgress';
-import { useI18n, LOCALES } from '../i18n';
+import Logo from './Logo';
+import LangSwitch from './LangSwitch';
+import { ArrowRight, Close } from './Icons';
+import { useI18n } from '../i18n';
+import { NAV, cap, noArrow, scrollToId } from '../utils';
 
-export default function MenuOverlay({ onBook, user, onSignIn, onSignOut }) {
-  const [open, setOpen] = useState(false);
-  const scrollTo = useScrollTo();
-  const { t, locale, setLanguage } = useI18n();
+export default function MenuOverlay({ open, onClose, onBook, user, onSignOut }) {
+  const { t } = useI18n();
+  const closeRef = useRef(null);
 
-  const links = [
-    { label: t('navWork'), id: 'showcase' },
-    { label: t('navProcess'), id: 'process' },
-    { label: t('navPricing'), id: 'pricing' },
-    { label: t('navBook'), id: 'book', highlight: true },
-  ];
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open, onClose]);
 
-  function handleClick(id) {
-    setOpen(false);
-    document.body.style.overflow = '';
-    if (id === 'book') {
-      setTimeout(() => onBook && onBook(), 300);
-      return;
-    }
-    setTimeout(() => scrollTo(id), 400);
-  }
+  const go = (id) => {
+    onClose();
+    setTimeout(() => scrollToId(id), 280);
+  };
 
-  function toggle() {
-    const next = !open;
-    setOpen(next);
-    document.body.style.overflow = next ? 'hidden' : '';
-  }
-
-  function closeMenu(fn) {
-    setOpen(false);
-    document.body.style.overflow = '';
-    setTimeout(() => fn && fn(), 300);
-  }
-
-  // Overlay rendered via portal directly on document.body
-  // so it's not trapped inside the fixed <header> stacking context
-  const overlay = createPortal(
+  return createPortal(
     <div
-      id="menu-overlay"
-      className={open ? 'open' : ''}
-      style={{
-        position: 'fixed', inset: 0, background: 'var(--ink)', zIndex: 9000,
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start',
-        paddingLeft: 'clamp(24px, 8%, 140px)', paddingRight: 'clamp(24px, 5%, 120px)',
-        transition: 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)',
-        opacity: open ? 1 : 0,
-        transform: open ? 'translateX(0)' : 'translateX(100%)',
-        pointerEvents: open ? 'auto' : 'none',
-        visibility: open ? 'visible' : 'hidden',
-      }}
+      id="mobile-menu"
+      className={`menu${open ? ' is-open' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!open}
+      aria-label="Menu"
     >
-      {/* Close button inside overlay */}
-      <button
-        onClick={toggle}
-        aria-label="Close menu"
-        style={{
-          position: 'absolute', top: 'clamp(24px, 4vh, 48px)', right: 'clamp(24px, 5%, 64px)',
-          width: 56, height: 56, zIndex: 5,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'none', border: 'none', cursor: 'pointer',
-          fontSize: '2.5rem', color: 'var(--bg-alt)', lineHeight: 1,
-          transition: 'transform 0.3s, color 0.3s',
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.transform = 'rotate(90deg)'; e.currentTarget.style.color = 'var(--primary)'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = 'rotate(0deg)'; e.currentTarget.style.color = 'var(--bg-alt)'; }}
-      >
-        ✕
-      </button>
+      <div className="menu-top">
+        <Logo onClick={(e) => { e.preventDefault(); go('top'); }} />
+        <button ref={closeRef} className="icon-btn" onClick={onClose} aria-label={t('closeMenu')} tabIndex={open ? 0 : -1}>
+          <Close />
+        </button>
+      </div>
 
-      <nav id="main-nav" style={{
-        display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 2vh, 20px)',
-        position: 'relative', zIndex: 1, width: '100%',
-      }}>
-        {links.map((l) => (
+      <nav className="menu-links" aria-label="Main">
+        {NAV.map((l, i) => (
           <a
             key={l.id}
             href={`#${l.id}`}
-            onClick={(e) => { e.preventDefault(); handleClick(l.id); }}
-            className={l.highlight ? 'menu-link highlight' : 'menu-link'}
-            style={{
-              fontFamily: "'Anton', Impact, sans-serif",
-              fontSize: 'clamp(2.5rem, 9vw, 7rem)',
-              lineHeight: 0.95, textTransform: 'uppercase',
-              color: l.highlight ? 'var(--primary)' : 'var(--bg-alt)',
-              textDecoration: 'none', transition: 'all 0.3s', position: 'relative',
-              display: 'block', width: 'fit-content', cursor: 'pointer',
-            }}
+            className="menu-link"
+            tabIndex={open ? 0 : -1}
+            onClick={(e) => { e.preventDefault(); go(l.id); }}
           >
-            {l.label}
+            <small>0{i + 1}</small>
+            {cap(t(l.key))}
           </a>
         ))}
       </nav>
 
-      <div style={{
-        position: 'relative', zIndex: 1, marginTop: 'clamp(24px, 4vh, 48px)',
-        display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--bg-alt)',
-      }}>
-        {/* Auth */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <div className="menu-bottom">
+        <button
+          className="btn btn--primary btn--lg btn--block"
+          tabIndex={open ? 0 : -1}
+          onClick={() => { onClose(); setTimeout(() => onBook?.(), 250); }}
+        >
+          {noArrow(t('bookWeek'))}
+          <ArrowRight />
+        </button>
+        <div className="menu-meta">
+          <LangSwitch />
           {user ? (
-            <>
-              <span style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 12,
-                letterSpacing: '0.04em', color: 'var(--bg-alt)', opacity: 0.7,
-                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 180,
-              }}>{user.email}</span>
-              <button onClick={() => closeMenu(onSignOut)} style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 12,
-                letterSpacing: '0.1em', textTransform: 'uppercase',
-                background: 'none', border: 'none', cursor: 'pointer', padding: '6px 0',
-                color: 'var(--primary)', fontWeight: 600,
-              }}>{t('signOut')}</button>
-            </>
+            <span style={{ display: 'flex', gap: 16 }}>
+              <a href="/#/admin" tabIndex={open ? 0 : -1}>{t('admin')}</a>
+              <button className="text-btn" tabIndex={open ? 0 : -1} onClick={() => { onClose(); onSignOut?.(); }}>{t('signOut')}</button>
+            </span>
           ) : (
-            <button onClick={() => closeMenu(onSignIn)} style={{
-              fontFamily: "'Geist Mono', monospace", fontSize: 12,
-              letterSpacing: '0.12em', textTransform: 'uppercase',
-              background: 'none', border: '1px solid var(--bg-alt)',
-              borderRadius: 999, cursor: 'pointer', padding: '10px 20px',
-              color: 'var(--bg-alt)',
-            }}>{t('signIn')}</button>
+            <a href="mailto:hello@millionpixels.dev" tabIndex={open ? 0 : -1}>hello@millionpixels.dev</a>
           )}
-        </div>
-
-        {/* Language */}
-        <div style={{ display: 'flex', gap: 12 }}>
-          {LOCALES.map((l) => (
-            <button
-              key={l}
-              onClick={() => setLanguage(l)}
-              style={{
-                fontFamily: "'Geist Mono', monospace", fontSize: 13,
-                letterSpacing: '0.12em', textTransform: 'uppercase',
-                background: 'none', border: 'none', cursor: 'pointer', padding: '6px 10px',
-                color: l === locale ? 'var(--primary)' : 'var(--bg-alt)',
-                fontWeight: l === locale ? 600 : 400,
-              }}
-            >{l === 'en' ? 'EN' : l === 'uk' ? 'UA' : 'PL'}</button>
-          ))}
         </div>
       </div>
     </div>,
     document.body
-  );
-
-  return (
-    <>
-      {overlay}
-
-      {/* Hamburger button (only visible when menu closed) */}
-      <button
-        onClick={toggle}
-        className={open ? 'menu-btn open' : 'menu-btn'}
-        aria-expanded={open}
-        aria-controls="main-nav"
-        aria-label="Open menu"
-        style={{
-          position: 'relative', zIndex: 95,
-          display: open ? 'none' : 'flex', flexDirection: 'column', gap: 5,
-          width: 52, height: 52, justifyContent: 'center', alignItems: 'center',
-          cursor: 'pointer', background: 'var(--primary)', border: 'none', outline: 'none',
-          borderRadius: '50%', padding: 14,
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
-          transition: 'transform 0.3s, box-shadow 0.3s',
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.35)'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.25)'; }}
-      >
-        <span style={{
-          display: 'block', height: 2.5, background: 'var(--surface-low)',
-          transition: 'all 0.3s', borderRadius: 0, width: '100%',
-        }}></span>
-        <span style={{
-          display: 'block', height: 2.5, background: 'var(--surface-low)',
-          transition: 'all 0.3s', borderRadius: 0, width: '100%',
-        }}></span>
-        <span style={{
-          display: 'block', height: 2.5, background: 'var(--surface-low)',
-          transition: 'all 0.3s', borderRadius: 0, width: '100%',
-        }}></span>
-      </button>
-    </>
   );
 }

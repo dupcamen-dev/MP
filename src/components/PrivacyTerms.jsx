@@ -1,18 +1,19 @@
+import Logo from './Logo';
 export default function PrivacyTerms() {
   const s = {
     page: {
       minHeight: '100vh', background: 'var(--cream)',
-      fontFamily: "'Inter', system-ui, sans-serif", color: 'var(--ink)',
+      fontFamily: "var(--font-body)", color: 'var(--ink)',
       padding: 'clamp(24px, 5%, 80px)',
     },
     inner: { maxWidth: 720, margin: '0 auto', paddingTop: 100, paddingBottom: 80 },
     h1: {
-      fontFamily: "'Anton', Impact, sans-serif", fontSize: 'clamp(2rem, 5vw, 3rem)',
-      textTransform: 'uppercase', letterSpacing: '-0.01em', marginBottom: 8,
+      fontFamily: "var(--font-display)", fontSize: 'clamp(2rem, 5vw, 3rem)',
+      letterSpacing: '-0.03em', fontWeight: 600, marginBottom: 8,
     },
     h2: {
-      fontFamily: "'Anton', Impact, sans-serif", fontSize: '1.25rem',
-      textTransform: 'uppercase', letterSpacing: '0.02em', marginTop: 48, marginBottom: 16,
+      fontFamily: "var(--font-display)", fontSize: '1.25rem',
+      letterSpacing: '-0.02em', fontWeight: 600, marginTop: 48, marginBottom: 16,
       color: 'var(--ink)',
     },
     p: {
@@ -23,7 +24,7 @@ export default function PrivacyTerms() {
       color: 'var(--ink)', textDecoration: 'none',
     },
     back: {
-      fontFamily: "'Geist Mono', monospace", fontSize: 12,
+      fontFamily: "var(--font-mono)", fontSize: 12,
       letterSpacing: '0.1em', textTransform: 'uppercase',
       color: 'var(--ink)', textDecoration: 'none',
       display: 'inline-block', marginBottom: 40,
@@ -37,10 +38,11 @@ export default function PrivacyTerms() {
   return (
     <div style={s.page}>
       <div style={s.inner}>
+        <div style={{ marginBottom: 48 }}><Logo href="#/" /></div>
         <a href="#/" style={s.back}>&#8592; Back to site</a>
 
         <h1 style={s.h1}>Privacy Policy</h1>
-        <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, letterSpacing: '0.08em', color: 'var(--text-dim)', marginBottom: 40 }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: '0.08em', color: 'var(--text-dim)', marginBottom: 40 }}>
           Last updated: July 17, 2026
         </p>
 
@@ -97,7 +99,7 @@ export default function PrivacyTerms() {
         <hr style={s.hr} />
 
         <h1 style={s.h1}>Terms of Service</h1>
-        <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, letterSpacing: '0.08em', color: 'var(--text-dim)', marginBottom: 40 }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: '0.08em', color: 'var(--text-dim)', marginBottom: 40 }}>
           Last updated: July 17, 2026
         </p>
 

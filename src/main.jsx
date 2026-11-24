@@ -1,17 +1,21 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import LoadingScreen from './components/LoadingScreen';
+import LoadingScreen, { splashAlreadySeen } from './components/LoadingScreen';
 import './App.css';
 
 function Root() {
-  const [ready, setReady] = useState(false);
+  // The splash plays once per browser session; the site renders underneath it right away.
+  const [showSplash, setShowSplash] = useState(() => {
+    const seen = splashAlreadySeen();
+    if (seen) document.documentElement.dataset.ready = '';
+    return !seen;
+  });
+
   return (
     <StrictMode>
-      {!ready && <LoadingScreen onFinish={() => setReady(true)} />}
-      <div style={{ opacity: ready ? 1 : 0, transition: 'opacity 0.3s' }}>
-        <App />
-      </div>
+      <App />
+      {showSplash && <LoadingScreen onFinish={() => setShowSplash(false)} />}
     </StrictMode>
   );
 }
