@@ -1,41 +1,79 @@
+const crypto = require('crypto');
+const store = require('./_lib/store');
+const telegram = require('./_lib/telegram');
+
+const MAX_PROJECT = 2000;
+const MAX_CONTACT = 200;
+const LOCALES = ['en', 'uk', 'pl'];
+
+function readBody(req) {
+  if (req.body && typeof req.body === 'object') return req.body;
+  if (typeof req.body === 'string') {
+    try { return JSON.parse(req.body); } catch { return {}; }
+  }
+  return {};
+}
+
+function clientIp(req) {
+  return String(req.headers?.['x-forwarded-for'] || '').split(',')[0].trim() || req.socket?.remoteAddress || 'unknown';
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { project, contact, displayTime } = req.body;
+  const body = readBody(req);
 
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-
-  if (!token || !chatId) {
-    return res.status(500).json({ error: 'Telegram not configured on server' });
+  // Honeypot: humans never see this field. Pretend success so bots don't retry.
+  if (typeof body.website === 'string' && body.website.trim()) {
+    return res.status(200).json({ ok: true });
   }
 
-  const msg = [
-    `📦 *NEW REQUEST — MVP BUILD*`,
-    `🕒 ${displayTime || new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' })}`,
-    `━━━━━━━━━━━━━━━━━`,
-    `*PROJECT:*`,
-    project || '(not specified)',
-    ``,
-    `*CONTACT:* ${contact}`,
-  ].join('\n');
+  const project = typeof body.project === 'string' ? body.project.trim() : '';
+  const contact = typeof body.contact === 'string' ? body.contact.trim() : '';
+  const locale = LOCALES.includes(body.locale) ? body.locale : null;
 
-  try {
-    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' }),
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      return res.status(500).json({ error: `Telegram error: ${errText}` });
-    }
-
-    return res.json({ ok: true });
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
+  if (!contact) return res.status(400).json({ error: 'contact_required' });
+  if (contact.length > MAX_CONTACT || project.length > MAX_PROJECT) {
+    return res.status(400).json({ error: 'too_long' });
   }
+
+  if (await store.isRateLimited(`mp:rl:order:${clientIp(req)}`, 5, 600)) {
+    return res.status(429).json({ error: 'rate_limited' });
+  }
+
+  const now = new Date();
+  const order = {
+    id: crypto.randomBytes(5).toString('hex'),
+    project: project || '(not specified)',
+    contact,
+    locale,
+    timestamp: now.toISOString(),
+    displayTime: now.toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' }),
+    status: 'new',
+  };
+
+  // Deliver through every configured channel. The request counts as received
+  // if at least one channel accepted it — the client is told the truth either way.
+  let stored = false;
+  let sent = false;
+
+  if (store.isConfigured()) {
+    try { await store.saveOrder(order); stored = true; }
+    catch (err) { console.error('[send-order] storage failed:', err.message); }
+  }
+
+  if (telegram.isConfigured()) {
+    try { await telegram.sendMessage(telegram.orderMessage(order)); sent = true; }
+    catch (err) { console.error('[send-order] telegram failed:', err.message); }
+  }
+
+  if (!stored && !sent) {
+    console.error('[send-order] order NOT delivered', { id: order.id, storage: store.isConfigured(), telegram: telegram.isConfigured() });
+    return res.status(502).json({ error: 'delivery_failed' });
+  }
+
+  return res.status(200).json({ ok: true, id: order.id });
 };
