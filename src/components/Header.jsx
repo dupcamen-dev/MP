@@ -5,6 +5,7 @@ import LangSwitch from './LangSwitch';
 import { ArrowRight } from './Icons';
 import { useI18n } from '../i18n';
 import { NAV, cap, noArrow, scrollToId } from '../utils';
+import { Roll } from './Motion';
 
 export default function Header({ onBook, user, onSignIn, onSignOut }) {
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +40,7 @@ export default function Header({ onBook, user, onSignIn, onSignOut }) {
             {user && <a href="/#/admin" className="header-admin">{t('admin')}</a>}
             <LangSwitch />
             <button className="btn btn--primary btn--sm header-cta" onClick={onBook}>
-              {noArrow(t('bookWeek'))}
+              <Roll>{noArrow(t('bookWeek'))}</Roll>
               <ArrowRight size={15} />
             </button>
             <button

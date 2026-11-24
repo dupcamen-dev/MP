@@ -19,6 +19,8 @@ import AdminPanel from './components/AdminPanel';
 import LoginPage from './components/LoginPage';
 import CookieConsent from './components/CookieConsent';
 import PrivacyTerms from './components/PrivacyTerms';
+import { initSmoothScroll } from './smoothScroll';
+import { Marquee, useSpotlight } from './components/Motion';
 
 function useHashRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
@@ -84,10 +86,14 @@ function useRouteMeta(route) {
 }
 
 function Site({ onBook }) {
+  useEffect(() => initSmoothScroll(), []);
+  useSpotlight();
   return (
     <>
       <main>
         <Hero onBook={onBook} />
+        <Marquee />
+        <div className="scroll-progress" aria-hidden="true" />
         <Work />
         <Process onBook={onBook} />
         <Reviews />
@@ -110,37 +116,26 @@ function AppRoot() {
   const openModal = useCallback(() => setShowModal(true), []);
   const closeModal = useCallback(() => setShowModal(false), []);
 
-  const handleLogin = (response) => {
-    const u = auth.signIn(response);
-    if (u && window.location.hash === '#/login') window.location.hash = '/';
+  // Sessions are issued only to allow-listed admins (checked on the server), so a signed-in user is an admin.
+  const handleLogin = async (response) => {
+    const result = await auth.signIn(response);
+    if (result.user) window.location.hash = '/admin';
+    return result;
   };
 
-  const handleSignOut = () => {
-    auth.signOut();
+  const handleSignOut = async () => {
+    await auth.signOut();
     window.location.hash = '/';
   };
-
-  if (route === '/login' || (route === '/admin' && !auth.isAuthenticated)) {
-    return <LoginPage clientId={auth.clientId} onSignIn={handleLogin} />;
-  }
 
   if (route === '/privacy' || route === '/terms') {
     return <PrivacyTerms />;
   }
 
-  if (route === '/admin' && auth.isAuthenticated) {
-    // NOTE: client-side check only — see REVIEW.md #2 and #4.
-    if (auth.user?.email !== 'ringoosamsungj710@gmail.com') {
-      return (
-        <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: 24 }}>
-          <div style={{ textAlign: 'center', maxWidth: 420 }}>
-            <h1 className="h-section" style={{ marginBottom: 12 }}>Access denied</h1>
-            <p className="muted" style={{ marginBottom: 32 }}>This account does not have admin access.</p>
-            <button className="btn btn--primary" onClick={handleSignOut}>Sign out</button>
-          </div>
-        </div>
-      );
-    }
+  if (route === '/login' || route === '/admin') {
+    if (auth.loading) return null;
+    if (!auth.isAuthenticated) return <LoginPage clientId={auth.clientId} onSignIn={handleLogin} />;
+    if (route === '/login') { window.location.hash = '/admin'; return null; }
     return <AdminPanel user={auth.user} onSignOut={handleSignOut} />;
   }
 

@@ -3,40 +3,21 @@ import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n';
 import { Check, Close } from './Icons';
 import { cap } from '../utils';
-
-// NOTE: submission logic is unchanged from the previous version on purpose —
-// its known bugs are tracked in REVIEW.md (#1, #3) and will be fixed separately.
-
-function getBotConfig() {
-  try {
-    const raw = localStorage.getItem('mp_bot_config');
-    return raw ? JSON.parse(raw) : { token: '', chatId: '' };
-  } catch { return { token: '', chatId: '' }; }
-}
-
-function saveOrder(order) {
-  try {
-    const raw = localStorage.getItem('mp_orders');
-    const orders = raw ? JSON.parse(raw) : [];
-    orders.unshift(order);
-    localStorage.setItem('mp_orders', JSON.stringify(orders));
-  } catch {}
-}
+import { lockScroll } from '../smoothScroll';
 
 export default function OrderModal({ onClose }) {
-  const [form, setForm] = useState({ project: '', contact: '' });
+  const [form, setForm] = useState({ project: '', contact: '', website: '' });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const uid = useId();
   const dialogRef = useRef(null);
 
   // Escape to close, lock page scroll, keep focus inside the dialog.
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
     const prevFocus = document.activeElement;
-    document.body.style.overflow = 'hidden';
+    const unlock = lockScroll();
     const onKey = (e) => {
       if (e.key === 'Escape') { onClose(); return; }
       if (e.key !== 'Tab' || !dialogRef.current) return;
@@ -49,7 +30,7 @@ export default function OrderModal({ onClose }) {
     };
     window.addEventListener('keydown', onKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      unlock();
       window.removeEventListener('keydown', onKey);
       prevFocus?.focus?.();
     };
@@ -59,55 +40,29 @@ export default function OrderModal({ onClose }) {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
+    if (sending) return;
     if (!form.contact.trim()) { setError(t('orderContactError')); return; }
     setError('');
     setSending(true);
-    const now = new Date().toISOString();
-    const display = new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' });
-    const order = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-      project: form.project.trim() || '(not specified)',
-      contact: form.contact.trim(),
-      timestamp: now,
-      displayTime: display,
-      status: 'new',
-    };
-
     try {
-      // Try Vercel serverless API first (works for all users in production)
-      const apiRes = await fetch('/api/send-order', {
+      const res = await fetch('/api/send-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          project: order.project,
-          contact: order.contact,
-          displayTime: order.displayTime,
+          project: form.project.trim(),
+          contact: form.contact.trim(),
+          locale,
+          website: form.website,
         }),
       });
-      if (!apiRes.ok) throw new Error('API failed');
+      if (!res.ok) throw new Error();
+      setDone(true);
     } catch {
-      // Fallback: try localStorage config (admin's own browser)
-      const { token, chatId } = getBotConfig();
-      if (token && chatId) {
-        const msg = [
-          `📦 *NEW REQUEST — MVP BUILD*`,
-          `🕒 ${display}`,
-          `━━━━━━━━━━━━━━━━━`,
-          `*PROJECT:*`,
-          order.project,
-          ``,
-          `*CONTACT:* ${order.contact}`,
-        ].join('\n');
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' }),
-        });
-      }
+      // Never claim success unless the server confirmed delivery.
+      setError(t('orderSendError'));
+    } finally {
+      setSending(false);
     }
-
-    saveOrder(order);
-    setDone(true);
-    setSending(false);
   };
 
   return createPortal(
@@ -142,6 +97,7 @@ export default function OrderModal({ onClose }) {
               <textarea
                 id={`${uid}-project`}
                 rows={3}
+                maxLength={2000}
                 value={form.project}
                 onChange={update('project')}
                 placeholder={t('orderBuildPlaceholder')}
@@ -154,12 +110,19 @@ export default function OrderModal({ onClose }) {
                 id={`${uid}-contact`}
                 type="text"
                 autoComplete="email"
+                maxLength={200}
                 value={form.contact}
                 onChange={update('contact')}
                 placeholder={t('orderContactPlaceholder')}
                 aria-invalid={error ? true : undefined}
                 aria-describedby={error ? `${uid}-err` : undefined}
               />
+            </div>
+
+            {/* Honeypot for bots — hidden from people and assistive tech. */}
+            <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+              <label htmlFor={`${uid}-website`}>Website</label>
+              <input id={`${uid}-website`} type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={update('website')} />
             </div>
 
             {error && <p className="field-error" id={`${uid}-err`} role="alert">{error}</p>}

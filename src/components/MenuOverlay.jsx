@@ -5,6 +5,8 @@ import LangSwitch from './LangSwitch';
 import { ArrowRight, Close } from './Icons';
 import { useI18n } from '../i18n';
 import { NAV, cap, noArrow, scrollToId } from '../utils';
+import { lockScroll } from '../smoothScroll';
+import { Roll } from './Motion';
 
 export default function MenuOverlay({ open, onClose, onBook, user, onSignOut }) {
   const { t } = useI18n();
@@ -12,13 +14,12 @@ export default function MenuOverlay({ open, onClose, onBook, user, onSignOut }) 
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const unlock = lockScroll();
     closeRef.current?.focus();
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
     return () => {
-      document.body.style.overflow = prev;
+      unlock();
       window.removeEventListener('keydown', onKey);
     };
   }, [open, onClose]);
@@ -65,7 +66,7 @@ export default function MenuOverlay({ open, onClose, onBook, user, onSignOut }) 
           tabIndex={open ? 0 : -1}
           onClick={() => { onClose(); setTimeout(() => onBook?.(), 250); }}
         >
-          {noArrow(t('bookWeek'))}
+          <Roll>{noArrow(t('bookWeek'))}</Roll>
           <ArrowRight />
         </button>
         <div className="menu-meta">

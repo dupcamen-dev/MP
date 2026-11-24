@@ -1,3 +1,5 @@
+import { smoothScrollTo } from './smoothScroll';
+
 // "BOOK A WEEK" → "Book a week". Dictionary strings are stored upper-case; the new design uses sentence case.
 export function cap(s) {
   if (typeof s !== 'string' || !s) return s;
@@ -12,10 +14,11 @@ export function noArrow(s) {
 
 export function scrollToId(id) {
   if (id === 'top') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    smoothScrollTo(0);
     return;
   }
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const el = document.getElementById(id);
+  if (el) smoothScrollTo(el);
 }
 
 export const prefersReducedMotion = () =>
