@@ -168,10 +168,6 @@ export default function Hero({ onBook }) {
       <div className="container">
         <div className="hero-grid">
           <div>
-            <div className="hero-badge" data-hero="" style={{ '--d': '0ms' }}>
-              <span className="pulse-dot" />
-              {t('heroBadge')}
-            </div>
             <h1 className="h-display">
               <SplitWords
                 start={120}
