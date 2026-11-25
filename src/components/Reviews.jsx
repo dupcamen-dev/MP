@@ -21,7 +21,7 @@ export default function Reviews() {
           <div>
             <p className="eyebrow">{cap(t('foundersSay'))}</p>
             <h2 className="h-section">
-              <SplitWords parts={words.map((w, i) => ({ text: w, className: i === words.length - 1 ? 'accent serif' : undefined }))} />
+              <SplitWords parts={words.map((w, i) => ({ text: w, className: i === words.length - 1 ? 'accent' : undefined }))} />
             </h2>
           </div>
         </Reveal>

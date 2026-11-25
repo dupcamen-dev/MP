@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const store = require('./_lib/store');
 const telegram = require('./_lib/telegram');
+const { clientIp, isSameOrigin } = require('./_lib/http');
 
 const MAX_PROJECT = 2000;
 const MAX_CONTACT = 200;
@@ -14,15 +15,13 @@ function readBody(req) {
   return {};
 }
 
-function clientIp(req) {
-  return String(req.headers?.['x-forwarded-for'] || '').split(',')[0].trim() || req.socket?.remoteAddress || 'unknown';
-}
-
 module.exports = async (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
+  if (!isSameOrigin(req)) return res.status(403).json({ error: 'forbidden' });
 
   const body = readBody(req);
 

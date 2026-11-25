@@ -11,7 +11,7 @@ export default function Cta({ onBook }) {
       <div className="container">
         <Reveal>
           <h2 className="h-display">
-            <SplitWords parts={[{ text: t('ctaH1a'), br: true }, { text: t('ctaH1b'), className: 'accent serif' }]} />
+            <SplitWords parts={[{ text: t('ctaH1a'), br: true }, { text: t('ctaH1b'), className: 'accent' }]} />
           </h2>
         </Reveal>
         <Reveal delay={120}>

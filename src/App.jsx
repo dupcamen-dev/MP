@@ -82,6 +82,8 @@ function useRouteMeta(route) {
     document.title = meta.title;
     const desc = document.querySelector('meta[name="description"]');
     if (desc) desc.setAttribute('content', meta.description);
+    const robots = document.querySelector('meta[name="robots"]');
+    if (robots) robots.setAttribute('content', route === '/admin' || route === '/login' ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   }, [route]);
 }
 

@@ -14,7 +14,7 @@ export function Roll({ children }) {
 
 // Splits text into words that rise out of a mask. The animation runs when an ancestor
 // gets [data-in] (any <Reveal>) or, inside the hero, when <html data-ready> is set.
-// parts: [{ text, className }] — e.g. a dark phrase followed by an italic serif one.
+// parts: [{ text, className }] — e.g. a dark phrase followed by a muted one.
 export function SplitWords({ parts, start = 0, step = 42 }) {
   let i = 0;
   return parts.map((part, pi) => {

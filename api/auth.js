@@ -3,6 +3,8 @@
 // and the ADMIN_EMAILS allow-list before an httpOnly session cookie is issued.
 
 const session = require('./_lib/session');
+const store = require('./_lib/store');
+const { clientIp, isSameOrigin } = require('./_lib/http');
 
 const DEFAULT_CLIENT_ID = '727188971518-ijvkthta20eqaoo8rcl4mvvu4jkab565.apps.googleusercontent.com';
 const ISSUERS = ['accounts.google.com', 'https://accounts.google.com'];
@@ -20,9 +22,14 @@ async function verifyGoogleToken(idToken) {
 }
 
 module.exports = async (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+  if (!isSameOrigin(req)) return res.status(403).json({ error: 'forbidden' });
+  if (await store.isRateLimited(`mp:rl:auth:${clientIp(req)}`, 20, 600)) {
+    return res.status(429).json({ error: 'rate_limited' });
   }
   if (!session.secret()) {
     console.error('[auth] SESSION_SECRET is missing or shorter than 16 chars');
@@ -30,7 +37,7 @@ module.exports = async (req, res) => {
   }
 
   const credential = req.body && typeof req.body.credential === 'string' ? req.body.credential : '';
-  if (!credential) return res.status(400).json({ error: 'credential_required' });
+  if (!credential || credential.length > 4096) return res.status(400).json({ error: 'credential_required' });
 
   let user;
   try {

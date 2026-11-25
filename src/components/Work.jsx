@@ -26,7 +26,7 @@ export default function Work() {
           <div>
             <p className="eyebrow">{cap(t('showcaseLabel'))}</p>
             <h2 className="h-section">
-              <SplitWords parts={[{ text: t('showcaseH1') }, { text: t('showcaseH2'), className: 'muted serif' }]} />
+              <SplitWords parts={[{ text: t('showcaseH1') }, { text: t('showcaseH2'), className: 'muted' }]} />
             </h2>
           </div>
         </Reveal>
