@@ -174,7 +174,7 @@ export default function Pricing({ onBook }) {
           <div>
             <p className="eyebrow">{cap(t('faqLabel'))}</p>
             <h2 className="h-section">
-              <SplitWords parts={[{ text: t('faqH1') }, { text: t('faqH2'), className: 'muted serif' }]} />
+              <SplitWords parts={[{ text: t('faqH1') }, { text: t('faqH2'), className: 'muted' }]} />
             </h2>
           </div>
           <p className="lead">

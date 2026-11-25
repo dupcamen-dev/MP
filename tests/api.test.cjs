@@ -51,10 +51,10 @@ function mockRes() {
   return res;
 }
 
-async function call(name, { method = 'GET', body, query = {}, cookie, ip = '1.1.1.1' } = {}) {
+async function call(name, { method = 'GET', body, query = {}, cookie, ip = '1.1.1.1', origin } = {}) {
   const handler = require(path.join(API, name));
   const res = mockRes();
-  await handler({ method, body, query, headers: { cookie, 'x-forwarded-for': ip } }, res);
+  await handler({ method, body, query, headers: { cookie, 'x-forwarded-for': ip, host: 'www.millionpixels.dev', origin } }, res);
   return res;
 }
 
@@ -244,4 +244,27 @@ test('admin Telegram test message', async () => {
   const res = await call('orders', { method: 'POST', body: { action: 'test' }, cookie });
   assert.equal(res.statusCode, 200);
   assert.equal(telegramCalls().length, 1);
+});
+
+// ---------- cross-site protection ----------
+
+test('cross-site browser requests to state-changing endpoints are rejected', async () => {
+  reset();
+  tokenInfo = goodToken('admin@example.com');
+  const evil = 'https://evil.example';
+  assert.equal((await call('send-order', { method: 'POST', body: { contact: 'a' }, origin: evil })).statusCode, 403);
+  assert.equal((await call('auth', { method: 'POST', body: { credential: 'jwt' }, origin: evil })).statusCode, 403);
+  const cookie = sessionCookie(await call('auth', { method: 'POST', body: { credential: 'jwt' }, origin: 'https://www.millionpixels.dev' }));
+  assert.ok(cookie.startsWith('mp_session='));
+  assert.equal((await call('orders', { method: 'DELETE', query: { all: '1' }, cookie, origin: evil })).statusCode, 403);
+  assert.equal((await call('session', { method: 'DELETE', origin: evil })).statusCode, 403);
+  // Same-origin requests still work.
+  assert.equal((await call('send-order', { method: 'POST', body: { contact: 'a' }, origin: 'https://www.millionpixels.dev' })).statusCode, 200);
+});
+
+test('sign-in attempts are rate limited per IP', async () => {
+  reset();
+  tokenInfo = null;
+  for (let i = 0; i < 20; i++) await call('auth', { method: 'POST', body: { credential: 'jwt' }, ip: '7.7.7.7' });
+  assert.equal((await call('auth', { method: 'POST', body: { credential: 'jwt' }, ip: '7.7.7.7' })).statusCode, 429);
 });

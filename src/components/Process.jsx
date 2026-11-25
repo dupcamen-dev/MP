@@ -24,7 +24,7 @@ export default function Process({ onBook }) {
           <div>
             <p className="eyebrow">{cap(t('processLabel'))}</p>
             <h2 className="h-section">
-              <SplitWords parts={[{ text: t('processH1a') }, { text: t('processH1b'), className: 'muted serif' }]} />
+              <SplitWords parts={[{ text: t('processH1a') }, { text: t('processH1b'), className: 'muted' }]} />
             </h2>
           </div>
           <p className="lead">{t('processSub')}</p>

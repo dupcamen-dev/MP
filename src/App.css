@@ -25,7 +25,6 @@
   --on-dark-muted: #a19c94;
 
   /* Type */
-  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
   --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
@@ -754,7 +753,7 @@ html[data-ready] [data-hero] { opacity: 1; transform: none; }
   transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
 }
 .phase:hover { border-color: #3a3a41; background: var(--dark-3); }
-.phase-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: auto; padding-bottom: 32px; }
+.phase-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: clamp(40px, 5vw, 72px); }
 .phase-num { font-family: var(--font-mono); font-size: 13px; color: var(--on-dark-muted); }
 .phase-days {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
@@ -1051,7 +1050,7 @@ html[data-ready] [data-hero] { opacity: 1; transform: none; }
   position: absolute; left: 50%; top: 58%; z-index: -1;
   width: min(720px, 90vw); height: 360px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(255, 90, 31, 0.35), transparent);
+  background: radial-gradient(closest-side, rgba(255, 90, 31, 0.16), transparent);
   filter: blur(20px);
 }
 .cta .h-display { color: var(--on-dark); margin-bottom: 24px; }
@@ -1178,35 +1177,16 @@ html[data-ready] [data-hero] { opacity: 1; transform: none; }
 }
 
 /* ==========================================================================
-   Premium layer — serif accents, grain, floating header, motion
+   Refinement layer — floating header, motion, details
    ========================================================================== */
 
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
-/* Film-grain texture over the whole page for a tactile, printed feel. */
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  z-index: 9500;
-  pointer-events: none;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Italic serif accent paired with the grotesk display face. */
-.serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  font-size: 1.12em;
-  line-height: 0.9;
-}
-.manifesto-text .w.is-accent { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 1.12em; letter-spacing: -0.01em; }
-
-/* Bigger, airier headings. */
-.h-display { font-size: clamp(2.8rem, 6.8vw, 6.2rem); letter-spacing: -0.03em; line-height: 0.98; }
-.h-section { font-size: clamp(2.4rem, 5.4vw, 4.6rem); letter-spacing: -0.03em; }
+/* One typeface family throughout; emphasis comes from weight and colour only. */
+.h-display { font-size: clamp(2.8rem, 6.6vw, 6rem); letter-spacing: -0.035em; line-height: 0.98; font-weight: 600; }
+.h-section { font-size: clamp(2.3rem, 5vw, 4.3rem); letter-spacing: -0.032em; line-height: 1.04; font-weight: 600; }
+.h-section .muted, .h-display .muted { color: #a29d95; }
+.section--dark .h-section .muted { color: #6f6a63; }
 .section-head { margin-bottom: clamp(56px, 7vw, 96px); }
 
 /* ---------- Word-by-word reveal ---------- */
@@ -1220,7 +1200,7 @@ body::after {
 }
 .w-in {
   display: inline-block;
-  transform: translate3d(0, 110%, 0) rotate(4deg);
+  transform: translate3d(0, 110%, 0);
   transform-origin: left bottom;
   transition: transform 1.1s var(--ease-out) var(--wd, 0ms);
   will-change: transform;
@@ -1290,12 +1270,12 @@ html[data-ready] .hero .w-in { transform: none; }
   border-radius: inherit;
   opacity: 0;
   transition: opacity 0.4s var(--ease);
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 90, 31, 0.10), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 90, 31, 0.05), transparent 45%);
   pointer-events: none;
 }
 .spot:hover::before { opacity: 1; }
 .phase.spot::before, .package--dark.spot::before {
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 90, 31, 0.18), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 90, 31, 0.08), transparent 45%);
 }
 
 /* ---------- Image curtain reveal ---------- */
@@ -1336,8 +1316,8 @@ html[data-ready] .hero .w-in { transform: none; }
 .clients-row { display: flex; align-items: center; list-style: none; }
 .clients-row li { display: flex; align-items: center; }
 .clients-row a {
-  font-family: var(--font-serif); font-style: italic; font-weight: 500;
-  font-size: clamp(1.35rem, 2vw, 1.75rem); letter-spacing: -0.005em; line-height: 1.2;
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem); letter-spacing: -0.02em; line-height: 1.2;
   color: var(--ink-2);
   text-decoration: none; white-space: nowrap;
   transition: color 0.25s var(--ease);
@@ -1388,7 +1368,7 @@ html[data-ready] .hero .w-in { transform: none; }
 
 /* ---------- Depth & refinement ---------- */
 
-.section--dark { background: radial-gradient(1200px 600px at 85% -10%, rgba(255, 90, 31, 0.10), transparent 60%), var(--dark); }
+.section--dark { background: radial-gradient(1200px 600px at 85% -10%, rgba(255, 90, 31, 0.05), transparent 60%), var(--dark); }
 .phase, .package--dark { background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%); }
 .work-card, .review, .package, .tab-panel { border-color: rgba(16, 15, 14, 0.07); }
 .work-card:hover, .package:hover { box-shadow: 0 30px 60px -30px rgba(16, 15, 14, 0.35); }

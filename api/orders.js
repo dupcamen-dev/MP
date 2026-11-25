@@ -8,6 +8,7 @@
 const session = require('./_lib/session');
 const store = require('./_lib/store');
 const telegram = require('./_lib/telegram');
+const { isSameOrigin } = require('./_lib/http');
 
 const STATUSES = ['new', 'read'];
 
@@ -20,6 +21,7 @@ function health() {
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
+  if (req.method !== 'GET' && !isSameOrigin(req)) return res.status(403).json({ error: 'forbidden' });
   if (!session.requireAdmin(req, res)) return;
 
   try {

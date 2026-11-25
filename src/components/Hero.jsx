@@ -179,7 +179,7 @@ export default function Hero({ onBook }) {
                 parts={[
                   { text: t('heroH1a'), className: 'line' },
                   { text: t('heroH1b'), className: 'line' },
-                  { text: t('heroH1c'), className: 'line accent serif' },
+                  { text: t('heroH1c'), className: 'line accent' },
                 ]}
               />
             </h1>

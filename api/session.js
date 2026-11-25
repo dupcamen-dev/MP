@@ -2,6 +2,7 @@
 // DELETE → sign out (clears the session cookie)
 
 const session = require('./_lib/session');
+const { isSameOrigin } = require('./_lib/http');
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
@@ -12,6 +13,7 @@ module.exports = async (req, res) => {
   }
 
   if (req.method === 'DELETE') {
+    if (!isSameOrigin(req)) return res.status(403).json({ error: 'forbidden' });
     session.endSession(res);
     return res.status(200).json({ ok: true });
   }
