@@ -2,43 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://millionpixels.dev/</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://millionpixels.dev/" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://millionpixels.dev/uk" />
-    <xhtml:link rel="alternate" hreflang="pl" href="https://millionpixels.dev/pl" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://millionpixels.dev/" />
+    <loc>https://www.millionpixels.dev/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.millionpixels.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.millionpixels.dev/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.millionpixels.dev/uk" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.millionpixels.dev/pl" />
   </url>
   <url>
-    <loc>https://millionpixels.dev/uk</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://millionpixels.dev/" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://millionpixels.dev/uk" />
-    <xhtml:link rel="alternate" hreflang="pl" href="https://millionpixels.dev/pl" />
+    <loc>https://www.millionpixels.dev/uk</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.millionpixels.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.millionpixels.dev/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.millionpixels.dev/uk" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.millionpixels.dev/pl" />
   </url>
   <url>
-    <loc>https://millionpixels.dev/pl</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://millionpixels.dev/" />
-    <xhtml:link rel="alternate" hreflang="uk" href="https://millionpixels.dev/uk" />
-    <xhtml:link rel="alternate" hreflang="pl" href="https://millionpixels.dev/pl" />
+    <loc>https://www.millionpixels.dev/pl</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.millionpixels.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.millionpixels.dev/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.millionpixels.dev/uk" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.millionpixels.dev/pl" />
   </url>
   <url>
-    <loc>https://millionpixels.dev/#/privacy</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://www.millionpixels.dev/privacy</loc>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
-    <loc>https://millionpixels.dev/#/terms</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://www.millionpixels.dev/terms</loc>
+    <lastmod>2026-11-25</lastmod>
   </url>
 </urlset>

@@ -29,6 +29,7 @@ export default function MenuOverlay({ open, onClose, onBook, user, onSignOut }) 
     setTimeout(() => scrollToId(id), 280);
   };
 
+  if (typeof document === 'undefined') return null;
   return createPortal(
     <div
       id="mobile-menu"
