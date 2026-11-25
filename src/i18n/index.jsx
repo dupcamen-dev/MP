@@ -722,11 +722,19 @@ const PRICE_PL = {
   'agency pricing — delivering enterprise-quality output at accessible investment levels.': 'cen agencji — dostarczając wynik klasy enterprise przy dostępnym poziomie inwestycji.',
 };
 
-export function I18nProvider({ children }) {
-  const [locale, setLocale] = useState('en');
+export function I18nProvider({ children, initialLocale }) {
+  // Resolved during the first render (no flash of English on /uk and /pl, works when prerendering).
+  const [locale, setLocale] = useState(() => {
+    if (initialLocale && LOCALES.includes(initialLocale)) return initialLocale;
+    return typeof window === 'undefined' ? 'en' : detectLocale();
+  });
 
+  // A Ukrainian/Polish visitor landing on "/" sees their language — keep the URL in sync (/uk, /pl).
   useEffect(() => {
-    setLocale(detectLocale());
+    const { pathname, hash, search } = window.location;
+    if ((pathname === '/' || pathname === '') && !hash && locale !== 'en') {
+      window.history.replaceState(null, '', `/${locale}${search}`);
+    }
   }, []);
 
   const t = useCallback((key) => DICTIONARIES[locale]?.[key] ?? DICTIONARIES.en[key] ?? key, [locale]);

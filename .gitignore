@@ -6,3 +6,4 @@ tor-browser-windows-x86_64-portable-15.0.14.exe
 .env
 .env.*
 .vercel
+dist-ssr

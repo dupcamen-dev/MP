@@ -35,19 +35,19 @@
 
 ## 🟠 SEO
 
-- [ ] **5. `/uk` і `/pl` — дублікати головної.** Rewrite віддає один `index.html` з `canonical="https://millionpixels.dev/"`, `<html lang="en">`, англійськими title/description/OG. Google не індексуватиме мовні версії, hreflang не працює.
+- [x] **5. `/uk` і `/pl` — дублікати головної.** ✅ Виправлено: під час збірки рендериться статичний HTML для /, /uk, /pl, /privacy, /terms (scripts/prerender.mjs) зі своїми lang, title, description, canonical, hreflang; усе на www. Було: Rewrite віддає один `index.html` з `canonical="https://millionpixels.dev/"`, `<html lang="en">`, англійськими title/description/OG. Google не індексуватиме мовні версії, hreflang не працює.
   **Фікс:** пререндер/SSG на кожну мову (напр. `vite-plugin-prerender`, або генерація `dist/uk/index.html`, `dist/pl/index.html` у build-скрипті) зі своїм `lang`, `canonical`, title, description, `og:locale`. На клієнті також оновлювати `document.documentElement.lang`.
 
-- [ ] **6. Hash-URL у sitemap та robots.** `sitemap.xml` містить `/#/privacy`, `/#/terms`; `robots.txt` — `Disallow: /#/login`, `/#/admin`. Все після `#` Google ігнорує. Перевести privacy/terms на шляхи `/privacy`, `/terms` (rewrite вже є), адмінку — `noindex` meta.
+- [x] **6. Hash-URL у sitemap та robots.** ✅ Виправлено: /privacy і /terms — справжні шляхи, sitemap/robots на www без hash. Було: `sitemap.xml` містить `/#/privacy`, `/#/terms`; `robots.txt` — `Disallow: /#/login`, `/#/admin`. Все після `#` Google ігнорує. Перевести privacy/terms на шляхи `/privacy`, `/terms` (rewrite вже є), адмінку — `noindex` meta.
 
-- [ ] **7. Миготіння мови.** `I18nProvider` стартує з `'en'` і перемикає локаль у `useEffect` → на `/uk` на мить видно англійський. Обчислювати локаль в ініціалізаторі `useState(detectLocale)`.
+- [x] **7. Миготіння мови.** ✅ Виправлено: локаль визначається в ініціалізаторі; на / URL синхронізується з мовою. Було: `I18nProvider` стартує з `'en'` і перемикає локаль у `useEffect` → на `/uk` на мить видно англійський. Обчислювати локаль в ініціалізаторі `useState(detectLocale)`.
 
-- [ ] **7a.** У `sitemap.xml` для `/uk` і `/pl` відсутній `x-default` hreflang; `lastmod` застарів.
+- [x] **7a.** ✅ Виправлено. Було: У `sitemap.xml` для `/uk` і `/pl` відсутній `x-default` hreflang; `lastmod` застарів.
 
 ## 🟡 Продуктивність
 
 - [x] **8. Сплеш-екран штучно тримає сайт ~2.5 с.** ✅ Редизайн: сплеш ~1 с, показується раз за сесію (`sessionStorage`), сайт рендериться під ним одразу (раніше був `opacity: 0`). Варто ще поміряти LCP на проді — можливо, прибрати сплеш зовсім.
-- [ ] **9. Важкі картинки:** `raqt-hero.png` 3.7 MB, `zhyto-hero.png` 1.5 MB, `nouri-hero.png` — конвертувати у WebP/AVIF з потрібною шириною, додати `width`/`height`. Не використовуються: `public/zhyto.png`, `public/reviews-bg.jpg` — видалити.
+- [x] **9. Важкі картинки:** ✅ Виправлено: PNG портфоліо → WebP (~6.4 MB → ~0.4 MB), невикористані файли видалено. Було: `raqt-hero.png` 3.7 MB, `zhyto-hero.png` 1.5 MB, `nouri-hero.png` — конвертувати у WebP/AVIF з потрібною шириною, додати `width`/`height`. Не використовуються: `public/zhyto.png`, `public/reviews-bg.jpg` — видалити.
 - [x] **10. Canvas у Hero.** ✅ Редизайн: rAF працює лише поки є підсвічені клітинки, пауза поза екраном, DPR, коректний resize, `prefers-reduced-motion`. Code rain прибрано.
 - [x] **11. Ререндер усього сайту на скрол.** ✅ Редизайн: `useScrollProgress`/горизонтальний скрол видалено; маніфест перемикає класи напряму в DOM без state. Було: `useScrollProgress` у `Site` → `setProgress` на кожен кадр → ререндер Hero, Process, PriceList (737 рядків) тощо. Винести стан скролу нижче по дереву / `memo` / CSS-змінна замість state.
 - [x] **12. Google Sign-In скрипт** ✅ Виправлено: підвантажується лише на сторінці логіну. Було: (`accounts.google.com/gsi/client`) вантажиться для всіх у `index.html`, хоча потрібен лише на `/login`. Підвантажувати динамічно на сторінці логіну.

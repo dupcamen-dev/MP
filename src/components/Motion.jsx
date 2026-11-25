@@ -40,7 +40,8 @@ export function SplitWords({ parts, start = 0, step = 42 }) {
 export function CountUp({ value, duration = 1400, delay = 0 }) {
   const match = /^(\D*)(\d+)(.*)$/.exec(String(value));
   const target = match ? Number(match[2]) : 0;
-  const [n, setN] = useState(() => (match && !prefersReducedMotion() ? 0 : target));
+  // Prerendered HTML shows the real number; the browser then counts up from 0.
+  const [n, setN] = useState(() => (match && typeof window !== 'undefined' && !prefersReducedMotion() ? 0 : target));
 
   useEffect(() => {
     if (!match || prefersReducedMotion()) { setN(target); return; }

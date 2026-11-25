@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useAuth } from './hooks/useAuth';
-import { I18nProvider } from './i18n';
+import { I18nProvider, useI18n } from './i18n';
+import { applySeo, seoFor } from './seo';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Work from './components/Work';
@@ -22,69 +23,41 @@ import PrivacyTerms from './components/PrivacyTerms';
 import { initSmoothScroll } from './smoothScroll';
 import { Marquee, useSpotlight } from './components/Motion';
 
-function useHashRoute() {
-  const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
+// Public pages live on real paths (/privacy, /terms) so search engines can index them;
+// the admin area stays on hash routes (#/login, #/admin).
+const PATH_ROUTES = ['/privacy', '/terms'];
+
+function currentRoute() {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (PATH_ROUTES.includes(path)) return path;
+  const hash = window.location.hash.slice(1) || '/';
+  // Old links like /#/privacy → move to the real path.
+  if (PATH_ROUTES.includes(hash)) {
+    window.history.replaceState(null, '', hash);
+    return hash;
+  }
+  return hash;
+}
+
+function useRoute(initialRoute) {
+  const [route, setRoute] = useState(() => initialRoute ?? (typeof window === 'undefined' ? '/' : currentRoute()));
   useEffect(() => {
-    const handler = () => setRoute(window.location.hash.slice(1) || '/');
+    const handler = () => setRoute(currentRoute());
     window.addEventListener('hashchange', handler);
-    return () => window.removeEventListener('hashchange', handler);
+    window.addEventListener('popstate', handler);
+    return () => {
+      window.removeEventListener('hashchange', handler);
+      window.removeEventListener('popstate', handler);
+    };
   }, []);
   return route;
 }
 
-const routeMeta = {
-  '/': {
-    title: 'Millionpixels — Your Website, Found in Google. Live in 7 Days',
-    description: 'We build a working website and set up its SEO — not just a pretty page. In 7 days you get a live site with SEO in place, so clients can find you on Google.',
-  },
-  '/privacy': {
-    title: 'Privacy Policy | Millionpixels',
-    description: 'How Millionpixels collects and handles your data when you submit a booking request or sign in to the admin panel.',
-  },
-  '/terms': {
-    title: 'Terms of Service | Millionpixels',
-    description: 'The terms that govern 7-day MVP builds delivered by Millionpixels.',
-  },
-  '/login': {
-    title: 'Sign In | Millionpixels',
-    description: 'Sign in to access the Millionpixels admin panel.',
-  },
-  '/admin': {
-    title: 'Admin Panel | Millionpixels',
-    description: 'Millionpixels admin panel — manage booking requests and bot settings.',
-  },
-};
-
-const localeMeta = {
-  en: {
-    homeTitle: 'Millionpixels — Your Website, Found in Google. Live in 7 Days',
-    homeDesc: 'We build a working website and set up its SEO — not just a pretty page. In 7 days you get a live site with SEO in place, so clients can find you on Google.',
-  },
-  uk: {
-    homeTitle: 'Millionpixels — ваш сайт під ключ, знайдений у Google. За 7 днів',
-    homeDesc: 'Ми створюємо робочий сайт під ключ і налаштовуємо SEO — не просто гарну сторінку. За 7 днів ви отримуєте живий сайт із SEO, щоб клієнти знаходили вас у Google.',
-  },
-  pl: {
-    homeTitle: 'Millionpixels — Twoja strona, znaleziona w Google. Za 7 dni',
-    homeDesc: 'Budujemy działającą stronę i konfigurujemy SEO — nie tylko ładną stronę. W 7 dni otrzymujesz żywą witrynę z SEO, aby klienci znaleźli Cię w Google.',
-  },
-};
-
 function useRouteMeta(route) {
+  const { locale } = useI18n();
   useEffect(() => {
-    const p = window.location.pathname;
-    const loc = p.startsWith('/uk') ? 'uk' : p.startsWith('/pl') ? 'pl' : 'en';
-    const lm = localeMeta[loc];
-    const meta = routeMeta[route] || {
-      title: loc === 'en' ? routeMeta['/'].title : lm.homeTitle,
-      description: loc === 'en' ? routeMeta['/'].description : lm.homeDesc,
-    };
-    document.title = meta.title;
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute('content', meta.description);
-    const robots = document.querySelector('meta[name="robots"]');
-    if (robots) robots.setAttribute('content', route === '/admin' || route === '/login' ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
-  }, [route]);
+    applySeo(seoFor({ locale, route }));
+  }, [route, locale]);
 }
 
 function Site({ onBook }) {
@@ -110,8 +83,8 @@ function Site({ onBook }) {
   );
 }
 
-function AppRoot() {
-  const route = useHashRoute();
+function AppRoot({ initialRoute }) {
+  const route = useRoute(initialRoute);
   useRouteMeta(route);
   const auth = useAuth();
   const [showModal, setShowModal] = useState(false);
@@ -127,11 +100,11 @@ function AppRoot() {
 
   const handleSignOut = async () => {
     await auth.signOut();
-    window.location.hash = '/';
+    window.location.href = '/';
   };
 
   if (route === '/privacy' || route === '/terms') {
-    return <PrivacyTerms />;
+    return <PrivacyTerms page={route === '/terms' ? 'terms' : 'privacy'} />;
   }
 
   if (route === '/login' || route === '/admin') {
@@ -158,10 +131,10 @@ function AppRoot() {
   );
 }
 
-export default function App() {
+export default function App({ initialLocale, initialRoute } = {}) {
   return (
-    <I18nProvider>
-      <AppRoot />
+    <I18nProvider initialLocale={initialLocale}>
+      <AppRoot initialRoute={initialRoute} />
     </I18nProvider>
   );
 }

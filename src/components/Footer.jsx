@@ -44,8 +44,8 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>© {year} Millionpixels</span>
           <nav aria-label="Legal">
-            <a href="#/privacy">{t('privacyLink')}</a>
-            <a href="#/terms">{t('termsLink')}</a>
+            <a href="/privacy">{t('privacyLink')}</a>
+            <a href="/terms">{t('termsLink')}</a>
           </nav>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import Logo from './Logo';
-export default function PrivacyTerms() {
+export default function PrivacyTerms({ page = 'privacy' }) {
   const s = {
     page: {
       minHeight: '100vh', background: 'var(--cream)',
@@ -38,12 +38,13 @@ export default function PrivacyTerms() {
   return (
     <div style={s.page}>
       <div style={s.inner}>
-        <div style={{ marginBottom: 48 }}><Logo href="#/" /></div>
-        <a href="#/" style={s.back}>&#8592; Back to site</a>
+        <div style={{ marginBottom: 48 }}><Logo href="/" /></div>
+        <a href="/" style={s.back}>&#8592; Back to site</a>
 
+        {page === 'privacy' && (<>
         <h1 style={s.h1}>Privacy Policy</h1>
         <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: '0.08em', color: 'var(--text-dim)', marginBottom: 40 }}>
-          Last updated: July 17, 2026
+          Last updated: November 25, 2026
         </p>
 
         <p style={s.p}>
@@ -62,17 +63,17 @@ export default function PrivacyTerms() {
 
         <h2 style={s.h2}>Data Storage</h2>
         <p style={s.p}>
-          Your data is stored locally in your browser (localStorage) and, when configured, sent to our Telegram bot for internal order management. We do not operate persistent databases or cloud storage for client data.
+          Booking requests (project description and contact) are stored in our access-restricted database (Upstash Redis, via Vercel) and delivered to our Telegram for order management. Only the site owner can view them. We do not keep any other client data.
         </p>
 
         <h2 style={s.h2}>Cookies</h2>
         <p style={s.p}>
-          Our website uses essential cookies to maintain your session and preferences. We do not use advertising or tracking cookies.
+          We use one essential cookie to keep the site owner signed in to the admin panel, and your browser's local storage to remember your language and cookie choice. Anonymous, cookieless analytics (Vercel Analytics) help us understand traffic. We do not use advertising or tracking cookies.
         </p>
 
         <h2 style={s.h2}>Third-Party Services</h2>
         <p style={s.p}>
-          We use Google Authentication for sign-in and Telegram Bot API for order notifications. These services are governed by their own privacy policies.
+          We use Vercel (hosting and analytics), Upstash (order storage), Telegram Bot API (order notifications) and Google Sign-In (admin access only). These services are governed by their own privacy policies.
         </p>
 
         <h2 style={s.h2}>Data Security</h2>
@@ -96,8 +97,9 @@ export default function PrivacyTerms() {
           <a href="mailto:dupcamen@gmail.com" style={s.link}>dupcamen@gmail.com</a>.
         </p>
 
-        <hr style={s.hr} />
+        </>)}
 
+        {page === 'terms' && (<>
         <h1 style={s.h1}>Terms of Service</h1>
         <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: '0.08em', color: 'var(--text-dim)', marginBottom: 40 }}>
           Last updated: July 17, 2026
@@ -141,6 +143,12 @@ export default function PrivacyTerms() {
         <p style={s.p}>
           For questions about these Terms, contact us at{' '}
           <a href="mailto:dupcamen@gmail.com" style={s.link}>dupcamen@gmail.com</a>.
+        </p>
+        </>)}
+
+        <hr style={s.hr} />
+        <p style={s.p}>
+          {page === 'privacy' ? <a href="/terms" style={s.link}>Terms of Service →</a> : <a href="/privacy" style={s.link}>Privacy Policy →</a>}
         </p>
       </div>
     </div>
